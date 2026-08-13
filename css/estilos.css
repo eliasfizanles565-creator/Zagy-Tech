@@ -13,6 +13,9 @@
     --color-stone-950: oklch(14.7% 0.004 49.25);
     --color-white: #fff;
     --spacing: 0.25rem;
+    --text-4xl: 2.25rem;
+    --text-4xl--line-height: calc(2.5 / 2.25);
+    --font-weight-bold: 700;
     --radius-4xl: 2rem;
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
@@ -170,8 +173,14 @@
   .fixed {
     position: fixed;
   }
+  .z-5 {
+    z-index: 5;
+  }
   .z-10 {
     z-index: 10;
+  }
+  .z-15 {
+    z-index: 15;
   }
   .container {
     width: 100%;
@@ -190,6 +199,9 @@
     @media (width >= 96rem) {
       max-width: 96rem;
     }
+  }
+  .mx-auto {
+    margin-inline: auto;
   }
   .mb-2 {
     margin-bottom: calc(var(--spacing) * 2);
@@ -272,6 +284,14 @@
   .bg-white {
     background-color: var(--color-white);
   }
+  .text-4xl {
+    font-size: var(--text-4xl);
+    line-height: var(--tw-leading, var(--text-4xl--line-height));
+  }
+  .font-bold {
+    --tw-font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-bold);
+  }
   .underline {
     text-decoration-line: underline;
   }
@@ -291,6 +311,10 @@
   inherits: false;
   initial-value: solid;
 }
+@property --tw-font-weight {
+  syntax: "*";
+  inherits: false;
+}
 @property --tw-outline-style {
   syntax: "*";
   inherits: false;
@@ -300,6 +324,7 @@
   @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
     *, ::before, ::after, ::backdrop {
       --tw-border-style: solid;
+      --tw-font-weight: initial;
       --tw-outline-style: solid;
     }
   }
