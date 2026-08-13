@@ -6,20 +6,29 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/estilos.css">
 </head>
-<body class="bg-red-200">
-    
-    <div class="container mb-5 min-h-dvh w-[90vw] flex justify-center items-end mx-auto">
-        <!-- BARRA -->
-        <div class="card2 h-15.5 w-90 mb-2 bg-white fixed"></div>
-        <div class="card h-15 w-90 bg-stone-950 fixed mb-2"></div>
-        
-        <!-- PELOTA BASE -->
-        <div class="size-13 rounded-4xl mb-6 bg-amber-500 fixed"></div>
-    </div>
+<body class="bg-white">
 
-    <div>
+    <!-- ✅ BARRA - fuera del contenedor, posicionada sola -->
+    <div class="fixed bottom-2 left-1/2 -translate-x-1/2 z-40 w-90">
+        <!-- Borde blanco (sombra) -->
+        <div class="card2 h-15.5 w-full bg-white rounded-full absolute -top-0.5 left-0"></div>
+        <!-- Barra negra -->
+        <div class="card h-15 w-full bg-stone-950 rounded-full relative"></div>
+    </div>
+    
+    <!-- ✅ PELOTA - también fuera y encima de todo -->
+    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 size-13 rounded-4xl bg-amber-500"></div>
+
+    <!-- CONTENIDO (sin flex, con padding-bottom para no tapar con la barra) -->
+    <div class="container mb-5 min-h-dvh w-[90vw] mx-auto pb-24">
         <h1 class="text-4xl font-bold">Hola mundo</h1>
         <img src="assets/02.webp" alt="">
+        <img src="assets/03.avif" alt="">
+        <img src="assets/04.avif" alt="">
+        <img src="assets/05.jpg" alt="">
+        <img src="assets/06.jpg" alt="">
+        <img src="assets/07.avif" alt="">
+        <img src="assets/08.avif" alt="">
     </div>
 
 
