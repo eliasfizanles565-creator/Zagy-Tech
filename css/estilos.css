@@ -179,6 +179,9 @@
   .relative {
     position: relative;
   }
+  .-top-0 {
+    top: 0px;
+  }
   .-top-0\.5 {
     top: calc(var(--spacing) * -0.5);
   }
@@ -188,8 +191,20 @@
   .bottom-6 {
     bottom: calc(var(--spacing) * 6);
   }
+  .bottom-6\.5 {
+    bottom: calc(var(--spacing) * 6.5);
+  }
+  .bottom-6\.25 {
+    bottom: calc(var(--spacing) * 6.25);
+  }
+  .bottom-7 {
+    bottom: calc(var(--spacing) * 7);
+  }
   .left-0 {
     left: 0px;
+  }
+  .left-1 {
+    left: var(--spacing);
   }
   .left-1\/2 {
     left: calc(1 / 2 * 100%);
@@ -221,24 +236,19 @@
   .mx-auto {
     margin-inline: auto;
   }
-  .mb-2 {
-    margin-bottom: calc(var(--spacing) * 2);
-  }
   .mb-5 {
     margin-bottom: calc(var(--spacing) * 5);
-  }
-  .mb-6 {
-    margin-bottom: calc(var(--spacing) * 6);
-  }
-  .flex {
-    display: flex;
   }
   .table {
     display: table;
   }
-  .size-13 {
-    width: calc(var(--spacing) * 13);
-    height: calc(var(--spacing) * 13);
+  .size-12 {
+    width: calc(var(--spacing) * 12);
+    height: calc(var(--spacing) * 12);
+  }
+  .size-12\.5 {
+    width: calc(var(--spacing) * 12.5);
+    height: calc(var(--spacing) * 12.5);
   }
   .h-15 {
     height: calc(var(--spacing) * 15);
@@ -261,18 +271,16 @@
   .border-collapse {
     border-collapse: collapse;
   }
+  .-translate-x-1 {
+    --tw-translate-x: calc(var(--spacing) * -1);
+    translate: var(--tw-translate-x) var(--tw-translate-y);
+  }
   .-translate-x-1\/2 {
     --tw-translate-x: calc(calc(1 / 2 * 100%) * -1);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
   .resize {
     resize: both;
-  }
-  .items-end {
-    align-items: flex-end;
-  }
-  .justify-center {
-    justify-content: center;
   }
   .rounded-4xl {
     border-radius: var(--radius-4xl);
@@ -319,7 +327,7 @@
   clip-path: path("M 40,0 L 120,0 A 30,20 0,0,1 150,20 A 30,30 0,0,0 180,50 A 30,30 0,0,0 210,20 A 30,20 0,0,1 240,0 L 320,0 A 30,30 0,0,1 320,60 L 40,60 A 30,30 0,0,1 40,0 Z");
 }
 .card2 {
-  clip-path: path("M 40,0 L 120,0 A 30,20 0,0,1 150,20 A 30,30 0,0,0 180,50 A 30,30 0,0,0 210,20 A 30,20 0,0,1 240,0 L 320,0 A 30,30 0,0,1 320,60 L 40,60 A 30,30 0,0,1 40,0 Z");
+  clip-path: path("M 40,0 L 120,0 A 30,20 0,0,1 151.5,20 A 30,30 0,0,0 180,50 A 30,30 0,0,0 208.5,20 A 30,20 0,0,1 240,0 L 320,0 A 30,30 0,0,1 320,60 L 40,60 A 30,30 0,0,1 40,0 Z");
 }
 @property --tw-translate-x {
   syntax: "*";
