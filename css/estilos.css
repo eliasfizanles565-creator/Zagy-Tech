@@ -248,6 +248,9 @@
       max-width: 96rem;
     }
   }
+  .mx-5 {
+    margin-inline: calc(var(--spacing) * 5);
+  }
   .mx-auto {
     margin-inline: auto;
   }
@@ -397,8 +400,20 @@
   .bg-white {
     background-color: var(--color-white);
   }
+  .px-2 {
+    padding-inline: calc(var(--spacing) * 2);
+  }
+  .px-5 {
+    padding-inline: calc(var(--spacing) * 5);
+  }
   .pt-0 {
     padding-top: 0px;
+  }
+  .pr-1 {
+    padding-right: var(--spacing);
+  }
+  .pr-2 {
+    padding-right: calc(var(--spacing) * 2);
   }
   .pb-0 {
     padding-bottom: 0px;
@@ -423,6 +438,9 @@
   }
   .pb-\[5px\] {
     padding-bottom: 5px;
+  }
+  .pl-2 {
+    padding-left: calc(var(--spacing) * 2);
   }
   .text-center {
     text-align: center;
