@@ -617,6 +617,9 @@
   .pb-1\.25 {
     padding-bottom: calc(var(--spacing) * 1.25);
   }
+  .pl-3 {
+    padding-left: calc(var(--spacing) * 3);
+  }
   .pl-5 {
     padding-left: calc(var(--spacing) * 5);
   }
