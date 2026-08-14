@@ -212,6 +212,9 @@
   .top-0\.25 {
     top: calc(var(--spacing) * 0.25);
   }
+  .top-0\.75 {
+    top: calc(var(--spacing) * 0.75);
+  }
   .top-1 {
     top: var(--spacing);
   }
@@ -229,6 +232,9 @@
   }
   .right-0\.5 {
     right: calc(var(--spacing) * 0.5);
+  }
+  .right-0\.75 {
+    right: calc(var(--spacing) * 0.75);
   }
   .right-1 {
     right: var(--spacing);
