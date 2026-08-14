@@ -387,6 +387,9 @@
     --tw-font-weight: var(--font-weight-semibold);
     font-weight: var(--font-weight-semibold);
   }
+  .text-amber-500 {
+    color: var(--color-amber-500);
+  }
   .text-white {
     color: var(--color-white);
   }
