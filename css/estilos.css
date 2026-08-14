@@ -227,6 +227,9 @@
   .top-\[1\.5px\] {
     top: 1.5px;
   }
+  .top-\[1\.6px\] {
+    top: 1.6px;
+  }
   .top-\[1px\] {
     top: 1px;
   }
@@ -256,6 +259,9 @@
   }
   .right-\[1\.5px\] {
     right: 1.5px;
+  }
+  .right-\[1\.6px\] {
+    right: 1.6px;
   }
   .right-\[2\.5px\] {
     right: 2.5px;
