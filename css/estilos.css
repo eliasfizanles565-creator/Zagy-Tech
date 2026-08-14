@@ -286,32 +286,20 @@
     --tw-translate-x: calc(calc(1 / 2 * 100%) * -1);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
+  .-translate-x-\[calc\(50\%\+64\.6px\)\] {
+    --tw-translate-x: calc(calc(50% + 64.6px) * -1);
+    translate: var(--tw-translate-x) var(--tw-translate-y);
+  }
+  .-translate-x-\[calc\(50\%\+120px\)\] {
+    --tw-translate-x: calc(calc(50% + 120px) * -1);
+    translate: var(--tw-translate-x) var(--tw-translate-y);
+  }
   .-translate-x-\[calc\(50\%-64\.6px\)\] {
     --tw-translate-x: calc(calc(50% - 64.6px) * -1);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
-  .-translate-x-\[calc\(50\%-104\.6px\)\] {
-    --tw-translate-x: calc(calc(50% - 104.6px) * -1);
-    translate: var(--tw-translate-x) var(--tw-translate-y);
-  }
-  .-translate-x-\[calc\(50\%-114\.6px\)\] {
-    --tw-translate-x: calc(calc(50% - 114.6px) * -1);
-    translate: var(--tw-translate-x) var(--tw-translate-y);
-  }
-  .-translate-x-\[calc\(50\%-118\.6px\)\] {
-    --tw-translate-x: calc(calc(50% - 118.6px) * -1);
-    translate: var(--tw-translate-x) var(--tw-translate-y);
-  }
-  .-translate-x-\[calc\(50\%-120\.6px\)\] {
-    --tw-translate-x: calc(calc(50% - 120.6px) * -1);
-    translate: var(--tw-translate-x) var(--tw-translate-y);
-  }
   .-translate-x-\[calc\(50\%-120px\)\] {
     --tw-translate-x: calc(calc(50% - 120px) * -1);
-    translate: var(--tw-translate-x) var(--tw-translate-y);
-  }
-  .-translate-x-\[calc\(50\%-124\.6px\)\] {
-    --tw-translate-x: calc(calc(50% - 124.6px) * -1);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
   .resize {
@@ -415,6 +403,18 @@
     outline-style: var(--tw-outline-style);
     outline-width: 1px;
   }
+}
+.cardUsuario {
+  clip-path: path("M 0,0 L 0,0 A 30,20 0,0,1 30,20 A 30,30 0,0,0 60,50 A 30,30 0,0,0 90,20 A 30,20 0,0,1 120,0 L 320,0 A 30,30 0,0,1 320,60 L 0,60 A 30,30 0,0,1 0,0 Z");
+}
+.cardUsuario2 {
+  clip-path: path("M 0,0 L 0,0 A 30,20 0,0,1 31.5,20 A 30,30 0,0,0 60,50 A 30,30 0,0,0 88.5,20 A 30,20 0,0,1 120,0 L 320,0 A 30,30 0,0,1 320,60 L 0,60 A 30,30 0,0,1 0,0 Z");
+}
+.cardCategorias {
+  clip-path: path("M 40,0 L 55,0 A 30,20 0,0,1 85,20 A 30,30 0,0,0 115,50 A 30,30 0,0,0 145,20 A 30,20 0,0,1 175,0 L 320,0 A 30,30 0,0,1 320,60 L 40,60 A 30,30 0,0,1 40,0 Z");
+}
+.cardCategorias2 {
+  clip-path: path("M 40,0 L 55,0 A 30,20 0,0,1 86.5,20 A 30,30 0,0,0 115,50 A 30,30 0,0,0 143.5,20 A 30,20 0,0,1 175,0 L 320,0 A 30,30 0,0,1 320,60 L 40,60 A 30,30 0,0,1 40,0 Z");
 }
 .cardInicio {
   clip-path: path("M 40,0 L 120,0 A 30,20 0,0,1 150,20 A 30,30 0,0,0 180,50 A 30,30 0,0,0 210,20 A 30,20 0,0,1 240,0 L 320,0 A 30,30 0,0,1 320,60 L 40,60 A 30,30 0,0,1 40,0 Z");
