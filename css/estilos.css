@@ -218,6 +218,9 @@
   .top-2 {
     top: calc(var(--spacing) * 2);
   }
+  .top-\[0\.5px\] {
+    top: 0.5px;
+  }
   .top-px {
     top: 1px;
   }
@@ -526,6 +529,12 @@
   }
   .object-center {
     object-position: center;
+  }
+  .pt-0 {
+    padding-top: 0px;
+  }
+  .pt-0\.5 {
+    padding-top: calc(var(--spacing) * 0.5);
   }
   .pt-1 {
     padding-top: var(--spacing);
