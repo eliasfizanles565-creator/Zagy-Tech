@@ -208,12 +208,6 @@
   .left-1\/2 {
     left: calc(1 / 2 * 100%);
   }
-  .left-10 {
-    left: calc(var(--spacing) * 10);
-  }
-  .left-50 {
-    left: calc(var(--spacing) * 50);
-  }
   .z-40 {
     z-index: 40;
   }
@@ -292,28 +286,32 @@
     --tw-translate-x: calc(calc(1 / 2 * 100%) * -1);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
-  .-translate-x-\[calc\(50\%-20px\)\] {
-    --tw-translate-x: calc(calc(50% - 20px) * -1);
+  .-translate-x-\[calc\(50\%-64\.6px\)\] {
+    --tw-translate-x: calc(calc(50% - 64.6px) * -1);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
-  .-translate-x-\[calc\(50\%-50px\)\] {
-    --tw-translate-x: calc(calc(50% - 50px) * -1);
+  .-translate-x-\[calc\(50\%-104\.6px\)\] {
+    --tw-translate-x: calc(calc(50% - 104.6px) * -1);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
-  .-translate-x-\[calc\(50\%-60px\)\] {
-    --tw-translate-x: calc(calc(50% - 60px) * -1);
+  .-translate-x-\[calc\(50\%-114\.6px\)\] {
+    --tw-translate-x: calc(calc(50% - 114.6px) * -1);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
-  .-translate-x-\[calc\(50\%-64px\)\] {
-    --tw-translate-x: calc(calc(50% - 64px) * -1);
+  .-translate-x-\[calc\(50\%-118\.6px\)\] {
+    --tw-translate-x: calc(calc(50% - 118.6px) * -1);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
-  .-translate-x-\[calc\(50\%-65px\)\] {
-    --tw-translate-x: calc(calc(50% - 65px) * -1);
+  .-translate-x-\[calc\(50\%-120\.6px\)\] {
+    --tw-translate-x: calc(calc(50% - 120.6px) * -1);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
-  .-translate-x-\[calc\(50\%-70px\)\] {
-    --tw-translate-x: calc(calc(50% - 70px) * -1);
+  .-translate-x-\[calc\(50\%-120px\)\] {
+    --tw-translate-x: calc(calc(50% - 120px) * -1);
+    translate: var(--tw-translate-x) var(--tw-translate-y);
+  }
+  .-translate-x-\[calc\(50\%-124\.6px\)\] {
+    --tw-translate-x: calc(calc(50% - 124.6px) * -1);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
   .resize {
@@ -331,8 +329,11 @@
   .gap-0 {
     gap: 0px;
   }
-  .gap-x-5 {
-    column-gap: calc(var(--spacing) * 5);
+  .gap-x-6 {
+    column-gap: calc(var(--spacing) * 6);
+  }
+  .gap-x-6\.5 {
+    column-gap: calc(var(--spacing) * 6.5);
   }
   .rounded-4xl {
     border-radius: var(--radius-4xl);
@@ -356,9 +357,6 @@
   .bg-white {
     background-color: var(--color-white);
   }
-  .pr-3 {
-    padding-right: calc(var(--spacing) * 3);
-  }
   .pb-0 {
     padding-bottom: 0px;
   }
@@ -373,12 +371,6 @@
   }
   .pb-24 {
     padding-bottom: calc(var(--spacing) * 24);
-  }
-  .pl-1 {
-    padding-left: var(--spacing);
-  }
-  .pl-3 {
-    padding-left: calc(var(--spacing) * 3);
   }
   .text-2xl {
     font-size: var(--text-2xl);
@@ -413,22 +405,34 @@
   .underline {
     text-decoration-line: underline;
   }
+  .opacity-0 {
+    opacity: 0%;
+  }
+  .opacity-100 {
+    opacity: 100%;
+  }
   .outline {
     outline-style: var(--tw-outline-style);
     outline-width: 1px;
   }
 }
-.cardHome {
+.cardInicio {
   clip-path: path("M 40,0 L 120,0 A 30,20 0,0,1 150,20 A 30,30 0,0,0 180,50 A 30,30 0,0,0 210,20 A 30,20 0,0,1 240,0 L 320,0 A 30,30 0,0,1 320,60 L 40,60 A 30,30 0,0,1 40,0 Z");
 }
-.cardHome2 {
+.cardInicio2 {
   clip-path: path("M 40,0 L 120,0 A 30,20 0,0,1 151.5,20 A 30,30 0,0,0 180,50 A 30,30 0,0,0 208.5,20 A 30,20 0,0,1 240,0 L 320,0 A 30,30 0,0,1 320,60 L 40,60 A 30,30 0,0,1 40,0 Z");
 }
-.cardFavorite {
+.cardFavoritos {
   clip-path: path("M 40,0 L 185,0 A 30,20 0,0,1 215,20 A 30,30 0,0,0 235,50 A 30,30 0,0,0 275,20 A 30,20 0,0,1 305,0 L 320,0 A 30,30 0,0,1 320,60 L 40,60 A 30,30 0,0,1 40,0 Z");
 }
-.cardFavorite2 {
-  clip-path: path("M 40,0 L 120,0 A 30,20 0,0,1 151.5,20 A 30,30 0,0,0 180,50 A 30,30 0,0,0 208.5,20 A 30,20 0,0,1 240,0 L 320,0 A 30,30 0,0,1 320,60 L 40,60 A 30,30 0,0,1 40,0 Z");
+.cardFavoritos2 {
+  clip-path: path("M 40,0 L 185,0 A 30,20 0,0,1 216.5,20 A 30,30 0,0,0 235,50 A 30,30 0,0,0 273.5,20 A 30,20 0,0,1 305,0 L 320,0 A 30,30 0,0,1 320,60 L 40,60 A 30,30 0,0,1 40,0 Z");
+}
+.cardCarrito {
+  clip-path: path("M 40,0 L 240,0 A 30,20 0,0,1 270,20 A 30,30 0,0,0 300,50 A 30,30 0,0,0 330,20 A 30,20 0,0,1 360,0 A 30,30 0,0,1 360,60 L 40,60 A 30,30 0,0,1 40,0 Z");
+}
+.cardCarrito2 {
+  clip-path: path("M 40,0 L 240,0 A 30,20 0,0,1 271.5,20 A 30,30 0,0,0 300,50 A 30,30 0,0,0 328.5,20 A 30,20 0,0,1 360,0 A 30,30 0,0,1 360,60 L 40,60 A 30,30 0,0,1 40,0 Z");
 }
 @property --tw-translate-x {
   syntax: "*";
