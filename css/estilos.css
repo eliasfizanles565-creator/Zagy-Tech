@@ -10,6 +10,7 @@
       "Courier New", monospace;
     --color-red-200: oklch(88.5% 0.062 18.334);
     --color-amber-500: oklch(76.9% 0.188 70.08);
+    --color-neutral-50: oklch(98.5% 0 none);
     --color-stone-50: oklch(98.5% 0.001 106.423);
     --color-stone-950: oklch(14.7% 0.004 49.25);
     --color-white: #fff;
@@ -336,6 +337,9 @@
   }
   .bg-amber-500 {
     background-color: var(--color-amber-500);
+  }
+  .bg-neutral-50 {
+    background-color: var(--color-neutral-50);
   }
   .bg-red-200 {
     background-color: var(--color-red-200);
