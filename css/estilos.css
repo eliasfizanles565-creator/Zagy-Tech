@@ -213,6 +213,9 @@
   .top-1 {
     top: var(--spacing);
   }
+  .top-2 {
+    top: calc(var(--spacing) * 2);
+  }
   .top-px {
     top: 1px;
   }
