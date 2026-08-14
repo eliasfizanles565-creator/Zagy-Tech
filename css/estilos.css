@@ -213,6 +213,9 @@
   .top-1 {
     top: var(--spacing);
   }
+  .top-px {
+    top: 1px;
+  }
   .right-0 {
     right: 0px;
   }
