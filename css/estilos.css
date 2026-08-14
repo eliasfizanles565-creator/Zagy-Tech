@@ -224,8 +224,20 @@
   .top-\[0\.5px\] {
     top: 0.5px;
   }
+  .top-\[1\.5px\] {
+    top: 1.5px;
+  }
+  .top-\[1px\] {
+    top: 1px;
+  }
   .top-\[2\.5px\] {
     top: 2.5px;
+  }
+  .top-\[2px\] {
+    top: 2px;
+  }
+  .top-\[3px\] {
+    top: 3px;
   }
   .top-px {
     top: 1px;
@@ -241,6 +253,9 @@
   }
   .right-1 {
     right: var(--spacing);
+  }
+  .right-\[1\.5px\] {
+    right: 1.5px;
   }
   .right-\[2\.5px\] {
     right: 2.5px;
@@ -313,6 +328,9 @@
   }
   .h-7 {
     height: calc(var(--spacing) * 7);
+  }
+  .h-7\.5 {
+    height: calc(var(--spacing) * 7.5);
   }
   .h-8 {
     height: calc(var(--spacing) * 8);
