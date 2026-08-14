@@ -222,6 +222,9 @@
   .right-1 {
     right: var(--spacing);
   }
+  .right-px {
+    right: 1px;
+  }
   .bottom-2 {
     bottom: calc(var(--spacing) * 2);
   }
