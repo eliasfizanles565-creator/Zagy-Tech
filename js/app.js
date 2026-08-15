@@ -280,9 +280,7 @@ function goToSlide(index) {
 }
 
 function startAutoSlide() {
-    autoSlideInterval = setInterval(() => {
-        goToSlide(currentSlide + 1);
-    }, 3000);
+    autoSlideInterval = setInterval(() => goToSlide(currentSlide + 1), 3000);
 }
 
 function stopAutoSlide() {
@@ -298,70 +296,62 @@ heroDots.forEach(dot => {
     });
 });
 
-// === DRAG / SWIPE (Mouse + Touch) ===
+// === DRAG / SWIPE (sin lag) ===
+let startX = 0;
+let currentX = 0;
 let isDragging = false;
-let startPos = 0;
-let currentTranslate = 0;
-let prevTranslate = 0;
-let animationID;
 
-heroContainer.addEventListener('touchstart', touchStart, { passive: true });
-heroContainer.addEventListener('touchend', touchEnd, { passive: true });
-heroContainer.addEventListener('touchmove', touchMove, { passive: true });
+function getX(e) {
+    return e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+}
 
-heroContainer.addEventListener('mousedown', touchStart);
-heroContainer.addEventListener('mouseup', touchEnd);
-heroContainer.addEventListener('mouseleave', () => {
-    if (isDragging) touchEnd();
-});
-heroContainer.addEventListener('mousemove', touchMove);
-
-function touchStart(e) {
+function onStart(e) {
     isDragging = true;
-    startPos = getPositionX(e);
-    animationID = requestAnimationFrame(animation);
+    startX = getX(e);
+    currentX = startX;
     stopAutoSlide();
+    heroTrack.style.transition = 'none';        // ← quita transición para 0 lag
     heroTrack.style.cursor = 'grabbing';
 }
 
-function touchMove(e) {
+function onMove(e) {
     if (!isDragging) return;
-    const currentPosition = getPositionX(e);
-    const diff = currentPosition - startPos;
-    currentTranslate = prevTranslate + diff;
+    currentX = getX(e);
+    const diff = currentX - startX;
+    const base = -currentSlide * heroContainer.offsetWidth;
+    heroTrack.style.transform = `translateX(${base + diff}px)`; // ← puro px, rápido
 }
 
-function touchEnd() {
+function onEnd() {
+    if (!isDragging) return;
     isDragging = false;
-    cancelAnimationFrame(animationID);
+    heroTrack.style.transition = 'transform 0.5s ease-out'; // ← restaura animación suave
     heroTrack.style.cursor = 'grab';
     
-    const movedBy = currentTranslate - prevTranslate;
+    const diff = currentX - startX;
+    const threshold = 50; // mínimo px para cambiar de slide
     
-    // Si arrastró más de 50px, cambia de slide
-    if (movedBy < -50) {
+    if (diff < -threshold) {
         goToSlide(currentSlide + 1);
-    } else if (movedBy > 50) {
+    } else if (diff > threshold) {
         goToSlide(currentSlide - 1);
     } else {
-        goToSlide(currentSlide); // vuelve a donde estaba
+        goToSlide(currentSlide); // vuelve al centro si no arrastró lo suficiente
     }
     
     startAutoSlide();
 }
 
-function getPositionX(e) {
-    return e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
-}
+// Touch
+heroContainer.addEventListener('touchstart', onStart, { passive: true });
+heroContainer.addEventListener('touchmove', onMove, { passive: true });
+heroContainer.addEventListener('touchend', onEnd, { passive: true });
 
-function animation() {
-    if (isDragging) {
-        // Mueve el track siguiendo el dedo/mouse
-        const offset = currentTranslate - (currentSlide * -heroContainer.offsetWidth);
-        heroTrack.style.transform = `translateX(calc(-${currentSlide * 100}% + ${offset}px))`;
-        requestAnimationFrame(animation);
-    }
-}
+// Mouse
+heroContainer.addEventListener('mousedown', onStart);
+heroContainer.addEventListener('mousemove', onMove);
+heroContainer.addEventListener('mouseup', onEnd);
+heroContainer.addEventListener('mouseleave', onEnd);
 
 // Iniciar
 goToSlide(0);
