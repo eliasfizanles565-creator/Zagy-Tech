@@ -3,7 +3,10 @@
 @theme {
     --color-temu: #FB7701;
     --color-albedo: #C4C3CA;
+    --color-zeroTwo: #FEBED7;
     --color-capibara: #BEB9AB;
+    --color-puro: #F1F1F1;
+    --color-itachi: #EAD2BA;
 
     --font-Inter: "Inter", sans-serif;
     --font-Russo: "Russo One", sans-serif;
@@ -73,9 +76,15 @@
 
 
 /* ================================================== */
+/* ==== CARD HERO ==== */
 .cardHero {
     clip-path: path("M 30,60 L 100,60 A 30,30 0,0,0 130,30 A 30,30 0,0,1 160,0 L 320,0 A 30,30 0,0,1 350,30 L 350,190 A 30,30 0,0,1 320,220 L 290,220 A 30,30 0,0,0 260,250 A 30,30 0,0,1 230,280 L 30,280 A 30,30 0,0,1 0,250 L 0,90 A 30,30 0,0,1 30,60 Z");
 }
+/* Path INTERIOR (2px más pequeño, para el borde) */
+.cardHeroInner {
+    clip-path: path("M 32,62 L 98,62 A 34,34 0,0,0 132,32 A 28,28 0,0,1 162,2 L 318,2 A 28,28 0,0,1 348,32 L 348,188 A 28,28 0,0,1 318,218 L 288,218 A 34,34 0,0,0 258,248 A 28,28 0,0,1 228,278 L 32,278 A 28,28 0,0,1 2,248 L 2,92 A 28,28 0,0,1 32,62 Z");
+}
+
 .cardPrecioHero {
     clip-path: path("M 20,0 L 100,0 L 100,20 A 20,20 0,0,1 80,40 L 0,40 L 0,20 A 20,20 0,0,1 20,0 Z");
 }

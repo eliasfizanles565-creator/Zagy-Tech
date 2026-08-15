@@ -207,7 +207,24 @@
                     <img src="assets/03.avif" class="w-full h-full object-cover object-[50%_20%] pointer-events-none" alt="">
                 </div>
                 <div class="btn-precio absolute w-25 h-10 bg-neutral-300 z-10 top-3 left-5 cardPrecioHero flex justify-center items-center cursor-pointer">
-                    <p class="font-Russo text-[16px] iconoPrecio">s/ 951.87</p>
+                    <p class="font-Russo text-[16px] iconoPrecio">s/ 51.87</p>
+                </div>
+                <button class="btn-carrito absolute w-15 h-10 bg-stone-950 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer transition-transform duration-300">
+                    <i class="ri-shopping-cart-line text-xl text-white"></i>
+                </button>
+                <div class="absolute w-45 h-12 bg-stone-950/50 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1">
+                    <p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">Figura de Albedo</p>
+                    <p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">15x20 cm</p>
+                </div>
+            </div>
+
+            <!-- SLIDE 1.5 -->
+            <div class="swiper-slide relative w-full h-70">
+                <div class="w-full h-full cardHero overflow-hidden">
+                    <img src="assets/03.avif" class="w-full h-full object-cover object-[50%_20%] pointer-events-none" alt="">
+                </div>
+                <div class="btn-precio absolute w-25 h-10 bg-neutral-300 z-10 top-3 left-5 rounded-tl-2xl rounded-br-2xl flex justify-center items-center cursor-pointer">
+                    <p class="font-Russo text-[16px] iconoPrecio">s/ 51.87</p>
                 </div>
                 <button class="btn-carrito absolute w-15 h-10 bg-stone-950 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer transition-transform duration-300">
                     <i class="ri-shopping-cart-line text-xl text-white"></i>
@@ -223,7 +240,7 @@
                 <div class="w-full h-full cardHero overflow-hidden">
                     <img src="assets/05.jpg" class="w-full h-full object-cover object-[50%_20%] pointer-events-none" alt="">
                 </div>
-                <div class="btn-precio absolute w-25 h-10 bg-rose-200 z-10 top-3 left-5 cardPrecioHero flex justify-center items-center cursor-pointer">
+                <div class="btn-precio absolute w-25 h-10 bg-zeroTwo z-10 top-3 left-5 cardPrecioHero flex justify-center items-center cursor-pointer">
                     <p class="font-Russo text-[16px] iconoPrecio">s/ 225.00</p>
                 </div>
                 <button class="btn-carrito absolute w-15 h-10 bg-stone-950 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer transition-transform duration-300">
@@ -254,18 +271,24 @@
 
             <!-- SLIDE 4 -->
             <div class="swiper-slide relative w-full h-70">
-                <div class="w-full h-full cardHero overflow-hidden">
-                    <img src="assets/06.jpg" class="w-full h-full object-cover object-[50%_20%] pointer-events-none" alt="">
+                <!-- CAPA 1: BORDE (fondo stone-950, mismo clip-path) -->
+                <div class="absolute inset-0 cardHero bg-stone-950"></div>
+                
+                <!-- CAPA 2: CONTENIDO (mismo clip-path, ligeramente más pequeño) -->
+                <div class="absolute cardHeroInner bg-white overflow-hidden">
+                    <img src="assets/06.jpg" class="w-full h-full object-cover object-[50%_20%]" alt="">
                 </div>
-                <div class="btn-precio absolute w-25 h-10 bg-rose-200 z-10 top-3 left-5 cardPrecioHero flex justify-center items-center cursor-pointer">
-                    <p class="font-Russo text-[16px] iconoPrecio">s/ 225.00</p>
+
+                <!-- Overlays (precio, botón, info) -->
+                <div class="btn-precio absolute w-25 h-10 bg-puro border-2 border-stone-950 z-10 top-3 left-5 rounded-tl-2xl rounded-br-2xl flex justify-center items-center cursor-pointer">
+                    <p class="font-Russo text-[16px] iconoPrecio">s/ 45.00</p>
                 </div>
                 <button class="btn-carrito absolute w-15 h-10 bg-stone-950 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer transition-transform duration-300">
                     <i class="ri-shopping-cart-line text-xl text-white"></i>
                 </button>
-                <div class="absolute w-48 h-12 bg-stone-950/50 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1">
-                    <p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">Figura de Zero Two</p>
-                    <p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">35x50 cm</p>
+                <div class="absolute w-55 h-12 bg-stone-950/50 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1">
+                    <p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">Álbum Tapa Dura</p>
+                    <p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">PANINI - Mundial 2026</p>
                 </div>
             </div>
 
@@ -274,15 +297,15 @@
                 <div class="w-full h-full cardHero overflow-hidden">
                     <img src="assets/07.avif" class="w-full h-full object-cover object-[50%_20%] pointer-events-none" alt="">
                 </div>
-                <div class="btn-precio absolute w-25 h-10 bg-capibara z-10 top-3 left-5 cardPrecioHero flex justify-center items-center cursor-pointer">
-                    <p class="font-Russo text-[16px] iconoPrecio">s/ 115.00</p>
+                <div class="btn-precio absolute w-25 h-10 bg-itachi z-10 top-3 left-5 cardPrecioHero flex justify-center items-center cursor-pointer">
+                    <p class="font-Russo text-[16px] iconoPrecio">s/ 35.00</p>
                 </div>
                 <button class="btn-carrito absolute w-15 h-10 bg-stone-950 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer transition-transform duration-300">
                     <i class="ri-shopping-cart-line text-xl text-white"></i>
                 </button>
-                <div class="absolute w-47 h-12 bg-stone-950/50 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1">
-                    <p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">Figura de Capibara</p>
-                    <p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">30x25 cm</p>
+                <div class="absolute w-50 h-12 bg-stone-950/50 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1">
+                    <p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">Figura de Itachi Chibi</p>
+                    <p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">15x20 cm</p>
                 </div>
             </div>
 
