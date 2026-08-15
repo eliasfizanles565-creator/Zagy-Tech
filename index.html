@@ -218,23 +218,6 @@
                 </div>
             </div>
 
-            <!-- SLIDE 1.5 -->
-            <div class="swiper-slide relative w-full h-70">
-                <div class="w-full h-full cardHero overflow-hidden">
-                    <img src="assets/03.avif" class="w-full h-full object-cover object-[50%_20%] pointer-events-none" alt="">
-                </div>
-                <div class="btn-precio absolute w-25 h-10 bg-neutral-300 z-10 top-3 left-5 rounded-tl-2xl rounded-br-2xl flex justify-center items-center cursor-pointer">
-                    <p class="font-Russo text-[16px] iconoPrecio">s/ 51.87</p>
-                </div>
-                <button class="btn-carrito absolute w-15 h-10 bg-stone-950 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer transition-transform duration-300">
-                    <i class="ri-shopping-cart-line text-xl text-white"></i>
-                </button>
-                <div class="absolute w-45 h-12 bg-stone-950/50 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1">
-                    <p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">Figura de Albedo</p>
-                    <p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">15x20 cm</p>
-                </div>
-            </div>
-
             <!-- SLIDE 2 -->
             <div class="swiper-slide relative w-full h-70">
                 <div class="w-full h-full cardHero overflow-hidden">
@@ -280,9 +263,13 @@
                 </div>
 
                 <!-- Overlays (precio, botón, info) -->
-                <div class="btn-precio absolute w-25 h-10 bg-puro border-2 border-stone-950 z-10 top-3 left-5 rounded-tl-2xl rounded-br-2xl flex justify-center items-center cursor-pointer">
+                <div class="absolute w-25 h-10 bg-stone-950 z-10 top-3 left-5 cardPrecioHero cursor-pointer">
+                </div>
+
+                <div class="btn-precio absolute w-25 h-10 bg-puro z-10 top-3 left-5 cardPrecioHeroInner flex justify-center items-center cursor-pointer">
                     <p class="font-Russo text-[16px] iconoPrecio">s/ 45.00</p>
                 </div>
+
                 <button class="btn-carrito absolute w-15 h-10 bg-stone-950 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer transition-transform duration-300">
                     <i class="ri-shopping-cart-line text-xl text-white"></i>
                 </button>
