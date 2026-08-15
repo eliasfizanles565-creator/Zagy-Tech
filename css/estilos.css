@@ -10,10 +10,8 @@
       "Courier New", monospace;
     --color-red-400: oklch(70.4% 0.191 22.216);
     --color-blue-400: oklch(70.7% 0.165 254.624);
-    --color-zinc-400: oklch(70.5% 0.015 286.067);
     --color-stone-200: oklch(92.3% 0.003 48.717);
     --color-stone-300: oklch(86.9% 0.005 56.366);
-    --color-stone-400: oklch(70.9% 0.01 56.259);
     --color-stone-600: oklch(44.4% 0.011 73.639);
     --color-stone-950: oklch(14.7% 0.004 49.25);
     --color-white: #fff;
@@ -42,7 +40,6 @@
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
     --color-temu: #FB7701;
-    --color-albedo: #C4C3CA;
     --font-Russo: "Russo One", sans-serif;
   }
 }
@@ -222,20 +219,35 @@
   .top-1 {
     top: var(--spacing);
   }
+  .top-1\.5 {
+    top: calc(var(--spacing) * 1.5);
+  }
   .top-1\/2 {
     top: calc(1 / 2 * 100%);
   }
   .top-2 {
     top: calc(var(--spacing) * 2);
   }
-  .top-3 {
-    top: calc(var(--spacing) * 3);
+  .top-\[7px\] {
+    top: 7px;
   }
   .right-0 {
     right: 0px;
   }
   .right-0\.5 {
     right: calc(var(--spacing) * 0.5);
+  }
+  .right-1 {
+    right: var(--spacing);
+  }
+  .right-3 {
+    right: calc(var(--spacing) * 3);
+  }
+  .right-4 {
+    right: calc(var(--spacing) * 4);
+  }
+  .bottom-1 {
+    bottom: var(--spacing);
   }
   .bottom-2 {
     bottom: calc(var(--spacing) * 2);
@@ -320,9 +332,6 @@
   .h-8 {
     height: calc(var(--spacing) * 8);
   }
-  .h-8\.75 {
-    height: calc(var(--spacing) * 8.75);
-  }
   .h-9 {
     height: calc(var(--spacing) * 9);
   }
@@ -341,6 +350,9 @@
   .h-70 {
     height: calc(var(--spacing) * 70);
   }
+  .h-\[30px\] {
+    height: 30px;
+  }
   .h-full {
     height: 100%;
   }
@@ -356,11 +368,8 @@
   .w-11 {
     width: calc(var(--spacing) * 11);
   }
-  .w-21 {
-    width: calc(var(--spacing) * 21);
-  }
-  .w-21\.25 {
-    width: calc(var(--spacing) * 21.25);
+  .w-15 {
+    width: calc(var(--spacing) * 15);
   }
   .w-22 {
     width: calc(var(--spacing) * 22);
@@ -379,6 +388,9 @@
   }
   .w-\[82dvw\] {
     width: 82dvw;
+  }
+  .w-\[95px\] {
+    width: 95px;
   }
   .w-\[95vw\] {
     width: 95vw;
@@ -504,9 +516,6 @@
   .border-transparent {
     border-color: transparent;
   }
-  .bg-albedo {
-    background-color: var(--color-albedo);
-  }
   .bg-blue-400 {
     background-color: var(--color-blue-400);
   }
@@ -537,14 +546,23 @@
       background-color: color-mix(in oklab, var(--color-white) 70%, transparent);
     }
   }
-  .bg-zinc-400 {
-    background-color: var(--color-zinc-400);
-  }
   .bg-none {
     background-image: none;
   }
   .px-1 {
     padding-inline: var(--spacing);
+  }
+  .pt-0 {
+    padding-top: 0px;
+  }
+  .pt-0\.5 {
+    padding-top: calc(var(--spacing) * 0.5);
+  }
+  .pt-0\.25 {
+    padding-top: calc(var(--spacing) * 0.25);
+  }
+  .pt-1 {
+    padding-top: var(--spacing);
   }
   .pt-\[4\.5px\] {
     padding-top: 4.5px;
@@ -597,6 +615,9 @@
   }
   .text-\[10px\] {
     font-size: 10px;
+  }
+  .text-\[14px\] {
+    font-size: 14px;
   }
   .leading-none {
     --tw-leading: 1;
@@ -780,10 +801,10 @@
   scrollbar-width: none;
 }
 .cardHero {
-  clip-path: path("M 30,50 L 80,50 A 20,20 0,0,0 100,30 A 30,30 0,0,1 130,0 L 330,0 A 30,30 0,0,1 360,30 L 360,210 A 30,30 0,0,1 330,240 L 300,240 A 20,20 0,0,0 280,260 A 20,20 0,0,1 260,280 L 30,280 A 30,30 0,0,1 0,250 L 0,80 A 30,30 0,0,1 30,50 Z");
+  clip-path: path("M 30,40 L 90,40 A 20,20 0,0,0 110,20 A 30,20 0,0,1 140,0 L 330,0 A 30,30 0,0,1 360,30 L 360,210 A 30,30 0,0,1 330,240 L 300,240 A 20,20 0,0,0 280,260 A 20,20 0,0,1 260,280 L 30,280 A 30,30 0,0,1 0,250 L 0,70 A 30,30 0,0,1 30,40 Z");
 }
 .cardPrecioHero {
-  clip-path: path("M 20,0 L 85,0 L 85,15 A 20,20 0,0,1 65,35 L 0,35 L 0,20 A 20,20 0,0,1 20,0 Z");
+  clip-path: path("M 20,0 L 95,0 L 95,10 A 20,20 0,0,1 75,30 L 0,30 L 0,20 A 20,20 0,0,1 20,0 Z");
 }
 @property --tw-translate-x {
   syntax: "*";
