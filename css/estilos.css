@@ -8,7 +8,8 @@
       "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
-    --color-stone-100: oklch(97% 0.001 106.424);
+    --color-red-400: oklch(70.4% 0.191 22.216);
+    --color-blue-400: oklch(70.7% 0.165 254.624);
     --color-stone-200: oklch(92.3% 0.003 48.717);
     --color-stone-600: oklch(44.4% 0.011 73.639);
     --color-stone-950: oklch(14.7% 0.004 49.25);
@@ -252,6 +253,9 @@
   .mt-3 {
     margin-top: calc(var(--spacing) * 3);
   }
+  .mt-5 {
+    margin-top: calc(var(--spacing) * 5);
+  }
   .flex {
     display: flex;
   }
@@ -287,6 +291,9 @@
   .h-15\.5 {
     height: calc(var(--spacing) * 15.5);
   }
+  .h-70 {
+    height: calc(var(--spacing) * 70);
+  }
   .h-full {
     height: 100%;
   }
@@ -304,6 +311,9 @@
   }
   .w-30 {
     width: calc(var(--spacing) * 30);
+  }
+  .w-40 {
+    width: calc(var(--spacing) * 40);
   }
   .w-90 {
     width: calc(var(--spacing) * 90);
@@ -414,6 +424,12 @@
   }
   .border-transparent {
     border-color: transparent;
+  }
+  .bg-blue-400 {
+    background-color: var(--color-blue-400);
+  }
+  .bg-red-400 {
+    background-color: var(--color-red-400);
   }
   .bg-stone-950 {
     background-color: var(--color-stone-950);
@@ -654,6 +670,9 @@
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+.cardHero {
+  clip-path: path("M 30,50 L 70,50 A 30,30 0,0,0 100,30 A 30,30 0,0,1 130,0 L 330,0 A 30,30 0,0,1 360,30 L 360,210 A 30,30 0,0,1 330,240 L 300,240 A 20,20 0,0,0 280,260 A 20,20 0,0,1 260,280 L 20,280 A 30,30 0,0,1 0,260 L 0,80 A 30,30 0,0,1 30,50 Z");
 }
 @property --tw-translate-x {
   syntax: "*";

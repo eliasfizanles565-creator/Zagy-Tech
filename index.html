@@ -103,7 +103,7 @@
 
     <!-- == BOTONES CATEGORIAS == -->
     <!-- WRAPPER relativo que contiene TODO -->
-    <div class="w-[95vw] h-10 mx-auto relative lg:max-w-7xl">
+    <nav class="w-[95vw] h-10 mx-auto relative lg:max-w-7xl">
 
         <!-- FLECHA IZQUIERDA (oculta por defecto, aparece al scrollear) -->
         <button id="scroll-left" class="hidden lg:hidden absolute left-0 top-1/2 -translate-y-1/2 z-10 w-6.5 h-6.5 bg-white/70 backdrop-blur-sm border border-stone-200 rounded-full items-center justify-center cursor-pointer shadow-sm hover:bg-white hover:shadow-md transition-all duration-200">
@@ -168,7 +168,21 @@
         <button id="scroll-right" class="hidden lg:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 w-6.5 h-6.5 bg-white/70 backdrop-blur-sm border border-stone-200 rounded-full items-center justify-center cursor-pointer shadow-sm hover:bg-white hover:shadow-md transition-all duration-200">
             <i class="ri-arrow-right-s-line text-lg text-stone-600"></i>
         </button>
-    </div>
+    </nav>
+    <div class="w-full h-px bg-stone-950/10"></div>
+
+    <!-- === HERO DESLIZANTE === -->
+    <header class="w-90 h-70 mx-auto lg:max-w-7xl flex mt-5">
+        <div class="absolute w-40 h-15 bg-red-400 hidden">
+            <p></p>
+        </div>
+
+        <div class="w-full h-70 bg-blue-400 cardHero">
+            <img src="assets/05.jpg" alt="">
+        </div>
+    </header>
+
+
 
 <script src="js/app.js"></script>
 </body>
