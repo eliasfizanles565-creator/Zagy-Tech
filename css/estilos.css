@@ -826,7 +826,7 @@
   display: inline-block;
 }
 .mi-boton:hover .icono {
-  color: #FB7701;
+  color: #d4d4d4;
 }
 @property --tw-translate-x {
   syntax: "*";
