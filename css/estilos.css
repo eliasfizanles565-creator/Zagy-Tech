@@ -8,14 +8,8 @@
       "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
-    --color-red-200: oklch(88.5% 0.062 18.334);
-    --color-orange-200: oklch(90.1% 0.076 70.697);
-    --color-pink-200: oklch(89.9% 0.061 343.231);
-    --color-pink-300: oklch(82.3% 0.12 346.018);
     --color-rose-200: oklch(89.2% 0.058 10.001);
-    --color-rose-300: oklch(81% 0.117 11.638);
     --color-neutral-300: oklch(87% 0 none);
-    --color-neutral-400: oklch(70.8% 0 none);
     --color-stone-200: oklch(92.3% 0.003 48.717);
     --color-stone-300: oklch(86.9% 0.005 56.366);
     --color-stone-600: oklch(44.4% 0.011 73.639);
@@ -401,9 +395,6 @@
   .w-48 {
     width: calc(var(--spacing) * 48);
   }
-  .w-50 {
-    width: calc(var(--spacing) * 50);
-  }
   .w-90 {
     width: calc(var(--spacing) * 90);
   }
@@ -415,6 +406,9 @@
   }
   .w-\[95vw\] {
     width: 95vw;
+  }
+  .w-\[355px\] {
+    width: 355px;
   }
   .w-\[362px\] {
     width: 362px;
@@ -867,7 +861,7 @@
   scrollbar-width: none;
 }
 .cardHero {
-  clip-path: path("M 30,40 L 90,40 A 20,20 0,0,0 110,20 A 30,20 0,0,1 140,0 L 330,0 A 30,30 0,0,1 362,30 L 362,210 A 30,30 0,0,1 330,240 L 300,240 A 20,20 0,0,0 280,260 A 20,20 0,0,1 260,280 L 30,280 A 30,30 0,0,1 0,250 L 0,70 A 30,30 0,0,1 30,40 Z");
+  clip-path: path("M 30,40 L 90,40 A 20,20 0,0,0 110,20 A 30,20 0,0,1 140,0 L 330,0 A 30,30 0,0,1 355,30 L 355,210 A 30,30 0,0,1 330,240 L 300,240 A 20,20 0,0,0 280,260 A 20,20 0,0,1 260,280 L 30,280 A 30,30 0,0,1 0,250 L 0,70 A 30,30 0,0,1 30,40 Z");
 }
 .cardPrecioHero {
   clip-path: path("M 20,0 L 95,0 L 95,10 A 20,20 0,0,1 75,30 L 0,30 L 0,20 A 20,20 0,0,1 20,0 Z");
