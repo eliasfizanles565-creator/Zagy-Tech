@@ -310,7 +310,7 @@ function onStart(e) {
     startX = getX(e);
     currentX = startX;
     stopAutoSlide();
-    heroTrack.style.transition = 'none';        // ← quita transición para 0 lag
+    heroTrack.style.transition = 'none';
     heroTrack.style.cursor = 'grabbing';
 }
 
@@ -319,24 +319,24 @@ function onMove(e) {
     currentX = getX(e);
     const diff = currentX - startX;
     const base = -currentSlide * heroContainer.offsetWidth;
-    heroTrack.style.transform = `translateX(${base + diff}px)`; // ← puro px, rápido
+    heroTrack.style.transform = `translateX(${base + diff}px)`;
 }
 
 function onEnd() {
     if (!isDragging) return;
     isDragging = false;
-    heroTrack.style.transition = 'transform 0.5s ease-out'; // ← restaura animación suave
+    heroTrack.style.transition = 'transform 0.5s ease-out';
     heroTrack.style.cursor = 'grab';
     
     const diff = currentX - startX;
-    const threshold = 50; // mínimo px para cambiar de slide
+    const threshold = 50;
     
     if (diff < -threshold) {
         goToSlide(currentSlide + 1);
     } else if (diff > threshold) {
         goToSlide(currentSlide - 1);
     } else {
-        goToSlide(currentSlide); // vuelve al centro si no arrastró lo suficiente
+        goToSlide(currentSlide);
     }
     
     startAutoSlide();
@@ -357,36 +357,39 @@ heroContainer.addEventListener('mouseleave', onEnd);
 goToSlide(0);
 startAutoSlide();
 
-///// === BOTON CARRITO DESPLAZADO ===
-const boton = document.getElementById('miBoton');
-
-// 1. Al hacer clic en el botón, se desplaza y evitamos que el evento se propague de inmediato
-boton.addEventListener('click', (e) => {
-    e.stopPropagation(); // Evita que el clic dispare el evento del documento al instante
-    boton.classList.toggle('btnDesplazado');
+///////////////////////////////////////////////////////////////
+// === BOTONES CARRITO (todos los slides) ===
+document.querySelectorAll('.btn-carrito').forEach(boton => {
+    boton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        boton.classList.toggle('btnDesplazado');
+    });
 });
 
-// 2. Detectar clics en cualquier parte de la página
 document.addEventListener('click', (e) => {
-    // Si el clic NO fue dentro del botón, regresa a la normalidad
-    if (!boton.contains(e.target)) {
-        boton.classList.remove('btnDesplazado');
-    }
+    document.querySelectorAll('.btn-carrito').forEach(boton => {
+        if (!boton.contains(e.target)) {
+            boton.classList.remove('btnDesplazado');
+        }
+    });
 });
 
-///// === BOTON PRECOI CAMBIO COLOR ===
-const boton2 = document.getElementById('btnPrecio');
-
-// 1. Al hacer clic en el botón, se desplaza y evitamos que el evento se propague de inmediato
-boton2.addEventListener('click', (e) => {
-    e.stopPropagation(); // Evita que el clic dispare el evento del documento al instante
-    boton2.classList.toggle('mi-btnPrecio');
+///////////////////////////////////////////////////////////////
+// === BOTONES PRECIO (todos los slides) ===
+document.querySelectorAll('.btn-precio').forEach(boton => {
+    boton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        // Quita la clase de TODOS los botones de precio primero
+        document.querySelectorAll('.btn-precio').forEach(b => b.classList.remove('mi-btnPrecio'));
+        // Activa solo el clickeado
+        boton.classList.add('mi-btnPrecio');
+    });
 });
 
-// 2. Detectar clics en cualquier parte de la página
 document.addEventListener('click', (e) => {
-    // Si el clic NO fue dentro del botón, regresa a la normalidad
-    if (!boton.contains(e.target)) {
-        boton2.classList.remove('mi-btnPrecio');
-    }
+    document.querySelectorAll('.btn-precio').forEach(boton => {
+        if (!boton.contains(e.target)) {
+            boton.classList.remove('mi-btnPrecio');
+        }
+    });
 });
