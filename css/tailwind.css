@@ -2,6 +2,13 @@
 
 @theme {
     --color-temu: #FB7701;
+    --color-albedo: #C4C3CA;
+
+    --font-Inter: "Inter", sans-serif;
+    --font-Russo: "Russo One", sans-serif;
+    --font-Playfair: "Playfair Display", serif;
+    --font-Montserrat: "Montserrat", sans-serif;
+    --font-MontAlternates: "Montserrat Alternates", sans-serif;
 }
 
 
@@ -68,5 +75,7 @@
 .cardHero {
     clip-path: path("M 30,50 L 80,50 A 20,20 0,0,0 100,30 A 30,30 0,0,1 130,0 L 330,0 A 30,30 0,0,1 360,30 L 360,210 A 30,30 0,0,1 330,240 L 300,240 A 20,20 0,0,0 280,260 A 20,20 0,0,1 260,280 L 30,280 A 30,30 0,0,1 0,250 L 0,80 A 30,30 0,0,1 30,50 Z");
 }
-
+.cardPrecioHero {
+    clip-path: path("M 20,0 L 85,0 L 85,15 A 20,20 0,0,1 65,35 L 0,35 L 0,20 A 20,20 0,0,1 20,0 Z");
+}
 
