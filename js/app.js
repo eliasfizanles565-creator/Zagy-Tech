@@ -267,7 +267,7 @@ const heroSwiper = new Swiper('.hero-swiper', {
     speed: 500,
 
     // Separación entre Cards
-    spaceBetween: 6,
+    spaceBetween: 10,
     
     // Autoplay cada 5 segundos
     autoplay: {
