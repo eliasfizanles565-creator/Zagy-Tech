@@ -87,26 +87,18 @@
 }
 
 /* ========= BOTONES CARRITO Y PRECIO ============ */
-/* Estilo base del icono con transición suave */
-.mi-btnCarrito {
-    transition: transform 0.1s ease-in-out;
-    display: inline-block; /* Necesario para que el translate funcione correctamente */
-}
 /* Efecto al presionar el botón padre */
-.mi-btnCarrito:hover {
+.btnDesplazado {
+    transition: 0.1s ease-in-out;
     transform: translate(-2px,-4px);
 }
 
 
-.mi-btnPrecio .iconoPrecio {
+.mi-btnPrecio {
     transition: transform 0.1s ease-in-out;
-    display: inline-block; 
-}
-.mi-btnPrecio:hover .iconoPrecio {
+    background-color: #0c0a09;
     color: #fff;
 }
-.mi-btnPrecio:hover{
-    background-color: #0c0a09;
-}
+
 
 

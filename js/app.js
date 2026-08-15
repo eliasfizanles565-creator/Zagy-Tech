@@ -356,3 +356,37 @@ heroContainer.addEventListener('mouseleave', onEnd);
 // Iniciar
 goToSlide(0);
 startAutoSlide();
+
+///// === BOTON CARRITO DESPLAZADO ===
+const boton = document.getElementById('miBoton');
+
+// 1. Al hacer clic en el botón, se desplaza y evitamos que el evento se propague de inmediato
+boton.addEventListener('click', (e) => {
+    e.stopPropagation(); // Evita que el clic dispare el evento del documento al instante
+    boton.classList.toggle('btnDesplazado');
+});
+
+// 2. Detectar clics en cualquier parte de la página
+document.addEventListener('click', (e) => {
+    // Si el clic NO fue dentro del botón, regresa a la normalidad
+    if (!boton.contains(e.target)) {
+        boton.classList.remove('btnDesplazado');
+    }
+});
+
+///// === BOTON PRECOI CAMBIO COLOR ===
+const boton2 = document.getElementById('btnPrecio');
+
+// 1. Al hacer clic en el botón, se desplaza y evitamos que el evento se propague de inmediato
+boton2.addEventListener('click', (e) => {
+    e.stopPropagation(); // Evita que el clic dispare el evento del documento al instante
+    boton2.classList.toggle('mi-btnPrecio');
+});
+
+// 2. Detectar clics en cualquier parte de la página
+document.addEventListener('click', (e) => {
+    // Si el clic NO fue dentro del botón, regresa a la normalidad
+    if (!boton.contains(e.target)) {
+        boton2.classList.remove('mi-btnPrecio');
+    }
+});
