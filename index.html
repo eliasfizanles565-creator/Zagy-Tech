@@ -11,8 +11,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Russo+One&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/estilos.css">
+
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
+
+
 <body class="bg-white">
 
     <!--  ======================================================= -->
@@ -188,23 +192,24 @@
 
 
     <!--  ======================================================= -->
-    <!-- === HERO DESLIZANTE === -->
-<div class="w-[350px] mx-auto lg:max-w-7xl mt-2">
+    <!-- === HERO DESLIZANTE CON SWIPER === -->
+<div class="w-[350px] mx-auto lg:max-w-7xl mt-2 pb-8 relative">  <!-- ← wrapper con padding-bottom -->
     
-    <header id="hero-container" class="w-full h-70 relative overflow-hidden">
+    <!-- Swiper (overflow hidden para cortar laterales) -->
+    <div class="swiper hero-swiper relative overflow-hidden">
         
-        <!-- TRACK -->
-        <div id="hero-track" class="flex h-full transition-transform duration-500 ease-out cursor-grab active:cursor-grabbing">
+        <!-- Wrapper (track de Swiper) -->
+        <div class="swiper-wrapper">
             
             <!-- SLIDE 1 -->
-            <div class="w-full h-full shrink-0 relative">
+            <div class="swiper-slide relative w-full h-70">
                 <div class="w-full h-full cardHero overflow-hidden">
                     <img src="assets/03.avif" class="w-full h-full object-cover object-[50%_20%] pointer-events-none" alt="">
                 </div>
                 <div class="btn-precio absolute w-25 h-10 bg-neutral-300 z-10 top-3 left-5 cardPrecioHero flex justify-center items-center cursor-pointer">
                     <p class="font-Russo text-[16px] iconoPrecio">s/ 951.87</p>
                 </div>
-                <button class="btn-carrito absolute w-15 h-10 bg-stone-950 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer hover:bg-stone-950 transition-transform duration-300">
+                <button class="btn-carrito absolute w-15 h-10 bg-stone-950 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer transition-transform duration-300">
                     <i class="ri-shopping-cart-line text-xl text-white"></i>
                 </button>
                 <div class="absolute w-45 h-12 bg-stone-950/50 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1">
@@ -214,14 +219,14 @@
             </div>
 
             <!-- SLIDE 2 -->
-            <div class="w-full h-full shrink-0 relative">
+            <div class="swiper-slide relative w-full h-70">
                 <div class="w-full h-full cardHero overflow-hidden">
                     <img src="assets/05.jpg" class="w-full h-full object-cover object-[50%_20%] pointer-events-none" alt="">
                 </div>
                 <div class="btn-precio absolute w-25 h-10 bg-rose-200 z-10 top-3 left-5 cardPrecioHero flex justify-center items-center cursor-pointer">
                     <p class="font-Russo text-[16px] iconoPrecio">s/ 225.00</p>
                 </div>
-                <button class="btn-carrito absolute w-15 h-10 bg-stone-950 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer hover:bg-stone-950 transition-transform duration-300">
+                <button class="btn-carrito absolute w-15 h-10 bg-stone-950 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer transition-transform duration-300">
                     <i class="ri-shopping-cart-line text-xl text-white"></i>
                 </button>
                 <div class="absolute w-48 h-12 bg-stone-950/50 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1">
@@ -231,14 +236,14 @@
             </div>
 
             <!-- SLIDE 3 -->
-            <div class="w-full h-full shrink-0 relative">
+            <div class="swiper-slide relative w-full h-70">
                 <div class="w-full h-full cardHero overflow-hidden">
                     <img src="assets/04.avif" class="w-full h-full object-cover object-[50%_20%] pointer-events-none" alt="">
                 </div>
                 <div class="btn-precio absolute w-25 h-10 bg-capibara z-10 top-3 left-5 cardPrecioHero flex justify-center items-center cursor-pointer">
                     <p class="font-Russo text-[16px] iconoPrecio">s/ 115.00</p>
                 </div>
-                <button class="btn-carrito absolute w-15 h-10 bg-stone-950 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer hover:bg-stone-950 transition-transform duration-300">
+                <button class="btn-carrito absolute w-15 h-10 bg-stone-950 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer transition-transform duration-300">
                     <i class="ri-shopping-cart-line text-xl text-white"></i>
                 </button>
                 <div class="absolute w-47 h-12 bg-stone-950/50 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1">
@@ -248,18 +253,15 @@
             </div>
 
         </div>
-    </header>
 
-    <!-- DOTS -->
-    <div class="flex justify-center gap-2 mt-2.5">
-        <button class="hero-dot w-2 h-2 rounded-full bg-stone-300 transition-all duration-300" data-slide="0"></button>
-        <button class="hero-dot w-2 h-2 rounded-full bg-stone-300 transition-all duration-300" data-slide="1"></button>
-        <button class="hero-dot w-2 h-2 rounded-full bg-stone-300 transition-all duration-300" data-slide="2"></button>
     </div>
+
+    <!-- Dots FUERA del swiper, debajo -->
+    <div class="swiper-pagination flex justify-center gap-2 mb-1"></div>
 </div>
 
 
-
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

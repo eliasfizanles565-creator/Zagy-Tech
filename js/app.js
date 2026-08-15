@@ -258,138 +258,68 @@ catButtons.forEach(btn => {
 
 
 ///////////////////////////////////////////////////////////////
-// === HERO SLIDER ===
-const heroTrack = document.getElementById('hero-track');
-const heroDots = document.querySelectorAll('.hero-dot');
-const heroContainer = document.getElementById('hero-container');
-
-let currentSlide = 0;
-const totalSlides = 3;
-let autoSlideInterval;
-
-function goToSlide(index) {
-    if (index < 0) index = totalSlides - 1;
-    if (index >= totalSlides) index = 0;
+// === HERO SWIPER ===
+const heroSwiper = new Swiper('.hero-swiper', {
+    // Loop infinito suave: 1→2→3→1→2... sin brincos
+    loop: true,
     
-    currentSlide = index;
-    heroTrack.style.transform = `translateX(-${index * 100}%)`;
+    // Velocidad de transición
+    speed: 500,
     
-    heroDots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === index);
-    });
-}
-
-function startAutoSlide() {
-    autoSlideInterval = setInterval(() => goToSlide(currentSlide + 1), 5000);
-}
-
-function stopAutoSlide() {
-    clearInterval(autoSlideInterval);
-}
-
-// Click en dots
-heroDots.forEach(dot => {
-    dot.addEventListener('click', () => {
-        stopAutoSlide();
-        goToSlide(parseInt(dot.dataset.slide));
-        startAutoSlide();
-    });
+    // Autoplay cada 5 segundos
+    autoplay: {
+        delay: 5000,
+        disableOnInteraction: false, // sigue auto después de tocar/drag
+        pauseOnMouseEnter: true,     // pausa al pasar el mouse
+    },
+    
+    // Dots clickeables
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+    },
+    
+    // Touch nativo optimizado por Swiper
+    touchRatio: 1,
+    grabCursor: false, // lo manejamos con CSS para mantener tu estilo
+    simulateTouch: true,
 });
-
-// === DRAG / SWIPE (sin lag) ===
-let startX = 0;
-let currentX = 0;
-let isDragging = false;
-
-function getX(e) {
-    return e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
-}
-
-function onStart(e) {
-    isDragging = true;
-    startX = getX(e);
-    currentX = startX;
-    stopAutoSlide();
-    heroTrack.style.transition = 'none';
-    heroTrack.style.cursor = 'grabbing';
-}
-
-function onMove(e) {
-    if (!isDragging) return;
-    currentX = getX(e);
-    const diff = currentX - startX;
-    const base = -currentSlide * heroContainer.offsetWidth;
-    heroTrack.style.transform = `translateX(${base + diff}px)`;
-}
-
-function onEnd() {
-    if (!isDragging) return;
-    isDragging = false;
-    heroTrack.style.transition = 'transform 0.5s ease-out';
-    heroTrack.style.cursor = 'grab';
-    
-    const diff = currentX - startX;
-    const threshold = 50;
-    
-    if (diff < -threshold) {
-        goToSlide(currentSlide + 1);
-    } else if (diff > threshold) {
-        goToSlide(currentSlide - 1);
-    } else {
-        goToSlide(currentSlide);
-    }
-    
-    startAutoSlide();
-}
-
-// Touch
-heroContainer.addEventListener('touchstart', onStart, { passive: true });
-heroContainer.addEventListener('touchmove', onMove, { passive: true });
-heroContainer.addEventListener('touchend', onEnd, { passive: true });
-
-// Mouse
-heroContainer.addEventListener('mousedown', onStart);
-heroContainer.addEventListener('mousemove', onMove);
-heroContainer.addEventListener('mouseup', onEnd);
-heroContainer.addEventListener('mouseleave', onEnd);
-
-// Iniciar
-goToSlide(0);
-startAutoSlide();
 
 ///////////////////////////////////////////////////////////////
-// === BOTONES CARRITO (todos los slides) ===
-document.querySelectorAll('.btn-carrito').forEach(boton => {
-    boton.addEventListener('click', (e) => {
-        e.stopPropagation();
-        boton.classList.toggle('btnDesplazado');
-    });
+// === BOTONES CARRITO (delegación de eventos) ===
+// Swiper clona slides para el loop, por eso usamos delegación
+document.querySelector('.hero-swiper').addEventListener('click', (e) => {
+    const boton = e.target.closest('.btn-carrito');
+    if (!boton) return;
+    
+    e.stopPropagation();
+    boton.classList.toggle('btnDesplazado');
 });
 
+// Cerrar carritos al hacer click fuera
 document.addEventListener('click', (e) => {
-    document.querySelectorAll('.btn-carrito').forEach(boton => {
-        if (!boton.contains(e.target)) {
-            boton.classList.remove('btnDesplazado');
-        }
+    if (e.target.closest('.btn-carrito')) return;
+    document.querySelectorAll('.btn-carrito').forEach(b => {
+        b.classList.remove('btnDesplazado');
     });
 });
 
 ///////////////////////////////////////////////////////////////
-// === BOTONES PRECIO (todos los slides) ===
-document.querySelectorAll('.btn-precio').forEach(boton => {
-    boton.addEventListener('click', (e) => {
-        e.stopPropagation();
-        // Quita la clase de TODOS los botones de precio primero
-        document.querySelectorAll('.btn-precio').forEach(b => b.classList.remove('mi-btnPrecio'));
-        // Activa solo el clickeado
-        boton.classList.add('mi-btnPrecio');
-    });
+// === BOTONES PRECIO (delegación de eventos) ===
+document.querySelector('.hero-swiper').addEventListener('click', (e) => {
+    const boton = e.target.closest('.btn-precio');
+    if (!boton) return;
+    
+    e.stopPropagation();
+    // Solo uno activo a la vez: quita de todos, activa el clickeado
+    document.querySelectorAll('.btn-precio').forEach(b => b.classList.remove('mi-btnPrecio'));
+    boton.classList.add('mi-btnPrecio');
 });
 
+// Cerrar precios al hacer click fuera
 document.addEventListener('click', (e) => {
-    document.querySelectorAll('.btn-precio').forEach(boton => {
-        if (!boton.contains(e.target)) {
-            boton.classList.remove('mi-btnPrecio');
-        }
+    if (e.target.closest('.btn-precio')) return;
+    document.querySelectorAll('.btn-precio').forEach(b => {
+        b.classList.remove('mi-btnPrecio');
     });
 });
