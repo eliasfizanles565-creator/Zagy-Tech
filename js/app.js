@@ -1,5 +1,8 @@
 "use strict";
 
+
+// ======================================================
+// ===== NAVBAR INFERIOR Y SUPERIOR =====
 // === REFERENCIAS ===
 const navigationBar = document.querySelector('.cardInicio');
 const navigationBarBorder = document.querySelector('.cardInicio2');
@@ -125,3 +128,133 @@ document.querySelectorAll('.nav-desktop').forEach(btn => {
 
 // Iniciar
 activateNav('inicio');
+// ======================================================
+
+
+
+
+// ======================================================
+// ===== BOTONES CATEGORIAS =====
+const scrollContainer = document.getElementById('categorias-scroll');
+const btnLeft = document.getElementById('scroll-left');
+const btnRight = document.getElementById('scroll-right');
+
+// === Mostrar/ocultar flechas según posición ===
+function updateArrows() {
+    if (!scrollContainer || !btnLeft || !btnRight) return;
+
+    const scrollLeft = scrollContainer.scrollLeft;
+    const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+
+    // Flecha izquierda: visible si NO estamos al inicio
+    if (scrollLeft > 10) {
+        btnLeft.classList.remove('lg:hidden');
+        btnLeft.classList.add('lg:flex');
+    } else {
+        btnLeft.classList.remove('lg:flex');
+        btnLeft.classList.add('lg:hidden');
+    }
+
+    // Flecha derecha: visible si NO estamos al final
+    if (scrollLeft < maxScroll - 10) {
+        btnRight.classList.remove('lg:hidden');
+        btnRight.classList.add('lg:flex');
+    } else {
+        btnRight.classList.remove('lg:flex');
+        btnRight.classList.add('lg:hidden');
+    }
+}
+
+// === Flechas ===
+if (btnLeft) {
+    btnLeft.addEventListener('click', () => {
+        scrollContainer.scrollBy({ left: -200, behavior: 'smooth' });
+    });
+}
+
+if (btnRight) {
+    btnRight.addEventListener('click', () => {
+        scrollContainer.scrollBy({ left: 200, behavior: 'smooth' });
+    });
+}
+
+// === Detectar scroll para mostrar/ocultar flechas ===
+if (scrollContainer) {
+    scrollContainer.addEventListener('scroll', updateArrows);
+    window.addEventListener('resize', updateArrows);
+    
+    // Chequear al cargar
+    updateArrows();
+}
+
+// === Drag con mouse (PC) ===
+if (scrollContainer) {
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    scrollContainer.addEventListener('mousedown', (e) => {
+        isDown = true;
+        scrollContainer.style.cursor = 'grabbing';
+        startX = e.pageX - scrollContainer.offsetLeft;
+        scrollLeft = scrollContainer.scrollLeft;
+    });
+
+    scrollContainer.addEventListener('mouseleave', () => {
+        isDown = false;
+        scrollContainer.style.cursor = 'grab';
+    });
+
+    scrollContainer.addEventListener('mouseup', () => {
+        isDown = false;
+        scrollContainer.style.cursor = 'grab';
+    });
+
+    scrollContainer.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - scrollContainer.offsetLeft;
+        const walk = (x - startX) * 1.5;
+        scrollContainer.scrollLeft = scrollLeft - walk;
+    });
+
+    scrollContainer.style.cursor = 'grab';
+}
+
+// === CATEGORÍAS: activar/desactivar botones ===
+const catButtons = document.querySelectorAll('.cat-btn');
+
+function setActiveCategory(clickedBtn) {
+    catButtons.forEach(btn => {
+        const text = btn.querySelector('p');
+        
+        // Desactivar todos
+        btn.classList.remove('bg-stone-950');
+        btn.classList.add('bg-white', 'border', 'border-stone-950');
+        
+        if (text) {
+            text.classList.remove('text-white');
+            text.classList.add('text-stone-950');
+        }
+    });
+
+    // Activar el clickeado
+    clickedBtn.classList.remove('bg-white', 'border', 'border-stone-950');
+    clickedBtn.classList.add('bg-stone-950');
+    
+    const activeText = clickedBtn.querySelector('p');
+    if (activeText) {
+        activeText.classList.remove('text-stone-950');
+        activeText.classList.add('text-white');
+    }
+}
+
+catButtons.forEach(btn => {
+    btn.addEventListener('click', () => setActiveCategory(btn));
+});
+///////////////////////////////////////////////////////////////
+
+
+
+
+///////////////////////////////////////////////////////////////

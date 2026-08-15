@@ -95,7 +95,73 @@
     <div class="w-full h-px bg-stone-950/10 mt-3"></div>
 
     <!-- == BOTONES CATEGORIAS == -->
+    <!-- WRAPPER relativo que contiene TODO -->
+    <div class="w-[95vw] h-10 mx-auto relative lg:max-w-7xl">
 
+        <!-- FLECHA IZQUIERDA (oculta por defecto, aparece al scrollear) -->
+        <button id="scroll-left" class="hidden lg:hidden absolute left-0 top-1/2 -translate-y-1/2 z-10 w-6.5 h-6.5 bg-white/70 backdrop-blur-sm border border-stone-200 rounded-full items-center justify-center cursor-pointer shadow-sm hover:bg-white hover:shadow-md transition-all duration-200">
+            <i class="ri-arrow-left-s-line text-lg text-stone-600"></i>
+        </button>
+        
+        <!-- CONTENEDOR DE SCROLL (sin flechas dentro) -->
+        <section id="categorias-scroll" class="flex items-center gap-2 overflow-x-auto scrollbar-hide snap-x snap-mandatory h-full px-1">
+            
+            <button class="cat-btn shrink-0 w-25 h-8 bg-stone-950 rounded-4xl flex justify-center items-center cursor-pointer snap-start">
+            <p class="text-white font-semibold text-sm">Todos</p>
+            </button>
+            <button class="cat-btn shrink-0 w-25 h-8 bg-white border border-stone-950 rounded-4xl flex justify-center items-center cursor-pointer snap-start">
+            <p class="text-stone-950 font-semibold text-sm">Ofertas</p>
+            </button>
+            <button class="cat-btn shrink-0 w-25 h-8 bg-white border border-stone-950 rounded-4xl flex justify-center items-center cursor-pointer snap-start">
+            <p class="text-stone-950 font-semibold text-sm">Hogar</p>
+            </button>
+            <button class="cat-btn shrink-0 w-25 h-8 bg-white border border-stone-950 rounded-4xl flex justify-center items-center cursor-pointer snap-start">
+            <p class="text-stone-950 font-semibold text-sm">Tecnología</p>
+            </button>
+            <button class="cat-btn shrink-0 w-25 h-8 bg-white border border-stone-950 rounded-4xl flex justify-center items-center cursor-pointer snap-start">
+            <p class="text-stone-950 font-semibold text-sm">Accesorios</p>
+            </button>
+            <button class="cat-btn shrink-0 w-25 h-8 bg-white border border-stone-950 rounded-4xl flex justify-center items-center cursor-pointer snap-start">
+            <p class="text-stone-950 font-semibold text-sm">Figuras</p>
+            </button>
+            <button class="cat-btn shrink-0 w-25 h-8 bg-white border border-stone-950 rounded-4xl flex justify-center items-center cursor-pointer snap-start">
+            <p class="text-stone-950 font-semibold text-sm">Álbums</p>
+            </button>
+            <button class="cat-btn shrink-0 w-25 h-8 bg-white border border-stone-950 rounded-4xl flex justify-center items-center cursor-pointer snap-start">
+            <p class="text-stone-950 font-semibold text-sm">Ropa</p>
+            </button>
+            <button class="cat-btn shrink-0 w-25 h-8 bg-white border border-stone-950 rounded-4xl flex justify-center items-center cursor-pointer snap-start">
+            <p class="text-stone-950 font-semibold text-sm">Hombre</p>
+            </button>
+            <button class="cat-btn shrink-0 w-25 h-8 bg-white border border-stone-950 rounded-4xl flex justify-center items-center cursor-pointer snap-start">
+                <p class="text-stone-950 font-semibold text-sm">Mujer</p>
+            </button>
+            <button class="cat-btn shrink-0 w-25 h-8 bg-white border border-stone-950 rounded-4xl flex justify-center items-center cursor-pointer snap-start">
+                <p class="text-stone-950 font-semibold text-sm">Moda</p>
+            </button>
+            <button class="cat-btn shrink-0 w-25 h-8 bg-white border border-stone-950 rounded-4xl flex justify-center items-center cursor-pointer snap-start">
+                <p class="text-stone-950 font-semibold text-sm">Zapatillas</p>
+            </button>
+            <button class="cat-btn shrink-0 w-25 h-8 bg-white border border-stone-950 rounded-4xl flex justify-center items-center cursor-pointer snap-start">
+                <p class="text-stone-950 font-semibold text-sm">Relojes</p>
+            </button>
+            <button class="cat-btn shrink-0 w-25 h-8 bg-white border border-stone-950 rounded-4xl flex justify-center items-center cursor-pointer snap-start">
+                <p class="text-stone-950 font-semibold text-sm">Perfumes</p>
+            </button>
+            <button class="cat-btn shrink-0 w-25 h-8 bg-white border border-stone-950 rounded-4xl flex justify-center items-center cursor-pointer snap-start">
+                <p class="text-stone-950 font-semibold text-sm">Joyería</p>
+            </button>
+            <button class="cat-btn shrink-0 w-25 h-8 bg-white border border-stone-950 rounded-4xl flex justify-center items-center cursor-pointer snap-start">
+                <p class="text-stone-950 font-semibold text-sm">Licores</p>
+            </button>
+            
+        </section>
+
+        <!-- FLECHA DERECHA (fuera del scroll, fija en el wrapper) -->
+        <button id="scroll-right" class="hidden lg:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 w-6.5 h-6.5 bg-white/70 backdrop-blur-sm border border-stone-200 rounded-full items-center justify-center cursor-pointer shadow-sm hover:bg-white hover:shadow-md transition-all duration-200">
+            <i class="ri-arrow-right-s-line text-lg text-stone-600"></i>
+        </button>
+    </div>
 
 <script src="js/app.js"></script>
 </body>

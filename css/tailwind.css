@@ -6,9 +6,8 @@
 
 
 
-
-
-
+/* ================================================== */
+/* === CLIP PAHT BARRA INFERIOR === */
 .cardUsuario {
     clip-path: path("M 0,0 L 0,0 A 30,20 0,0,1 30,20 A 30,30 0,0,0 60,50 A 30,30 0,0,0 90,20 A 30,20 0,0,1 120,0 L 320,0 A 30,30 0,0,1 320,60 L 0,60 A 30,30 0,0,1 0,0 Z");
 }
@@ -44,10 +43,22 @@
 .cardCarrito2 {
     clip-path: path("M 40,0 L 240,0 A 30,20 0,0,1 271.5,20 A 30,30 0,0,0 300,50 A 30,30 0,0,0 328.5,20 A 30,20 0,0,1 360,0 A 30,30 0,0,1 360,60 L 40,60 A 30,30 0,0,1 40,0 Z");
 }
+/* ================================================== */
 
 
 
+/* ================================================== */
+/* === BOTONES CATEGORIAS === */
+/* Oculta scrollbar en Chrome, Safari, Edge */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
 
+/* Oculta scrollbar en Firefox */
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
 
 
 
