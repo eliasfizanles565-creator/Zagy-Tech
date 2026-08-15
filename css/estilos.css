@@ -216,9 +216,6 @@
   .top-0\.5 {
     top: calc(var(--spacing) * 0.5);
   }
-  .top-1\.75 {
-    top: calc(var(--spacing) * 1.75);
-  }
   .top-1\/2 {
     top: calc(1 / 2 * 100%);
   }
@@ -237,8 +234,8 @@
   .right-4 {
     right: calc(var(--spacing) * 4);
   }
-  .right-4\.5 {
-    right: calc(var(--spacing) * 4.5);
+  .right-5\.5 {
+    right: calc(var(--spacing) * 5.5);
   }
   .bottom-1 {
     bottom: var(--spacing);
@@ -248,9 +245,6 @@
   }
   .bottom-3 {
     bottom: calc(var(--spacing) * 3);
-  }
-  .bottom-3\.75 {
-    bottom: calc(var(--spacing) * 3.75);
   }
   .bottom-6\.25 {
     bottom: calc(var(--spacing) * 6.25);
@@ -355,12 +349,6 @@
   }
   .w-15 {
     width: calc(var(--spacing) * 15);
-  }
-  .w-16 {
-    width: calc(var(--spacing) * 16);
-  }
-  .w-23\.75 {
-    width: calc(var(--spacing) * 23.75);
   }
   .w-25 {
     width: calc(var(--spacing) * 25);
@@ -484,6 +472,18 @@
   }
   .rounded-full {
     border-radius: calc(infinity * 1px);
+  }
+  .rounded-tl-3xl {
+    border-top-left-radius: var(--radius-3xl);
+  }
+  .rounded-tl-4xl {
+    border-top-left-radius: var(--radius-4xl);
+  }
+  .rounded-br-3xl {
+    border-bottom-right-radius: var(--radius-3xl);
+  }
+  .rounded-br-4xl {
+    border-bottom-right-radius: var(--radius-4xl);
   }
   .border {
     border-style: var(--tw-border-style);
@@ -699,6 +699,9 @@
     .hover\:bg-neutral-300:hover {
       background-color: var(--color-neutral-300);
     }
+    .hover\:bg-stone-950:hover {
+      background-color: var(--color-stone-950);
+    }
     .hover\:bg-white:hover {
       background-color: var(--color-white);
     }
@@ -817,6 +820,13 @@
 .hero-dot.active {
   background-color: black;
   transform: scale(1.3);
+}
+.mi-boton .icono {
+  transition: transform 0.1s ease-in-out;
+  display: inline-block;
+}
+.mi-boton:hover .icono {
+  color: #FB7701;
 }
 @property --tw-translate-x {
   syntax: "*";

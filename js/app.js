@@ -280,7 +280,7 @@ function goToSlide(index) {
 }
 
 function startAutoSlide() {
-    autoSlideInterval = setInterval(() => goToSlide(currentSlide + 1), 3000);
+    autoSlideInterval = setInterval(() => goToSlide(currentSlide + 1), 5000);
 }
 
 function stopAutoSlide() {
