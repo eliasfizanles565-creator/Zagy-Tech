@@ -821,12 +821,25 @@
   background-color: black;
   transform: scale(1.3);
 }
-.mi-boton .icono {
+.mi-btnCarrito {
+  transition: transform 0.2s ease-in-out;
+  display: inline-block;
+}
+.mi-btnCarrito:hover {
+  transform: translate(-2px,-4px);
+}
+.mi-btnCarrito:active .iconoCarrito {
+  color: #FB7701;
+}
+.mi-btnPrecio .iconoPrecio {
   transition: transform 0.1s ease-in-out;
   display: inline-block;
 }
-.mi-boton:hover .icono {
-  color: #d4d4d4;
+.mi-btnPrecio:hover .iconoPrecio {
+  color: #fff;
+}
+.mi-btnPrecio:hover {
+  background-color: #0c0a09;
 }
 @property --tw-translate-x {
   syntax: "*";
