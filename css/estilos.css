@@ -822,14 +822,11 @@
   transform: scale(1.3);
 }
 .mi-btnCarrito {
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.1s ease-in-out;
   display: inline-block;
 }
 .mi-btnCarrito:hover {
   transform: translate(-2px,-4px);
-}
-.mi-btnCarrito:active .iconoCarrito {
-  color: #FB7701;
 }
 .mi-btnPrecio .iconoPrecio {
   transition: transform 0.1s ease-in-out;
