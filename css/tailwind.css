@@ -3,6 +3,7 @@
 @theme {
     --color-temu: #FB7701;
     --color-albedo: #C4C3CA;
+    --color-capibara: #BEB9AB;
 
     --font-Inter: "Inter", sans-serif;
     --font-Russo: "Russo One", sans-serif;
@@ -79,3 +80,8 @@
     clip-path: path("M 20,0 L 95,0 L 95,10 A 20,20 0,0,1 75,30 L 0,30 L 0,20 A 20,20 0,0,1 20,0 Z");
 }
 
+/* Dot activo */
+.hero-dot.active {
+    background-color: black;
+    transform: scale(1.3);
+}

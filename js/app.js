@@ -258,3 +258,111 @@ catButtons.forEach(btn => {
 
 
 ///////////////////////////////////////////////////////////////
+// === HERO SLIDER ===
+const heroTrack = document.getElementById('hero-track');
+const heroDots = document.querySelectorAll('.hero-dot');
+const heroContainer = document.getElementById('hero-container');
+
+let currentSlide = 0;
+const totalSlides = 3;
+let autoSlideInterval;
+
+function goToSlide(index) {
+    if (index < 0) index = totalSlides - 1;
+    if (index >= totalSlides) index = 0;
+    
+    currentSlide = index;
+    heroTrack.style.transform = `translateX(-${index * 100}%)`;
+    
+    heroDots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+    });
+}
+
+function startAutoSlide() {
+    autoSlideInterval = setInterval(() => {
+        goToSlide(currentSlide + 1);
+    }, 3000);
+}
+
+function stopAutoSlide() {
+    clearInterval(autoSlideInterval);
+}
+
+// Click en dots
+heroDots.forEach(dot => {
+    dot.addEventListener('click', () => {
+        stopAutoSlide();
+        goToSlide(parseInt(dot.dataset.slide));
+        startAutoSlide();
+    });
+});
+
+// === DRAG / SWIPE (Mouse + Touch) ===
+let isDragging = false;
+let startPos = 0;
+let currentTranslate = 0;
+let prevTranslate = 0;
+let animationID;
+
+heroContainer.addEventListener('touchstart', touchStart, { passive: true });
+heroContainer.addEventListener('touchend', touchEnd, { passive: true });
+heroContainer.addEventListener('touchmove', touchMove, { passive: true });
+
+heroContainer.addEventListener('mousedown', touchStart);
+heroContainer.addEventListener('mouseup', touchEnd);
+heroContainer.addEventListener('mouseleave', () => {
+    if (isDragging) touchEnd();
+});
+heroContainer.addEventListener('mousemove', touchMove);
+
+function touchStart(e) {
+    isDragging = true;
+    startPos = getPositionX(e);
+    animationID = requestAnimationFrame(animation);
+    stopAutoSlide();
+    heroTrack.style.cursor = 'grabbing';
+}
+
+function touchMove(e) {
+    if (!isDragging) return;
+    const currentPosition = getPositionX(e);
+    const diff = currentPosition - startPos;
+    currentTranslate = prevTranslate + diff;
+}
+
+function touchEnd() {
+    isDragging = false;
+    cancelAnimationFrame(animationID);
+    heroTrack.style.cursor = 'grab';
+    
+    const movedBy = currentTranslate - prevTranslate;
+    
+    // Si arrastró más de 50px, cambia de slide
+    if (movedBy < -50) {
+        goToSlide(currentSlide + 1);
+    } else if (movedBy > 50) {
+        goToSlide(currentSlide - 1);
+    } else {
+        goToSlide(currentSlide); // vuelve a donde estaba
+    }
+    
+    startAutoSlide();
+}
+
+function getPositionX(e) {
+    return e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+}
+
+function animation() {
+    if (isDragging) {
+        // Mueve el track siguiendo el dedo/mouse
+        const offset = currentTranslate - (currentSlide * -heroContainer.offsetWidth);
+        heroTrack.style.transform = `translateX(calc(-${currentSlide * 100}% + ${offset}px))`;
+        requestAnimationFrame(animation);
+    }
+}
+
+// Iniciar
+goToSlide(0);
+startAutoSlide();
