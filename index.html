@@ -2,41 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Chrome Android, Edge, Samsung Internet -->
     <meta name="theme-color" content="#fff">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>ZAGY Tech</title>
     <link rel="stylesheet" href="css/estilos.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet"/>
 </head>
 <body class="bg-white">
 
-    <!-- ✅ BARRA - fuera del contenedor, posicionada sola -->
+    <!-- ✅ BARRA INFERIOR (móvil) -->
     <div class="fixed bottom-2 left-1/2 -translate-x-1/2 z-40 w-90">
-        <!-- Borde blanco (sombra) -->
         <div class="cardInicio2 h-15.5 w-full bg-white rounded-full absolute -top-0.5 left-0"></div>
-        <!-- Barra negra -->
         <div class="cardInicio h-15 w-full bg-stone-950 rounded-full relative flex items-center justify-center gap-x-6.5">
-            <i class="ri-user-line text-2xl text-white flex flex-col items-center gap-0 leading-none pb-1.25 textUsuario">
+            <i class="ri-user-line text-2xl text-white flex flex-col items-center gap-0 leading-none pb-1.25 textUsuario cursor-pointer">
                 <p class="text-[10px] leading-none mt-0.5 font-semibold">Usuario</p>
             </i>
-            <i class="ri-menu-search-line text-2xl text-white flex flex-col items-center gap-0 leading-none pb-1.25 textCategorias">
+            <i class="ri-menu-search-line text-2xl text-white flex flex-col items-center gap-0 leading-none pb-1.25 textCategorias cursor-pointer">
                 <p class="text-[10px] leading-none mt-0.5 font-semibold">Categorías</p>
             </i>
-            <i class="ri-home-line text-2xl text-white flex flex-col items-center gap-0 leading-none pb-1.25 textInicio opacity-0">
+            <i class="ri-home-line text-2xl text-white flex flex-col items-center gap-0 leading-none pb-1.25 textInicio cursor-pointer opacity-0">
                 <p class="text-[10px] leading-none mt-0.5 font-semibold">Inicio</p>
             </i>
-            <i class="ri-poker-hearts-line text-2xl text-white flex flex-col items-center gap-0 leading-none pb-1.25 textFavoritos">
+            <i class="ri-poker-hearts-line text-2xl text-white flex flex-col items-center gap-0 leading-none pb-1.25 textFavoritos cursor-pointer">
                 <p class="text-[10px] leading-none mt-0.5 font-semibold">Favoritos</p>
             </i>
-            <i class="ri-shopping-cart-line text-2xl text-white flex flex-col items-center gap-0 leading-none pb-1.25 textCarrito">
+            <i class="ri-shopping-cart-line text-2xl text-white flex flex-col items-center gap-0 leading-none pb-1.25 textCarrito cursor-pointer">
                 <p class="text-[10px] leading-none mt-0.5 font-semibold">Carrito</p>
             </i>
-            
         </div>
     </div>
     
-    <!-- ✅ PELOTA - también fuera y encima de todo -->
+    <!-- ESFERAS (móvil) -->
     <div id="btnUsuario" class="fixed bottom-6.25 left-1/2 -translate-x-[calc(50%+120px)] z-50 size-12 rounded-4xl bg-temu flex items-center justify-center hidden">
         <i class="ri-user-line text-3xl text-white"></i>
     </div>
@@ -54,21 +50,51 @@
     </div>
     
 
-    <!-- CONTENIDO-->
-    <nav class=" w-[95vw] h-10 mx-auto relative">
-        <section class="size-9 absolute top-2">
-            <img src="assets/logoZagy.webp" alt="logo" class="">
+    <!-- == NAV DESKTOP ==-->
+    <nav class="w-[95vw] h-10 mx-auto relative lg:max-w-7xl">
+        <section class="size-9 absolute top-2 flex gap-8 xl:gap-12">
+            <img src="assets/logoZagy.webp" alt="logo">
+
+            <div class="flex gap-8 max-lg:hidden xl:gap-12">
+                <button class="nav-desktop group flex flex-col justify-center items-center mt-1 cursor-pointer transition-all duration-300" data-nav="usuario">
+                    <i class="ri-user-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu"></i>
+                    <p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu group-hover:border-temu">Usuario</p>
+                </button>
+                <button class="nav-desktop group flex flex-col justify-center items-center mt-1 cursor-pointer transition-all duration-300" data-nav="categorias">
+                    <i class="ri-menu-search-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu"></i>
+                    <p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu group-hover:border-temu">Categorías</p>
+                </button>
+                <button class="nav-desktop group flex flex-col justify-center items-center mt-1 cursor-pointer transition-all duration-300" data-nav="inicio">
+                    <i class="ri-home-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu"></i>
+                    <p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu group-hover:border-temu">Inicio</p>
+                </button>
+            </div>
         </section>
 
-        <section class="bg-white border border-stone-950 rounded-4xl absolute right-0 top-2 h-9 w-[82dvw]
-        sm:w-[88dvw]">
+        <section class="bg-white border border-stone-950 rounded-4xl absolute right-0 top-2 h-9 w-[82dvw] sm:w-[88dvw] lg:w-170 lg:left-1/2 lg:-translate-x-[calc(50%-77px)] xl:w-187 xl:-translate-x-[calc(50%-92px)]">
             <input class="border-none bg-none outline-none pl-4 pt-[4.5px] text-base" type="text" placeholder="soporte para celular">
 
             <div class="h-7.5 w-11 rounded-3xl flex items-center justify-center absolute right-0.5 top-0.5 bg-stone-950">
                 <i class="ri-search-line text-lg text-white"></i>
             </div>
         </section>
+
+        <section class="w-30 h-9 absolute top-2 flex gap-8 right-0 xl:gap-12 xl:w-33">
+            <div class="flex gap-8 max-lg:hidden xl:gap-12">
+                <button class="nav-desktop group flex flex-col justify-center items-center mt-1 cursor-pointer transition-all duration-300" data-nav="favoritos">
+                    <i class="ri-poker-hearts-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu"></i>
+                    <p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu group-hover:border-temu">Favoritos</p>
+                </button>
+                <button class="nav-desktop group flex flex-col justify-center items-center mt-1 cursor-pointer transition-all duration-300" data-nav="carrito">
+                    <i class="ri-shopping-cart-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu"></i>
+                    <p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu group-hover:border-temu">Carrito</p>
+                </button>
+            </div>
+        </section>
     </nav>
+    <div class="w-full h-px bg-stone-950/10 mt-3"></div>
+
+    <!-- == BOTONES CATEGORIAS == -->
 
 
 <script src="js/app.js"></script>

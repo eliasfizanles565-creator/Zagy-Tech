@@ -4,7 +4,6 @@
 const navigationBar = document.querySelector('.cardInicio');
 const navigationBarBorder = document.querySelector('.cardInicio2');
 
-// Configuración: cada botón sabe qué clases usar
 const navConfig = {
     usuario: {
         barClass: 'cardUsuario',
@@ -38,24 +37,22 @@ const navConfig = {
     }
 };
 
-let activeKey = 'inicio'; // Botón activo por defecto
+let activeKey = 'inicio';
 
 // === FUNCIÓN UNIVERSAL ===
 function activateNav(key) {
     const config = navConfig[key];
     if (!config) return;
 
-    // 1. Cambiar clip-path de las barras
-    // Primero quitamos TODAS las clases de estado posibles
+    // 1. Cambiar clip-path de las barras inferiores
     Object.values(navConfig).forEach(c => {
         navigationBar.classList.remove(c.barClass);
         navigationBarBorder.classList.remove(c.barBorderClass);
     });
-    // Agregamos las nuevas
     navigationBar.classList.add(config.barClass);
     navigationBarBorder.classList.add(config.barBorderClass);
 
-    // 2. Ocultar TODAS las esferas y mostrar solo la activa
+    // 2. Esferas inferiores
     Object.values(navConfig).forEach(c => {
         const sphere = document.querySelector(c.sphereId);
         if (sphere) sphere.classList.add('hidden');
@@ -63,7 +60,7 @@ function activateNav(key) {
     const activeSphere = document.querySelector(config.sphereId);
     if (activeSphere) activeSphere.classList.remove('hidden');
 
-    // 3. Ocultar texto del activo, mostrar texto del anterior
+    // 3. Textos de la barra inferior
     Object.values(navConfig).forEach(c => {
         const text = document.querySelector(c.textSelector);
         if (text) {
@@ -77,16 +74,54 @@ function activateNav(key) {
         }
     });
 
+    // 4. === NAV DESKTOP: solo color naranja + barrita debajo ===
+    document.querySelectorAll('.nav-desktop').forEach(btn => {
+        const icon = btn.querySelector('i');
+        const label = btn.querySelector('p');
+        
+        // Reset: vuelve a gris y barrita transparente
+        if (icon) {
+            icon.classList.remove('text-temu');
+            icon.classList.add('text-stone-950');
+        }
+        if (label) {
+            label.classList.remove('text-temu', 'border-temu');
+            label.classList.add('text-stone-950', 'border-transparent');
+        }
+    });
+
+    // Activa solo el clickeado
+    const activeDesktopBtn = document.querySelector(`.nav-desktop[data-nav="${key}"]`);
+    if (activeDesktopBtn) {
+        const activeIcon = activeDesktopBtn.querySelector('i');
+        const activeLabel = activeDesktopBtn.querySelector('p');
+        
+        if (activeIcon) {
+            activeIcon.classList.remove('text-stone-950');
+            activeIcon.classList.add('text-temu');
+        }
+        if (activeLabel) {
+            activeLabel.classList.remove('text-stone-950', 'border-transparent');
+            activeLabel.classList.add('text-temu', 'border-temu');
+        }
+    }
+
     activeKey = key;
 }
 
-// === EVENT LISTENERS ===
+// === LISTENERS — Barra inferior ===
 Object.keys(navConfig).forEach(key => {
     const btn = document.querySelector(navConfig[key].textSelector);
-    if (btn) {
-        btn.addEventListener('click', () => activateNav(key));
-    }
+    if (btn) btn.addEventListener('click', () => activateNav(key));
 });
 
-// Iniciar con Inicio activo
+// === LISTENERS — Nav desktop ===
+document.querySelectorAll('.nav-desktop').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const key = btn.dataset.nav;
+        if (key) activateNav(key);
+    });
+});
+
+// Iniciar
 activateNav('inicio');
