@@ -291,29 +291,6 @@ const heroSwiper = new Swiper('.hero-swiper', {
 
 
 
-///////////////////////////////////////////////////////////////
-// === BOTONES PRECIO (delegación de eventos) ===
-document.querySelector('.hero-swiper').addEventListener('click', (e) => {
-    const boton = e.target.closest('.btn-precio');
-    if (!boton) return;
-    
-    e.stopPropagation();
-    // Solo uno activo a la vez: quita de todos, activa el clickeado
-    document.querySelectorAll('.btn-precio').forEach(b => b.classList.remove('mi-btnPrecio'));
-    boton.classList.add('mi-btnPrecio');
-});
-
-// Cerrar precios al hacer click fuera
-document.addEventListener('click', (e) => {
-    if (e.target.closest('.btn-precio')) return;
-    document.querySelectorAll('.btn-precio').forEach(b => {
-        b.classList.remove('mi-btnPrecio');
-    });
-});
-///////////////////////////////////////////////////////////////
-
-
-
 
 ///////////////////////////////////////////////////////////////
 // === BOTÓN ÉPICO UNIVERSAL (persistente) ===
@@ -350,6 +327,50 @@ document.addEventListener('click', (e) => {
     } else {
         // Click FUERA de cualquier botón épico
         document.querySelectorAll('.btn-epico.activo').forEach(b => {
+            b.classList.remove('activo');
+        });
+    }
+});
+///////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////
+// === BOTÓN PRECIO UNIVERSAL (funciona en CUALQUIER parte de la página) ===
+document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-precio');
+    
+    if (btn) {
+        // Click DENTRO del botón
+        e.stopPropagation();
+        
+        // Toggle: si ya está activo, lo apaga; si no, lo enciende
+        const estaActivo = btn.classList.contains('activo');
+        
+        // Primero apaga TODOS los btn-precio (solo uno activo a la vez)
+        document.querySelectorAll('.btn-precio.activo').forEach(b => {
+            b.classList.remove('activo');
+        });
+        
+        // Si no estaba activo, lo activa
+        if (!estaActivo) {
+            btn.classList.add('activo');
+            
+            // Ripple desde el centro del botón
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple-precio');
+            const rect = btn.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            ripple.style.width = size + 'px';
+            ripple.style.height = size + 'px';
+            ripple.style.left = (rect.width / 2 - size / 2) + 'px';
+            ripple.style.top = (rect.height / 2 - size / 2) + 'px';
+            btn.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 500);
+        }
+        
+    } else {
+        // Click FUERA de cualquier btn-precio
+        document.querySelectorAll('.btn-precio.activo').forEach(b => {
             b.classList.remove('activo');
         });
     }

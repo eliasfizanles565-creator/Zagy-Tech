@@ -101,22 +101,8 @@
 .cardPrecioHeroInner {
     clip-path: path("M 20,1 L 99,1 L 99,21 A 19,19 0,0,1 81,39 L 1,39 L 1,20 A 19,19 0,0,1 20,1 Z");
 }
-/* ===================================================== */
 
-
-
-/* ===================================================== */
-/* ========= BOTONES CARRITO Y PRECIO ============ */
-.mi-btnPrecio {
-    transition: transform 0.1s ease-in-out;
-    background-color: #0c0a09;
-    color: #fff;
-}
-/* ===================================================== */
-
-
-
-/* ===================================================== */
+/* =================================== */
 /* ===== SWIPER HERO ===== */
 .hero-swiper {
     width: 100%;
@@ -173,6 +159,7 @@
 /* ////////////////////////////////////////////////////// */
 
 
+
 /* ////////////////////////////////////////////////////// */
 /* ======= CARD PRODUCTOS RECORTE ========*/
 .cardProducto {
@@ -182,7 +169,7 @@
     clip-path: path("M 10,0 L 137,0 A 19,19 0,0,0 172,6 L 172,30 A 10,10 0,0,1 162,40 L 10,40 A 10,10 0,0,1 0,30 L 0,10 A 10,10 0,0,1 10,0 Z");
 }
 
-
+/* =========================================== */
 /* ===== BOTÓN ÉPICO UNIVERSAL ===== */
 .btn-epico {
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -254,5 +241,53 @@
         opacity: 0;
     }
 }
+/* ======================================== */
 
+/* ======================================== */
+/* ===== BOTÓN PRECIO UNIVERSAL ===== */
+.btn-precio {
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: pointer;
+}
 
+/* Hover sutil (solo si NO está activo) */
+.btn-precio:not(.activo):hover {
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+}
+
+/* Click: se encoge */
+.btn-precio:not(.activo):active {
+    transform: scale(0.95);
+}
+
+/* ===== ESTADO ACTIVO (toggle) ===== */
+.btn-precio.activo {
+    background-color: #0c0a09 !important;
+    color: #fff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(12, 10, 9, 0.3);
+}
+
+.btn-precio.activo .iconoPrecio,
+.btn-precio.activo p {
+    color: #fff !important;
+}
+
+/* Ripple (sin necesidad de overflow:hidden) */
+.btn-precio .ripple-precio {
+    position: fixed;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(0);
+    animation: ripple-precio-anim 0.5s linear;
+    pointer-events: none;
+    z-index: 100;
+}
+
+@keyframes ripple-precio-anim {
+    to {
+        transform: scale(3);
+        opacity: 0;
+    }
+}
