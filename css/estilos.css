@@ -634,6 +634,9 @@
   .object-\[50\%_0\%\] {
     object-position: 50% 0%;
   }
+  .object-\[50\%_8\%\] {
+    object-position: 50% 8%;
+  }
   .object-\[50\%_10\%\] {
     object-position: 50% 10%;
   }
@@ -649,11 +652,17 @@
   .object-\[50\%_50\%\] {
     object-position: 50% 50%;
   }
+  .object-\[50\%_70\%\] {
+    object-position: 50% 70%;
+  }
   .object-\[50\%_80\%\] {
     object-position: 50% 80%;
   }
   .object-\[50\%_90\%\] {
     object-position: 50% 90%;
+  }
+  .object-\[50\%_100\%\] {
+    object-position: 50% 100%;
   }
   .px-1 {
     padding-inline: var(--spacing);
@@ -835,6 +844,15 @@
     }
     .sm\:gap-x-3 {
       column-gap: calc(var(--spacing) * 3);
+    }
+    .sm\:object-\[50\%_40\%\] {
+      object-position: 50% 40%;
+    }
+    .sm\:object-\[50\%_50\%\] {
+      object-position: 50% 50%;
+    }
+    .sm\:object-\[50\%_80\%\] {
+      object-position: 50% 80%;
     }
   }
   @media (width >= 64rem) {
