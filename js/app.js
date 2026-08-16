@@ -287,25 +287,9 @@ const heroSwiper = new Swiper('.hero-swiper', {
     grabCursor: false, // lo manejamos con CSS para mantener tu estilo
     simulateTouch: true,
 });
-
 ///////////////////////////////////////////////////////////////
-// === BOTONES CARRITO (delegación de eventos) ===
-// Swiper clona slides para el loop, por eso usamos delegación
-document.querySelector('.hero-swiper').addEventListener('click', (e) => {
-    const boton = e.target.closest('.btn-carrito');
-    if (!boton) return;
-    
-    e.stopPropagation();
-    boton.classList.toggle('btnDesplazado');
-});
 
-// Cerrar carritos al hacer click fuera
-document.addEventListener('click', (e) => {
-    if (e.target.closest('.btn-carrito')) return;
-    document.querySelectorAll('.btn-carrito').forEach(b => {
-        b.classList.remove('btnDesplazado');
-    });
-});
+
 
 ///////////////////////////////////////////////////////////////
 // === BOTONES PRECIO (delegación de eventos) ===
@@ -325,4 +309,48 @@ document.addEventListener('click', (e) => {
     document.querySelectorAll('.btn-precio').forEach(b => {
         b.classList.remove('mi-btnPrecio');
     });
+});
+///////////////////////////////////////////////////////////////
+
+
+
+
+///////////////////////////////////////////////////////////////
+// === BOTÓN ÉPICO UNIVERSAL (persistente) ===
+document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-epico');
+    
+    if (btn) {
+        // Click DENTRO del botón
+        e.stopPropagation();
+        
+        // Si ya está activo, no hace nada (se queda naranja)
+        if (btn.classList.contains('activo')) return;
+        
+        // Desactiva todos los demás botones épicos
+        document.querySelectorAll('.btn-epico.activo').forEach(b => {
+            b.classList.remove('activo');
+        });
+        
+        // Activa el clickeado
+        btn.classList.add('activo');
+        
+        // Ripple
+        const ripple = document.createElement('span');
+        ripple.classList.add('ripple');
+        const rect = btn.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        ripple.style.width = size + 'px';
+        ripple.style.height = size + 'px';
+        ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+        ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+        btn.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+        
+    } else {
+        // Click FUERA de cualquier botón épico
+        document.querySelectorAll('.btn-epico.activo').forEach(b => {
+            b.classList.remove('activo');
+        });
+    }
 });
