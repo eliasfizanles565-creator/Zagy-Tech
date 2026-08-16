@@ -284,6 +284,9 @@
   .z-10 {
     z-index: 10;
   }
+  .z-20 {
+    z-index: 20;
+  }
   .z-40 {
     z-index: 40;
   }
@@ -468,6 +471,9 @@
   .cursor-pointer {
     cursor: pointer;
   }
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
   .resize {
     resize: both;
   }
@@ -561,6 +567,10 @@
     border-bottom-style: var(--tw-border-style);
     border-bottom-width: 2px;
   }
+  .border-none {
+    --tw-border-style: none;
+    border-style: none;
+  }
   .border-stone-200 {
     border-color: var(--color-stone-200);
   }
@@ -615,6 +625,9 @@
   .bg-temu {
     background-color: var(--color-temu);
   }
+  .bg-transparent {
+    background-color: transparent;
+  }
   .bg-white {
     background-color: var(--color-white);
   }
@@ -647,6 +660,9 @@
   }
   .pt-\[4\.5px\] {
     padding-top: 4.5px;
+  }
+  .pr-14 {
+    padding-right: calc(var(--spacing) * 14);
   }
   .pb-0\.5 {
     padding-bottom: calc(var(--spacing) * 0.5);
