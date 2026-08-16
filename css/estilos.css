@@ -420,9 +420,6 @@
   .w-90 {
     width: calc(var(--spacing) * 90);
   }
-  .w-\[68dvw\] {
-    width: 68dvw;
-  }
   .w-\[82dvw\] {
     width: 82dvw;
   }
@@ -640,9 +637,6 @@
   .bg-zeroTwo {
     background-color: var(--color-zeroTwo);
   }
-  .bg-none {
-    background-image: none;
-  }
   .object-cover {
     object-fit: cover;
   }
@@ -824,9 +818,6 @@
     }
   }
   @media (width >= 40rem) {
-    .sm\:w-\[81dvw\] {
-      width: 81dvw;
-    }
     .sm\:w-\[88dvw\] {
       width: 88dvw;
     }
@@ -850,9 +841,6 @@
     .lg\:w-157 {
       width: calc(var(--spacing) * 157);
     }
-    .lg\:w-\[50dvw\] {
-      width: 50dvw;
-    }
     .lg\:max-w-7xl {
       max-width: var(--container-7xl);
     }
@@ -868,20 +856,12 @@
     .xl\:w-187 {
       width: calc(var(--spacing) * 187);
     }
-    .xl\:w-\[48dvw\] {
-      width: 48dvw;
-    }
     .xl\:-translate-x-\[calc\(50\%-92px\)\] {
       --tw-translate-x: calc(calc(50% - 92px) * -1);
       translate: var(--tw-translate-x) var(--tw-translate-y);
     }
     .xl\:gap-12 {
       gap: calc(var(--spacing) * 12);
-    }
-  }
-  @media (width >= 96rem) {
-    .\32 xl\:w-\[36dvw\] {
-      width: 36dvw;
     }
   }
 }
@@ -1052,6 +1032,46 @@
   to {
     transform: scale(4);
     opacity: 0;
+  }
+}
+.carrito-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  background-color: #FB7701;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  z-index: 30;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+  box-shadow: 0 2px 6px rgba(251, 119, 1, 0.4);
+}
+.carrito-badge.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+.carrito-badge.pop {
+  animation: badge-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes badge-pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 .btn-precio {

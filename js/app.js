@@ -293,43 +293,74 @@ const heroSwiper = new Swiper('.hero-swiper', {
 
 
 ///////////////////////////////////////////////////////////////
-// === BOTÓN ÉPICO UNIVERSAL (persistente) ===
+// === BOTÓN ÉPICO UNIVERSAL + CONTADOR CARRITO ===
 document.addEventListener('click', (e) => {
     const btn = e.target.closest('.btn-epico');
+    if (!btn) return;
     
-    if (btn) {
-        // Click DENTRO del botón
-        e.stopPropagation();
+    e.stopPropagation();
+    
+    // ========== LÓGICA DEL CONTADOR CARRITO ==========
+    // Verifica si el botón tiene un icono de carrito de Remix
+    const iconoCarrito = btn.querySelector('i[class*="ri-shopping-cart"]');
+    
+    if (iconoCarrito) {
+        // Busca si ya tiene badge
+        let badge = btn.querySelector('.carrito-badge');
         
-        // Si ya está activo, no hace nada (se queda naranja)
-        if (btn.classList.contains('activo')) return;
+        // Si no tiene, lo crea
+        if (!badge) {
+            badge = document.createElement('span');
+            badge.className = 'carrito-badge';
+            badge.textContent = '0';
+            btn.appendChild(badge);
+            
+            // Pequeño delay para que la animación de entrada se vea
+            requestAnimationFrame(() => {
+                badge.classList.add('visible');
+            });
+        }
         
-        // Desactiva todos los demás botones épicos
-        document.querySelectorAll('.btn-epico.activo').forEach(b => {
-            b.classList.remove('activo');
-        });
+        // Suma 1
+        let cuenta = parseInt(badge.textContent) || 0;
+        cuenta++;
+        badge.textContent = cuenta;
         
-        // Activa el clickeado
-        btn.classList.add('activo');
-        
-        // Ripple
-        const ripple = document.createElement('span');
-        ripple.classList.add('ripple');
-        const rect = btn.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-        ripple.style.width = size + 'px';
-        ripple.style.height = size + 'px';
-        ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
-        ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
-        btn.appendChild(ripple);
-        setTimeout(() => ripple.remove(), 600);
-        
-    } else {
-        // Click FUERA de cualquier botón épico
-        document.querySelectorAll('.btn-epico.activo').forEach(b => {
-            b.classList.remove('activo');
-        });
+        // Animación de "pop"
+        badge.classList.remove('pop');
+        void badge.offsetWidth; // fuerza reflow para reiniciar animación
+        badge.classList.add('pop');
     }
+    
+    // ========== LÓGICA ACTIVO/ÉPICO (la que ya tenías) ==========
+    if (btn.classList.contains('activo')) return;
+    
+    document.querySelectorAll('.btn-epico.activo').forEach(b => {
+        b.classList.remove('activo');
+    });
+    
+    btn.classList.add('activo');
+    
+    // Ripple
+    const ripple = document.createElement('span');
+    ripple.classList.add('ripple');
+    const rect = btn.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    ripple.style.width = size + 'px';
+    ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+    ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+    btn.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600);
+});
+
+// Click fuera: quita activo de todos los btn-epico
+document.addEventListener('click', (e) => {
+    if (e.target.closest('.btn-epico')) return;
+    
+    document.querySelectorAll('.btn-epico.activo').forEach(b => {
+        b.classList.remove('activo');
+    });
 });
 ///////////////////////////////////////////////////////////////
 
