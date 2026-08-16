@@ -839,8 +839,13 @@
 }
 .hero-swiper {
   width: 100%;
-  height: 400px;
+  height: 280px;
   overflow: hidden;
+}
+@media (min-width: 640px) {
+  .hero-swiper {
+    height: 400px;
+  }
 }
 .hero-swiper .swiper-slide {
   width: 100%;
