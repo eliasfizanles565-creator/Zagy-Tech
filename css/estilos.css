@@ -16,7 +16,12 @@
     --color-lime-50: oklch(98.6% 0.031 120.757);
     --color-lime-500: oklch(76.8% 0.233 130.85);
     --color-green-900: oklch(39.3% 0.095 152.535);
+    --color-blue-100: oklch(93.2% 0.032 255.585);
     --color-blue-400: oklch(70.7% 0.165 254.624);
+    --color-purple-100: oklch(94.6% 0.033 307.174);
+    --color-purple-300: oklch(82.7% 0.119 306.383);
+    --color-fuchsia-100: oklch(95.2% 0.037 318.852);
+    --color-pink-100: oklch(94.8% 0.028 342.258);
     --color-rose-200: oklch(89.2% 0.058 10.001);
     --color-stone-200: oklch(92.3% 0.003 48.717);
     --color-stone-600: oklch(44.4% 0.011 73.639);
@@ -340,6 +345,9 @@
   }
   .mb-1 {
     margin-bottom: var(--spacing);
+  }
+  .mb-20 {
+    margin-bottom: calc(var(--spacing) * 20);
   }
   .flex {
     display: flex;
@@ -673,11 +681,17 @@
       border-color: color-mix(in oklab, var(--color-white) 50%, transparent);
     }
   }
+  .bg-blue-100 {
+    background-color: var(--color-blue-100);
+  }
   .bg-blue-400 {
     background-color: var(--color-blue-400);
   }
   .bg-capibara {
     background-color: var(--color-capibara);
+  }
+  .bg-fuchsia-100 {
+    background-color: var(--color-fuchsia-100);
   }
   .bg-green-900 {
     background-color: var(--color-green-900);
@@ -688,11 +702,20 @@
   .bg-lime-500 {
     background-color: var(--color-lime-500);
   }
+  .bg-pink-100 {
+    background-color: var(--color-pink-100);
+  }
   .bg-plomo {
     background-color: var(--color-plomo);
   }
   .bg-puro {
     background-color: var(--color-puro);
+  }
+  .bg-purple-100 {
+    background-color: var(--color-purple-100);
+  }
+  .bg-purple-300 {
+    background-color: var(--color-purple-300);
   }
   .bg-red-400 {
     background-color: var(--color-red-400);
