@@ -347,14 +347,26 @@
   .mt-3 {
     margin-top: calc(var(--spacing) * 3);
   }
+  .mt-6 {
+    margin-top: calc(var(--spacing) * 6);
+  }
   .mb-1 {
     margin-bottom: var(--spacing);
+  }
+  .mb-10 {
+    margin-bottom: calc(var(--spacing) * 10);
   }
   .mb-20 {
     margin-bottom: calc(var(--spacing) * 20);
   }
+  .block {
+    display: block;
+  }
   .flex {
     display: flex;
+  }
+  .grid {
+    display: grid;
   }
   .hidden {
     display: none;
@@ -618,6 +630,9 @@
   .rounded-full {
     border-radius: calc(infinity * 1px);
   }
+  .rounded-xl {
+    border-radius: var(--radius-xl);
+  }
   .rounded-tl-3xl {
     border-top-left-radius: var(--radius-3xl);
   }
@@ -774,6 +789,12 @@
   }
   .px-1 {
     padding-inline: var(--spacing);
+  }
+  .px-6 {
+    padding-inline: calc(var(--spacing) * 6);
+  }
+  .py-3 {
+    padding-block: calc(var(--spacing) * 3);
   }
   .pt-0 {
     padding-top: 0px;
@@ -954,6 +975,9 @@
     }
     .group-hover\:text-temu:is(:where(.group):hover *) {
       color: var(--color-temu);
+    }
+    .hover\:bg-temu:hover {
+      background-color: var(--color-temu);
     }
     .hover\:bg-white:hover {
       background-color: var(--color-white);

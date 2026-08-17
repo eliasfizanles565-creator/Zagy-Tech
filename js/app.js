@@ -406,3 +406,66 @@ document.addEventListener('click', (e) => {
         });
     }
 });
+///////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////
+// ======= BOTON VER MAS PRODUCTOS ========
+document.addEventListener("DOMContentLoaded", () => {
+    const grid = document.getElementById("product-grid");
+    const btnVerMas = document.getElementById("btn-ver-mas");
+    
+    if (!grid || !btnVerMas) return;
+
+    const cards = Array.from(grid.getElementsByTagName("article"));
+    let showingAll = false;
+
+    // Función para saber cuántas mostrar según el ancho de pantalla actual
+    function getLimitByScreen() {
+        const width = window.innerWidth;
+        if (width >= 1280) return 15; // PC
+        if (width >= 1024) return 8;  // Laptop
+        if (width >= 640)  return 9;  // Tablet
+        return 8;                     // Celular
+    }
+
+    function updateCardsVisibility() {
+        const limit = getLimitByScreen();
+
+        cards.forEach((card, index) => {
+            if (showingAll) {
+                card.classList.remove("hidden");
+            } else {
+                if (index < limit) {
+                    card.classList.remove("hidden");
+                } else {
+                    card.classList.add("hidden");
+                }
+            }
+        });
+
+        // Si el total de tarjetas es menor o igual al límite inicial, ocultamos el botón
+        if (cards.length <= limit) {
+            btnVerMas.style.display = "none";
+        } else {
+            btnVerMas.style.display = "block";
+            btnVerMas.textContent = showingAll ? "Ver menos" : "Ver más productos";
+        }
+    }
+
+    // Evento click del botón
+    btnVerMas.addEventListener("click", () => {
+        showingAll = !showingAll;
+        updateCardsVisibility();
+    });
+
+    // Recalcular si el usuario redimensiona la ventana
+    window.addEventListener("resize", () => {
+        if (!showingAll) {
+            updateCardsVisibility();
+        }
+    });
+
+    // Ejecutar al cargar la página
+    updateCardsVisibility();
+});
