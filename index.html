@@ -207,60 +207,8 @@
             
             <!-- Wrapper (track de Swiper) -->
             <div class="swiper-wrapper">
-                
+
                 <!-- SLIDE 1 -->
-                <div class="swiper-slide relative w-full h-70
-                ">
-                    <div class="w-full h-full cardHero overflow-hidden">
-                        <img src="assets/03.avif" class="w-full h-full object-cover object-[50%_20%] pointer-events-none" alt="">
-                    </div>
-                    <div class="btn-precio absolute w-25 h-10 bg-neutral-300 z-10 top-3 left-5 cardPrecioHero flex justify-center items-center cursor-pointer">
-                        <p class="font-Russo text-[16px] iconoPrecio">s/ 51.87</p>
-                    </div>
-                    <button class="btn-epico absolute w-15 h-10 bg-stone-950 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer transition-transform duration-300">
-                        <i class="ri-shopping-cart-line text-xl text-white"></i>
-                    </button>
-                    <div class="absolute w-45 h-12 bg-stone-950/50 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1">
-                        <p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">Figura de Albedo</p>
-                        <p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">15x20 cm</p>
-                    </div>
-                </div>
-
-                <!-- SLIDE 2 -->
-                <div class="swiper-slide relative w-full h-70">
-                    <div class="w-full h-full cardHero overflow-hidden">
-                        <img src="assets/05.jpg" class="w-full h-full object-cover object-[50%_20%] pointer-events-none" alt="">
-                    </div>
-                    <div class="btn-precio absolute w-25 h-10 bg-zeroTwo z-10 top-3 left-5 cardPrecioHero flex justify-center items-center cursor-pointer">
-                        <p class="font-Russo text-[16px] iconoPrecio">s/ 225.00</p>
-                    </div>
-                    <button class="btn-epico absolute w-15 h-10 bg-stone-950 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer transition-transform duration-300">
-                        <i class="ri-shopping-cart-line text-xl text-white"></i>
-                    </button>
-                    <div class="absolute w-48 h-12 bg-stone-950/50 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1">
-                        <p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">Figura de Zero Two</p>
-                        <p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">35x50 cm</p>
-                    </div>
-                </div>
-
-                <!-- SLIDE 3 -->
-                <div class="swiper-slide relative w-full h-70">
-                    <div class="w-full h-full cardHero overflow-hidden">
-                        <img src="assets/04.avif" class="w-full h-full object-cover object-[50%_20%] pointer-events-none" alt="">
-                    </div>
-                    <div class="btn-precio absolute w-25 h-10 bg-capibara z-10 top-3 left-5 cardPrecioHero flex justify-center items-center cursor-pointer">
-                        <p class="font-Russo text-[16px] iconoPrecio">s/ 115.00</p>
-                    </div>
-                    <button class="btn-epico absolute w-15 h-10 bg-stone-950 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer transition-transform duration-300">
-                        <i class="ri-shopping-cart-line text-xl text-white"></i>
-                    </button>
-                    <div class="absolute w-47 h-12 bg-stone-950/50 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1">
-                        <p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">Figura de Capibara</p>
-                        <p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">30x25 cm</p>
-                    </div>
-                </div>
-
-                <!-- SLIDE 4 -->
                 <div class="swiper-slide relative w-full h-70">
                     <!-- CAPA 1: BORDE (fondo stone-950, mismo clip-path) -->
                     <div class="absolute inset-0 cardHero bg-stone-950"></div>
@@ -287,22 +235,62 @@
                     </div>
                 </div>
 
-                <!-- SLIDE 5 -->
+                <!-- SLIDE 2 -->
                 <div class="swiper-slide relative w-full h-70">
-                    <div class="w-full h-full cardHero overflow-hidden">
-                        <img src="assets/07.avif" class="w-full h-full object-cover object-[50%_40%] pointer-events-none" alt="">
+                    <!-- CAPA 1: BORDE (fondo stone-950, mismo clip-path) -->
+                    <div class="absolute inset-0 cardHero bg-stone-950"></div>
+                    
+                    <!-- CAPA 2: CONTENIDO (mismo clip-path, ligeramente más pequeño) -->
+                    <div class="absolute cardHeroInner bg-white overflow-hidden inset-0">
+                        <img src="assets/21 DISPENSADOR DE JABÓN/00.webp" class="w-full h-full object-cover object-[50%_40%]
+                        sm:object-[50%_60%]">
                     </div>
-                    <div class="btn-precio absolute w-25 h-10 bg-itachi z-10 top-3 left-5 cardPrecioHero flex justify-center items-center cursor-pointer">
-                        <p class="font-Russo text-[16px] iconoPrecio">s/ 35.00</p>
+
+                    <!-- Overlays (precio, botón, info) -->
+                    <div class="absolute w-25 h-10 bg-stone-950 z-10 top-3 left-5 cardPrecioHero cursor-pointer">
                     </div>
+
+                    <div class="btn-precio absolute w-25 h-10 bg-puro z-10 top-3 left-5 cardPrecioHeroInner flex justify-center items-center cursor-pointer">
+                        <p class="font-Russo text-[16px] iconoPrecio">s/ 109.90</p>
+                    </div>
+
                     <button class="btn-epico absolute w-15 h-10 bg-stone-950 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer transition-transform duration-300">
                         <i class="ri-shopping-cart-line text-xl text-white"></i>
                     </button>
-                    <div class="absolute w-50 h-12 bg-stone-950/50 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1">
-                        <p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">Figura de Itachi Chibi</p>
-                        <p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">15x20 cm</p>
+                    <div class="absolute w-55 h-12 bg-stone-950/50 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1">
+                        <p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">Dispensador de Jabón</p>
+                        <p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">Automático</p>
                     </div>
                 </div>
+
+                <!-- SLIDE 3 -->
+                <div class="swiper-slide relative w-full h-70">
+                    <!-- CAPA 1: BORDE (fondo stone-950, mismo clip-path) -->
+                    <div class="absolute inset-0 cardHero bg-stone-950"></div>
+                    
+                    <!-- CAPA 2: CONTENIDO (mismo clip-path, ligeramente más pequeño) -->
+                    <div class="absolute cardHeroInner bg-white overflow-hidden inset-0">
+                        <img src="assets/03 SOPORTE IMANTADO 360 -SUPREME/01.webp" class="w-full h-full object-cover object-[50%_40%]
+                        sm:object-[50%_50%]">
+                    </div>
+
+                    <!-- Overlays (precio, botón, info) -->
+                    <div class="absolute w-25 h-10 bg-stone-950 z-10 top-3 left-5 cardPrecioHero cursor-pointer">
+                    </div>
+
+                    <div class="btn-precio absolute w-25 h-10 bg-puro z-10 top-3 left-5 cardPrecioHeroInner flex justify-center items-center cursor-pointer">
+                        <p class="font-Russo text-[16px] iconoPrecio">s/ 29.90</p>
+                    </div>
+
+                    <button class="btn-epico absolute w-15 h-10 bg-stone-950 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer transition-transform duration-300">
+                        <i class="ri-shopping-cart-line text-xl text-white"></i>
+                    </button>
+                    <div class="absolute w-55 h-12 bg-stone-950/50 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1">
+                        <p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">Soporte Imantado</p>
+                        <p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">360° Supreme</p>
+                    </div>
+                </div>
+
 
             </div>
 
@@ -321,23 +309,32 @@
         <!-- === CARDS === -->
         <article class="w-[172px] h-[254px] bg-white relative
         sm:w-[234px] sm:h-[381px]">
-            <div class="w-[172px] h-52.5 bg-blue-400 cardProducto
+
+            <div class="absolute inset-0 bg-stone-950 cardProducto"></div>
+
+            <div class="w-[172px] h-52.5 bg-white cardProductoInner absolute inset-0 overflow-hidden
             sm:w-[234px] sm:h-[381px]">
-                <img src="assets/04.avif" alt="" class="w-full h-full object-cover">
+                <img src="assets/06.jpg" alt="" class="w-full h-full object-cover">
             </div>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-capibara rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio
+
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-puro border rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio
             sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                 <p class="font-Russo text-xs pt-0.25
                 sm:text-base">
                     s/ 115.00
                 </p>
             </div>
+
             <button class="size-7 bg-stone-950 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico
             sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]">
                 <i class="ri-shopping-cart-2-line text-white text-[13px] pb-px pl-px
                 sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-capibara cardInfo flex flex-col justify-center
+
+            <div class="absolute bg-stone-950 bottom-0 cardInfo w-[172px] h-10
+            sm:w-[234px] sm:h-15"></div>
+
+            <div class="w-[172px] h-10 absolute bottom-0 bg-puro cardInfoInner flex flex-col justify-center
             sm:w-[234px] sm:h-15">
                 <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default
                 sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">
@@ -348,113 +345,144 @@
                     30x25cm
                 </p>
             </div>
+            
             <button class="absolute bg-white right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio
             sm:w-11.25 sm:h-[13.5px] sm:right-1.5 sm:bottom-3.75">
                 <div class="size-1.5 bg-capibara rounded-4xl
                 sm:size-2.25"></div>
                 <div class="size-1.5 bg-red-900 rounded-4xl
                 sm:size-2.25"></div>
-                <div class="size-1.5 bg-white border-[0.25px] border-stone-950/20 rounded-4xl
+                <div class="size-1.5 bg-white border border-stone-950/20 rounded-4xl
                 sm:size-2.25"></div>
             </button>
         </article>
+
         <article class="w-[172px] h-[254px] bg-white relative
         sm:w-[234px] sm:h-[381px]">
-            <div class="w-[172px] h-52.5 bg-blue-400 cardProducto
+
+            <div class="absolute inset-0 bg-stone-950 cardProducto"></div>
+
+            <div class="w-[172px] h-52.5 bg-white cardProductoInner absolute inset-0 overflow-hidden
             sm:w-[234px] sm:h-[381px]">
-                <img src="assets/04.avif" alt="" class="w-full h-full object-cover">
+                <img src="assets/01 SOPORTE IMANTADO/01.webp" alt="" class="w-full h-full object-cover">
             </div>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-capibara rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio
+
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-puro border rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio
             sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                 <p class="font-Russo text-xs pt-0.25
                 sm:text-base">
-                    s/ 115.00
+                    s/ 20.90
                 </p>
             </div>
+
             <button class="size-7 bg-stone-950 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico
             sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]">
                 <i class="ri-shopping-cart-2-line text-white text-[13px] pb-px pl-px
                 sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-capibara cardInfo flex flex-col justify-center
+
+            <div class="absolute bg-stone-950 bottom-0 cardInfo w-[172px] h-10
+            sm:w-[234px] sm:h-15"></div>
+
+            <div class="w-[172px] h-10 absolute bottom-0 bg-puro cardInfoInner flex flex-col justify-center
             sm:w-[234px] sm:h-15">
                 <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default
                 sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">
-                    Figura de Capibara
+                    Soporte Imantado
                 </p>
                 <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default
                 sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">
-                    30x25cm
+                    Clásico
                 </p>
             </div>
+            
             <button class="absolute bg-white right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio
             sm:w-11.25 sm:h-[13.5px] sm:right-1.5 sm:bottom-3.75">
-                <div class="size-1.5 bg-capibara rounded-4xl
+                <div class="size-1.5 bg-stone-950 rounded-4xl
                 sm:size-2.25"></div>
-                <div class="size-1.5 bg-red-900 rounded-4xl
+                <div class="size-1.5 bg-rose-200 rounded-4xl
                 sm:size-2.25"></div>
                 <div class="size-1.5 bg-white border-[0.25px] border-stone-950/20 rounded-4xl
                 sm:size-2.25"></div>
             </button>
         </article>
+        
         <article class="w-[172px] h-[254px] bg-white relative
         sm:w-[234px] sm:h-[381px]">
-            <div class="w-[172px] h-52.5 bg-blue-400 cardProducto
+
+            <div class="absolute inset-0 bg-stone-950 cardProducto"></div>
+
+            <div class="w-[172px] h-52.5 bg-white cardProductoInner absolute inset-0 overflow-hidden
             sm:w-[234px] sm:h-[381px]">
-                <img src="assets/04.avif" alt="" class="w-full h-full object-cover">
+                <img src="assets/02 SOPORTE IMANTADO 360/01.webp" alt="" class="w-full h-full object-cover">
             </div>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-capibara rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio
+
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-puro border rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio
             sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                 <p class="font-Russo text-xs pt-0.25
                 sm:text-base">
-                    s/ 115.00
+                    s/ 24.90
                 </p>
             </div>
+
             <button class="size-7 bg-stone-950 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico
             sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]">
                 <i class="ri-shopping-cart-2-line text-white text-[13px] pb-px pl-px
                 sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-capibara cardInfo flex flex-col justify-center
+
+            <div class="absolute bg-stone-950 bottom-0 cardInfo w-[172px] h-10
+            sm:w-[234px] sm:h-15"></div>
+
+            <div class="w-[172px] h-10 absolute bottom-0 bg-puro cardInfoInner flex flex-col justify-center
             sm:w-[234px] sm:h-15">
                 <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default
                 sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">
-                    Figura de Capibara
+                    Soporte Imantado
                 </p>
                 <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default
                 sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">
-                    30x25cm
+                    X68
                 </p>
             </div>
+            
             <button class="absolute bg-white right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio
             sm:w-11.25 sm:h-[13.5px] sm:right-1.5 sm:bottom-3.75">
-                <div class="size-1.5 bg-capibara rounded-4xl
-                sm:size-2.25"></div>
-                <div class="size-1.5 bg-red-900 rounded-4xl
+                <div class="size-1.5 bg-stone-950 rounded-4xl
                 sm:size-2.25"></div>
                 <div class="size-1.5 bg-white border-[0.25px] border-stone-950/20 rounded-4xl
                 sm:size-2.25"></div>
             </button>
         </article>
+
         <article class="w-[172px] h-[254px] bg-white relative
         sm:w-[234px] sm:h-[381px]">
-            <div class="w-[172px] h-52.5 bg-blue-400 cardProducto
+
+            <div class="absolute inset-0 bg-stone-950 cardProducto"></div>
+
+            <div class="w-[172px] h-52.5 bg-white cardProductoInner absolute inset-0 overflow-hidden
             sm:w-[234px] sm:h-[381px]">
-                <img src="assets/04.avif" alt="" class="w-full h-full object-cover">
+                <img src="assets/06.jpg" alt="" class="w-full h-full object-contain">
             </div>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-capibara rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio
+
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-puro border rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio
             sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                 <p class="font-Russo text-xs pt-0.25
                 sm:text-base">
                     s/ 115.00
                 </p>
             </div>
+
             <button class="size-7 bg-stone-950 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico
             sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]">
                 <i class="ri-shopping-cart-2-line text-white text-[13px] pb-px pl-px
                 sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-capibara cardInfo flex flex-col justify-center
+
+            <div class="absolute bg-stone-950 bottom-0 cardInfo w-[172px] h-10
+            sm:w-[234px] sm:h-15"></div>
+
+            <div class="w-[172px] h-10 absolute bottom-0 bg-puro cardInfoInner flex flex-col justify-center
             sm:w-[234px] sm:h-15">
                 <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default
                 sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">
@@ -465,94 +493,116 @@
                     30x25cm
                 </p>
             </div>
+            
             <button class="absolute bg-white right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio
             sm:w-11.25 sm:h-[13.5px] sm:right-1.5 sm:bottom-3.75">
                 <div class="size-1.5 bg-capibara rounded-4xl
                 sm:size-2.25"></div>
                 <div class="size-1.5 bg-red-900 rounded-4xl
                 sm:size-2.25"></div>
-                <div class="size-1.5 bg-white border-[0.25px] border-stone-950/20 rounded-4xl
+                <div class="size-1.5 bg-white border border-stone-950/20 rounded-4xl
                 sm:size-2.25"></div>
             </button>
         </article>
+
         <article class="w-[172px] h-[254px] bg-white relative
         sm:w-[234px] sm:h-[381px]">
-            <div class="w-[172px] h-52.5 bg-blue-400 cardProducto
+
+            <div class="absolute inset-0 bg-stone-950 cardProducto"></div>
+
+            <div class="w-[172px] h-52.5 bg-white cardProductoInner absolute inset-0 overflow-hidden
             sm:w-[234px] sm:h-[381px]">
-                <img src="assets/04.avif" alt="" class="w-full h-full object-cover">
+                <img src="assets/01 SOPORTE IMANTADO/01.webp" alt="" class="w-full h-full object-contain">
             </div>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-capibara rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio
+
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-puro border rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio
             sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                 <p class="font-Russo text-xs pt-0.25
                 sm:text-base">
-                    s/ 115.00
+                    s/ 20.90
                 </p>
             </div>
+
             <button class="size-7 bg-stone-950 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico
             sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]">
                 <i class="ri-shopping-cart-2-line text-white text-[13px] pb-px pl-px
                 sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-capibara cardInfo flex flex-col justify-center
+
+            <div class="absolute bg-stone-950 bottom-0 cardInfo w-[172px] h-10
+            sm:w-[234px] sm:h-15"></div>
+
+            <div class="w-[172px] h-10 absolute bottom-0 bg-puro cardInfoInner flex flex-col justify-center
             sm:w-[234px] sm:h-15">
                 <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default
                 sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">
-                    Figura de Capibara
+                    Soporte Imantado
                 </p>
                 <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default
                 sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">
-                    30x25cm
+                    Clásico
                 </p>
             </div>
+            
             <button class="absolute bg-white right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio
             sm:w-11.25 sm:h-[13.5px] sm:right-1.5 sm:bottom-3.75">
-                <div class="size-1.5 bg-capibara rounded-4xl
+                <div class="size-1.5 bg-stone-950 rounded-4xl
                 sm:size-2.25"></div>
-                <div class="size-1.5 bg-red-900 rounded-4xl
+                <div class="size-1.5 bg-rose-200 rounded-4xl
                 sm:size-2.25"></div>
                 <div class="size-1.5 bg-white border-[0.25px] border-stone-950/20 rounded-4xl
                 sm:size-2.25"></div>
             </button>
         </article>
+        
         <article class="w-[172px] h-[254px] bg-white relative
         sm:w-[234px] sm:h-[381px]">
-            <div class="w-[172px] h-52.5 bg-blue-400 cardProducto
+
+            <div class="absolute inset-0 bg-stone-950 cardProducto"></div>
+
+            <div class="w-[172px] h-52.5 bg-white cardProductoInner absolute inset-0 overflow-hidden
             sm:w-[234px] sm:h-[381px]">
-                <img src="assets/04.avif" alt="" class="w-full h-full object-cover">
+                <img src="assets/02 SOPORTE IMANTADO 360/01.webp" alt="" class="w-full h-full object-contain">
             </div>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-capibara rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio
+
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-puro border rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio
             sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                 <p class="font-Russo text-xs pt-0.25
                 sm:text-base">
-                    s/ 115.00
+                    s/ 24.90
                 </p>
             </div>
+
             <button class="size-7 bg-stone-950 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico
             sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]">
                 <i class="ri-shopping-cart-2-line text-white text-[13px] pb-px pl-px
                 sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-capibara cardInfo flex flex-col justify-center
+
+            <div class="absolute bg-stone-950 bottom-0 cardInfo w-[172px] h-10
+            sm:w-[234px] sm:h-15"></div>
+
+            <div class="w-[172px] h-10 absolute bottom-0 bg-puro cardInfoInner flex flex-col justify-center
             sm:w-[234px] sm:h-15">
                 <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default
                 sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">
-                    Figura de Capibara
+                    Soporte Imantado
                 </p>
                 <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default
                 sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">
-                    30x25cm
+                    X68
                 </p>
             </div>
+            
             <button class="absolute bg-white right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio
             sm:w-11.25 sm:h-[13.5px] sm:right-1.5 sm:bottom-3.75">
-                <div class="size-1.5 bg-capibara rounded-4xl
-                sm:size-2.25"></div>
-                <div class="size-1.5 bg-red-900 rounded-4xl
+                <div class="size-1.5 bg-stone-950 rounded-4xl
                 sm:size-2.25"></div>
                 <div class="size-1.5 bg-white border-[0.25px] border-stone-950/20 rounded-4xl
                 sm:size-2.25"></div>
             </button>
         </article>
+        
         
 
 

@@ -10,7 +10,7 @@
       "Courier New", monospace;
     --color-red-900: oklch(39.6% 0.141 25.723);
     --color-blue-400: oklch(70.7% 0.165 254.624);
-    --color-neutral-300: oklch(87% 0 none);
+    --color-rose-200: oklch(89.2% 0.058 10.001);
     --color-stone-200: oklch(92.3% 0.003 48.717);
     --color-stone-600: oklch(44.4% 0.011 73.639);
     --color-stone-950: oklch(14.7% 0.004 49.25);
@@ -42,10 +42,8 @@
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
     --color-temu: #FB7701;
-    --color-zeroTwo: #FEBED7;
     --color-capibara: #BEB9AB;
     --color-puro: #F1F1F1;
-    --color-itachi: #EAD2BA;
     --font-Inter: "Inter", sans-serif;
     --font-Russo: "Russo One", sans-serif;
     --font-MontAlternates: "Montserrat Alternates", sans-serif;
@@ -451,18 +449,6 @@
   .w-34 {
     width: calc(var(--spacing) * 34);
   }
-  .w-45 {
-    width: calc(var(--spacing) * 45);
-  }
-  .w-47 {
-    width: calc(var(--spacing) * 47);
-  }
-  .w-48 {
-    width: calc(var(--spacing) * 48);
-  }
-  .w-50 {
-    width: calc(var(--spacing) * 50);
-  }
   .w-55 {
     width: calc(var(--spacing) * 55);
   }
@@ -628,6 +614,14 @@
     border-style: var(--tw-border-style);
     border-width: 1px;
   }
+  .border-1 {
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+  }
+  .border-\[0\.5px\] {
+    border-style: var(--tw-border-style);
+    border-width: 0.5px;
+  }
   .border-\[0\.25px\] {
     border-style: var(--tw-border-style);
     border-width: 0.25px;
@@ -652,6 +646,18 @@
       border-color: color-mix(in oklab, var(--color-stone-950) 20%, transparent);
     }
   }
+  .border-stone-950\/30 {
+    border-color: color-mix(in srgb, oklch(14.7% 0.004 49.25) 30%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-stone-950) 30%, transparent);
+    }
+  }
+  .border-stone-950\/50 {
+    border-color: color-mix(in srgb, oklch(14.7% 0.004 49.25) 50%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-stone-950) 50%, transparent);
+    }
+  }
   .border-temu {
     border-color: var(--color-temu);
   }
@@ -664,17 +670,14 @@
   .bg-capibara {
     background-color: var(--color-capibara);
   }
-  .bg-itachi {
-    background-color: var(--color-itachi);
-  }
-  .bg-neutral-300 {
-    background-color: var(--color-neutral-300);
-  }
   .bg-puro {
     background-color: var(--color-puro);
   }
   .bg-red-900 {
     background-color: var(--color-red-900);
+  }
+  .bg-rose-200 {
+    background-color: var(--color-rose-200);
   }
   .bg-stone-950 {
     background-color: var(--color-stone-950);
@@ -706,17 +709,17 @@
       background-color: color-mix(in oklab, var(--color-white) 70%, transparent);
     }
   }
-  .bg-zeroTwo {
-    background-color: var(--color-zeroTwo);
+  .object-contain {
+    object-fit: contain;
   }
   .object-cover {
     object-fit: cover;
   }
-  .object-\[50\%_20\%\] {
-    object-position: 50% 20%;
-  }
   .object-\[50\%_40\%\] {
     object-position: 50% 40%;
+  }
+  .object-center {
+    object-position: center;
   }
   .px-1 {
     padding-inline: var(--spacing);
@@ -936,9 +939,6 @@
     .sm\:mt-0\.5 {
       margin-top: calc(var(--spacing) * 0.5);
     }
-    .sm\:mt-1 {
-      margin-top: var(--spacing);
-    }
     .sm\:size-2\.25 {
       width: calc(var(--spacing) * 2.25);
       height: calc(var(--spacing) * 2.25);
@@ -977,9 +977,6 @@
     .sm\:w-\[726px\] {
       width: 726px;
     }
-    .sm\:gap-0 {
-      gap: 0px;
-    }
     .sm\:gap-x-3 {
       column-gap: calc(var(--spacing) * 3);
     }
@@ -989,23 +986,17 @@
     .sm\:rounded-br-\[18px\] {
       border-bottom-right-radius: 18px;
     }
+    .sm\:object-\[50\%_50\%\] {
+      object-position: 50% 50%;
+    }
+    .sm\:object-\[50\%_60\%\] {
+      object-position: 50% 60%;
+    }
     .sm\:pt-0\.25 {
       padding-top: calc(var(--spacing) * 0.25);
     }
     .sm\:pb-\[1\.5px\] {
       padding-bottom: 1.5px;
-    }
-    .sm\:pb-\[2px\] {
-      padding-bottom: 2px;
-    }
-    .sm\:pl-0 {
-      padding-left: 0px;
-    }
-    .sm\:pl-0\.5 {
-      padding-left: calc(var(--spacing) * 0.5);
-    }
-    .sm\:pl-1 {
-      padding-left: var(--spacing);
     }
     .sm\:pl-4\.5 {
       padding-left: calc(var(--spacing) * 4.5);
@@ -1013,30 +1004,12 @@
     .sm\:pl-\[0\.5px\] {
       padding-left: 0.5px;
     }
-    .sm\:pl-\[1\.5px\] {
-      padding-left: 1.5px;
-    }
-    .sm\:pl-\[2px\] {
-      padding-left: 2px;
-    }
     .sm\:text-base {
       font-size: var(--text-base);
       line-height: var(--tw-leading, var(--text-base--line-height));
     }
-    .sm\:text-lg {
-      font-size: var(--text-lg);
-      line-height: var(--tw-leading, var(--text-lg--line-height));
-    }
-    .sm\:text-xl {
-      font-size: var(--text-xl);
-      line-height: var(--tw-leading, var(--text-xl--line-height));
-    }
     .sm\:text-\[19\.5px\] {
       font-size: 19.5px;
-    }
-    .sm\:leading-0 {
-      --tw-leading: 0px;
-      line-height: 0px;
     }
     .sm\:leading-none {
       --tw-leading: 1;
@@ -1183,15 +1156,27 @@
 .cardProducto {
   clip-path: path("M 10,30 L 70,30 A 15,15 0,0,0 85,15 A 15,15 0,0,1 100,0 L 162,0 A 10,10 0,0,1 172,10 L 172,204 A 19,19 0,0,0 137,210 L 10,210 A 10,10 0,0,1 0,200 L 0,40 A 10,10 0,0,1 10,30 Z");
 }
+.cardProductoInner {
+  clip-path: path("M 11,30.5 L 71,30.5 A 15,15 0,0,0 85.5,16 A 15,15 0,0,1 101,0.5 L 161,0.5 A 10,10 0,0,1 171,10 L 171,202.5 A 19,19 0,0,0 136.5,209.5 L 10.5,209.5 A 9,9 0,0,1 1,199 L 1,39 A 9,9 0,0,1 11,30.5 Z");
+}
 .cardInfo {
   clip-path: path("M 10,0 L 137,0 A 19,19 0,0,0 172,6 L 172,30 A 10,10 0,0,1 162,40 L 10,40 A 10,10 0,0,1 0,30 L 0,10 A 10,10 0,0,1 10,0 Z");
+}
+.cardInfoInner {
+  clip-path: path("M 11,0.5 L 136.5,0.5 A 19,19 0,0,0 171,7.5 L 171,30 A 9,9 0,0,1 161.5,39.5 L 10.5,39.5 A 9,9 0,0,1 1,30 L 1,10 A 9,9 0,0,1 11,0.5 Z");
 }
 @media (min-width: 640px) {
   .cardProducto {
     clip-path: path("M 15,45 L 105,45 A 22.5,22.5 0,0,0 127.5,22.5 A 22.5,22.5 0,0,1 150,0 L 219,0 A 15,15 0,0,1 234,15 L 234,306 A 28.5,28.5 0,0,0 181.5,315 L 15,315 A 15,15 0,0,1 0,300 L 0,60 A 15,15 0,0,1 15,45 Z");
   }
+  .cardProductoInner {
+    clip-path: path("M 16,45.5 L 106,45.5 A 22.5,22.5 0,0,0 128,23.5 A 22.5,22.5 0,0,1 151,0.5 L 218,0.5 A 15,15 0,0,1 233,15 L 233,304.5 A 28.5,28.5 0,0,0 181,314.5 L 15.5,314.5 A 15,15 0,0,1 1,300 L 1,60 A 14.5,14.5 0,0,1 16,45.5 Z");
+  }
   .cardInfo {
     clip-path: path("M 15,0 L 181.5,0 A 28.5,28.5 0,0,0 234,9 L 234,45 A 15,15 0,0,1 219,60 L 15,60 A 15,15 0,0,1 0,45 L 0,15 A 15,15 0,0,1 15,0 Z");
+  }
+  .cardInfoInner {
+    clip-path: path("M 16,0.5 L 181,0.5 A 28.5,28.5 0,0,0 233,10.5 L 233,45 A 15,15 0,0,1 218,59.5 L 15.5,59.5 A 15,15 0,0,1 1,45 L 1,15 A 14.5,14.5 0,0,1 16,0.5 Z");
   }
 }
 .btn-epico {
