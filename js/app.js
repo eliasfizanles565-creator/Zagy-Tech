@@ -424,7 +424,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function getLimitByScreen() {
         const width = window.innerWidth;
         if (width >= 1280) return 15; // PC
-        if (width >= 1024) return 8;  // Laptop
+        if (width >= 1024) return 12;  // Laptop
         if (width >= 640)  return 9;  // Tablet
         return 8;                     // Celular
     }
@@ -449,7 +449,7 @@ document.addEventListener("DOMContentLoaded", () => {
             btnVerMas.style.display = "none";
         } else {
             btnVerMas.style.display = "block";
-            btnVerMas.textContent = showingAll ? "Ver menos" : "Ver más productos";
+            btnVerMas.textContent = showingAll ? "Ver menos" : "Ver más";
         }
     }
 
