@@ -21,7 +21,8 @@
 
     <!--  ======================================================= -->
     <!-- ✅ BARRA INFERIOR (móvil) -->
-    <div class="fixed bottom-2 left-1/2 -translate-x-1/2 z-40 w-90">
+    <div class="fixed bottom-2 left-1/2 -translate-x-1/2 z-40 w-90
+    lg:hidden">
         <div class="cardInicio2 h-15.5 w-full bg-white rounded-full absolute -top-0.5 left-0"></div>
         <div class="cardInicio h-15 w-full bg-stone-950 rounded-full relative flex items-center justify-center gap-x-6.5">
             <i class="ri-user-line text-2xl text-white flex flex-col items-center gap-0 leading-none pb-1.25 textUsuario cursor-pointer">
@@ -46,7 +47,7 @@
 
     <!--  ======================================================= -->
     <!-- ESFERAS (móvil) -->
-    <section>
+    <section class="lg:hidden">
         <div id="btnUsuario" class="fixed bottom-6.25 left-1/2 -translate-x-[calc(50%+120px)] z-50 size-12 rounded-4xl bg-temu flex items-center justify-center hidden">
             <i class="ri-user-line text-3xl text-white"></i>
         </div>
@@ -318,222 +319,241 @@
     <section class="w-[350px] h-full mx-auto relative lg:max-w-7xl flex justify-start gap-x-1.5 gap-y-3 flex-wrap 
     sm:gap-x-3 sm:w-[726px]">
         <!-- === CARDS === -->
-        <article class="w-[172px] h-[254px] bg-white relative">
-            <div class="w-[172px] h-52.5 bg-blue-400 cardProducto">
+        <article class="w-[172px] h-[254px] bg-white relative
+        sm:w-[234px] sm:h-[381px]">
+            <div class="w-[172px] h-52.5 bg-blue-400 cardProducto
+            sm:w-[234px] sm:h-[381px]">
                 <img src="assets/04.avif" alt="" class="w-full h-full object-cover">
             </div>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-capibara rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio">
-                <p class="font-Russo text-xs pt-0.25">s/ 115.00</p>
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-capibara rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio
+            sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+                <p class="font-Russo text-xs pt-0.25
+                sm:text-base">
+                    s/ 115.00
+                </p>
             </div>
-            <button class="size-7 bg-stone-950 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico">
-                <i class="ri-shopping-cart-2-line text-white text-[13px] pb-px pl-px"></i>
+            <button class="size-7 bg-stone-950 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico
+            sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]">
+                <i class="ri-shopping-cart-2-line text-white text-[13px] pb-px pl-px
+                sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-capibara cardInfo flex flex-col justify-center">
-                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default">
+            <div class="w-[172px] h-10 absolute bottom-0 bg-capibara cardInfo flex flex-col justify-center
+            sm:w-[234px] sm:h-15">
+                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default
+                sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">
                     Figura de Capibara
                 </p>
-                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default">
+                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default
+                sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">
                     30x25cm
                 </p>
             </div>
-            <button class="absolute bg-white right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio">
-                <div class="size-1.5 bg-capibara rounded-4xl"></div>
-                <div class="size-1.5 bg-red-900 rounded-4xl"></div>
-                <div class="size-1.5 bg-white border-[0.25px] border-stone-950/20 rounded-4xl"></div>
+            <button class="absolute bg-white right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio
+            sm:w-11.25 sm:h-[13.5px] sm:right-1.5 sm:bottom-3.75">
+                <div class="size-1.5 bg-capibara rounded-4xl
+                sm:size-2.25"></div>
+                <div class="size-1.5 bg-red-900 rounded-4xl
+                sm:size-2.25"></div>
+                <div class="size-1.5 bg-white border-[0.25px] border-stone-950/20 rounded-4xl
+                sm:size-2.25"></div>
             </button>
         </article>
-        <article class="w-[172px] h-[254px] bg-white relative">
-            <div class="w-[172px] h-52.5 bg-blue-400 cardProducto">
+        <article class="w-[172px] h-[254px] bg-white relative
+        sm:w-[234px] sm:h-[381px]">
+            <div class="w-[172px] h-52.5 bg-blue-400 cardProducto
+            sm:w-[234px] sm:h-[381px]">
                 <img src="assets/04.avif" alt="" class="w-full h-full object-cover">
             </div>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-capibara rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio">
-                <p class="font-Russo text-xs pt-0.25">s/ 115.00</p>
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-capibara rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio
+            sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+                <p class="font-Russo text-xs pt-0.25
+                sm:text-base">
+                    s/ 115.00
+                </p>
             </div>
-            <button class="size-7 bg-stone-950 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico">
-                <i class="ri-shopping-cart-2-line text-white text-[13px] pb-px pl-px"></i>
+            <button class="size-7 bg-stone-950 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico
+            sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]">
+                <i class="ri-shopping-cart-2-line text-white text-[13px] pb-px pl-px
+                sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-capibara cardInfo flex flex-col justify-center">
-                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default">
+            <div class="w-[172px] h-10 absolute bottom-0 bg-capibara cardInfo flex flex-col justify-center
+            sm:w-[234px] sm:h-15">
+                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default
+                sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">
                     Figura de Capibara
                 </p>
-                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default">
+                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default
+                sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">
                     30x25cm
                 </p>
             </div>
-            <button class="absolute bg-white right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio">
-                <div class="size-1.5 bg-capibara rounded-4xl"></div>
-                <div class="size-1.5 bg-red-900 rounded-4xl"></div>
-                <div class="size-1.5 bg-white border-[0.25px] border-stone-950/20 rounded-4xl"></div>
+            <button class="absolute bg-white right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio
+            sm:w-11.25 sm:h-[13.5px] sm:right-1.5 sm:bottom-3.75">
+                <div class="size-1.5 bg-capibara rounded-4xl
+                sm:size-2.25"></div>
+                <div class="size-1.5 bg-red-900 rounded-4xl
+                sm:size-2.25"></div>
+                <div class="size-1.5 bg-white border-[0.25px] border-stone-950/20 rounded-4xl
+                sm:size-2.25"></div>
             </button>
         </article>
-        <article class="w-[172px] h-[254px] bg-white relative">
-            <div class="w-[172px] h-52.5 bg-blue-400 cardProducto">
+        <article class="w-[172px] h-[254px] bg-white relative
+        sm:w-[234px] sm:h-[381px]">
+            <div class="w-[172px] h-52.5 bg-blue-400 cardProducto
+            sm:w-[234px] sm:h-[381px]">
                 <img src="assets/04.avif" alt="" class="w-full h-full object-cover">
             </div>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-capibara rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio">
-                <p class="font-Russo text-xs pt-0.25">s/ 115.00</p>
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-capibara rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio
+            sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+                <p class="font-Russo text-xs pt-0.25
+                sm:text-base">
+                    s/ 115.00
+                </p>
             </div>
-            <button class="size-7 bg-stone-950 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico">
-                <i class="ri-shopping-cart-2-line text-white text-[13px] pb-px pl-px"></i>
+            <button class="size-7 bg-stone-950 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico
+            sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]">
+                <i class="ri-shopping-cart-2-line text-white text-[13px] pb-px pl-px
+                sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-capibara cardInfo flex flex-col justify-center">
-                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default">
+            <div class="w-[172px] h-10 absolute bottom-0 bg-capibara cardInfo flex flex-col justify-center
+            sm:w-[234px] sm:h-15">
+                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default
+                sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">
                     Figura de Capibara
                 </p>
-                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default">
+                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default
+                sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">
                     30x25cm
                 </p>
             </div>
-            <button class="absolute bg-white right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio">
-                <div class="size-1.5 bg-capibara rounded-4xl"></div>
-                <div class="size-1.5 bg-red-900 rounded-4xl"></div>
-                <div class="size-1.5 bg-white border-[0.25px] border-stone-950/20 rounded-4xl"></div>
+            <button class="absolute bg-white right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio
+            sm:w-11.25 sm:h-[13.5px] sm:right-1.5 sm:bottom-3.75">
+                <div class="size-1.5 bg-capibara rounded-4xl
+                sm:size-2.25"></div>
+                <div class="size-1.5 bg-red-900 rounded-4xl
+                sm:size-2.25"></div>
+                <div class="size-1.5 bg-white border-[0.25px] border-stone-950/20 rounded-4xl
+                sm:size-2.25"></div>
             </button>
         </article>
-        <article class="w-[172px] h-[254px] bg-white relative">
-            <div class="w-[172px] h-52.5 bg-blue-400 cardProducto">
+        <article class="w-[172px] h-[254px] bg-white relative
+        sm:w-[234px] sm:h-[381px]">
+            <div class="w-[172px] h-52.5 bg-blue-400 cardProducto
+            sm:w-[234px] sm:h-[381px]">
                 <img src="assets/04.avif" alt="" class="w-full h-full object-cover">
             </div>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-capibara rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio">
-                <p class="font-Russo text-xs pt-0.25">s/ 115.00</p>
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-capibara rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio
+            sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+                <p class="font-Russo text-xs pt-0.25
+                sm:text-base">
+                    s/ 115.00
+                </p>
             </div>
-            <button class="size-7 bg-stone-950 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico">
-                <i class="ri-shopping-cart-2-line text-white text-[13px] pb-px pl-px"></i>
+            <button class="size-7 bg-stone-950 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico
+            sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]">
+                <i class="ri-shopping-cart-2-line text-white text-[13px] pb-px pl-px
+                sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-capibara cardInfo flex flex-col justify-center">
-                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default">
+            <div class="w-[172px] h-10 absolute bottom-0 bg-capibara cardInfo flex flex-col justify-center
+            sm:w-[234px] sm:h-15">
+                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default
+                sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">
                     Figura de Capibara
                 </p>
-                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default">
+                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default
+                sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">
                     30x25cm
                 </p>
             </div>
-            <button class="absolute bg-white right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio">
-                <div class="size-1.5 bg-capibara rounded-4xl"></div>
-                <div class="size-1.5 bg-red-900 rounded-4xl"></div>
-                <div class="size-1.5 bg-white border-[0.25px] border-stone-950/20 rounded-4xl"></div>
+            <button class="absolute bg-white right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio
+            sm:w-11.25 sm:h-[13.5px] sm:right-1.5 sm:bottom-3.75">
+                <div class="size-1.5 bg-capibara rounded-4xl
+                sm:size-2.25"></div>
+                <div class="size-1.5 bg-red-900 rounded-4xl
+                sm:size-2.25"></div>
+                <div class="size-1.5 bg-white border-[0.25px] border-stone-950/20 rounded-4xl
+                sm:size-2.25"></div>
             </button>
         </article>
-        <article class="w-[172px] h-[254px] bg-white relative">
-            <div class="w-[172px] h-52.5 bg-blue-400 cardProducto">
+        <article class="w-[172px] h-[254px] bg-white relative
+        sm:w-[234px] sm:h-[381px]">
+            <div class="w-[172px] h-52.5 bg-blue-400 cardProducto
+            sm:w-[234px] sm:h-[381px]">
                 <img src="assets/04.avif" alt="" class="w-full h-full object-cover">
             </div>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-capibara rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio">
-                <p class="font-Russo text-xs pt-0.25">s/ 115.00</p>
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-capibara rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio
+            sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+                <p class="font-Russo text-xs pt-0.25
+                sm:text-base">
+                    s/ 115.00
+                </p>
             </div>
-            <button class="size-7 bg-stone-950 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico">
-                <i class="ri-shopping-cart-2-line text-white text-[13px] pb-px pl-px"></i>
+            <button class="size-7 bg-stone-950 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico
+            sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]">
+                <i class="ri-shopping-cart-2-line text-white text-[13px] pb-px pl-px
+                sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-capibara cardInfo flex flex-col justify-center">
-                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default">
+            <div class="w-[172px] h-10 absolute bottom-0 bg-capibara cardInfo flex flex-col justify-center
+            sm:w-[234px] sm:h-15">
+                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default
+                sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">
                     Figura de Capibara
                 </p>
-                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default">
+                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default
+                sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">
                     30x25cm
                 </p>
             </div>
-            <button class="absolute bg-white right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio">
-                <div class="size-1.5 bg-capibara rounded-4xl"></div>
-                <div class="size-1.5 bg-red-900 rounded-4xl"></div>
-                <div class="size-1.5 bg-white border-[0.25px] border-stone-950/20 rounded-4xl"></div>
+            <button class="absolute bg-white right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio
+            sm:w-11.25 sm:h-[13.5px] sm:right-1.5 sm:bottom-3.75">
+                <div class="size-1.5 bg-capibara rounded-4xl
+                sm:size-2.25"></div>
+                <div class="size-1.5 bg-red-900 rounded-4xl
+                sm:size-2.25"></div>
+                <div class="size-1.5 bg-white border-[0.25px] border-stone-950/20 rounded-4xl
+                sm:size-2.25"></div>
             </button>
         </article>
-        <article class="w-[172px] h-[254px] bg-white relative">
-            <div class="w-[172px] h-52.5 bg-blue-400 cardProducto">
+        <article class="w-[172px] h-[254px] bg-white relative
+        sm:w-[234px] sm:h-[381px]">
+            <div class="w-[172px] h-52.5 bg-blue-400 cardProducto
+            sm:w-[234px] sm:h-[381px]">
                 <img src="assets/04.avif" alt="" class="w-full h-full object-cover">
             </div>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-capibara rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio">
-                <p class="font-Russo text-xs pt-0.25">s/ 115.00</p>
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-capibara rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio
+            sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+                <p class="font-Russo text-xs pt-0.25
+                sm:text-base">
+                    s/ 115.00
+                </p>
             </div>
-            <button class="size-7 bg-stone-950 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico">
-                <i class="ri-shopping-cart-2-line text-white text-[13px] pb-px pl-px"></i>
+            <button class="size-7 bg-stone-950 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico
+            sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]">
+                <i class="ri-shopping-cart-2-line text-white text-[13px] pb-px pl-px
+                sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-capibara cardInfo flex flex-col justify-center">
-                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default">
+            <div class="w-[172px] h-10 absolute bottom-0 bg-capibara cardInfo flex flex-col justify-center
+            sm:w-[234px] sm:h-15">
+                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default
+                sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">
                     Figura de Capibara
                 </p>
-                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default">
+                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default
+                sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">
                     30x25cm
                 </p>
             </div>
-            <button class="absolute bg-white right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio">
-                <div class="size-1.5 bg-capibara rounded-4xl"></div>
-                <div class="size-1.5 bg-red-900 rounded-4xl"></div>
-                <div class="size-1.5 bg-white border-[0.25px] border-stone-950/20 rounded-4xl"></div>
+            <button class="absolute bg-white right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio
+            sm:w-11.25 sm:h-[13.5px] sm:right-1.5 sm:bottom-3.75">
+                <div class="size-1.5 bg-capibara rounded-4xl
+                sm:size-2.25"></div>
+                <div class="size-1.5 bg-red-900 rounded-4xl
+                sm:size-2.25"></div>
+                <div class="size-1.5 bg-white border-[0.25px] border-stone-950/20 rounded-4xl
+                sm:size-2.25"></div>
             </button>
         </article>
-        <article class="w-[172px] h-[254px] bg-white relative">
-            <div class="w-[172px] h-52.5 bg-blue-400 cardProducto">
-                <img src="assets/04.avif" alt="" class="w-full h-full object-cover">
-            </div>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-capibara rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio">
-                <p class="font-Russo text-xs pt-0.25">s/ 115.00</p>
-            </div>
-            <button class="size-7 bg-stone-950 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico">
-                <i class="ri-shopping-cart-2-line text-white text-[13px] pb-px pl-px"></i>
-            </button>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-capibara cardInfo flex flex-col justify-center">
-                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default">
-                    Figura de Capibara
-                </p>
-                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default">
-                    30x25cm
-                </p>
-            </div>
-            <button class="absolute bg-white right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio">
-                <div class="size-1.5 bg-capibara rounded-4xl"></div>
-                <div class="size-1.5 bg-red-900 rounded-4xl"></div>
-                <div class="size-1.5 bg-white border-[0.25px] border-stone-950/20 rounded-4xl"></div>
-            </button>
-        </article>
-        <article class="w-[172px] h-[254px] bg-white relative">
-            <div class="w-[172px] h-52.5 bg-blue-400 cardProducto">
-                <img src="assets/04.avif" alt="" class="w-full h-full object-cover">
-            </div>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-capibara rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio">
-                <p class="font-Russo text-xs pt-0.25">s/ 115.00</p>
-            </div>
-            <button class="size-7 bg-stone-950 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico">
-                <i class="ri-shopping-cart-2-line text-white text-[13px] pb-px pl-px"></i>
-            </button>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-capibara cardInfo flex flex-col justify-center">
-                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default">
-                    Figura de Capibara
-                </p>
-                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default">
-                    30x25cm
-                </p>
-            </div>
-            <button class="absolute bg-white right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio">
-                <div class="size-1.5 bg-capibara rounded-4xl"></div>
-                <div class="size-1.5 bg-red-900 rounded-4xl"></div>
-                <div class="size-1.5 bg-white border-[0.25px] border-stone-950/20 rounded-4xl"></div>
-            </button>
-        </article>
-        <article class="w-[172px] h-[254px] bg-white relative">
-            <div class="w-[172px] h-52.5 bg-blue-400 cardProducto">
-                <img src="assets/04.avif" alt="" class="w-full h-full object-cover">
-            </div>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-capibara rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio">
-                <p class="font-Russo text-xs pt-0.25">s/ 115.00</p>
-            </div>
-            <button class="size-7 bg-stone-950 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico">
-                <i class="ri-shopping-cart-2-line text-white text-[13px] pb-px pl-px"></i>
-            </button>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-capibara cardInfo flex flex-col justify-center">
-                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default">
-                    Figura de Capibara
-                </p>
-                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default">
-                    30x25cm
-                </p>
-            </div>
-            <button class="absolute bg-white right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio">
-                <div class="size-1.5 bg-capibara rounded-4xl"></div>
-                <div class="size-1.5 bg-red-900 rounded-4xl"></div>
-                <div class="size-1.5 bg-white border-[0.25px] border-stone-950/20 rounded-4xl"></div>
-            </button>
-        </article>
+        
 
 
     </section>
