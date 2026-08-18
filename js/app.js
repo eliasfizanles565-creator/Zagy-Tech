@@ -471,30 +471,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- MOSTRAR EL HERO CORRESPONDIENTE ---
-    // function showHero(categoria) {
-    //     heroContainers.forEach(container => {
-    //         container.classList.add('hidden');
-    //     });
+    function showHero(categoria) {
+        heroContainers.forEach(container => {
+            container.classList.add('hidden');
+        });
 
-    //     const activeHero = document.getElementById(`hero-${categoria}`);
-    //     if (activeHero) {
-    //         activeHero.classList.remove('hidden');
+        const activeHero = document.getElementById(`hero-${categoria}`);
+        if (activeHero) {
+            activeHero.classList.remove('hidden');
 
-    //         // Forzar actualización y reseteo de posición para evitar lag de los dots
-    //         setTimeout(() => {
-    //             if (categoria === 'todos') {
-    //                 swiperTodos.update();
-    //                 swiperTodos.slideToLoop(0);
-    //             } else if (categoria === 'tecnologia') {
-    //                 swiperTecnologia.update();
-    //                 swiperTecnologia.slideTo(0, 0);
-    //             } else if (categoria === 'hogar') {
-    //                 swiperHogar.update();
-    //                 swiperHogar.slideTo(0, 0);
-    //             }
-    //         }, 50);
-    //     }
-    // }
+            // Forzar actualización y reseteo de posición para evitar lag de los dots
+            setTimeout(() => {
+                if (categoria === 'todos') {
+                    swiperTodos.update();
+                    swiperTodos.slideToLoop(0);
+                } else if (categoria === 'tecnologia') {
+                    swiperTecnologia.update();
+                    swiperTecnologia.slideTo(0, 0);
+                } else if (categoria === 'hogar') {
+                    swiperHogar.update();
+                    swiperHogar.slideTo(0, 0);
+                }
+            }, 50);
+        }
+    }
 
     // --- EL RESTO DE TU LÓGICA DE FILTRADO Y VER MÁS ---
     if (!grid) return;
@@ -572,3 +572,49 @@ document.addEventListener('DOMContentLoaded', () => {
     showHero("todos");
     updateDisplay();
 });
+
+// /////////////////////////////////////////////////////////////
+
+
+
+
+// /////////////////////////////////////////////////////////////
+// ======== AGREGAR AL CARRITO Y ACTIVAR BOTONES ===========
+// /////////////////////////////////////////////////////////////
+/**
+ * Oculta todos los contenedores de los heros en la interfaz.
+ */
+
+const btnCarrito = document.querySelector('#carrito-cambio')
+
+btnCarrito.addEventListener('click' , function ocultarHeros() {
+    // Selecciona todos los elementos con la clase hero-container
+    const heros = document.querySelectorAll('.hero-container');
+    const productos = document.querySelector('#product-grid');
+    const navCategorias = document.querySelector('#nav-categorias');
+    const btnMas = document.querySelector('#btn-mas');
+    const carritoSection = document.querySelector('#carrito-section');
+    const btnCarrito = document.querySelector('#btn-carrito');
+    
+    
+    heros.forEach(hero => {
+        // Añade la clase hidden de Tailwind (o CSS)
+        hero.classList.add('hidden');
+        // Fuerza el ocultamiento por estilo en línea por si hay conflictos
+        hero.style.display = 'none';
+    });
+
+    productos.classList.add('hidden');
+
+    navCategorias.classList.add('hidden');
+
+    btnMas.classList.add('hidden');
+
+    carritoSection.classList.remove('hidden');
+
+    btnCarrito.classList.remove('hidden');
+},);
+// Ejecutar la función al cargar el script o cuando lo necesites
+ocultarHeros()
+
+
