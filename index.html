@@ -21,6 +21,7 @@
 
     <!--  ======================================================= -->
     <!-- ✅ BARRA INFERIOR (móvil) -->
+    <!--  ======================================================= -->
     <div class="fixed bottom-2 left-1/2 -translate-x-1/2 z-40 w-90
     lg:hidden">
         <div class="cardInicio2 h-15.5 w-full bg-white rounded-full absolute -top-0.5 left-0"></div>
@@ -47,6 +48,7 @@
 
     <!--  ======================================================= -->
     <!-- ESFERAS (móvil) -->
+    <!--  ======================================================= -->
     <section class="lg:hidden">
         <div id="btnUsuario" class="fixed bottom-6.25 left-1/2 -translate-x-[calc(50%+120px)] z-50 size-12 rounded-4xl bg-temu flex items-center justify-center hidden">
             <i class="ri-user-line text-3xl text-white"></i>
@@ -69,7 +71,8 @@
 
     <!--  ======================================================= -->
     <!-- == NAV DESKTOP ==-->
-    <nav class="w-[95vw] h-10 mx-auto relative lg:max-w-7xl">
+    <!--  ======================================================= -->
+    <nav class="w-[95vw] h-10 mx-auto relative lg:max-w-7xl max-lg:hidden">
         <section class="size-9 absolute top-2 flex gap-8 xl:gap-12">
             <img src="assets/logoZagy.webp" alt="logo">
 
@@ -126,8 +129,9 @@
 
     <!--  ======================================================= -->
     <!-- == BOTONES CATEGORIAS == -->
+    <!--  ======================================================= -->
     <!-- WRAPPER relativo que contiene TODO -->
-    <nav class="w-[95vw] h-10 mx-auto relative lg:max-w-7xl">
+    <nav class="hidden w-[95vw] h-10 mx-auto relative lg:max-w-7xl">
 
         <!-- FLECHA IZQUIERDA (oculta por defecto, aparece al scrollear) -->
         <button id="scroll-left" class="hidden lg:hidden absolute left-0 top-1/2 -translate-y-1/2 z-10 w-6.5 h-6.5 bg-white/70 backdrop-blur-sm border border-stone-200 rounded-full items-center justify-center cursor-pointer shadow-sm hover:bg-white hover:shadow-md transition-all duration-200">
@@ -199,7 +203,8 @@
 
     <!--  ======================================================= -->
     <!-- === HEROS DESLIZANTES CON SWIPER === -->
-    <section id="hero-todos" class="hero-container w-[350px] mx-auto lg:max-w-7xl mt-2 pb-8 relative
+    <!--  ======================================================= -->
+    <section id="hero-todos" class="hidden hero-container w-[350px] mx-auto lg:max-w-7xl mt-2 pb-8 relative
     sm:w-[726px]">
         
         <!-- Swiper (overflow hidden para cortar laterales) -->
@@ -296,7 +301,7 @@
 
     </section>
 
-    <section id="hero-hogar" class="hero-container w-[350px] mx-auto lg:max-w-7xl mt-2 pb-8 relative
+    <section id="hero-hogar" class="hidden hero-container w-[350px] mx-auto lg:max-w-7xl mt-2 pb-8 relative
     sm:w-[726px]">
         
         <!-- Swiper (overflow hidden para cortar laterales) -->
@@ -393,7 +398,7 @@
 
     </section>
 
-    <section id="hero-tecnologia" class="hero-container w-[350px] mx-auto lg:max-w-7xl mt-2 pb-8 relative
+    <section id="hero-tecnologia" class="hidden hero-container w-[350px] mx-auto lg:max-w-7xl mt-2 pb-8 relative
     sm:w-[726px]">
         
         <!-- Swiper (overflow hidden para cortar laterales) -->
@@ -519,14 +524,13 @@
         </div>
 
     </section>
-
-    
     <!--  ======================================================= -->
 
 
     <!--  ======================================================= -->
     <!-- === CARDS PRODUCTOS === -->
-    <section id="product-grid" class="w-[350px] h-full mx-auto relative lg:max-w-7xl flex justify-start gap-x-1.5 gap-y-3 flex-wrap
+    <!--  ======================================================= -->
+    <section id="product-grid" class="hidden w-[350px] h-full mx-auto relative lg:max-w-7xl flex justify-start gap-x-1.5 gap-y-3 flex-wrap
     sm:gap-x-3 sm:w-[726px]
     lg:w-[972px]
     xl:w-[1218px]">
@@ -1414,15 +1418,51 @@
     </section>
 
     <!-- BOTON VER MAS -->
-    <div class="w-full flex justify-center mt-6 mb-20">
+    <div class="hidden w-full flex justify-center mt-6 mb-20">
         <button id="btn-ver-mas" class="bg-stone-950 text-white font-Russo px-6 py-3 rounded-4xl cursor-pointer hover:bg-temu transition-colors duration-300">
             Ver más
         </button>
     </div>
-        <!--  ======================================================= -->
+    <!--  ======================================================= -->
 
 
     <!--  ======================================================= -->
+    <!-- ======= SECTION CARRITO ========== -->
+    <!--  ======================================================= -->
+    <section class="w-[95vw] h-full scroll-auto  mx-auto">
+    </section>
+    <!-- BOTON FIJO FINALIZAR COMPRA Y TOTAL -->
+    <div class="fixed bottom-0 w-full h-35 bg-white border-t border-t-stone-950/50 flex  justify-between px-1
+    sm:h-38
+    lg:pt-5 lg:px-20">
+        <div class="flex flex-col justify-start items-start mt-4 pl-1
+        sm:mt-6">
+            <p class="font-Inter font-bold leading-1">Total</p>
+            <p class="font-Russo text-3xl">s/ 9957.95</p>
+        </div>
+        <button class="w-[52vw] h-12 bg-temu rounded-4xl flex items-center justify-center mt-3 
+        sm:w-80 sm:h-15">
+            <p class="font-Inter font-semibold text-white text-lg
+            sm:text-2xl ">
+                Finalizar compra
+            </p>
+        </button>
+    </div>
+
+
+    <!--  ======================================================= -->
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

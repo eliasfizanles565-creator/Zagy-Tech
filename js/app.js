@@ -471,30 +471,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- MOSTRAR EL HERO CORRESPONDIENTE ---
-    function showHero(categoria) {
-        heroContainers.forEach(container => {
-            container.classList.add('hidden');
-        });
+    // function showHero(categoria) {
+    //     heroContainers.forEach(container => {
+    //         container.classList.add('hidden');
+    //     });
 
-        const activeHero = document.getElementById(`hero-${categoria}`);
-        if (activeHero) {
-            activeHero.classList.remove('hidden');
+    //     const activeHero = document.getElementById(`hero-${categoria}`);
+    //     if (activeHero) {
+    //         activeHero.classList.remove('hidden');
 
-            // Forzar actualización y reseteo de posición para evitar lag de los dots
-            setTimeout(() => {
-                if (categoria === 'todos') {
-                    swiperTodos.update();
-                    swiperTodos.slideToLoop(0);
-                } else if (categoria === 'tecnologia') {
-                    swiperTecnologia.update();
-                    swiperTecnologia.slideTo(0, 0);
-                } else if (categoria === 'hogar') {
-                    swiperHogar.update();
-                    swiperHogar.slideTo(0, 0);
-                }
-            }, 50);
-        }
-    }
+    //         // Forzar actualización y reseteo de posición para evitar lag de los dots
+    //         setTimeout(() => {
+    //             if (categoria === 'todos') {
+    //                 swiperTodos.update();
+    //                 swiperTodos.slideToLoop(0);
+    //             } else if (categoria === 'tecnologia') {
+    //                 swiperTecnologia.update();
+    //                 swiperTecnologia.slideTo(0, 0);
+    //             } else if (categoria === 'hogar') {
+    //                 swiperHogar.update();
+    //                 swiperHogar.slideTo(0, 0);
+    //             }
+    //         }, 50);
+    //     }
+    // }
 
     // --- EL RESTO DE TU LÓGICA DE FILTRADO Y VER MÁS ---
     if (!grid) return;
@@ -543,7 +543,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 btnVerMas.style.display = 'none';
             } else {
                 btnVerMas.style.display = 'block';
-                btnVerMas.textContent = showingAll ? 'Ver menos' : 'Ver más productos';
+                btnVerMas.textContent = showingAll ? 'Ver menos' : 'Ver más';
             }
         }
     }
