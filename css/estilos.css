@@ -474,6 +474,9 @@
   .w-34 {
     width: calc(var(--spacing) * 34);
   }
+  .w-40 {
+    width: calc(var(--spacing) * 40);
+  }
   .w-55 {
     width: calc(var(--spacing) * 55);
   }
@@ -861,6 +864,9 @@
   }
   .text-\[10px\] {
     font-size: 10px;
+  }
+  .text-\[11\.5px\] {
+    font-size: 11.5px;
   }
   .text-\[11px\] {
     font-size: 11px;
