@@ -442,6 +442,9 @@
   .h-70 {
     height: calc(var(--spacing) * 70);
   }
+  .h-\[180px\] {
+    height: 180px;
+  }
   .h-\[254px\] {
     height: 254px;
   }
@@ -504,6 +507,9 @@
   }
   .flex-shrink {
     flex-shrink: 1;
+  }
+  .flex-shrink-0 {
+    flex-shrink: 0;
   }
   .shrink-0 {
     flex-shrink: 0;
@@ -781,6 +787,9 @@
   .object-cover {
     object-fit: cover;
   }
+  .object-\[50\%_10\%\] {
+    object-position: 50% 10%;
+  }
   .object-\[50\%_40\%\] {
     object-position: 50% 40%;
   }
@@ -1037,6 +1046,9 @@
     .sm\:h-\[13\.5px\] {
       height: 13.5px;
     }
+    .sm\:h-\[300px\] {
+      height: 300px;
+    }
     .sm\:h-\[381px\] {
       height: 381px;
     }
@@ -1066,6 +1078,12 @@
     }
     .sm\:rounded-br-\[18px\] {
       border-bottom-right-radius: 18px;
+    }
+    .sm\:object-\[50\%_10\%\] {
+      object-position: 50% 10%;
+    }
+    .sm\:object-\[50\%_20\%\] {
+      object-position: 50% 20%;
     }
     .sm\:object-\[50\%_50\%\] {
       object-position: 50% 50%;

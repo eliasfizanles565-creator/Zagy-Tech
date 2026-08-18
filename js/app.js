@@ -365,6 +365,7 @@ document.addEventListener('click', (e) => {
 ///////////////////////////////////////////////////////////////
 
 
+
 ///////////////////////////////////////////////////////////////
 // === BOTÓN PRECIO UNIVERSAL (funciona en CUALQUIER parte de la página) ===
 document.addEventListener('click', (e) => {
@@ -410,62 +411,116 @@ document.addEventListener('click', (e) => {
 
 
 ///////////////////////////////////////////////////////////////
-// ======= BOTON VER MAS PRODUCTOS ========
+// ======= BOTON VER MAS PRODUCTOS Y FILTRAR POR BTN CATEGORIA  ========
 document.addEventListener("DOMContentLoaded", () => {
     const grid = document.getElementById("product-grid");
     const btnVerMas = document.getElementById("btn-ver-mas");
-    
-    if (!grid || !btnVerMas) return;
+    const catButtons = document.querySelectorAll(".cat-btn");
+    const heroContainers = document.querySelectorAll(".hero-container"); // Tus hers dinámicos por ID
+
+    if (!grid) return;
 
     const cards = Array.from(grid.getElementsByTagName("article"));
+    let categoriaActual = "todos";
     let showingAll = false;
 
-    // Función para saber cuántas mostrar según el ancho de pantalla actual
+    // --- LÍMITE DE TARJETAS SEGÚN PANTALLA ---
     function getLimitByScreen() {
         const width = window.innerWidth;
         if (width >= 1280) return 15; // PC
-        if (width >= 1024) return 12;  // Laptop
+        if (width >= 1024) return 8;  // Laptop
         if (width >= 640)  return 9;  // Tablet
         return 8;                     // Celular
     }
 
-    function updateCardsVisibility() {
-        const limit = getLimitByScreen();
+    // --- MOSTRAR EL HERO CORRESPONDIENTE ---
+    function showHero(categoria) {
+        if (!heroContainers.length) return;
 
-        cards.forEach((card, index) => {
-            if (showingAll) {
-                card.classList.remove("hidden");
-            } else {
-                if (index < limit) {
-                    card.classList.remove("hidden");
-                } else {
-                    card.classList.add("hidden");
-                }
-            }
+        heroContainers.forEach(container => {
+            container.classList.add("hidden");
         });
 
-        // Si el total de tarjetas es menor o igual al límite inicial, ocultamos el botón
-        if (cards.length <= limit) {
-            btnVerMas.style.display = "none";
-        } else {
-            btnVerMas.style.display = "block";
-            btnVerMas.textContent = showingAll ? "Ver menos" : "Ver más";
+        const activeHero = document.getElementById(`hero-${categoria}`);
+        if (activeHero) {
+            activeHero.classList.remove("hidden");
+            // Si usas Swiper, asegúrate de actualizarlo aquí si lo requieres
         }
     }
 
-    // Evento click del botón
-    btnVerMas.addEventListener("click", () => {
-        showingAll = !showingAll;
-        updateCardsVisibility();
-    });
+    // --- ACTUALIZAR VISIBILIDAD (FILTRO + LÍMITE + VER MÁS) ---
+    function updateDisplay() {
+        const limit = getLimitByScreen();
+        let visibleCount = 0;
 
-    // Recalcular si el usuario redimensiona la ventana
-    window.addEventListener("resize", () => {
-        if (!showingAll) {
-            updateCardsVisibility();
+        // 1. Filtrar tarjetas que pertenecen a la categoría actual
+        const cardsEnCategoria = cards.filter(card => 
+            categoriaActual === "todos" || card.classList.contains(`cat-${categoriaActual}`)
+        );
+
+        // 2. Mostrar u ocultar cada tarjeta respetando categoría y límites
+        cards.forEach(card => {
+            const perteneceCategoria = categoriaActual === "todos" || card.classList.contains(`cat-${categoriaActual}`);
+
+            if (perteneceCategoria) {
+                if (showingAll) {
+                    card.classList.remove("hidden");
+                } else {
+                    if (visibleCount < limit) {
+                        card.classList.remove("hidden");
+                        visibleCount++;
+                    } else {
+                        card.classList.add("hidden");
+                    }
+                }
+            } else {
+                // Si no pertenece a la categoría activa, se oculta obligatoriamente
+                card.classList.add("hidden");
+            }
+        });
+
+        // 3. Gestionar el botón "Ver más" en base a la categoría seleccionada
+        if (btnVerMas) {
+            if (cardsEnCategoria.length <= limit) {
+                btnVerMas.style.display = "none";
+            } else {
+                btnVerMas.style.display = "block";
+                btnVerMas.textContent = showingAll ? "Ver menos" : "Ver más productos";
+            }
         }
+    }
+
+    // --- EVENTOS DE CLIC EN CATEGORÍAS ---
+    catButtons.forEach(button => {
+        button.addEventListener("click", (e) => {
+            // Cambiar clases visuales de botones activos
+            catButtons.forEach(btn => btn.classList.remove("active-category"));
+            e.currentTarget.classList.add("active-category");
+
+            // Obtener la categoría seleccionada
+            categoriaActual = e.currentTarget.getAttribute("data-categoria") || "todos";
+            showingAll = false; // Reiniciar siempre al cambiar de categoría
+
+            // Actualizar Hero y las tarjetas de la grilla
+            showHero(categoriaActual);
+            updateDisplay();
+        });
     });
 
-    // Ejecutar al cargar la página
-    updateCardsVisibility();
+    // --- EVENTO BOTÓN VER MÁS ---
+    if (btnVerMas) {
+        btnVerMas.addEventListener("click", () => {
+            showingAll = !showingAll;
+            updateDisplay();
+        });
+    }
+
+    // --- RECALCULAR AL REDIMENSIONAR VENTANA ---
+    window.addEventListener("resize", () => {
+        updateDisplay();
+    });
+
+    // --- INICIALIZACIÓN AL CARGAR LA PÁGINA ---
+    showHero("todos");
+    updateDisplay();
 });
