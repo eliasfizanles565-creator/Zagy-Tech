@@ -42,7 +42,6 @@
     --text-3xl: 1.875rem;
     --text-3xl--line-height: calc(2.25 / 1.875);
     --font-weight-semibold: 600;
-    --font-weight-bold: 700;
     --font-weight-extrabold: 800;
     --radius-xl: 0.75rem;
     --radius-3xl: 1.5rem;
@@ -768,14 +767,23 @@
   .object-cover {
     object-fit: cover;
   }
+  .object-\[10\%_40\%\] {
+    object-position: 10% 40%;
+  }
   .object-\[50\%_20\%\] {
     object-position: 50% 20%;
   }
   .object-\[50\%_40\%\] {
     object-position: 50% 40%;
   }
+  .object-\[50\%_50\%\] {
+    object-position: 50% 50%;
+  }
   .object-\[50\%_70\%\] {
     object-position: 50% 70%;
+  }
+  .object-\[70\%_40\%\] {
+    object-position: 70% 40%;
   }
   .px-1 {
     padding-inline: var(--spacing);
@@ -868,9 +876,6 @@
   .text-\[11\.5px\] {
     font-size: 11.5px;
   }
-  .text-\[11px\] {
-    font-size: 11px;
-  }
   .text-\[13px\] {
     font-size: 13px;
   }
@@ -883,10 +888,6 @@
   .leading-none {
     --tw-leading: 1;
     line-height: 1;
-  }
-  .font-bold {
-    --tw-font-weight: var(--font-weight-bold);
-    font-weight: var(--font-weight-bold);
   }
   .font-extrabold {
     --tw-font-weight: var(--font-weight-extrabold);
@@ -1066,6 +1067,21 @@
     }
     .sm\:rounded-br-\[18px\] {
       border-bottom-right-radius: 18px;
+    }
+    .sm\:object-\[50\%_10\%\] {
+      object-position: 50% 10%;
+    }
+    .sm\:object-\[50\%_15\%\] {
+      object-position: 50% 15%;
+    }
+    .sm\:object-\[50\%_30\%\] {
+      object-position: 50% 30%;
+    }
+    .sm\:object-\[50\%_35\%\] {
+      object-position: 50% 35%;
+    }
+    .sm\:object-\[50\%_40\%\] {
+      object-position: 50% 40%;
     }
     .sm\:object-\[50\%_50\%\] {
       object-position: 50% 50%;

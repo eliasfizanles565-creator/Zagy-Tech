@@ -259,34 +259,34 @@ catButtons.forEach(btn => {
 
 ///////////////////////////////////////////////////////////////
 // === HERO SWIPER ===
-const heroSwiper = new Swiper('.hero-swiper', {
-    // Loop infinito suave: 1→2→3→1→2... sin brincos
-    loop: true,
+// const heroSwiper = new Swiper('.hero-swiper', {
+//     // Loop infinito suave: 1→2→3→1→2... sin brincos
+//     loop: true,
     
-    // Velocidad de transición
-    speed: 500,
+//     // Velocidad de transición
+//     speed: 500,
 
-    // Separación entre Cards
-    spaceBetween: 6,
+//     // Separación entre Cards
+//     spaceBetween: 6,
     
-    // Autoplay cada 5 segundos
-    autoplay: {
-        delay: 3000,
-        disableOnInteraction: false, // sigue auto después de tocar/drag
-        pauseOnMouseEnter: true,     // pausa al pasar el mouse
-    },
+//     // Autoplay cada 5 segundos
+//     autoplay: {
+//         delay: 3000,
+//         disableOnInteraction: false, // sigue auto después de tocar/drag
+//         pauseOnMouseEnter: true,     // pausa al pasar el mouse
+//     },
     
-    // Dots clickeables
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-    },
+//     // Dots clickeables
+//     pagination: {
+//         el: '.swiper-pagination',
+//         clickable: true,
+//     },
     
-    // Touch nativo optimizado por Swiper
-    touchRatio: 1,
-    grabCursor: false, // lo manejamos con CSS para mantener tu estilo
-    simulateTouch: true,
-});
+//     // Touch nativo optimizado por Swiper
+//     touchRatio: 1,
+//     grabCursor: false, // lo manejamos con CSS para mantener tu estilo
+//     simulateTouch: true,
+// });
 ///////////////////////////////////////////////////////////////
 
 
@@ -294,6 +294,7 @@ const heroSwiper = new Swiper('.hero-swiper', {
 
 ///////////////////////////////////////////////////////////////
 // === BOTÓN ÉPICO UNIVERSAL + CONTADOR CARRITO ===
+///////////////////////////////////////////////////////////////
 document.addEventListener('click', (e) => {
     const btn = e.target.closest('.btn-epico');
     if (!btn) return;
@@ -368,46 +369,118 @@ document.addEventListener('click', (e) => {
 
 ///////////////////////////////////////////////////////////////
 // === BOTÓN PRECIO UNIVERSAL (funciona en CUALQUIER parte de la página) ===
-document.addEventListener("DOMContentLoaded", () => {
-    // ==========================================
-    // 1. CONFIGURACIÓN DE SWIPERS Y HEROES
-    // ==========================================
-    const heroContainers = document.querySelectorAll(".hero-container");
-    const catButtons = document.querySelectorAll(".cat-btn");
+///////////////////////////////////////////////////////////////
+document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-precio');
+    
+    if (btn) {
+        // Click DENTRO del botón
+        e.stopPropagation();
+        
+        // Toggle: si ya está activo, lo apaga; si no, lo enciende
+        const estaActivo = btn.classList.contains('activo');
+        
+        // Primero apaga TODOS los btn-precio (solo uno activo a la vez)
+        document.querySelectorAll('.btn-precio.activo').forEach(b => {
+            b.classList.remove('activo');
+        });
+        
+        // Si no estaba activo, lo activa
+        if (!estaActivo) {
+            btn.classList.add('activo');
+            
+            // Ripple desde el centro del botón
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple-precio');
+            const rect = btn.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            ripple.style.width = size + 'px';
+            ripple.style.height = size + 'px';
+            ripple.style.left = (rect.width / 2 - size / 2) + 'px';
+            ripple.style.top = (rect.height / 2 - size / 2) + 'px';
+            btn.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 500);
+        }
+        
+    } else {
+        // Click FUERA de cualquier btn-precio
+        document.querySelectorAll('.btn-precio.activo').forEach(b => {
+            b.classList.remove('activo');
+        });
+    }
+});
+///////////////////////////////////////////////////////////////
 
-    // Inicializar cada Swiper de forma independiente
-    const swiperTodos = new Swiper('.hero-swiper-todos', { 
+
+///////////////////////////////////////////////////////////////
+// =========== FILTROS, VER MAS Y HEROS CON SWIPER ==================
+///////////////////////////////////////////////////////////////
+document.addEventListener('DOMContentLoaded', () => {
+    const catButtons = document.querySelectorAll('.cat-btn');
+    const grid = document.getElementById('product-grid');
+    const btnVerMas = document.getElementById('btn-ver-mas');
+    const heroContainers = document.querySelectorAll('.hero-container');
+
+    // --- INICIALIZAR CADA SWIPER INDEPENDIENTE CON SUS DOTS EXTERNOS ---
+    const swiperTodos = new Swiper('#swiper-todos', { 
         loop: true, 
+        spaceBetween: 6, // 🟢 AQUÍ RECUPERAS LA SEPARACIÓN ENTRE CARDS
+        speed: 500,
         watchOverflow: false, 
-        pagination: { el: '#hero-todos .swiper-pagination', clickable: true }, 
-        autoplay: { delay: 5000, disableOnInteraction: false } 
+        pagination: { 
+            el: '.pagination-todos', 
+            clickable: true 
+        }, 
+        autoplay: { 
+            delay: 3000, 
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true 
+        } 
     });
 
-    const swiperTecnologia = new Swiper('.hero-swiper-tecnologia', { 
+    const swiperTecnologia = new Swiper('#swiper-tecnologia', { 
         loop: false, 
+        spaceBetween: 6, // 🟢 AQUÍ RECUPERAS LA SEPARACIÓN ENTRE CARDS
+        speed: 500,
         watchOverflow: false, 
-        pagination: { el: '#hero-tecnologia .swiper-pagination', clickable: true } 
+        pagination: { 
+            el: '.pagination-tecnologia', 
+            clickable: true 
+        },
+        autoplay: { 
+            delay: 3000, 
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true 
+        } 
     });
 
-    const swiperHogar = new Swiper('.hero-swiper-hogar', { 
+    const swiperHogar = new Swiper('#swiper-hogar', { 
         loop: false, 
+        spaceBetween: 6, // 🟢 AQUÍ RECUPERAS LA SEPARACIÓN ENTRE CARDS
+        speed: 500,
         watchOverflow: false, 
-        pagination: { el: '#hero-hogar .swiper-pagination', clickable: true } 
+        pagination: { 
+            el: '.pagination-hogar', 
+            clickable: true 
+        },
+        autoplay: { 
+            delay: 3000, 
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true 
+        } 
     });
 
-    // Función para mostrar el Hero de la categoría activa y actualizar sus dots
+    // --- MOSTRAR EL HERO CORRESPONDIENTE ---
     function showHero(categoria) {
-        if (!heroContainers.length) return;
-
         heroContainers.forEach(container => {
-            container.classList.add("hidden");
+            container.classList.add('hidden');
         });
 
         const activeHero = document.getElementById(`hero-${categoria}`);
         if (activeHero) {
-            activeHero.classList.remove("hidden");
+            activeHero.classList.remove('hidden');
 
-            // Forzar actualización de Swiper para que los dots no fallen
+            // Forzar actualización y reseteo de posición para evitar lag de los dots
             setTimeout(() => {
                 if (categoria === 'todos') {
                     swiperTodos.update();
@@ -419,84 +492,66 @@ document.addEventListener("DOMContentLoaded", () => {
                     swiperHogar.update();
                     swiperHogar.slideTo(0, 0);
                 }
-            }, 60);
+            }, 50);
         }
     }
 
-
-    // ==========================================
-    // 2. CONFIGURACIÓN DE GRILLA, FILTROS Y "VER MÁS"
-    // ==========================================
-    const grid = document.getElementById("product-grid");
-    const btnVerMas = document.getElementById("btn-ver-mas");
-
+    // --- EL RESTO DE TU LÓGICA DE FILTRADO Y VER MÁS ---
     if (!grid) return;
 
-    const cards = Array.from(grid.getElementsByTagName("article"));
-    let categoriaActual = "todos";
+    const cards = Array.from(grid.getElementsByTagName('article'));
+    let categoriaActual = 'todos';
     let showingAll = false;
 
-    // Límite de tarjetas según pantalla
     function getLimitByScreen() {
         const width = window.innerWidth;
-        if (width >= 1280) return 15; // PC
-        if (width >= 1024) return 8;  // Laptop
-        if (width >= 640)  return 9;  // Tablet
-        return 8;                     // Celular
+        if (width >= 1280) return 15;
+        if (width >= 1024) return 8;
+        if (width >= 640)  return 9;
+        return 8;
     }
 
-    // Actualizar qué tarjetas se muestran y cuáles se ocultan
     function updateDisplay() {
         const limit = getLimitByScreen();
         let visibleCount = 0;
 
-        // Filtrar exclusivamente los productos de la categoría seleccionada
         const cardsEnCategoria = cards.filter(card => 
-            categoriaActual === "todos" || card.classList.contains(`cat-${categoriaActual}`)
+            categoriaActual === 'todos' || card.classList.contains(`cat-${categoriaActual}`)
         );
 
         cards.forEach(card => {
-            const perteneceCategoria = categoriaActual === "todos" || card.classList.contains(`cat-${categoriaActual}`);
+            const perteneceCategoria = categoriaActual === 'todos' || card.classList.contains(`cat-${categoriaActual}`);
 
             if (perteneceCategoria) {
                 if (showingAll) {
-                    card.classList.remove("hidden");
+                    card.classList.remove('hidden');
                 } else {
                     if (visibleCount < limit) {
-                        card.classList.remove("hidden");
+                        card.classList.remove('hidden');
                         visibleCount++;
                     } else {
-                        card.classList.add("hidden");
+                        card.classList.add('hidden');
                     }
                 }
             } else {
-                // Ocultar obligatoriamente si no pertenecen a la categoría activa
-                card.classList.add("hidden");
+                card.classList.add('hidden');
             }
         });
 
-        // Gestionar visibilidad y texto del botón "Ver más"
         if (btnVerMas) {
             if (cardsEnCategoria.length <= limit) {
-                btnVerMas.style.display = "none";
+                btnVerMas.style.display = 'none';
             } else {
-                btnVerMas.style.display = "block";
-                btnVerMas.textContent = showingAll ? "Ver menos" : "Ver más productos";
+                btnVerMas.style.display = 'block';
+                btnVerMas.textContent = showingAll ? 'Ver menos' : 'Ver más productos';
             }
         }
     }
 
-
-    // ==========================================
-    // 3. EVENTOS (CLICS Y REDIMENSIÓN)
-    // ==========================================
     catButtons.forEach(button => {
-        button.addEventListener("click", (e) => {
-            catButtons.forEach(btn => btn.classList.remove("active-category"));
-            e.currentTarget.classList.add("active-category");
-
-            categoriaActual = e.currentTarget.getAttribute("data-categoria") || "todos";
-            showingAll = false; // Reiniciar estado "Ver más" al cambiar de categoría
+        button.addEventListener('click', (e) => {
+            categoriaActual = e.currentTarget.getAttribute('data-categoria') || 'todos';
+            showingAll = false;
 
             showHero(categoriaActual);
             updateDisplay();
@@ -504,19 +559,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     if (btnVerMas) {
-        btnVerMas.addEventListener("click", () => {
+        btnVerMas.addEventListener('click', () => {
             showingAll = !showingAll;
             updateDisplay();
         });
     }
 
-    window.addEventListener("resize", () => {
+    window.addEventListener('resize', () => {
         updateDisplay();
     });
 
-    // ==========================================
-    // 4. ESTADO INICIAL AL CARGAR LA PÁGINA
-    // ==========================================
     showHero("todos");
     updateDisplay();
 });
