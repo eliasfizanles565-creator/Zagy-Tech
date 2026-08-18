@@ -271,7 +271,7 @@ const heroSwiper = new Swiper('.hero-swiper', {
     
     // Autoplay cada 5 segundos
     autoplay: {
-        delay: 5000,
+        delay: 3000,
         disableOnInteraction: false, // sigue auto después de tocar/drag
         pauseOnMouseEnter: true,     // pausa al pasar el mouse
     },
@@ -368,72 +368,34 @@ document.addEventListener('click', (e) => {
 
 ///////////////////////////////////////////////////////////////
 // === BOTÓN PRECIO UNIVERSAL (funciona en CUALQUIER parte de la página) ===
-document.addEventListener('click', (e) => {
-    const btn = e.target.closest('.btn-precio');
-    
-    if (btn) {
-        // Click DENTRO del botón
-        e.stopPropagation();
-        
-        // Toggle: si ya está activo, lo apaga; si no, lo enciende
-        const estaActivo = btn.classList.contains('activo');
-        
-        // Primero apaga TODOS los btn-precio (solo uno activo a la vez)
-        document.querySelectorAll('.btn-precio.activo').forEach(b => {
-            b.classList.remove('activo');
-        });
-        
-        // Si no estaba activo, lo activa
-        if (!estaActivo) {
-            btn.classList.add('activo');
-            
-            // Ripple desde el centro del botón
-            const ripple = document.createElement('span');
-            ripple.classList.add('ripple-precio');
-            const rect = btn.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height);
-            ripple.style.width = size + 'px';
-            ripple.style.height = size + 'px';
-            ripple.style.left = (rect.width / 2 - size / 2) + 'px';
-            ripple.style.top = (rect.height / 2 - size / 2) + 'px';
-            btn.appendChild(ripple);
-            setTimeout(() => ripple.remove(), 500);
-        }
-        
-    } else {
-        // Click FUERA de cualquier btn-precio
-        document.querySelectorAll('.btn-precio.activo').forEach(b => {
-            b.classList.remove('activo');
-        });
-    }
-});
-///////////////////////////////////////////////////////////////
-
-
-///////////////////////////////////////////////////////////////
-// ======= BOTON VER MAS PRODUCTOS Y FILTRAR POR BTN CATEGORIA  ========
 document.addEventListener("DOMContentLoaded", () => {
-    const grid = document.getElementById("product-grid");
-    const btnVerMas = document.getElementById("btn-ver-mas");
+    // ==========================================
+    // 1. CONFIGURACIÓN DE SWIPERS Y HEROES
+    // ==========================================
+    const heroContainers = document.querySelectorAll(".hero-container");
     const catButtons = document.querySelectorAll(".cat-btn");
-    const heroContainers = document.querySelectorAll(".hero-container"); // Tus hers dinámicos por ID
 
-    if (!grid) return;
+    // Inicializar cada Swiper de forma independiente
+    const swiperTodos = new Swiper('.hero-swiper-todos', { 
+        loop: true, 
+        watchOverflow: false, 
+        pagination: { el: '#hero-todos .swiper-pagination', clickable: true }, 
+        autoplay: { delay: 5000, disableOnInteraction: false } 
+    });
 
-    const cards = Array.from(grid.getElementsByTagName("article"));
-    let categoriaActual = "todos";
-    let showingAll = false;
+    const swiperTecnologia = new Swiper('.hero-swiper-tecnologia', { 
+        loop: false, 
+        watchOverflow: false, 
+        pagination: { el: '#hero-tecnologia .swiper-pagination', clickable: true } 
+    });
 
-    // --- LÍMITE DE TARJETAS SEGÚN PANTALLA ---
-    function getLimitByScreen() {
-        const width = window.innerWidth;
-        if (width >= 1280) return 15; // PC
-        if (width >= 1024) return 8;  // Laptop
-        if (width >= 640)  return 9;  // Tablet
-        return 8;                     // Celular
-    }
+    const swiperHogar = new Swiper('.hero-swiper-hogar', { 
+        loop: false, 
+        watchOverflow: false, 
+        pagination: { el: '#hero-hogar .swiper-pagination', clickable: true } 
+    });
 
-    // --- MOSTRAR EL HERO CORRESPONDIENTE ---
+    // Función para mostrar el Hero de la categoría activa y actualizar sus dots
     function showHero(categoria) {
         if (!heroContainers.length) return;
 
@@ -444,21 +406,55 @@ document.addEventListener("DOMContentLoaded", () => {
         const activeHero = document.getElementById(`hero-${categoria}`);
         if (activeHero) {
             activeHero.classList.remove("hidden");
-            // Si usas Swiper, asegúrate de actualizarlo aquí si lo requieres
+
+            // Forzar actualización de Swiper para que los dots no fallen
+            setTimeout(() => {
+                if (categoria === 'todos') {
+                    swiperTodos.update();
+                    swiperTodos.slideToLoop(0);
+                } else if (categoria === 'tecnologia') {
+                    swiperTecnologia.update();
+                    swiperTecnologia.slideTo(0, 0);
+                } else if (categoria === 'hogar') {
+                    swiperHogar.update();
+                    swiperHogar.slideTo(0, 0);
+                }
+            }, 60);
         }
     }
 
-    // --- ACTUALIZAR VISIBILIDAD (FILTRO + LÍMITE + VER MÁS) ---
+
+    // ==========================================
+    // 2. CONFIGURACIÓN DE GRILLA, FILTROS Y "VER MÁS"
+    // ==========================================
+    const grid = document.getElementById("product-grid");
+    const btnVerMas = document.getElementById("btn-ver-mas");
+
+    if (!grid) return;
+
+    const cards = Array.from(grid.getElementsByTagName("article"));
+    let categoriaActual = "todos";
+    let showingAll = false;
+
+    // Límite de tarjetas según pantalla
+    function getLimitByScreen() {
+        const width = window.innerWidth;
+        if (width >= 1280) return 15; // PC
+        if (width >= 1024) return 8;  // Laptop
+        if (width >= 640)  return 9;  // Tablet
+        return 8;                     // Celular
+    }
+
+    // Actualizar qué tarjetas se muestran y cuáles se ocultan
     function updateDisplay() {
         const limit = getLimitByScreen();
         let visibleCount = 0;
 
-        // 1. Filtrar tarjetas que pertenecen a la categoría actual
+        // Filtrar exclusivamente los productos de la categoría seleccionada
         const cardsEnCategoria = cards.filter(card => 
             categoriaActual === "todos" || card.classList.contains(`cat-${categoriaActual}`)
         );
 
-        // 2. Mostrar u ocultar cada tarjeta respetando categoría y límites
         cards.forEach(card => {
             const perteneceCategoria = categoriaActual === "todos" || card.classList.contains(`cat-${categoriaActual}`);
 
@@ -474,12 +470,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
             } else {
-                // Si no pertenece a la categoría activa, se oculta obligatoriamente
+                // Ocultar obligatoriamente si no pertenecen a la categoría activa
                 card.classList.add("hidden");
             }
         });
 
-        // 3. Gestionar el botón "Ver más" en base a la categoría seleccionada
+        // Gestionar visibilidad y texto del botón "Ver más"
         if (btnVerMas) {
             if (cardsEnCategoria.length <= limit) {
                 btnVerMas.style.display = "none";
@@ -490,24 +486,23 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // --- EVENTOS DE CLIC EN CATEGORÍAS ---
+
+    // ==========================================
+    // 3. EVENTOS (CLICS Y REDIMENSIÓN)
+    // ==========================================
     catButtons.forEach(button => {
         button.addEventListener("click", (e) => {
-            // Cambiar clases visuales de botones activos
             catButtons.forEach(btn => btn.classList.remove("active-category"));
             e.currentTarget.classList.add("active-category");
 
-            // Obtener la categoría seleccionada
             categoriaActual = e.currentTarget.getAttribute("data-categoria") || "todos";
-            showingAll = false; // Reiniciar siempre al cambiar de categoría
+            showingAll = false; // Reiniciar estado "Ver más" al cambiar de categoría
 
-            // Actualizar Hero y las tarjetas de la grilla
             showHero(categoriaActual);
             updateDisplay();
         });
     });
 
-    // --- EVENTO BOTÓN VER MÁS ---
     if (btnVerMas) {
         btnVerMas.addEventListener("click", () => {
             showingAll = !showingAll;
@@ -515,12 +510,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- RECALCULAR AL REDIMENSIONAR VENTANA ---
     window.addEventListener("resize", () => {
         updateDisplay();
     });
 
-    // --- INICIALIZACIÓN AL CARGAR LA PÁGINA ---
+    // ==========================================
+    // 4. ESTADO INICIAL AL CARGAR LA PÁGINA
+    // ==========================================
     showHero("todos");
     updateDisplay();
 });
