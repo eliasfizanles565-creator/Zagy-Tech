@@ -439,7 +439,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const swiperTecnologia = new Swiper('#swiper-tecnologia', { 
-        loop: false, 
+        loop: true, 
         spaceBetween: 6, // 🟢 AQUÍ RECUPERAS LA SEPARACIÓN ENTRE CARDS
         speed: 500,
         watchOverflow: false, 
@@ -455,7 +455,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const swiperHogar = new Swiper('#swiper-hogar', { 
-        loop: false, 
+        loop: true, 
         spaceBetween: 6, // 🟢 AQUÍ RECUPERAS LA SEPARACIÓN ENTRE CARDS
         speed: 500,
         watchOverflow: false, 
