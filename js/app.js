@@ -487,10 +487,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     swiperTodos.slideToLoop(0);
                 } else if (categoria === 'tecnologia') {
                     swiperTecnologia.update();
-                    swiperTecnologia.slideTo(0);
+                    swiperTecnologia.slideTo(0, 0);
                 } else if (categoria === 'hogar') {
                     swiperHogar.update();
-                    swiperHogar.slideTo(0);
+                    swiperHogar.slideTo(0, 0);
                 }
             }, 50);
         }
