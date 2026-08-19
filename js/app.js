@@ -349,7 +349,7 @@ function renderizarCarrito() {
     contenedorItems.innerHTML = '';
     if (carritoDeCompras.length === 0) {
         contenedorItems.innerHTML = `<p class="font-Inter text-xs text-stone-500 py-4 px-2">Tu carrito esta vacio.</p>`;
-        if (elementoTotal) elementoTotal.textContent = 's/ 0.00';
+        if (elementoTotal) elementoTotal.innerHTML = `s/ 0.<span class="text-xl font-Russo">00</span>`;
         return;
     }
     let precioTotalGeneral = 0;
@@ -357,16 +357,15 @@ function renderizarCarrito() {
         const subtotalItem = item.precio * item.cantidad;
         precioTotalGeneral += subtotalItem;
         const articleHTML = `
-            <article class="flex gap-3 py-2 border-t border-temu/20 justify-between">
+            <article class="flex gap-3 py-2 border-b border-temu/20 justify-between">
                 <article class="flex gap-3">
-                    <div class="size-20 border-2 border-temu rounded-lg overflow-hidden"><img src="${item.imagen}" alt="" class="w-full h-full object-cover"></div>
+                    <div class="size-20 border border-temu rounded-lg overflow-hidden"><img src="${item.imagen}" alt="" class="w-full h-full object-cover"></div>
                     <div class="flex flex-col items-start justify-center gap-1">
                         <div><p class="font-Inter text-xs">${item.titulo}</p><p class="font-Inter text-xs">${item.subtitulo}</p></div>
                         <button class="h-6 w-30 border border-temu rounded-4xl flex justify-center items-center text-xs text-temu">Color: Estandar</button>
                         <p class="text-xs font-Inter">s/ ${item.precio.toFixed(2)}</p>
                     </div>
                 </article>
-
                 <div class="flex flex-col justify-start items-end">
                     <p class="font-semibold pr-1">s/ ${subtotalItem.toFixed(2)}</p>
                     <div class="flex justify-center items-center h-12 w-25 rounded-4xl border border-temu gap-2 text-temu">
@@ -378,7 +377,9 @@ function renderizarCarrito() {
             </article>`;
         contenedorItems.innerHTML += articleHTML;
     });
-    if (elementoTotal) elementoTotal.textContent = `s/ ${precioTotalGeneral.toFixed(2)}`;
+    const precioStr = precioTotalGeneral.toFixed(2);
+    const [entero, decimal] = precioStr.split('.');
+    if (elementoTotal) elementoTotal.innerHTML = `s/ ${entero}.<span class="text-xl font-Russo">${decimal}</span>`;
 }
 
 function cambiarCantidad(id, delta) {
