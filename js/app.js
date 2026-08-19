@@ -61,10 +61,23 @@ catButtons.forEach(btn => btn.addEventListener('click', () => setActiveCategory(
 // ======================================================
 function showHero(categoria) {
     const heroContainers = document.querySelectorAll('.hero-container');
-    heroContainers.forEach(container => container.classList.add('hidden'));
+    heroContainers.forEach(container => {
+        container.classList.add('hidden');
+        // ✅ FIX 1: Limpiar inline styles que quedan pegados desde gestionarVista()
+        container.style.display = '';
+        container.style.visibility = '';
+    });
     const activeHero = document.getElementById(`hero-${categoria}`);
     if (activeHero) {
         activeHero.classList.remove('hidden');
+        // ✅ FIX 1: Asegurar que el hero activo también esté limpio
+        activeHero.style.display = '';
+        activeHero.style.visibility = '';
+
+        // ✅ FIX 2: Forzar reflow para que Swiper recalcule tamaños reales
+        // Esto evita que el botón de corazón se vea "a la izquierda"
+        void activeHero.offsetWidth;
+
         setTimeout(() => {
             if (categoria === 'todos' && swiperTodos) { swiperTodos.update(); swiperTodos.slideToLoop(0); }
             else if (categoria === 'tecnologia' && swiperTecnologia) { swiperTecnologia.update(); swiperTecnologia.slideTo(0, 0); }
@@ -355,8 +368,11 @@ function gestionarVista(vista) {
         renderizarFavoritos();
     } else {
         // VISTA TIENDA (inicio, categorías, usuario, etc.)
-        // CORRECCIÓN DEL BUG: en vez de mostrar TODOS los heroes,
-        // llamamos showHero(categoriaActual) para mostrar solo el activo
+        // ✅ FIX: Limpiar inline styles de todos los heroes antes de mostrar
+        heros.forEach(hero => {
+            hero.style.display = '';
+            hero.style.visibility = '';
+        });
         showHero(categoriaActual);
         if (productos) productos.classList.remove('hidden');
         if (navCategorias) navCategorias.classList.remove('hidden');
@@ -434,11 +450,11 @@ function activateNav(key) {
         // RESET completo al inicio
         categoriaActual = 'todos';
         showingAll = false;
-        
+
         // Activar botón "Todos" visualmente
         const btnTodos = document.querySelector('[data-categoria="todos"]');
         if (btnTodos) setActiveCategory(btnTodos);
-        
+
         // Mostrar hero de todos y productos
         gestionarVista('tienda');
     }
