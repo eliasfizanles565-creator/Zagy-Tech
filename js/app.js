@@ -130,7 +130,7 @@ function actualizarBadgeNavbar() {
             if (!badge && icono) {
                 badge = document.createElement('span');
                 badge.className = 'navbar-carrito-badge';
-                badge.style.cssText = 'position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;background:#ffffff;color:#0c0a09;font-size:10px;font-weight:bold;border-radius:9999px;display:flex;align-items:center;justify-content:center;padding:0 4px;z-index:60;pointer-events:none;border:2px solid #0c0a09;';
+                badge.style.cssText = 'position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;background:#0c0a09;color:#ffffff;font-size:10px;font-weight:bold;border-radius:9999px;display:flex;align-items:center;justify-content:center;padding:0 4px;z-index:60;pointer-events:none;';
                 icono.style.position = 'relative';
                 icono.appendChild(badge);
             }
@@ -151,7 +151,7 @@ function actualizarBadgeNavbar() {
             if (!badge) {
                 badge = document.createElement('span');
                 badge.className = 'navbar-carrito-badge';
-                badge.style.cssText = 'position:absolute;top:-8px;right:-8px;min-width:18px;height:18px;background:#FB7701;color:white;font-size:10px;font-weight:bold;border-radius:9999px;display:flex;align-items:center;justify-content:center;padding:0 4px;z-index:60;pointer-events:none;border:2px solid white;';
+                badge.style.cssText = 'position:absolute;top:-8px;right:-8px;min-width:18px;height:18px;background:#FB7701;color:white;font-size:10px;font-weight:bold;border-radius:9999px;display:flex;align-items:center;justify-content:center;padding:0 4px;z-index:60;pointer-events:none;';
                 iconoPredeterminado.style.position = 'relative';
                 iconoPredeterminado.appendChild(badge);
             }
@@ -653,8 +653,18 @@ document.querySelectorAll('.nav-desktop').forEach(btn => {
 activateNav('inicio');
 
 // ======================================================
-// BOTON EPICO UNIVERSAL + CONTADOR CARRITO
+// BOTON EPICO UNIVERSAL + CONTADOR CARRITO (DECORATIVO)
 // ======================================================
+// Este contador cuenta clicks, NO productos reales.
+// Para el contador REAL de productos, ver: sincronizarBadgesCantidad()
+//
+// PERSONALIZACION DEL BADGE DECORATIVO:
+// - Color fondo: cambia 'background:#FB7701'
+// - Color texto: cambia 'color:white'
+// - Tamaño: cambia 'width' y 'height'
+// - Posicion: cambia 'top' y 'right'
+// - Fuente: cambia 'font-size'
+//
 document.addEventListener('click', (e) => {
     const btn = e.target.closest('.btn-epico');
     if (!btn) return;
@@ -667,9 +677,30 @@ document.addEventListener('click', (e) => {
         if (!badge) {
             badge = document.createElement('span');
             badge.className = 'carrito-badge';
-            badge.textContent = '0';
+            // ===== PERSONALIZA EL ESTILO DEL BADGE AQUI =====
+            badge.style.cssText = `
+                position: absolute;
+                top: -6px;
+                right: -6px;
+                min-width: 18px;
+                height: 18px;
+                background: #FB7701;
+                color: white;
+                font-size: 10px;
+                font-weight: bold;
+                border-radius: 9999px;
+                border:none;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0 4px;
+                z-index: 30;
+                pointer-events: none;
+                box-shadow: 0 2px 6px rgba(251,119,1,0.4);
+            `;
+            // =================================================
+            btn.style.position = 'relative';
             btn.appendChild(badge);
-            requestAnimationFrame(() => badge.classList.add('visible'));
         }
         let cuenta = parseInt(badge.textContent) || 0;
         cuenta++;
