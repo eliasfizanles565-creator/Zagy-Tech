@@ -339,9 +339,9 @@ function renderizarCarrito() {
                 <div class="flex flex-col justify-start items-end">
                     <p class="font-semibold pr-1">s/ ${subtotalItem.toFixed(2)}</p>
                     <div class="flex justify-center items-center h-12 w-25 rounded-4xl border border-temu gap-2 text-temu">
-                        <button onclick="cambiarCantidad(${item.id}, -1)" class="bg-temu/20 cursor-pointer rounded-4xl size-5 text-temu flex items-center justify-center">-</button>
-                        <div class="flex flex-col items-center justify-center"><p class="leading-3 text-xs">${item.cantidad}</p><p class="text-xs">Anadidos</p></div>
-                        <button onclick="cambiarCantidad(${item.id}, 1)" class="bg-temu/20 cursor-pointer rounded-4xl size-5 text-temu flex items-center justify-center">+</button>
+                        <button onclick="cambiarCantidad(${item.id}, -1)" class="bg-transparent cursor-pointer rounded-4xl size-5 text-temu flex items-center justify-center">-</button>
+                        <div class="flex flex-col items-center justify-center"><p class="leading-3 text-xs">${item.cantidad}</p><p class="text-xs">Añadidos</p></div>
+                        <button onclick="cambiarCantidad(${item.id}, 1)" class="bg-transparent cursor-pointer rounded-4xl size-5 text-temu flex items-center justify-center">+</button>
                     </div>
                 </div>
             </article>`;
