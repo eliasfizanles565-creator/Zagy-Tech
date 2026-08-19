@@ -121,20 +121,23 @@ function showHero(categoria) {
 function actualizarBadgeNavbar() {
     const totalItems = carritoDeCompras.reduce((sum, item) => sum + item.cantidad, 0);
 
-    // Esfera movil
+    // Esfera movil — badge DENTRO del <i> para no romper el layout del div fixed
     const esferaCarrito = document.getElementById('btnCarrito');
     if (esferaCarrito) {
-        let badge = esferaCarrito.querySelector('.navbar-carrito-badge');
+        const icono = esferaCarrito.querySelector('i');
+        let badge = icono ? icono.querySelector('.navbar-carrito-badge') : null;
         if (totalItems > 0) {
-            if (!badge) {
+            if (!badge && icono) {
                 badge = document.createElement('span');
                 badge.className = 'navbar-carrito-badge';
-                badge.style.cssText = 'position:absolute;top:-2px;right:-2px;min-width:20px;height:20px;background:#FB7701;color:white;font-size:11px;font-weight:bold;border-radius:9999px;display:flex;align-items:center;justify-content:center;padding:0 5px;z-index:60;pointer-events:none;border:2px solid white;';
-                esferaCarrito.style.position = 'relative';
-                esferaCarrito.appendChild(badge);
+                badge.style.cssText = 'position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;background:#FB7701;color:white;font-size:10px;font-weight:bold;border-radius:9999px;display:flex;align-items:center;justify-content:center;padding:0 4px;z-index:60;pointer-events:none;border:2px solid white;';
+                icono.style.position = 'relative';
+                icono.appendChild(badge);
             }
-            badge.textContent = totalItems;
-            badge.style.display = 'flex';
+            if (badge) {
+                badge.textContent = totalItems;
+                badge.style.display = 'flex';
+            }
         } else if (badge) {
             badge.style.display = 'none';
         }
@@ -262,6 +265,13 @@ document.addEventListener('DOMContentLoaded', () => {
     sincronizarCorazones();
     sincronizarBadgesCantidad();
     renderizarCarrito();
+
+    // Ocultar buscador en celular y tablet (< 1024px)
+    const searchInput = document.querySelector('nav input[type="text"]');
+    if (searchInput) {
+        const searchContainer = searchInput.closest('section');
+        if (searchContainer) searchContainer.classList.add('max-lg:hidden');
+    }
 
     // WhatsApp — Finalizar compra
     const btnFinalizar = document.querySelector('#btn-carrito button');
