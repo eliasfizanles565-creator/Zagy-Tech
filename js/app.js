@@ -357,7 +357,7 @@ function renderizarCarrito() {
         const subtotalItem = item.precio * item.cantidad;
         precioTotalGeneral += subtotalItem;
         const articleHTML = `
-            <article class="flex gap-3 py-2 border-b border-temu/20 justify-between">
+            <article class="flex gap-3 py-2 border-t border-temu/20 justify-between">
                 <article class="flex gap-3">
                     <div class="size-20 border border-temu rounded-lg overflow-hidden"><img src="${item.imagen}" alt="" class="w-full h-full object-cover"></div>
                     <div class="flex flex-col items-start justify-center gap-1">
