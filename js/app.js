@@ -348,7 +348,7 @@ function renderizarCarrito() {
     if (!contenedorItems) return;
     contenedorItems.innerHTML = '';
     if (carritoDeCompras.length === 0) {
-        contenedorItems.innerHTML = `<p class="font-Inter text-xs text-stone-500 py-4 px-2">Tu carrito esta vacio.</p>`;
+        contenedorItems.innerHTML = `<p class="font-Inter text-xs text-stone-500 py-0 px-2">Tu carrito esta vacio.</p>`;
         if (elementoTotal) elementoTotal.innerHTML = `s/ 0.<span class="text-xl font-Russo">00</span>`;
         return;
     }
