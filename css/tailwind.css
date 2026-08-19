@@ -11,15 +11,12 @@
     --color-manita: #CEDBCB;
     --color-jabon: #EFE4DE;
 
-
     --font-Inter: "Inter", sans-serif;
     --font-Russo: "Russo One", sans-serif;
     --font-Playfair: "Playfair Display", serif;
     --font-Montserrat: "Montserrat", sans-serif;
     --font-MontAlternates: "Montserrat Alternates", sans-serif;
 }
-
-
 
 /* ================================================== */
 /* === CLIP PAHT BARRA INFERIOR === */
@@ -29,7 +26,6 @@
 .cardUsuario2 {
     clip-path: path("M 0,0 L 0,0 A 30,20 0,0,1 31.5,20 A 30,30 0,0,0 60,50 A 30,30 0,0,0 88.5,20 A 30,20 0,0,1 120,0 L 320,0 A 30,30 0,0,1 320,60 L 0,60 A 30,30 0,0,1 0,0 Z");
 }
-
 
 .cardCategorias {
     clip-path: path("M 40,0 L 55,0 A 30,20 0,0,1 85,20 A 30,30 0,0,0 115,50 A 30,30 0,0,0 145,20 A 30,20 0,0,1 175,0 L 320,0 A 30,30 0,0,1 320,60 L 40,60 A 30,30 0,0,1 40,0 Z");
@@ -60,31 +56,17 @@
 }
 /* ================================================== */
 
-
-
 /* ================================================== */
 /* === BOTONES CATEGORIAS === */
-/* Oculta scrollbar en Chrome, Safari, Edge */
-.scrollbar-hide::-webkit-scrollbar {
-    display: none;
-}
-
-/* Oculta scrollbar en Firefox */
-.scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 /* ================================================== */
 
-
-
-
-/* ================================================================================ */
+/* ================================================== */
 /* ==== CARD HERO ==== */
 .cardHero {
     clip-path: path("M 30,60 L 100,60 A 30,30 0,0,0 130,30 A 30,30 0,0,1 160,0 L 320,0 A 30,30 0,0,1 350,30 L 350,190 A 30,30 0,0,1 320,220 L 290,220 A 30,30 0,0,0 260,250 A 30,30 0,0,1 230,280 L 30,280 A 30,30 0,0,1 0,250 L 0,90 A 30,30 0,0,1 30,60 Z");
 }
-/* Path INTERIOR (2px más pequeño, para el borde) */
 .cardHeroInner {
     clip-path: path("M 32,61 L 99,61 A 32,32 0,0,0 132,32 A 28,28 0,0,1 162,1 L 318,1 A 28,28 0,0,1 348.5,32 L 348.5,188 A 28,28 0,0,1 318,219 L 288,219 A 32,32 0,0,0 258,249 A 28,28 0,0,1 228,279 L 32,279 A 28,28 0,0,1 2,248 L 2,92 A 28,28 0,0,1 32,61 Z");
 }
@@ -94,79 +76,29 @@
         clip-path: path("M 30,60 L 100,60 A 30,30 0,0,0 130,30 A 30,30 0,0,1 160,0 L 696,0 A 30,30 0,0,1 726,30 L 726,310 A 30,30 0,0,1 696,340 L 666,340 A 30,30 0,0,0 636,370 A 30,30 0,0,1 606,400 L 30,400 A 30,30 0,0,1 0,370 L 0,90 A 30,30 0,0,1 30,60 Z");
     }
     .cardHeroInner {
-    clip-path: path("M 32,61 L 99,61 A 32,32 0,0,0 132,32 A 28,28 0,0,1 162,1 L 694,1 A 28,28 0,0,1 724.5,32 L 724.5,308 A 28,28 0,0,1 694,339 L 664,339 A 32,32 0,0,0 634,369 A 28,28 0,0,1 604,399 L 32,399 A 28,28 0,0,1 2,368 L 2,92 A 28,28 0,0,1 32,61 Z");
+        clip-path: path("M 32,61 L 99,61 A 32,32 0,0,0 132,32 A 28,28 0,0,1 162,1 L 694,1 A 28,28 0,0,1 724.5,32 L 724.5,308 A 28,28 0,0,1 694,339 L 664,339 A 32,32 0,0,0 634,369 A 28,28 0,0,1 604,399 L 32,399 A 28,28 0,0,1 2,368 L 2,92 A 28,28 0,0,1 32,61 Z");
     }
 }
 
 .cardPrecioHero {
     clip-path: path("M 20,0 L 100,0 L 100,20 A 20,20 0,0,1 80,40 L 0,40 L 0,20 A 20,20 0,0,1 20,0 Z");
 }
-/* Path INTERIOR del precio (2px más pequeño) */
 .cardPrecioHeroInner {
     clip-path: path("M 20,1 L 99,1 L 99,21 A 19,19 0,0,1 81,39 L 1,39 L 1,20 A 19,19 0,0,1 20,1 Z");
 }
 
-/* =================================== */
 /* ===== SWIPER HERO ===== */
+.hero-swiper { width: 100%; height: 280px; overflow: hidden; }
+@media (min-width: 640px) { .hero-swiper { height: 400px; } }
+.hero-swiper .swiper-slide { width: 100%; height: 100%; }
 
-.hero-swiper {
-    width: 100%;
-    height: 280px;
-    overflow: hidden;
-}
-@media (min-width: 640px) {
-    .hero-swiper {
-        height: 400px;
-    }  
-}
+.swiper-pagination { position: relative; display: flex !important; justify-content: center; align-items: center; margin-top: 0px; }
+.swiper-pagination .swiper-pagination-bullet { width: 8px !important; height: 8px !important; background-color: #d6d3d1 !important; opacity: 1 !important; border-radius: 9999px !important; transition: all 0.3s ease !important; cursor: pointer !important; display: inline-block !important; margin: 0 !important; }
+.swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active { background-color: #000000 !important; transform: scale(1.3) !important; opacity: 1 !important; }
 
-.hero-swiper .swiper-slide {
-    width: 100%;
-    height: 100%;
-}
+.hero-swiper .swiper-wrapper { cursor: grab; }
+.hero-swiper .swiper-wrapper:active { cursor: grabbing; }
 
-/* Dots fuera del swiper */
-.swiper-pagination {
-    position: relative;
-    display: flex !important;
-    justify-content: center;
-    align-items: center;
-    margin-top: 0px;
-}
-
-/* Bullet inactivo — FORZAMOS gris */
-.swiper-pagination .swiper-pagination-bullet {
-    width: 8px !important;
-    height: 8px !important;
-    background-color: #d6d3d1 !important; /* stone-300 */
-    opacity: 1 !important;
-    border-radius: 9999px !important;
-    transition: all 0.3s ease !important;
-    cursor: pointer !important;
-    display: inline-block !important;
-    margin: 0 !important;
-}
-
-/* Bullet activo — FORZAMOS negro */
-.swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
-    background-color: #000000 !important;
-    transform: scale(1.3) !important;
-    opacity: 1 !important;
-}
-
-/* Cursor de agarre */
-.hero-swiper .swiper-wrapper {
-    cursor: grab;
-}
-.hero-swiper .swiper-wrapper:active {
-    cursor: grabbing;
-}
-
-/* ////////////////////////////////////////////////////// */
-
-
-
-/* ////////////////////////////////////////////////////// */
 /* ======= CARD PRODUCTOS RECORTE ========*/
 .cardProducto {
     clip-path: path("M 10,30 L 70,30 A 15,15 0,0,0 85,15 A 15,15 0,0,1 100,0 L 162,0 A 10,10 0,0,1 172,10 L 172,204 A 19,19 0,0,0 137,210 L 10,210 A 10,10 0,0,1 0,200 L 0,40 A 10,10 0,0,1 10,30 Z");
@@ -174,20 +106,19 @@
 .cardProductoInner {
     clip-path: path("M 11,30.5 L 71,30.5 A 15,15 0,0,0 85.5,16 A 15,15 0,0,1 101,0.5 L 161,0.5 A 10,10 0,0,1 171,10 L 171,202.5 A 19,19 0,0,0 136.5,209.5 L 10.5,209.5 A 9,9 0,0,1 1,199 L 1,39 A 9,9 0,0,1 11,30.5 Z");
 }
-
 .cardInfo {
     clip-path: path("M 10,0 L 137,0 A 19,19 0,0,0 172,6 L 172,30 A 10,10 0,0,1 162,40 L 10,40 A 10,10 0,0,1 0,30 L 0,10 A 10,10 0,0,1 10,0 Z");
 }
 .cardInfoInner {
     clip-path: path("M 11,0.5 L 136.5,0.5 A 19,19 0,0,0 171,7.5 L 171,30 A 9,9 0,0,1 161.5,39.5 L 10.5,39.5 A 9,9 0,0,1 1,30 L 1,10 A 9,9 0,0,1 11,0.5 Z");
 }
-/* 15 52.5 234 */
+
 @media (min-width: 640px) {
     .cardProducto {
-    clip-path: path("M 15,45 L 105,45 A 22.5,22.5 0,0,0 127.5,22.5 A 22.5,22.5 0,0,1 150,0 L 219,0 A 15,15 0,0,1 234,15 L 234,306 A 28.5,28.5 0,0,0 181.5,315 L 15,315 A 15,15 0,0,1 0,300 L 0,60 A 15,15 0,0,1 15,45 Z");
+        clip-path: path("M 15,45 L 105,45 A 22.5,22.5 0,0,0 127.5,22.5 A 22.5,22.5 0,0,1 150,0 L 219,0 A 15,15 0,0,1 234,15 L 234,306 A 28.5,28.5 0,0,0 181.5,315 L 15,315 A 15,15 0,0,1 0,300 L 0,60 A 15,15 0,0,1 15,45 Z");
     }
     .cardProductoInner {
-    clip-path: path("M 16,45.5 L 106,45.5 A 22.5,22.5 0,0,0 128,23.5 A 22.5,22.5 0,0,1 151,0.5 L 218,0.5 A 15,15 0,0,1 233,15 L 233,304.5 A 28.5,28.5 0,0,0 181,314.5 L 15.5,314.5 A 15,15 0,0,1 1,300 L 1,60 A 14.5,14.5 0,0,1 16,45.5 Z");
+        clip-path: path("M 16,45.5 L 106,45.5 A 22.5,22.5 0,0,0 128,23.5 A 22.5,22.5 0,0,1 151,0.5 L 218,0.5 A 15,15 0,0,1 233,15 L 233,304.5 A 28.5,28.5 0,0,0 181,314.5 L 15.5,314.5 A 15,15 0,0,1 1,300 L 1,60 A 14.5,14.5 0,0,1 16,45.5 Z");
     }
     .cardInfo {
         clip-path: path("M 15,0 L 181.5,0 A 28.5,28.5 0,0,0 234,9 L 234,45 A 15,15 0,0,1 219,60 L 15,60 A 15,15 0,0,1 0,45 L 0,15 A 15,15 0,0,1 15,0 Z");
@@ -197,167 +128,36 @@
     }
 }
 
-/* =========================================== */
 /* ===== BOTÓN ÉPICO UNIVERSAL ===== */
-.btn-epico {
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-/* Aureola naranja (oculta por defecto) */
-.btn-epico::before {
-    content: '';
-    position: absolute;
-    inset: -4px;
-    border-radius: 50%;
-    border: 2px solid #FB7701;
-    opacity: 0;
-    transform: scale(0.8);
-    transition: all 0.3s ease;
-    pointer-events: none;
-}
-
-/* Hover normal (solo si NO está activo) */
-.btn-epico:not(.activo):hover::before {
-    opacity: 1;
-    transform: scale(1);
-}
-
-.btn-epico:not(.activo):hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(251, 119, 1, 0.4);
-}
-
-.btn-epico:not(.activo):active {
-    transform: scale(0.85);
-}
-
-/* ===== ESTADO ACTIVO PERSISTENTE ===== */
-.btn-epico.activo {
-    background-color: #FB7701 !important;
-    transform: scale(1);
-    box-shadow: 0 0 20px rgba(251, 119, 1, 0.4);
-    animation: epico-bounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-/* Aureola visible cuando está activo */
-.btn-epico.activo::before {
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* Rebote al activar */
-@keyframes epico-bounce {
-    0%   { transform: scale(0.85); }
-    40%  { transform: scale(1.25); }
-    60%  { transform: scale(1.1); }
-    100% { transform: scale(1); }
-}
-
-/* Ripple */
-.btn-epico .ripple {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5);
-    transform: scale(0);
-    animation: ripple-anim 0.6s linear;
-    pointer-events: none;
-}
-
-@keyframes ripple-anim {
-    to {
-        transform: scale(4);
-        opacity: 0;
-    }
-}
+.btn-epico { transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.btn-epico::before { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid #FB7701; opacity: 0; transform: scale(0.8); transition: all 0.3s ease; pointer-events: none; }
+.btn-epico:not(.activo):hover::before { opacity: 1; transform: scale(1); }
+.btn-epico:not(.activo):hover { transform: scale(1.1); box-shadow: 0 0 20px rgba(251, 119, 1, 0.4); }
+.btn-epico:not(.activo):active { transform: scale(0.85); }
+.btn-epico.activo { background-color: #FB7701 !important; transform: scale(1); box-shadow: 0 0 20px rgba(251, 119, 1, 0.4); animation: epico-bounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.btn-epico.activo::before { opacity: 1; transform: scale(1); }
+@keyframes epico-bounce { 0% { transform: scale(0.85); } 40% { transform: scale(1.25); } 60% { transform: scale(1.1); } 100% { transform: scale(1); } }
+.btn-epico .ripple { position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.5); transform: scale(0); animation: ripple-anim 0.6s linear; pointer-events: none; }
+@keyframes ripple-anim { to { transform: scale(4); opacity: 0; } }
 
 /* ===== BADGE CONTADOR CARRITO ===== */
-.carrito-badge {
-    position: absolute;
-    top: -6px;
-    right: -6px;
-    min-width: 18px;
-    height: 18px;
-    background-color: #FB7701; /* tu naranja temu */
-    color: white;
-    font-size: 10px;
-    font-weight: bold;
-    border-radius: 9999px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 4px;
-    z-index: 30;
-    opacity: 0;
-    transform: scale(0);
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    pointer-events: none;
-    box-shadow: 0 2px 6px rgba(251, 119, 1, 0.4);
-}
+.carrito-badge { position: absolute; top: -6px; right: -6px; min-width: 18px; height: 18px; background-color: #FB7701; color: white; font-size: 10px; font-weight: bold; border-radius: 9999px; display: flex; align-items: center; justify-content: center; padding: 0 4px; z-index: 30; opacity: 0; transform: scale(0); transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); pointer-events: none; box-shadow: 0 2px 6px rgba(251, 119, 1, 0.4); }
+.carrito-badge.visible { opacity: 1; transform: scale(1); }
+.carrito-badge.pop { animation: badge-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+@keyframes badge-pop { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
 
-.carrito-badge.visible {
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* Animación de "pop" cuando suma */
-.carrito-badge.pop {
-    animation: badge-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-@keyframes badge-pop {
-    0%   { transform: scale(1); }
-    50%  { transform: scale(1.4); }
-    100% { transform: scale(1); }
-}
-
-/* ======================================== */
-
-
-/* ======================================== */
 /* ===== BOTÓN PRECIO UNIVERSAL ===== */
-.btn-precio {
-    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-    cursor: pointer;
-}
+.btn-precio { transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); cursor: pointer; }
+.btn-precio:not(.activo):hover { transform: translateY(-2px); filter: brightness(1.05); }
+.btn-precio:not(.activo):active { transform: scale(0.95); }
+.btn-precio.activo { background-color: #0c0a09 !important; color: #fff !important; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(12, 10, 9, 0.3); }
+.btn-precio.activo .iconoPrecio, .btn-precio.activo p { color: #fff !important; }
+.btn-precio .ripple-precio { position: fixed; border-radius: 50%; background: rgba(255, 255, 255, 0.4); transform: scale(0); animation: ripple-precio-anim 0.5s linear; pointer-events: none; z-index: 100; }
+@keyframes ripple-precio-anim { to { transform: scale(3); opacity: 0; } }
 
-/* Hover sutil (solo si NO está activo) */
-.btn-precio:not(.activo):hover {
-    transform: translateY(-2px);
-    filter: brightness(1.05);
-}
-
-/* Click: se encoge */
-.btn-precio:not(.activo):active {
-    transform: scale(0.95);
-}
-
-/* ===== ESTADO ACTIVO (toggle) ===== */
-.btn-precio.activo {
-    background-color: #0c0a09 !important;
-    color: #fff !important;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(12, 10, 9, 0.3);
-}
-
-.btn-precio.activo .iconoPrecio,
-.btn-precio.activo p {
-    color: #fff !important;
-}
-
-/* Ripple (sin necesidad de overflow:hidden) */
-.btn-precio .ripple-precio {
-    position: fixed;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4);
-    transform: scale(0);
-    animation: ripple-precio-anim 0.5s linear;
-    pointer-events: none;
-    z-index: 100;
-}
-
-@keyframes ripple-precio-anim {
-    to {
-        transform: scale(3);
-        opacity: 0;
-    }
-}
+/* ===== BOTÓN FAVORITO ===== */
+.btn-favorito.activo i, .btn-favorito-hero.activo i { color: #FB7701 !important; }
+.btn-favorito.activo, .btn-favorito-hero.activo { background-color: rgba(255,255,255,0.95) !important; }
+.btn-favorito { transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.btn-favorito:active, .btn-favorito-hero:active { transform: scale(0.85); }
+.btn-favorito-hero { transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); }
