@@ -121,7 +121,7 @@ function showHero(categoria) {
 function actualizarBadgeNavbar() {
     const totalItems = carritoDeCompras.reduce((sum, item) => sum + item.cantidad, 0);
 
-    // Esfera movil — badge DENTRO del <i> para no romper el layout del div fixed
+    // 1. ESFERA ACTIVA (#btnCarrito) — fondo temu → badge BLANCO + stone-950
     const esferaCarrito = document.getElementById('btnCarrito');
     if (esferaCarrito) {
         const icono = esferaCarrito.querySelector('i');
@@ -130,7 +130,7 @@ function actualizarBadgeNavbar() {
             if (!badge && icono) {
                 badge = document.createElement('span');
                 badge.className = 'navbar-carrito-badge';
-                badge.style.cssText = 'position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;background:#FB7701;color:white;font-size:10px;font-weight:bold;border-radius:9999px;display:flex;align-items:center;justify-content:center;padding:0 4px;z-index:60;pointer-events:none;border:2px solid white;';
+                badge.style.cssText = 'position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;background:#ffffff;color:#0c0a09;font-size:10px;font-weight:bold;border-radius:9999px;display:flex;align-items:center;justify-content:center;padding:0 4px;z-index:60;pointer-events:none;border:2px solid #0c0a09;';
                 icono.style.position = 'relative';
                 icono.appendChild(badge);
             }
@@ -143,7 +143,26 @@ function actualizarBadgeNavbar() {
         }
     }
 
-    // Desktop nav carrito
+    // 2. ICONO PREDETERMINADO (barra negra .textCarrito) — fondo stone-950 → badge TEMU + blanco
+    const iconoPredeterminado = document.querySelector('.textCarrito');
+    if (iconoPredeterminado) {
+        let badge = iconoPredeterminado.querySelector('.navbar-carrito-badge');
+        if (totalItems > 0) {
+            if (!badge) {
+                badge = document.createElement('span');
+                badge.className = 'navbar-carrito-badge';
+                badge.style.cssText = 'position:absolute;top:-8px;right:-8px;min-width:18px;height:18px;background:#FB7701;color:white;font-size:10px;font-weight:bold;border-radius:9999px;display:flex;align-items:center;justify-content:center;padding:0 4px;z-index:60;pointer-events:none;border:2px solid white;';
+                iconoPredeterminado.style.position = 'relative';
+                iconoPredeterminado.appendChild(badge);
+            }
+            badge.textContent = totalItems;
+            badge.style.display = 'flex';
+        } else if (badge) {
+            badge.style.display = 'none';
+        }
+    }
+
+    // 3. Desktop nav carrito
     const navDesktopCarrito = document.querySelector('.nav-desktop[data-nav="carrito"]');
     if (navDesktopCarrito) {
         let badge = navDesktopCarrito.querySelector('.navbar-carrito-badge');
@@ -266,12 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sincronizarBadgesCantidad();
     renderizarCarrito();
 
-    // Ocultar buscador en celular y tablet (< 1024px)
-    const searchInput = document.querySelector('nav input[type="text"]');
-    if (searchInput) {
-        const searchContainer = searchInput.closest('section');
-        if (searchContainer) searchContainer.classList.add('max-lg:hidden');
-    }
+
 
     // WhatsApp — Finalizar compra
     const btnFinalizar = document.querySelector('#btn-carrito button');
@@ -502,6 +516,10 @@ function gestionarVista(vista) {
     const favoritosSection = document.querySelector('#favoritos-section');
     const separadorNav = navCategorias ? navCategorias.nextElementSibling : null;
 
+    // Nav superior COMPLETO (logo + buscador + iconos desktop) y su separador
+    const navSuperior = document.querySelector('nav');
+    const separadorSuperior = navSuperior ? navSuperior.nextElementSibling : null;
+
     if (vista === 'carrito') {
         heros.forEach(hero => { hero.classList.add('hidden'); hero.style.display = 'none'; });
         if (productos) productos.classList.add('hidden');
@@ -511,6 +529,9 @@ function gestionarVista(vista) {
         if (carritoSection) carritoSection.classList.remove('hidden');
         if (btnCarritoFlotante) btnCarritoFlotante.classList.remove('hidden');
         if (separadorNav) separadorNav.classList.add('hidden');
+        // Ocultar nav superior COMPLETO en movil/tablet (quita el espacio vacio)
+        if (navSuperior) navSuperior.classList.add('max-lg:hidden');
+        if (separadorSuperior) separadorSuperior.classList.add('max-lg:hidden');
     } else if (vista === 'favoritos') {
         heros.forEach(hero => { hero.classList.add('hidden'); hero.style.display = 'none'; });
         if (productos) productos.classList.add('hidden');
@@ -521,6 +542,9 @@ function gestionarVista(vista) {
         if (favoritosSection) favoritosSection.classList.remove('hidden');
         if (separadorNav) separadorNav.classList.add('hidden');
         renderizarFavoritos();
+        // Ocultar nav superior COMPLETO en movil/tablet (quita el espacio vacio)
+        if (navSuperior) navSuperior.classList.add('max-lg:hidden');
+        if (separadorSuperior) separadorSuperior.classList.add('max-lg:hidden');
     } else {
         heros.forEach(hero => {
             hero.style.display = '';
@@ -534,6 +558,9 @@ function gestionarVista(vista) {
         if (btnCarritoFlotante) btnCarritoFlotante.classList.add('hidden');
         if (favoritosSection) favoritosSection.classList.add('hidden');
         if (separadorNav) separadorNav.classList.remove('hidden');
+        // Mostrar nav superior completo en movil/tablet
+        if (navSuperior) navSuperior.classList.remove('max-lg:hidden');
+        if (separadorSuperior) separadorSuperior.classList.remove('max-lg:hidden');
     }
 }
 
@@ -598,13 +625,15 @@ function activateNav(key) {
 
     if (key === 'carrito') { gestionarVista('carrito'); }
     else if (key === 'favoritos') { gestionarVista('favoritos'); }
-    else {
+    else if (key === 'inicio') {
+        // Solo Inicio resetea y vuelve a la tienda
         categoriaActual = 'todos';
         showingAll = false;
         const btnTodos = document.querySelector('[data-categoria="todos"]');
         if (btnTodos) setActiveCategory(btnTodos);
         gestionarVista('tienda');
     }
+    // Usuario y Categorias no hacen nada funcional (solo el navbar visual cambia)
 
     activeKey = key;
 }

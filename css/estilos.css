@@ -881,6 +881,9 @@
   .px-6 {
     padding-inline: calc(var(--spacing) * 6);
   }
+  .py-0 {
+    padding-block: 0px;
+  }
   .py-2 {
     padding-block: calc(var(--spacing) * 2);
   }
@@ -1010,6 +1013,9 @@
   .font-semibold {
     --tw-font-weight: var(--font-weight-semibold);
     font-weight: var(--font-weight-semibold);
+  }
+  .text-red-500 {
+    color: var(--color-red-500);
   }
   .text-stone-500 {
     color: var(--color-stone-500);
