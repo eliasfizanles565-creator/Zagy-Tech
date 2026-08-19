@@ -1,5 +1,11 @@
 "use strict";
 
+
+function extractBgClass(el) {
+    if (!el) return 'bg-puro';
+    const match = el.className.match(/bg-[\w-]+/);
+    return match ? match[0] : 'bg-puro';
+}
 // ======================================================
 // VARIABLES GLOBALES
 // ======================================================
@@ -351,15 +357,16 @@ function renderizarCarrito() {
         const subtotalItem = item.precio * item.cantidad;
         precioTotalGeneral += subtotalItem;
         const articleHTML = `
-            <article class="flex gap-3 py-2 border-b border-temu/20 justify-between">
+            <article class="flex gap-3 py-2 border-t border-temu/20 justify-between">
                 <article class="flex gap-3">
-                    <div class="size-20 border border-temu rounded-lg overflow-hidden"><img src="${item.imagen}" alt="" class="w-full h-full object-cover"></div>
+                    <div class="size-20 border-2 border-temu rounded-lg overflow-hidden"><img src="${item.imagen}" alt="" class="w-full h-full object-cover"></div>
                     <div class="flex flex-col items-start justify-center gap-1">
                         <div><p class="font-Inter text-xs">${item.titulo}</p><p class="font-Inter text-xs">${item.subtitulo}</p></div>
                         <button class="h-6 w-30 border border-temu rounded-4xl flex justify-center items-center text-xs text-temu">Color: Estandar</button>
                         <p class="text-xs font-Inter">s/ ${item.precio.toFixed(2)}</p>
                     </div>
                 </article>
+
                 <div class="flex flex-col justify-start items-end">
                     <p class="font-semibold pr-1">s/ ${subtotalItem.toFixed(2)}</p>
                     <div class="flex justify-center items-center h-12 w-25 rounded-4xl border border-temu gap-2 text-temu">
@@ -392,8 +399,32 @@ let favoritos = [];
 
 function toggleFavorito(producto) {
     const index = favoritos.findIndex(f => f.id === producto.id);
-    if (index !== -1) { favoritos.splice(index, 1); }
-    else { favoritos.push(producto); }
+    if (index !== -1) { 
+        favoritos.splice(index, 1); 
+    }
+    else { 
+        // Buscar la card original para copiar sus estilos exactos
+        const card = document.querySelector(`article[data-id="${producto.id}"]`);
+        if (card) {
+            const cardProducto = card.querySelector('.cardProducto');
+            const cardProductoInner = card.querySelector('.cardProductoInner');
+            const cardInfo = card.querySelector('.cardInfo');
+            const cardInfoInner = card.querySelector('.cardInfoInner');
+            const titleEl = cardInfoInner?.querySelector('p:first-child');
+            const subtitleEl = cardInfoInner?.querySelector('p:last-child');
+            const dotsBtn = card.querySelector('button.btn-precio.absolute.right-1.bottom-2\\.5, button.btn-precio.absolute.right-1.bottom-3\\.75');
+            
+            producto.bgProducto = extractBgClass(cardProducto);
+            producto.bgInner = extractBgClass(cardProductoInner);
+            producto.bgInfo = extractBgClass(cardInfo);
+            producto.bgInfoInner = extractBgClass(cardInfoInner);
+            producto.hasBorder = cardProductoInner ? cardProductoInner.classList.contains('border') : false;
+            producto.titleClasses = titleEl ? titleEl.className : '';
+            producto.subtitleClasses = subtitleEl ? subtitleEl.className : '';
+            producto.dotsHTML = dotsBtn ? dotsBtn.innerHTML : '';
+        }
+        favoritos.push(producto); 
+    }
     guardarFavoritos();
     sincronizarCorazones();
     renderizarFavoritos();
@@ -443,27 +474,38 @@ function renderizarFavoritos() {
     if (vacioMsg) vacioMsg.classList.add('hidden');
 
     favoritos.forEach(item => {
+        const bgProducto = item.bgProducto || 'bg-stone-950';
+        const bgInner = item.bgInner || 'bg-puro';
+        const bgInfo = item.bgInfo || 'bg-stone-950';
+        const bgInfoInner = item.bgInfoInner || 'bg-puro';
+        const hasBorder = item.hasBorder !== undefined ? item.hasBorder : true;
+        const borderClass = hasBorder ? 'border border-stone-950' : '';
+        const titleClasses = item.titleClasses || 'font-Inter text-xs font-extrabold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25';
+        const subtitleClasses = item.subtitleClasses || 'font-Inter text-xs font-extrabold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5';
+        const dotsHTML = item.dotsHTML || '';
+
         const cardHTML = `
             <article class="w-[172px] h-[254px] bg-white relative sm:w-[234px] sm:h-[381px]" data-id="${item.id}">
-                <div class="absolute inset-0 bg-stone-950 cardProducto"></div>
-                <div class="w-[172px] h-52.5 bg-white cardProductoInner absolute inset-0 overflow-hidden border border-stone-950 sm:w-[234px] sm:h-78.75">
+                <div class="absolute inset-0 ${bgProducto} cardProducto"></div>
+                <div class="w-[172px] h-52.5 ${bgInner} cardProductoInner absolute inset-0 overflow-hidden ${borderClass} sm:w-[234px] sm:h-78.75">
                     <img src="${item.imagen}" alt="" class="w-full h-full object-contain object-[50%_70%] sm:object-[50%_60%]">
                 </div>
                 <button class="btn-favorito absolute top-1.5 right-1.5 z-20 size-6 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2 activo">
                     <i class="ri-heart-fill text-sm text-stone-950 transition-colors duration-200 sm:text-lg"></i>
                 </button>
-                <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-puro border rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+                <div class="w-18 h-6 absolute top-0.5 left-2.25 ${bgInner} ${hasBorder ? 'border' : ''} rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                     <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ ${parseFloat(item.precio).toFixed(2)}</p>
                 </div>
                 <button class="btn-agregar-carrito size-7 bg-stone-950 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]"
                     data-id="${item.id}" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}" data-precio="${item.precio}" data-imagen="${item.imagen}">
                     <i class="ri-shopping-cart-2-line text-white text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
                 </button>
-                <div class="absolute bg-stone-950 bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
-                <div class="w-[172px] h-10 absolute bottom-0 bg-puro cardInfoInner flex flex-col justify-center border border-stone-950 sm:w-[234px] sm:h-15">
-                    <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">${item.titulo}</p>
-                    <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">${item.subtitulo}</p>
+                <div class="absolute ${bgInfo} bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
+                <div class="w-[172px] h-10 absolute bottom-0 ${bgInfoInner} cardInfoInner flex flex-col justify-center ${borderClass} sm:w-[234px] sm:h-15">
+                    <p class="${titleClasses}">${item.titulo}</p>
+                    <p class="${subtitleClasses}">${item.subtitulo}</p>
                 </div>
+                ${dotsHTML ? `<button class="absolute bg-white right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio sm:w-11.25 sm:h-[13.5px] sm:right-1.5 sm:bottom-3.75">${dotsHTML}</button>` : ''}
             </article>`;
         grid.insertAdjacentHTML('beforeend', cardHTML);
     });
