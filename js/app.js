@@ -8,6 +8,28 @@ let showingAll = false;
 let swiperTodos, swiperTecnologia, swiperHogar;
 
 // ======================================================
+// LOCALSTORAGE HELPERS
+// ======================================================
+function guardarCarrito() {
+    localStorage.setItem('zagy_carrito', JSON.stringify(carritoDeCompras));
+}
+function cargarCarrito() {
+    const data = localStorage.getItem('zagy_carrito');
+    if (data) {
+        try { carritoDeCompras = JSON.parse(data); } catch (e) { carritoDeCompras = []; }
+    }
+}
+function guardarFavoritos() {
+    localStorage.setItem('zagy_favoritos', JSON.stringify(favoritos));
+}
+function cargarFavoritos() {
+    const data = localStorage.getItem('zagy_favoritos');
+    if (data) {
+        try { favoritos = JSON.parse(data); } catch (e) { favoritos = []; }
+    }
+}
+
+// ======================================================
 // BOTONES CATEGORIAS - SCROLL Y FLECHAS
 // ======================================================
 const scrollContainer = document.getElementById('categorias-scroll');
@@ -42,7 +64,7 @@ if (scrollContainer) {
     scrollContainer.style.cursor = 'grab';
 }
 
-// Activar/desactivar botones categorías
+// Activar/desactivar botones categorias
 const catButtons = document.querySelectorAll('.cat-btn');
 function setActiveCategory(clickedBtn) {
     catButtons.forEach(btn => {
@@ -63,33 +85,112 @@ function showHero(categoria) {
     const heroContainers = document.querySelectorAll('.hero-container');
     heroContainers.forEach(container => {
         container.classList.add('hidden');
-        // ✅ FIX 1: Limpiar inline styles que quedan pegados desde gestionarVista()
         container.style.display = '';
         container.style.visibility = '';
     });
     const activeHero = document.getElementById(`hero-${categoria}`);
     if (activeHero) {
         activeHero.classList.remove('hidden');
-        // ✅ FIX 1: Asegurar que el hero activo también esté limpio
-        activeHero.style.display = '';
-        activeHero.style.visibility = '';
+        activeHero.style.display = 'block';
+        activeHero.style.visibility = 'visible';
 
-        // ✅ FIX 2: Forzar reflow para que Swiper recalcule tamaños reales
-        // Esto evita que el botón de corazón se vea "a la izquierda"
+        // FIX CORAZON: doble reflow + resizeHandler para que Swiper recalcule ancho real
         void activeHero.offsetWidth;
+        requestAnimationFrame(() => {
+            void activeHero.offsetWidth;
+            let swiperInstance = null;
+            if (categoria === 'todos') swiperInstance = swiperTodos;
+            else if (categoria === 'tecnologia') swiperInstance = swiperTecnologia;
+            else if (categoria === 'hogar') swiperInstance = swiperHogar;
 
-        setTimeout(() => {
-            if (categoria === 'todos' && swiperTodos) { swiperTodos.update(); swiperTodos.slideToLoop(0); }
-            else if (categoria === 'tecnologia' && swiperTecnologia) { swiperTecnologia.update(); swiperTecnologia.slideTo(0, 0); }
-            else if (categoria === 'hogar' && swiperHogar) { swiperHogar.update(); swiperHogar.slideTo(0, 0); }
-        }, 50);
+            if (swiperInstance) {
+                swiperInstance.updateSize();
+                swiperInstance.updateSlides();
+                swiperInstance.update();
+                swiperInstance.resize.resizeHandler();
+                if (categoria === 'todos') swiperInstance.slideToLoop(0, 0);
+                else swiperInstance.slideTo(0, 0);
+            }
+        });
     }
+}
+
+// ======================================================
+// BADGES DE CANTIDAD SINCRONIZADOS
+// ======================================================
+function actualizarBadgeNavbar() {
+    const totalItems = carritoDeCompras.reduce((sum, item) => sum + item.cantidad, 0);
+
+    // Esfera movil
+    const esferaCarrito = document.getElementById('btnCarrito');
+    if (esferaCarrito) {
+        let badge = esferaCarrito.querySelector('.navbar-carrito-badge');
+        if (totalItems > 0) {
+            if (!badge) {
+                badge = document.createElement('span');
+                badge.className = 'navbar-carrito-badge';
+                badge.style.cssText = 'position:absolute;top:-2px;right:-2px;min-width:20px;height:20px;background:#FB7701;color:white;font-size:11px;font-weight:bold;border-radius:9999px;display:flex;align-items:center;justify-content:center;padding:0 5px;z-index:60;pointer-events:none;border:2px solid white;';
+                esferaCarrito.style.position = 'relative';
+                esferaCarrito.appendChild(badge);
+            }
+            badge.textContent = totalItems;
+            badge.style.display = 'flex';
+        } else if (badge) {
+            badge.style.display = 'none';
+        }
+    }
+
+    // Desktop nav carrito
+    const navDesktopCarrito = document.querySelector('.nav-desktop[data-nav="carrito"]');
+    if (navDesktopCarrito) {
+        let badge = navDesktopCarrito.querySelector('.navbar-carrito-badge');
+        if (totalItems > 0) {
+            if (!badge) {
+                badge = document.createElement('span');
+                badge.className = 'navbar-carrito-badge';
+                badge.style.cssText = 'position:absolute;top:-4px;right:-8px;min-width:18px;height:18px;background:#FB7701;color:white;font-size:10px;font-weight:bold;border-radius:9999px;display:flex;align-items:center;justify-content:center;padding:0 4px;z-index:60;pointer-events:none;';
+                navDesktopCarrito.style.position = 'relative';
+                navDesktopCarrito.appendChild(badge);
+            }
+            badge.textContent = totalItems;
+            badge.style.display = 'flex';
+        } else if (badge) {
+            badge.style.display = 'none';
+        }
+    }
+}
+
+function sincronizarBadgesCantidad() {
+    document.querySelectorAll('.btn-agregar-carrito').forEach(btn => {
+        const id = parseInt(btn.dataset.id);
+        if (isNaN(id)) return;
+        const item = carritoDeCompras.find(i => i.id === id);
+        let badge = btn.querySelector('.cantidad-badge');
+
+        if (item && item.cantidad > 0) {
+            if (!badge) {
+                badge = document.createElement('span');
+                badge.className = 'cantidad-badge';
+                badge.style.cssText = 'position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;background:#FB7701;color:white;font-size:10px;font-weight:bold;border-radius:9999px;display:flex;align-items:center;justify-content:center;padding:0 4px;z-index:30;pointer-events:none;box-shadow:0 2px 6px rgba(251,119,1,0.4);';
+                btn.appendChild(badge);
+            }
+            badge.textContent = item.cantidad;
+            badge.style.display = 'flex';
+        } else if (badge) {
+            badge.style.display = 'none';
+        }
+    });
+
+    actualizarBadgeNavbar();
 }
 
 // ======================================================
 // FILTROS, VER MAS Y SWIPERS
 // ======================================================
 document.addEventListener('DOMContentLoaded', () => {
+    cargarCarrito();
+    cargarFavoritos();
+
     const grid = document.getElementById('product-grid');
     const btnVerMas = document.getElementById('btn-ver-mas');
 
@@ -97,13 +198,29 @@ document.addEventListener('DOMContentLoaded', () => {
     swiperTecnologia = new Swiper('#swiper-tecnologia', { loop: true, spaceBetween: 6, speed: 500, watchOverflow: false, pagination: { el: '.pagination-tecnologia', clickable: true }, autoplay: { delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true } });
     swiperHogar = new Swiper('#swiper-hogar', { loop: true, spaceBetween: 6, speed: 500, watchOverflow: false, pagination: { el: '.pagination-hogar', clickable: true }, autoplay: { delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true } });
 
+    // Copiar data attributes de slides a botones de carrito en heroes
+    document.querySelectorAll('.swiper-slide').forEach(slide => {
+        const btn = slide.querySelector('.btn-epico');
+        if (btn && slide.dataset.id) {
+            const icono = btn.querySelector('i[class*="ri-shopping-cart"]');
+            if (icono) {
+                btn.classList.add('btn-agregar-carrito');
+                btn.dataset.id = slide.dataset.id;
+                btn.dataset.titulo = slide.dataset.titulo;
+                btn.dataset.subtitulo = slide.dataset.subtitulo;
+                btn.dataset.precio = slide.dataset.precio;
+                btn.dataset.imagen = slide.dataset.imagen;
+            }
+        }
+    });
+
     if (!grid) return;
     const cards = Array.from(grid.getElementsByTagName('article'));
 
     function getLimitByScreen() {
         const width = window.innerWidth;
         if (width >= 1280) return 15;
-        if (width >= 1024) return 8;
+        if (width >= 1024) return 12;
         if (width >= 640) return 9;
         return 8;
     }
@@ -121,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         if (btnVerMas) {
             if (cardsEnCategoria.length <= limit) { btnVerMas.style.display = 'none'; }
-            else { btnVerMas.style.display = 'block'; btnVerMas.textContent = showingAll ? 'Ver menos' : 'Ver más'; }
+            else { btnVerMas.style.display = 'block'; btnVerMas.textContent = showingAll ? 'Ver menos' : 'Ver mas'; }
         }
     }
 
@@ -140,6 +257,32 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', () => updateDisplay());
     showHero('todos');
     updateDisplay();
+
+    // Sincronizar UI con datos cargados de localStorage
+    sincronizarCorazones();
+    sincronizarBadgesCantidad();
+    renderizarCarrito();
+
+    // WhatsApp — Finalizar compra
+    const btnFinalizar = document.querySelector('#btn-carrito button');
+    if (btnFinalizar) {
+        btnFinalizar.addEventListener('click', () => {
+            if (carritoDeCompras.length === 0) {
+                alert('Tu carrito esta vacio');
+                return;
+            }
+            let mensaje = '%F0%9F%9B%92%20*Pedido%20ZAGY%20Tech*%0A%0A';
+            let total = 0;
+            carritoDeCompras.forEach(item => {
+                mensaje += `%E2%80%A2%20*${encodeURIComponent(item.titulo)}*%20${encodeURIComponent(item.subtitulo)}%0A%20%20_Cantidad:_%20${item.cantidad}%0A%20%20_Precio%20unitario:_%20s/%20${item.precio.toFixed(2)}%0A%0A`;
+                total += item.precio * item.cantidad;
+            });
+            mensaje += '%E2%94%80%E2%94%80%E2%94%80%E2%94%80%E2%94%80%E2%94%80%E2%94%80%E2%94%80%E2%94%80%E2%94%80%E2%94%80%E2%94%80%E2%94%80%E2%94%80%E2%94%80%E2%94%80%E2%94%80%0A*Total%20a%20pagar:%20s/%20${total.toFixed(2)}*%0A%0A%C2%A1Gracias%20por%20tu%20compra!%20%F0%9F%99%8C';
+            // CAMBIA ESTE NUMERO POR TU WHATSAPP REAL (codigo pais + numero, sin +)
+            const telefono = '51900556685';
+            window.open(`https://wa.me/${telefono}?text=${mensaje}`, '_blank');
+        });
+    }
 });
 
 // ======================================================
@@ -164,7 +307,9 @@ function agregarAlCarrito(producto) {
     const index = carritoDeCompras.findIndex(item => item.id === producto.id);
     if (index !== -1) { carritoDeCompras[index].cantidad += 1; }
     else { carritoDeCompras.push({ ...producto, cantidad: 1 }); }
+    guardarCarrito();
     renderizarCarrito();
+    sincronizarBadgesCantidad();
 }
 
 function renderizarCarrito() {
@@ -173,7 +318,7 @@ function renderizarCarrito() {
     if (!contenedorItems) return;
     contenedorItems.innerHTML = '';
     if (carritoDeCompras.length === 0) {
-        contenedorItems.innerHTML = `<p class="font-Inter text-xs text-stone-500 py-4 px-2">Tu carrito está vacío.</p>`;
+        contenedorItems.innerHTML = `<p class="font-Inter text-xs text-stone-500 py-4 px-2">Tu carrito esta vacio.</p>`;
         if (elementoTotal) elementoTotal.textContent = 's/ 0.00';
         return;
     }
@@ -194,9 +339,9 @@ function renderizarCarrito() {
                 <div class="flex flex-col justify-start items-end">
                     <p class="font-semibold pr-1">s/ ${subtotalItem.toFixed(2)}</p>
                     <div class="flex justify-center items-center h-12 w-25 rounded-4xl border border-temu gap-2 text-temu">
-                        <button onclick="cambiarCantidad(${item.id}, -1)" class="bg-temu cursor-pointer rounded-4xl size-5 text-white flex items-center justify-center">-</button>
-                        <div class="flex flex-col items-center justify-center"><p class="leading-3 text-xs">${item.cantidad}</p><p class="text-xs">Añadidos</p></div>
-                        <button onclick="cambiarCantidad(${item.id}, 1)" class="bg-temu cursor-pointer rounded-4xl size-5 text-white flex items-center justify-center">+</button>
+                        <button onclick="cambiarCantidad(${item.id}, -1)" class="bg-temu/20 cursor-pointer rounded-4xl size-5 text-temu flex items-center justify-center">-</button>
+                        <div class="flex flex-col items-center justify-center"><p class="leading-3 text-xs">${item.cantidad}</p><p class="text-xs">Anadidos</p></div>
+                        <button onclick="cambiarCantidad(${item.id}, 1)" class="bg-temu/20 cursor-pointer rounded-4xl size-5 text-temu flex items-center justify-center">+</button>
                     </div>
                 </div>
             </article>`;
@@ -210,7 +355,9 @@ function cambiarCantidad(id, delta) {
     if (index !== -1) {
         carritoDeCompras[index].cantidad += delta;
         if (carritoDeCompras[index].cantidad <= 0) carritoDeCompras.splice(index, 1);
+        guardarCarrito();
         renderizarCarrito();
+        sincronizarBadgesCantidad();
     }
 }
 
@@ -223,13 +370,13 @@ function toggleFavorito(producto) {
     const index = favoritos.findIndex(f => f.id === producto.id);
     if (index !== -1) { favoritos.splice(index, 1); }
     else { favoritos.push(producto); }
+    guardarFavoritos();
     sincronizarCorazones();
     renderizarFavoritos();
 }
 
 function sincronizarCorazones() {
     const idsFavoritos = favoritos.map(f => f.id);
-    // Cards de producto
     document.querySelectorAll('.btn-favorito').forEach(btn => {
         const card = btn.closest('article');
         if (!card) return;
@@ -243,7 +390,6 @@ function sincronizarCorazones() {
             if (icono) { icono.classList.remove('ri-heart-fill'); icono.classList.add('ri-heart-line'); }
         }
     });
-    // Heroes
     document.querySelectorAll('.btn-favorito-hero').forEach(btn => {
         const slide = btn.closest('.swiper-slide');
         if (!slide) return;
@@ -263,7 +409,6 @@ function renderizarFavoritos() {
     const grid = document.getElementById('favoritos-grid');
     const vacioMsg = document.getElementById('favoritos-vacio');
     if (!grid) return;
-    // Limpiar cards anteriores (excepto mensaje vacío)
     const existingCards = grid.querySelectorAll('article');
     existingCards.forEach(c => c.remove());
 
@@ -335,7 +480,7 @@ document.addEventListener('click', (e) => {
 });
 
 // ======================================================
-// GESTIÓN DE VISTAS (TIENDA VS CARRITO VS FAVORITOS)
+// GESTION DE VISTAS (TIENDA VS CARRITO VS FAVORITOS)
 // ======================================================
 function gestionarVista(vista) {
     const heros = document.querySelectorAll('.hero-container');
@@ -367,8 +512,6 @@ function gestionarVista(vista) {
         if (separadorNav) separadorNav.classList.add('hidden');
         renderizarFavoritos();
     } else {
-        // VISTA TIENDA (inicio, categorías, usuario, etc.)
-        // ✅ FIX: Limpiar inline styles de todos los heroes antes de mostrar
         heros.forEach(hero => {
             hero.style.display = '';
             hero.style.visibility = '';
@@ -443,19 +586,13 @@ function activateNav(key) {
         if (activeLabel) { activeLabel.classList.remove('text-stone-950', 'border-transparent'); activeLabel.classList.add('text-temu', 'border-temu'); }
     }
 
-    // Gestionar vistas según el botón
     if (key === 'carrito') { gestionarVista('carrito'); }
     else if (key === 'favoritos') { gestionarVista('favoritos'); }
     else {
-        // RESET completo al inicio
         categoriaActual = 'todos';
         showingAll = false;
-
-        // Activar botón "Todos" visualmente
         const btnTodos = document.querySelector('[data-categoria="todos"]');
         if (btnTodos) setActiveCategory(btnTodos);
-
-        // Mostrar hero de todos y productos
         gestionarVista('tienda');
     }
 
@@ -474,18 +611,19 @@ document.querySelectorAll('.nav-desktop').forEach(btn => {
     });
 });
 
-// Iniciar
 activateNav('inicio');
 
 // ======================================================
-// BOTÓN ÉPICO UNIVERSAL + CONTADOR CARRITO
+// BOTON EPICO UNIVERSAL + CONTADOR CARRITO
 // ======================================================
 document.addEventListener('click', (e) => {
     const btn = e.target.closest('.btn-epico');
     if (!btn) return;
     e.stopPropagation();
+
+    // Solo crear contador de clicks en botones que NO son de agregar carrito
     const iconoCarrito = btn.querySelector('i[class*="ri-shopping-cart"]');
-    if (iconoCarrito) {
+    if (iconoCarrito && !btn.classList.contains('btn-agregar-carrito')) {
         let badge = btn.querySelector('.carrito-badge');
         if (!badge) {
             badge = document.createElement('span');
@@ -501,6 +639,7 @@ document.addEventListener('click', (e) => {
         void badge.offsetWidth;
         badge.classList.add('pop');
     }
+
     if (btn.classList.contains('activo')) return;
     document.querySelectorAll('.btn-epico.activo').forEach(b => b.classList.remove('activo'));
     btn.classList.add('activo');
@@ -522,7 +661,7 @@ document.addEventListener('click', (e) => {
 });
 
 // ======================================================
-// BOTÓN PRECIO UNIVERSAL
+// BOTON PRECIO UNIVERSAL
 // ======================================================
 document.addEventListener('click', (e) => {
     const btn = e.target.closest('.btn-precio');
@@ -548,9 +687,7 @@ document.addEventListener('click', (e) => {
     }
 });
 
-//////////////////
 // LOGO
-//////////////////
 document.getElementById('logo-zagy').addEventListener('click', () => {
     activateNav('inicio');
 });
