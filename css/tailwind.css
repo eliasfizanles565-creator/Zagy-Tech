@@ -20,6 +20,9 @@
     --font-MontAlternates: "Montserrat Alternates", sans-serif;
 }
 
+body {
+    overflow-x: hidden;
+}
 /* ================================================== */
 /* === CLIP PAHT BARRA INFERIOR === */
 .cardUsuario {
