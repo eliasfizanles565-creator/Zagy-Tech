@@ -835,6 +835,14 @@ document.getElementById('logo-zagy').addEventListener('click', () => {
 //     }
 // })
 
+const buscador = document.querySelector('#buscador');
+const heroPrincipal = document.querySelector('.hero-container');
+
+buscador.addEventListener('click' , function () {
+    console.log('hola');
+})
+
+
 document.addEventListener('input', e => {
     if (e.target.matches('#buscador')) {
         const textoBusqueda = e.target.value.toLowerCase();
