@@ -1060,7 +1060,7 @@ if (buscadorInput) {
 // Adapta '#search-btn' si tu lupa tiene otro id
 const btnLupa = document.querySelector('#search-btn');
 if (btnLupa) {
-    btnLupa.addEventListener('click', e => {
+    btnLupa.addEventListener('pointerdown', e => {
         e.preventDefault();
         if (buscadorInput) {
             crearCategoriaBusqueda(buscadorInput.value);
@@ -1104,7 +1104,7 @@ busquedaCarrito2.addEventListener('click', function () {
 
 /////////////
 // Click en sugerencias
-document.getElementById('sugerencias-dropdown').addEventListener('click', e => {
+document.getElementById('sugerencias-dropdown').addEventListener('pointerdown', e => {
     const item = e.target.closest('.sugerencia-item');
     if (!item) return;
     const texto = item.getAttribute('data-sugerencia');
