@@ -891,9 +891,15 @@ function filtrarProductosGlobal(query) {
     let encontrados = 0;
 
     cards.forEach(card => {
-        const titulo = (card.getAttribute('data-titulo') || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        const subtitulo = (card.getAttribute('data-subtitulo') || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        if ((titulo + ' ' + subtitulo).includes(q)) {
+        let texto = '';
+        const tituloAttr = card.getAttribute('data-titulo');
+        const subtituloAttr = card.getAttribute('data-subtitulo');
+        if (tituloAttr || subtituloAttr) {
+            texto = ((tituloAttr || '') + ' ' + (subtituloAttr || '')).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        } else {
+            texto = card.textContent.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        }
+        if (texto.includes(q)) {
             card.classList.remove('hidden');
             encontrados++;
         } else {
@@ -977,12 +983,20 @@ function eliminarCategoriaBusqueda(restaurarVista = true) {
     
     const msg = document.getElementById('search-results-msg');
     if (msg) msg.classList.add('hidden');
+
+    const enCarrito = !document.getElementById('carrito-section').classList.contains('hidden');
+    const enFavoritos = !document.getElementById('favoritos-section').classList.contains('hidden');
     
+    // SI ESTOY EN CARRITO O FAVORITOS: solo limpio el filtro y me quedo ahí, NADA de hero
+    if (enCarrito || enFavoritos) {
+        filtrarProductosGlobal('');
+        return;
+    }
+    
+    // Si estoy en tienda, restaurar como antes
     if (restaurarVista) {
-        // Volver a "Todos"
         const btnTodos = document.querySelector('[data-categoria="todos"]');
         if (btnTodos) {
-            // Activar visualmente "Todos"
             document.querySelectorAll('.cat-btn').forEach(b => {
                 const txt = b.querySelector('p');
                 b.classList.remove('bg-stone-950');
@@ -994,13 +1008,11 @@ function eliminarCategoriaBusqueda(restaurarVista = true) {
             const t = btnTodos.querySelector('p');
             if (t) { t.classList.remove('text-stone-950'); t.classList.add('text-white'); }
             
-            // Restaurar tu lógica nativa
             categoriaActual = 'todos';
             showingAll = false;
             showHero('todos');
             if (typeof updateDisplayRef === 'function') updateDisplayRef();
         }
-        
         const btnMas = document.getElementById('btn-mas');
         if (btnMas) btnMas.classList.remove('hidden');
     }
@@ -1025,7 +1037,6 @@ if (buscadorInput) {
     }
     if (val.trim() === '') {
         eliminarCategoriaBusqueda(true);
-        filtrarProductosGlobal('');
     }
 });
     
