@@ -910,14 +910,21 @@ function filtrarProductosGlobal(query) {
 }
 
 function mostrarMensajeResultados(query, encontrados) {
-    const grid = document.getElementById('product-grid');
-    if (!grid) return;
+    const enCarrito = !document.getElementById('carrito-section').classList.contains('hidden');
+    const enFavoritos = !document.getElementById('favoritos-section').classList.contains('hidden');
+    
+    let referencia;
+    if (enCarrito) referencia = document.getElementById('contenedor-items-carrito');
+    else if (enFavoritos) referencia = document.getElementById('favoritos-grid');
+    else referencia = document.getElementById('product-grid');
+    
+    if (!referencia) return;
     let msg = document.getElementById('search-results-msg');
     if (!msg) {
         msg = document.createElement('div');
         msg.id = 'search-results-msg';
         msg.className = 'w-full text-center py-4 mb-2';
-        grid.parentNode.insertBefore(msg, grid);
+        referencia.parentNode.insertBefore(msg, referencia);
     }
     if (encontrados === 0) {
         msg.innerHTML = `<p class="font-Inter text-sm text-stone-500">No se encontraron productos para "<span class="text-temu font-semibold">${query}</span>"</p>`;
@@ -934,7 +941,8 @@ function crearCategoriaBusqueda(query) {
     const enFavoritos = !document.getElementById('favoritos-section').classList.contains('hidden');
     
     if (enCarrito || enFavoritos) {
-        filtrarProductosGlobal(query);
+        const encontrados = filtrarProductosGlobal(query);
+        mostrarMensajeResultados(query, encontrados);
         document.getElementById('sugerencias-dropdown').classList.add('hidden');
         return;
     }
@@ -1070,13 +1078,24 @@ document.querySelectorAll('.cat-btn[data-categoria]').forEach(btn => {
 });
 
 const busquedaFavoritos = document.getElementById('favoritos');
+const busquedaFavoritos2 = document.getElementById('text-favoritos');
 const busquedaCarrito = document.getElementById('carrito-cambio');
+const busquedaCarrito2 = document.getElementById('text-carrito');
 
 busquedaFavoritos.addEventListener('click', function () {
     const msg = document.getElementById('search-results-msg');
     if (msg) msg.classList.add('hidden');
 });
+busquedaFavoritos2.addEventListener('click', function () {
+    const msg = document.getElementById('search-results-msg');
+    if (msg) msg.classList.add('hidden');
+});
+
 busquedaCarrito.addEventListener('click', function () {
+    const msg = document.getElementById('search-results-msg');
+    if (msg) msg.classList.add('hidden');
+});
+busquedaCarrito2.addEventListener('click', function () {
     const msg = document.getElementById('search-results-msg');
     if (msg) msg.classList.add('hidden');
 });
