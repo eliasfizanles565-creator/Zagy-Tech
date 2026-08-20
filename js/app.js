@@ -362,8 +362,8 @@ function renderizarCarrito() {
                     <div class="size-20 border-2 border-temu rounded-lg overflow-hidden"><img src="${item.imagen}" alt="" class="w-full h-full object-cover"></div>
                     <div class="flex flex-col items-start justify-center gap-1">
                         <div><p class="font-Inter font-medium text-xs">${item.titulo}</p><p class="font-Inter font-medium text-xs">${item.subtitulo}</p></div>
-                        <button class="h-6 w-30 border border-temu rounded-4xl flex justify-center items-center text-xs text-temu">Color: Estandar</button>
-                        <p class="text-xs font-Inter">s/ ${item.precio.toFixed(2)}</p>
+                        <button class="h-6 w-30 border border-verdeTemu rounded-4xl flex justify-center items-center text-xs text-verdeTemu">Color: Estandar</button>
+                        <p class="text-xs text-verdeTemu font-Inter">s/ ${item.precio.toFixed(2)}</p>
                     </div>
                 </article>
 
