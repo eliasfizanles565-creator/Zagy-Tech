@@ -436,23 +436,42 @@ function renderizarCarrito() {
         const subtotalItem = item.precio * item.cantidad;
         precioTotalGeneral += subtotalItem;
         const articleHTML = `
-    <article class="flex gap-3 py-2 border-t border-stone-950/20 justify-between" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}">
+            <article class="flex gap-3 py-2 shadow-lg shadow-stone-400 rounded-xl justify-between mb-2 relative overflow-hidden" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}">
                 <article class="flex gap-3">
-                    <div class="size-20 border-2 border-temu rounded-lg overflow-hidden"><img src="${item.imagen}" alt="" class="w-full h-full object-cover"></div>
+                    <div class="size-20 ml-2 rounded-lg overflow-hidden"><img src="${item.imagen}" alt="" class="w-full h-full object-cover"></div>
                     <div class="flex flex-col items-start justify-center gap-1">
-                        <div><p class="font-Inter font-medium text-xs">${item.titulo}</p><p class="font-Inter font-medium text-xs">${item.subtitulo}</p></div>
-                        <button class="h-6 w-30 border border-verdeTemu rounded-4xl flex justify-center items-center text-xs text-verdeTemu">Color: Estandar</button>
-                        <p class="text-xs text-verdeTemu font-Inter">s/ ${item.precio.toFixed(2)}</p>
+                        <div>
+                            <p class="font-Inter font-medium text-xs">${item.titulo}
+                            </p>
+                            <p class="font-Inter font-medium text-xs">${item.subtitulo}
+                            </p>
+                        </div>
+                        <button class="h-6 w-30 bg-verdeTemu3 rounded-4xl flex justify-center items-center text-xs font-semibold text-white">
+                            Color: Estandar
+                        </button>
+                        <p class="text-xs font-bold font-MontAlternates">s/ ${item.precio.toFixed(2)}</p>
                     </div>
                 </article>
 
-                <div class="flex flex-col justify-start items-end">
-                    <p class="font-semibold pr-1">s/ ${subtotalItem.toFixed(2)}</p>
-                    <div class="flex justify-center items-center h-12 w-25 rounded-4xl border border-temu gap-2 text-temu">
-                        <button onclick="cambiarCantidad(${item.id}, -1)" class="bg-transparent cursor-pointer rounded-4xl size-5 text-temu flex items-center justify-center">-</button>
-                        <div class="flex flex-col items-center justify-center"><p class="leading-3 text-xs">${item.cantidad}</p><p class="text-xs">Añadidos</p></div>
-                        <button onclick="cambiarCantidad(${item.id}, 1)" class="bg-transparent cursor-pointer rounded-4xl size-5 text-temu flex items-center justify-center">+</button>
+                <div class="flex flex-col justify-start items-end mr-2 mt-6">
+                    <p class="text-lg text-temu font-Russo pr-1 leading-3">s/ ${subtotalItem.toFixed(2)}</p>
+                    <div class="flex justify-center items-center h-5 w-15 rounded-4xl bg-stone-950 gap-2 text-white font-semibold mt-5">
+                        <button onclick="cambiarCantidad(${item.id}, -1)" class="bg-transparent cursor-pointer rounded-4xl size-5 flex items-center justify-center">
+                            -
+                        </button>
+                        <div class="flex flex-col items-center justify-center">
+                            <p class="leading-3 text-xs">
+                                ${item.cantidad}
+                            </p>
+                        </div>
+                        <button onclick="cambiarCantidad(${item.id}, 1)" class="bg-transparent cursor-pointer rounded-4xl size-5 flex items-center justify-center">
+                            +
+                        </button>
                     </div>
+                </div>
+
+                <div class="bg-stone-950 h-5 w-7 absolute top-0 right-0 rounded-bl-xl flex justify-center items-center text-white">
+                    <i class="ri-delete-bin-6-line text-xs pl-1"></i>
                 </div>
             </article>`;
         contenedorItems.innerHTML += articleHTML;
