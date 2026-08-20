@@ -547,6 +547,9 @@
     --tw-translate-y: calc(calc(1 / 2 * 100%) * -1);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
+  .transform {
+    transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
+  }
   .cursor-default {
     cursor: default;
   }
@@ -1580,6 +1583,54 @@
 #sugerencias-dropdown .sugerencia-item:hover {
   background-color: #f5f5f4;
 }
+.fly-to-cart-ghost {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #FB7701;
+  border: 2px solid white;
+  box-shadow: 0 4px 14px rgba(251, 119, 1, 0.45);
+  z-index: 9999;
+  pointer-events: none;
+  overflow: hidden;
+}
+.fly-to-cart-ghost img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@keyframes icono-bounce-llegada {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.35);
+  }
+  55% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.icono-llegada {
+  animation: icono-bounce-llegada 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes badge-pop-llegada {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.6);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.badge-pop-llegada {
+  animation: badge-pop-llegada 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
 @property --tw-translate-x {
   syntax: "*";
   inherits: false;
@@ -1594,6 +1645,26 @@
   syntax: "*";
   inherits: false;
   initial-value: 0;
+}
+@property --tw-rotate-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-y {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-z {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-y {
+  syntax: "*";
+  inherits: false;
 }
 @property --tw-scroll-snap-strictness {
   syntax: "*";
@@ -1739,6 +1810,11 @@
       --tw-translate-x: 0;
       --tw-translate-y: 0;
       --tw-translate-z: 0;
+      --tw-rotate-x: initial;
+      --tw-rotate-y: initial;
+      --tw-rotate-z: initial;
+      --tw-skew-x: initial;
+      --tw-skew-y: initial;
       --tw-scroll-snap-strictness: proximity;
       --tw-border-style: solid;
       --tw-leading: initial;

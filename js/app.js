@@ -321,6 +321,82 @@ document.addEventListener('DOMContentLoaded', () => {
 // CARRITO
 // ======================================================
 let carritoDeCompras = [];
+// ======================================================
+// FLY TO CART (efecto Temu)
+// ======================================================
+function getDestinoCarrito() {
+    // Desktop: icono del nav superior
+    const navDesktop = document.querySelector('.nav-desktop[data-nav="carrito"]');
+    if (navDesktop && navDesktop.offsetParent !== null) {
+        return navDesktop.querySelector('i') || navDesktop;
+    }
+    // Móvil: icono de carrito en la bottom nav
+    const bottomCarrito = document.querySelector('.textCarrito');
+    if (bottomCarrito && bottomCarrito.offsetParent !== null) {
+        return bottomCarrito;
+    }
+    return null;
+}
+
+function animarFlyToCart(btnOrigen, imagenUrl) {
+    const destino = getDestinoCarrito();
+    if (!destino || !btnOrigen) return;
+
+    const rectOrigen = btnOrigen.getBoundingClientRect();
+    const rectDestino = destino.getBoundingClientRect();
+
+    const size = 36;
+    const startX = rectOrigen.left + rectOrigen.width / 2 - size / 2;
+    const startY = rectOrigen.top + rectOrigen.height / 2 - size / 2;
+    const endX   = rectDestino.left + rectDestino.width / 2 - size / 2;
+    const endY   = rectDestino.top + rectDestino.height / 2 - size / 2;
+
+    const tx = endX - startX;
+    const ty = endY - startY;
+
+    // Crear el "fantasmita"
+    const ghost = document.createElement('div');
+    ghost.className = 'fly-to-cart-ghost';
+    ghost.style.left = startX + 'px';
+    ghost.style.top  = startY + 'px';
+
+    if (imagenUrl) {
+        const img = document.createElement('img');
+        img.src = imagenUrl;
+        ghost.appendChild(img);
+    }
+
+    document.body.appendChild(ghost);
+
+    // Animar con Web Animations API (arco hacia arriba)
+    const anim = ghost.animate([
+        { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+        { transform: `translate(${tx * 0.25}px, ${ty * 0.25 - 55}px) scale(1.1)`, opacity: 1, offset: 0.25 },
+        { transform: `translate(${tx}px, ${ty}px) scale(0.1)`, opacity: 0 }
+    ], {
+        duration: 580,
+        easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)'
+    });
+
+    anim.onfinish = () => {
+        ghost.remove();
+
+        // Bounce en el icono de carrito destino
+        destino.classList.remove('icono-llegada');
+        void destino.offsetWidth;
+        destino.classList.add('icono-llegada');
+        setTimeout(() => destino.classList.remove('icono-llegada'), 400);
+
+        // Pop en el badge si existe
+        const badge = destino.querySelector('.navbar-carrito-badge, .cantidad-badge');
+        if (badge) {
+            badge.classList.remove('badge-pop-llegada');
+            void badge.offsetWidth;
+            badge.classList.add('badge-pop-llegada');
+            setTimeout(() => badge.classList.remove('badge-pop-llegada'), 350);
+        }
+    };
+}
 
 document.addEventListener('click', (e) => {
     const btnCircular = e.target.closest('.btn-agregar-carrito');
@@ -333,6 +409,7 @@ document.addEventListener('click', (e) => {
         imagen: btnCircular.dataset.imagen
     };
     agregarAlCarrito(producto);
+    animarFlyToCart(btnCircular, producto.imagen);   // ← ESTA ES LA NUEVA
 });
 
 function agregarAlCarrito(producto) {
@@ -1126,3 +1203,6 @@ document.addEventListener('touchstart', (e) => {
     if (input.contains(e.target)) return;
     input.blur();
 }, { passive: true });
+
+
+
