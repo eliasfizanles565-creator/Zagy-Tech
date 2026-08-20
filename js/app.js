@@ -1060,7 +1060,7 @@ if (buscadorInput) {
 // Adapta '#search-btn' si tu lupa tiene otro id
 const btnLupa = document.querySelector('#search-btn');
 if (btnLupa) {
-    btnLupa.addEventListener('pointerdown', e => {
+    btnLupa.addEventListener('click', e => {
         e.preventDefault();
         if (buscadorInput) {
             crearCategoriaBusqueda(buscadorInput.value);
@@ -1104,7 +1104,7 @@ busquedaCarrito2.addEventListener('click', function () {
 
 /////////////
 // Click en sugerencias
-document.getElementById('sugerencias-dropdown').addEventListener('pointerdown', e => {
+document.getElementById('sugerencias-dropdown').addEventListener('click', e => {
     const item = e.target.closest('.sugerencia-item');
     if (!item) return;
     const texto = item.getAttribute('data-sugerencia');
@@ -1115,7 +1115,7 @@ document.getElementById('sugerencias-dropdown').addEventListener('pointerdown', 
 });
 
 // Cerrar sugerencias al pinchar fuera
-document.addEventListener('pointerdown', e => {
+document.addEventListener('click', e => {
     const dropdown = document.getElementById('sugerencias-dropdown');
     const buscador = document.getElementById('buscador');
     if (!dropdown || !buscador) return;
@@ -1123,3 +1123,39 @@ document.addEventListener('pointerdown', e => {
         dropdown.classList.add('hidden');
     }
 });
+
+// 1. Cerrar teclado inmediatamente al tocar fuera del input/dropdown
+// Esto hace que el click posterior SI llegue al elemento
+document.addEventListener('touchstart', (e) => {
+    const input = document.getElementById('buscador');
+    const dropdown = document.getElementById('sugerencias-dropdown');
+    if (!input || document.activeElement !== input) return;
+    if (input.contains(e.target) || (dropdown && dropdown.contains(e.target))) return;
+    input.blur();
+}, { passive: true });
+
+// 2. Sugerencias: responder al PRIMER tap (touchstart), no al click
+const dropdownSug = document.getElementById('sugerencias-dropdown');
+if (dropdownSug) {
+    // Click para PC
+    dropdownSug.addEventListener('click', e => {
+        const item = e.target.closest('.sugerencia-item');
+        if (!item) return;
+        ejecutarSugerencia(item);
+    });
+    // Touchstart para móvil (ejecuta inmediato, cancela el click fantasma)
+    dropdownSug.addEventListener('touchstart', e => {
+        const item = e.target.closest('.sugerencia-item');
+        if (!item) return;
+        e.preventDefault(); // <-- Esto evita que el SO robe el tap
+        ejecutarSugerencia(item);
+    });
+}
+
+function ejecutarSugerencia(item) {
+    const texto = item.getAttribute('data-sugerencia');
+    const input = document.getElementById('buscador');
+    if (input) { input.value = texto; input.blur(); }
+    crearCategoriaBusqueda(texto);
+    document.getElementById('sugerencias-dropdown').classList.add('hidden');
+}
