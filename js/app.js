@@ -835,171 +835,61 @@ document.getElementById('logo-zagy').addEventListener('click', () => {
 //     }
 // })
 
-// ======================================================
-// BÚSQUEDA COMO CATEGORÍA DINÁMICA
-// ======================================================
-let btnCategoriaBusqueda = null;
+const buscador = document.querySelector('#buscador');
+const heroPrincipal = document.querySelector('.hero-container');
+const btnMas = document.querySelector('#btn-mas');
 
-function filtrarProductosGlobal(query) {
-    const grid = document.getElementById('product-grid');
-    if (!grid) return 0;
-    const cards = grid.querySelectorAll('article');
-    const q = query.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
-    let encontrados = 0;
+// 🔑 CLAVE: Guardamos TODOS los productos al cargar la página (solo una vez)
+// Si tus articles NO tienen clase "producto-tienda", cámbialo por: '#product-grid article'
+const todosLosProductos = Array.from(document.querySelectorAll('.producto-tienda'));
 
-    cards.forEach(card => {
-        const titulo = (card.getAttribute('data-titulo') || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        const subtitulo = (card.getAttribute('data-subtitulo') || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        if ((titulo + ' ' + subtitulo).includes(q)) {
-            card.classList.remove('hidden');
-            encontrados++;
-        } else {
-            card.classList.add('hidden');
+buscador.addEventListener('click', function () {
+    if (heroPrincipal) {
+        heroPrincipal.classList.add('hidden');
+        heroPrincipal.style.display = 'none';
+    }
+});
+
+buscador.addEventListener('input', e => {
+    const textoBusqueda = e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+
+    // Si borra todo el input, volver a la vista normal de la categoría activa
+    if (textoBusqueda === '') {
+        if (heroPrincipal) {
+            heroPrincipal.classList.remove('hidden');
+            heroPrincipal.style.display = '';
+            heroPrincipal.style.visibility = '';
         }
-    });
-    return encontrados;
-}
-
-function mostrarMensajeResultados(query, encontrados) {
-    const grid = document.getElementById('product-grid');
-    if (!grid) return;
-    let msg = document.getElementById('search-results-msg');
-    if (!msg) {
-        msg = document.createElement('div');
-        msg.id = 'search-results-msg';
-        msg.className = 'w-full text-center py-4 mb-2';
-        grid.parentNode.insertBefore(msg, grid);
-    }
-    if (encontrados === 0) {
-        msg.innerHTML = `<p class="font-Inter text-sm text-stone-500">No se encontraron productos para "<span class="text-temu font-semibold">${query}</span>"</p>`;
-    } else {
-        msg.innerHTML = `<p class="font-Inter text-sm text-stone-500">${encontrados} resultado${encontrados !== 1 ? 's' : ''} para "<span class="text-temu font-semibold">${query}</span>"</p>`;
-    }
-    msg.classList.remove('hidden');
-}
-
-function crearCategoriaBusqueda(query) {
-    if (!query || !query.trim()) return;
-    
-    // 1. Eliminar categoría anterior si existe
-    eliminarCategoriaBusqueda(false);
-    
-    // 2. Ocultar hero y botón "Ver más"
-    document.querySelectorAll('.hero-container').forEach(h => {
-        h.classList.add('hidden');
-        h.style.display = 'none';
-    });
-    const btnMas = document.getElementById('btn-mas');
-    if (btnMas) btnMas.classList.add('hidden');
-    
-    // 3. Crear botón "Resultados" en la barra de categorías
-    const scrollContainer = document.getElementById('categorias-scroll');
-    if (!scrollContainer) return;
-    
-    btnCategoriaBusqueda = document.createElement('button');
-    btnCategoriaBusqueda.className = 'cat-btn shrink-0 w-25 h-8 bg-stone-950 rounded-4xl flex justify-center items-center cursor-pointer snap-start';
-    btnCategoriaBusqueda.setAttribute('data-categoria', 'busqueda');
-    btnCategoriaBusqueda.innerHTML = `<p class="text-white font-semibold text-sm">Resultados</p>`;
-    
-    // Insertar al inicio de la barra
-    scrollContainer.insertBefore(btnCategoriaBusqueda, scrollContainer.firstChild);
-    scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
-    
-    // 4. Activar visualmente (negro = activo)
-    document.querySelectorAll('.cat-btn').forEach(b => {
-        const txt = b.querySelector('p');
-        b.classList.remove('bg-stone-950');
-        b.classList.add('bg-white', 'border', 'border-stone-950');
-        if (txt) { txt.classList.remove('text-white'); txt.classList.add('text-stone-950'); }
-    });
-    btnCategoriaBusqueda.classList.remove('bg-white', 'border', 'border-stone-950');
-    btnCategoriaBusqueda.classList.add('bg-stone-950');
-    const txtActivo = btnCategoriaBusqueda.querySelector('p');
-    if (txtActivo) { txtActivo.classList.remove('text-stone-950'); txtActivo.classList.add('text-white'); }
-    
-    // 5. Filtrar TODOS los productos (ignora categorías)
-    const encontrados = filtrarProductosGlobal(query);
-    mostrarMensajeResultados(query, encontrados);
-}
-
-function eliminarCategoriaBusqueda(restaurarVista = true) {
-    if (btnCategoriaBusqueda && btnCategoriaBusqueda.parentNode) {
-        btnCategoriaBusqueda.parentNode.removeChild(btnCategoriaBusqueda);
-    }
-    btnCategoriaBusqueda = null;
-    
-    const msg = document.getElementById('search-results-msg');
-    if (msg) msg.classList.add('hidden');
-    
-    if (restaurarVista) {
-        // Volver a "Todos"
-        const btnTodos = document.querySelector('[data-categoria="todos"]');
-        if (btnTodos) {
-            // Activar visualmente "Todos"
-            document.querySelectorAll('.cat-btn').forEach(b => {
-                const txt = b.querySelector('p');
-                b.classList.remove('bg-stone-950');
-                b.classList.add('bg-white', 'border', 'border-stone-950');
-                if (txt) { txt.classList.remove('text-white'); txt.classList.add('text-stone-950'); }
-            });
-            btnTodos.classList.remove('bg-white', 'border', 'border-stone-950');
-            btnTodos.classList.add('bg-stone-950');
-            const t = btnTodos.querySelector('p');
-            if (t) { t.classList.remove('text-stone-950'); t.classList.add('text-white'); }
-            
-            // Restaurar tu lógica nativa
-            categoriaActual = 'todos';
-            showingAll = false;
-            showHero('todos');
-            if (typeof updateDisplayRef === 'function') updateDisplayRef();
-        }
-        
-        const btnMas = document.getElementById('btn-mas');
         if (btnMas) btnMas.classList.remove('hidden');
+        
+        // Disparamos el click de la categoría activa para que tu sistema nativo restaure todo
+        const btnCategoriaActiva = document.querySelector('.cat-btn.bg-stone-950');
+        if (btnCategoriaActiva) {
+            btnCategoriaActiva.click();
+        }
+        return;
     }
-}
 
+    // Hay texto escrito: ocultar hero y botón "ver más"
+    if (heroPrincipal) {
+        heroPrincipal.classList.add('hidden');
+        heroPrincipal.style.display = 'none';
+    }
+    if (btnMas) btnMas.classList.add('hidden');
 
-// ======================================================
-// INTEGRACIÓN CON TU INPUT Y BOTÓN LUPA
-// ======================================================
+    // Buscar en TODOS los productos, sin importar si están en otra categoría o escondidos
+    todosLosProductos.forEach(producto => {
+        const titulo = (producto.getAttribute('data-titulo') || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        const subtitulo = (producto.getAttribute('data-subtitulo') || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        const textoCompleto = titulo + ' ' + subtitulo;
 
-// Adapta '#buscador' si tu input tiene otro id (ej: '#search-input')
-const buscadorInput = document.querySelector('#buscador');
-
-if (buscadorInput) {
-    // Al escribir: si borra todo, volver a la tienda
-    buscadorInput.addEventListener('input', e => {
-        if (e.target.value.trim() === '') {
-            eliminarCategoriaBusqueda(true);
-        }
-    });
-    
-    // Al dar Enter: crear la categoría
-    buscadorInput.addEventListener('keydown', e => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            crearCategoriaBusqueda(buscadorInput.value);
-        }
-    });
-}
-
-// Adapta '#search-btn' si tu lupa tiene otro id
-const btnLupa = document.querySelector('#search-btn');
-if (btnLupa) {
-    btnLupa.addEventListener('click', e => {
-        e.preventDefault();
-        if (buscadorInput) {
-            crearCategoriaBusqueda(buscadorInput.value);
-        }
-    });
-}
-
-// Al hacer click en cualquier categoría NORMAL, destruir "Resultados"
-document.querySelectorAll('.cat-btn[data-categoria]').forEach(btn => {
-    btn.addEventListener('click', () => {
-        if (btnCategoriaBusqueda) {
-            eliminarCategoriaBusqueda(false); // el click de la cat. normal ya restaura todo
+        if (textoCompleto.includes(textoBusqueda)) {
+            // ✅ MOSTRAR: quitamos AMBAS clases que lo ocultan
+            producto.classList.remove('hidden');
+            producto.classList.remove('filtro');
+        } else {
+            // ❌ OCULTAR
+            producto.classList.add('hidden');
         }
     });
 });
