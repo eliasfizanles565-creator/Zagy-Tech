@@ -473,7 +473,7 @@ function renderizarCarrito() {
                 </div>
 
                 <!-- Tachito de la esquina superior derecha (click directo) -->
-                <div class="bg-stone-950 h-5 w-7 absolute top-0 right-0 rounded-bl-xl flex justify-center items-center text-white cursor-pointer z-20" onclick="eliminarArticulo(${item.id})">
+                <div class="bg-temu h-5 w-7 absolute top-0 right-0 rounded-bl-xl flex justify-center items-center text-white cursor-pointer z-20" onclick="eliminarArticulo(${item.id})">
                     <i class="ri-delete-bin-6-line text-xs pl-1"></i>
                 </div>
             </article>
