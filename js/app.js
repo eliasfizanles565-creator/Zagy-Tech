@@ -1115,11 +1115,11 @@ document.getElementById('sugerencias-dropdown').addEventListener('pointerdown', 
 });
 
 // Cerrar sugerencias al pinchar fuera
-document.addEventListener('click', e => {
-    const dropdown = document.getElementById('sugerencias-dropdown');
-    const buscador = document.getElementById('buscador');
-    if (!dropdown || !buscador) return;
-    if (!dropdown.contains(e.target) && !buscador.contains(e.target)) {
-        dropdown.classList.add('hidden');
-    }
-});
+// document.addEventListener('click', e => {
+//     const dropdown = document.getElementById('sugerencias-dropdown');
+//     const buscador = document.getElementById('buscador');
+//     if (!dropdown || !buscador) return;
+//     if (!dropdown.contains(e.target) && !buscador.contains(e.target)) {
+//         dropdown.classList.add('hidden');
+//     }
+// });
