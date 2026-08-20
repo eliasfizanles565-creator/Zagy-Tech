@@ -824,5 +824,206 @@ document.getElementById('logo-zagy').addEventListener('click', () => {
 
 
 /////////////////////////////////////////////////////////////////
-// ==== FILTRO BUSCADOR ====
-/////////////////////////////////////////////////////////////////
+// ======================================================
+// BUSCADOR CON SUGERENCIAS
+// ======================================================
+const searchInput = document.getElementById('search-input');
+const searchBtn = document.getElementById('search-btn');
+const searchClear = document.getElementById('search-clear');
+const searchSuggestions = document.getElementById('search-suggestions');
+
+let productosDB = [];
+
+function construirProductosDB() {
+    productosDB = [];
+    document.querySelectorAll('#product-grid article').forEach(article => {
+        productosDB.push({
+            id: article.dataset.id,
+            titulo: article.dataset.titulo || '',
+            subtitulo: article.dataset.subtitulo || '',
+            imagen: article.dataset.imagen || '',
+            precio: article.dataset.precio || '',
+            element: article
+        });
+    });
+}
+
+function normalizar(texto) {
+    return texto.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+function resaltarCoincidencia(texto, query) {
+    if (!query) return texto;
+    const escapado = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`(${escapado})`, 'gi');
+    return texto.replace(regex, '<span class="text-temu font-bold">$1</span>');
+}
+
+function mostrarSugerencias(query) {
+    if (!query || query.length < 1) {
+        searchSuggestions.classList.add('hidden');
+        return;
+    }
+    
+    const q = normalizar(query);
+    const coincidencias = productosDB.filter(p => {
+        return normalizar(p.titulo).includes(q) || normalizar(p.subtitulo).includes(q);
+    }).slice(0, 6);
+    
+    if (coincidencias.length === 0) {
+        searchSuggestions.innerHTML = `<div class="px-4 py-3 text-sm text-stone-500">No se encontraron sugerencias</div>`;
+        searchSuggestions.classList.remove('hidden');
+        return;
+    }
+    
+    let html = '';
+    coincidencias.forEach(p => {
+        html += `
+            <div class="suggestion-item flex items-center gap-3 px-3 py-2.5 cursor-pointer hover:bg-stone-50 transition-colors border-b border-stone-100 last:border-0" data-titulo="${p.titulo}">
+                <div class="size-9 rounded-lg overflow-hidden bg-stone-100 shrink-0 border border-stone-200">
+                    <img src="${p.imagen}" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-stone-950 truncate">${resaltarCoincidencia(p.titulo, query)}</p>
+                    <p class="text-xs text-stone-500 truncate">${resaltarCoincidencia(p.subtitulo, query)}</p>
+                </div>
+                <p class="text-xs font-Russo text-temu shrink-0">s/ ${parseFloat(p.precio).toFixed(2)}</p>
+            </div>
+        `;
+    });
+    
+    html += `
+        <div class="suggestion-ver-todos px-4 py-2.5 text-center text-sm font-semibold text-temu cursor-pointer hover:bg-stone-50 transition-colors border-t border-stone-100">
+            Ver todos los resultados para "${query}"
+        </div>
+    `;
+    
+    searchSuggestions.innerHTML = html;
+    searchSuggestions.classList.remove('hidden');
+}
+
+function ejecutarBusqueda(query) {
+    if (!query || query.trim() === '') {
+        resetearBusqueda();
+        return;
+    }
+    
+    const q = normalizar(query.trim());
+    searchSuggestions.classList.add('hidden');
+    
+    // Ocultar hero y botón ver más
+    document.querySelectorAll('.hero-container').forEach(h => { h.classList.add('hidden'); h.style.display = 'none'; });
+    document.getElementById('btn-mas').classList.add('hidden');
+    
+    // Filtrar grid
+    const grid = document.getElementById('product-grid');
+    const cards = grid.querySelectorAll('article');
+    let encontrados = 0;
+    
+    cards.forEach(card => {
+        const titulo = normalizar(card.dataset.titulo || '');
+        const subtitulo = normalizar(card.dataset.subtitulo || '');
+        if (titulo.includes(q) || subtitulo.includes(q)) {
+            card.classList.remove('hidden');
+            encontrados++;
+        } else {
+            card.classList.add('hidden');
+        }
+    });
+    
+    // Mensaje de resultados
+    let msgResultados = document.getElementById('search-results-msg');
+    if (!msgResultados) {
+        msgResultados = document.createElement('div');
+        msgResultados.id = 'search-results-msg';
+        msgResultados.className = 'w-full text-center py-4 mb-2';
+        grid.parentNode.insertBefore(msgResultados, grid);
+    }
+    
+    if (encontrados === 0) {
+        msgResultados.innerHTML = `<p class="font-Inter text-sm text-stone-500">No se encontraron productos para "<span class="text-temu font-semibold">${query}</span>"</p>`;
+    } else {
+        msgResultados.innerHTML = `<p class="font-Inter text-sm text-stone-500">${encontrados} resultado${encontrados !== 1 ? 's' : ''} para "<span class="text-temu font-semibold">${query}</span>"</p>`;
+    }
+    msgResultados.classList.remove('hidden');
+    
+    // Scroll al grid
+    grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetearBusqueda() {
+    searchInput.value = '';
+    searchClear.classList.add('hidden');
+    searchClear.classList.remove('flex');
+    searchSuggestions.classList.add('hidden');
+    
+    const msgResultados = document.getElementById('search-results-msg');
+    if (msgResultados) msgResultados.classList.add('hidden');
+    
+    document.getElementById('btn-mas').classList.remove('hidden');
+    
+    // Restaurar vista de la categoría actual
+    const btnCat = document.querySelector(`[data-categoria="${categoriaActual}"]`);
+    if (btnCat) btnCat.click();
+}
+
+// Eventos
+if (searchInput && searchBtn) {
+    construirProductosDB();
+    
+    searchInput.addEventListener('input', (e) => {
+        const val = e.target.value;
+        if (val.length > 0) {
+            searchClear.classList.remove('hidden');
+            searchClear.classList.add('flex');
+        } else {
+            searchClear.classList.add('hidden');
+            searchClear.classList.remove('flex');
+            resetearBusqueda();
+        }
+        mostrarSugerencias(val);
+    });
+    
+    searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            ejecutarBusqueda(searchInput.value);
+        }
+    });
+    
+    // Cerrar sugerencias al hacer click fuera
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('#search-input') && !e.target.closest('#search-suggestions')) {
+            searchSuggestions.classList.add('hidden');
+        }
+    });
+}
+
+if (searchBtn) {
+    searchBtn.addEventListener('click', () => {
+        ejecutarBusqueda(searchInput.value);
+    });
+}
+
+if (searchClear) {
+    searchClear.addEventListener('click', () => {
+        resetearBusqueda();
+    });
+}
+
+if (searchSuggestions) {
+    searchSuggestions.addEventListener('click', (e) => {
+        const item = e.target.closest('.suggestion-item');
+        const verTodos = e.target.closest('.suggestion-ver-todos');
+        
+        if (item) {
+            const titulo = item.dataset.titulo;
+            searchInput.value = titulo;
+            searchClear.classList.remove('hidden');
+            searchClear.classList.add('flex');
+            ejecutarBusqueda(titulo);
+        } else if (verTodos) {
+            ejecutarBusqueda(searchInput.value);
+        }
+    });
+}
