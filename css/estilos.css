@@ -347,6 +347,9 @@
   .z-120 {
     z-index: 120;
   }
+  .z-250 {
+    z-index: 250;
+  }
   .mx-auto {
     margin-inline: auto;
   }

@@ -254,6 +254,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateDisplay() {
+        if (window.filtrandoBusqueda) return;  // <-- PEGA ESTA LÍNEA
+        
         const limit = getLimitByScreen();
         let visibleCount = 0;
         const cardsEnCategoria = cards.filter(card => categoriaActual === 'todos' || card.classList.contains(`cat-${categoriaActual}`));
@@ -839,6 +841,7 @@ document.getElementById('logo-zagy').addEventListener('click', () => {
 // BÚSQUEDA COMO CATEGORÍA DINÁMICA
 // ======================================================
 let btnCategoriaBusqueda = null;
+window.filtrandoBusqueda = false;
 
 function mostrarSugerencias(query) {
     const dropdown = document.getElementById('sugerencias-dropdown');
@@ -877,6 +880,8 @@ function mostrarSugerencias(query) {
 }
 
 function filtrarProductosGlobal(query) {
+    window.filtrandoBusqueda = true;
+    
     const enCarrito = !document.getElementById('carrito-section').classList.contains('hidden');
     const enFavoritos = !document.getElementById('favoritos-section').classList.contains('hidden');
     
@@ -885,10 +890,17 @@ function filtrarProductosGlobal(query) {
     else if (enFavoritos) contenedor = document.getElementById('favoritos-grid');
     else contenedor = document.getElementById('product-grid');
     
-    if (!contenedor) return 0;
+    if (!contenedor) { window.filtrandoBusqueda = false; return 0; }
+    
     const cards = contenedor.querySelectorAll('article');
     const q = query.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
     let encontrados = 0;
+
+    if (!q) {
+        cards.forEach(card => card.classList.remove('hidden'));
+        window.filtrandoBusqueda = false;
+        return cards.length;
+    }
 
     cards.forEach(card => {
         let texto = '';
@@ -906,6 +918,7 @@ function filtrarProductosGlobal(query) {
             card.classList.add('hidden');
         }
     });
+    
     return encontrados;
 }
 
@@ -947,6 +960,14 @@ function crearCategoriaBusqueda(query) {
         return;
     }
     
+    if (btnCategoriaBusqueda && btnCategoriaBusqueda.parentNode) {
+        const encontrados = filtrarProductosGlobal(query);
+        mostrarMensajeResultados(query, encontrados);
+        setActiveCategory(btnCategoriaBusqueda);
+        document.getElementById('sugerencias-dropdown').classList.add('hidden');
+        return;
+    }
+    
     eliminarCategoriaBusqueda(false);
     
     document.querySelectorAll('.hero-container').forEach(h => {
@@ -967,23 +988,15 @@ function crearCategoriaBusqueda(query) {
     scrollContainer.insertBefore(btnCategoriaBusqueda, scrollContainer.firstChild);
     scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
     
-    document.querySelectorAll('.cat-btn').forEach(b => {
-        const txt = b.querySelector('p');
-        b.classList.remove('bg-stone-950');
-        b.classList.add('bg-white', 'border', 'border-stone-950');
-        if (txt) { txt.classList.remove('text-white'); txt.classList.add('text-stone-950'); }
-    });
-    btnCategoriaBusqueda.classList.remove('bg-white', 'border', 'border-stone-950');
-    btnCategoriaBusqueda.classList.add('bg-stone-950');
-    const txtActivo = btnCategoriaBusqueda.querySelector('p');
-    if (txtActivo) { txtActivo.classList.remove('text-stone-950'); txtActivo.classList.add('text-white'); }
-    
+    setActiveCategory(btnCategoriaBusqueda);
     const encontrados = filtrarProductosGlobal(query);
     mostrarMensajeResultados(query, encontrados);
     document.getElementById('sugerencias-dropdown').classList.add('hidden');
 }
 
 function eliminarCategoriaBusqueda(restaurarVista = true) {
+    window.filtrandoBusqueda = false;
+    
     if (btnCategoriaBusqueda && btnCategoriaBusqueda.parentNode) {
         btnCategoriaBusqueda.parentNode.removeChild(btnCategoriaBusqueda);
     }
@@ -995,13 +1008,11 @@ function eliminarCategoriaBusqueda(restaurarVista = true) {
     const enCarrito = !document.getElementById('carrito-section').classList.contains('hidden');
     const enFavoritos = !document.getElementById('favoritos-section').classList.contains('hidden');
     
-    // SI ESTOY EN CARRITO O FAVORITOS: solo limpio el filtro y me quedo ahí, NADA de hero
     if (enCarrito || enFavoritos) {
         filtrarProductosGlobal('');
         return;
     }
     
-    // Si estoy en tienda, restaurar como antes
     if (restaurarVista) {
         const btnTodos = document.querySelector('[data-categoria="todos"]');
         if (btnTodos) {
@@ -1026,29 +1037,23 @@ function eliminarCategoriaBusqueda(restaurarVista = true) {
     }
 }
 
-
-// ======================================================
-// INTEGRACIÓN CON TU INPUT Y BOTÓN LUPA
-// ======================================================
-
-// Adapta '#buscador' si tu input tiene otro id (ej: '#search-input')
 const buscadorInput = document.querySelector('#buscador');
-
 if (buscadorInput) {
-    // Al escribir: si borra todo, volver a la tienda
     buscadorInput.addEventListener('input', e => {
-    const val = e.target.value;
-    if (val.trim().length > 0) {
-        mostrarSugerencias(val);
-    } else {
-        document.getElementById('sugerencias-dropdown').classList.add('hidden');
-    }
-    if (val.trim() === '') {
-        eliminarCategoriaBusqueda(true);
-    }
-});
+        const val = e.target.value;
+        
+        if (val.trim().length > 0) {
+            mostrarSugerencias(val);
+            filtrarProductosGlobal(val);
+        } else {
+            document.getElementById('sugerencias-dropdown').classList.add('hidden');
+        }
+        
+        if (val.trim() === '') {
+            eliminarCategoriaBusqueda(true);
+        }
+    });
     
-    // Al dar Enter: crear la categoría
     buscadorInput.addEventListener('keydown', e => {
         if (e.key === 'Enter') {
             e.preventDefault();
@@ -1057,23 +1062,17 @@ if (buscadorInput) {
     });
 }
 
-// Adapta '#search-btn' si tu lupa tiene otro id
 const btnLupa = document.querySelector('#search-btn');
 if (btnLupa) {
     btnLupa.addEventListener('click', e => {
         e.preventDefault();
-        if (buscadorInput) {
-            crearCategoriaBusqueda(buscadorInput.value);
-        }
+        if (buscadorInput) crearCategoriaBusqueda(buscadorInput.value);
     });
 }
 
-// Al hacer click en cualquier categoría NORMAL, destruir "Resultados"
 document.querySelectorAll('.cat-btn[data-categoria]').forEach(btn => {
     btn.addEventListener('click', () => {
-        if (btnCategoriaBusqueda) {
-            eliminarCategoriaBusqueda(false); // el click de la cat. normal ya restaura todo
-        }
+        if (btnCategoriaBusqueda) eliminarCategoriaBusqueda(false);
     });
 });
 
@@ -1082,72 +1081,25 @@ const busquedaFavoritos2 = document.getElementById('text-favoritos');
 const busquedaCarrito = document.getElementById('carrito-cambio');
 const busquedaCarrito2 = document.getElementById('text-carrito');
 
-busquedaFavoritos.addEventListener('click', function () {
-    const msg = document.getElementById('search-results-msg');
-    if (msg) msg.classList.add('hidden');
-});
-busquedaFavoritos2.addEventListener('click', function () {
-    const msg = document.getElementById('search-results-msg');
-    if (msg) msg.classList.add('hidden');
+[busquedaFavoritos, busquedaFavoritos2, busquedaCarrito, busquedaCarrito2].forEach(btn => {
+    if (btn) btn.addEventListener('click', () => {
+        const msg = document.getElementById('search-results-msg');
+        if (msg) msg.classList.add('hidden');
+    });
 });
 
-busquedaCarrito.addEventListener('click', function () {
-    const msg = document.getElementById('search-results-msg');
-    if (msg) msg.classList.add('hidden');
-});
-busquedaCarrito2.addEventListener('click', function () {
-    const msg = document.getElementById('search-results-msg');
-    if (msg) msg.classList.add('hidden');
-});
-
-
-
-/////////////
-// Click en sugerencias
-document.getElementById('sugerencias-dropdown').addEventListener('click', e => {
-    const item = e.target.closest('.sugerencia-item');
-    if (!item) return;
-    const texto = item.getAttribute('data-sugerencia');
-    const input = document.getElementById('buscador');
-    if (input) input.value = texto;
-    crearCategoriaBusqueda(texto);
-    document.getElementById('sugerencias-dropdown').classList.add('hidden');
-});
-
-// Cerrar sugerencias al pinchar fuera
-document.addEventListener('click', e => {
-    const dropdown = document.getElementById('sugerencias-dropdown');
-    const buscador = document.getElementById('buscador');
-    if (!dropdown || !buscador) return;
-    if (!dropdown.contains(e.target) && !buscador.contains(e.target)) {
-        dropdown.classList.add('hidden');
-    }
-});
-
-// 1. Cerrar teclado inmediatamente al tocar fuera del input/dropdown
-// Esto hace que el click posterior SI llegue al elemento
-document.addEventListener('touchstart', (e) => {
-    const input = document.getElementById('buscador');
-    const dropdown = document.getElementById('sugerencias-dropdown');
-    if (!input || document.activeElement !== input) return;
-    if (input.contains(e.target) || (dropdown && dropdown.contains(e.target))) return;
-    input.blur();
-}, { passive: true });
-
-// 2. Sugerencias: responder al PRIMER tap (touchstart), no al click
 const dropdownSug = document.getElementById('sugerencias-dropdown');
 if (dropdownSug) {
-    // Click para PC
-    dropdownSug.addEventListener('click', e => {
-        const item = e.target.closest('.sugerencia-item');
-        if (!item) return;
-        ejecutarSugerencia(item);
-    });
-    // Touchstart para móvil (ejecuta inmediato, cancela el click fantasma)
     dropdownSug.addEventListener('touchstart', e => {
         const item = e.target.closest('.sugerencia-item');
         if (!item) return;
-        e.preventDefault(); // <-- Esto evita que el SO robe el tap
+        e.preventDefault();
+        ejecutarSugerencia(item);
+    }, { passive: false });
+    
+    dropdownSug.addEventListener('click', e => {
+        const item = e.target.closest('.sugerencia-item');
+        if (!item) return;
         ejecutarSugerencia(item);
     });
 }
@@ -1159,3 +1111,19 @@ function ejecutarSugerencia(item) {
     crearCategoriaBusqueda(texto);
     document.getElementById('sugerencias-dropdown').classList.add('hidden');
 }
+
+document.addEventListener('click', e => {
+    const dropdown = document.getElementById('sugerencias-dropdown');
+    const buscador = document.getElementById('buscador');
+    if (!dropdown || !buscador) return;
+    if (!dropdown.contains(e.target) && !buscador.contains(e.target)) {
+        dropdown.classList.add('hidden');
+    }
+});
+
+document.addEventListener('touchstart', (e) => {
+    const input = document.getElementById('buscador');
+    if (!input || document.activeElement !== input) return;
+    if (input.contains(e.target)) return;
+    input.blur();
+}, { passive: true });
