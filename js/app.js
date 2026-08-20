@@ -837,38 +837,59 @@ document.getElementById('logo-zagy').addEventListener('click', () => {
 
 const buscador = document.querySelector('#buscador');
 const heroPrincipal = document.querySelector('.hero-container');
+const btnMas = document.querySelector('#btn-mas');
 
-buscador.addEventListener('click' , function () {
-    heroPrincipal.classList.add('hidden');
-    heroPrincipal.style.display = '';
-    heroPrincipal.style.visibility = '';
+// 🔑 CLAVE: Guardamos TODOS los productos al cargar la página (solo una vez)
+// Si tus articles NO tienen clase "producto-tienda", cámbialo por: '#product-grid article'
+const todosLosProductos = Array.from(document.querySelectorAll('.producto-tienda'));
+
+buscador.addEventListener('click', function () {
+    if (heroPrincipal) {
+        heroPrincipal.classList.add('hidden');
+        heroPrincipal.style.display = 'none';
+    }
 });
 
-        // container.classList.add('hidden');
-        // container.style.display = '';
-        // container.style.visibility = '';
+buscador.addEventListener('input', e => {
+    const textoBusqueda = e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
 
-
-document.addEventListener('input', e => {
-    if (e.target.matches('#buscador')) {
-        // 1. Limpiamos también lo que escribe el usuario (minúsculas y sin acentos)
-        const textoBusqueda = e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
-        document.querySelectorAll('.producto-tienda').forEach(producto => {
-            
-            // 2. Obtenemos el título y subtítulo de los data attributes
-            const titulo = producto.getAttribute('data-titulo') || '';
-            const subtitulo = producto.getAttribute('data-subtitulo') || '';
-            
-            // 3. Unimos los textos, los pasamos a minúsculas y les quitamos los acentos
-            const textoCompleto = (titulo + ' ' + subtitulo).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
-            // 4. Comparamos si el texto limpio incluye lo que escribió el usuario
-            if (textoCompleto.includes(textoBusqueda)) {
-                producto.classList.remove('filtro');
-            } else {
-                producto.classList.add('filtro');
-            }
-        });
+    // Si borra todo el input, volver a la vista normal de la categoría activa
+    if (textoBusqueda === '') {
+        if (heroPrincipal) {
+            heroPrincipal.classList.remove('hidden');
+            heroPrincipal.style.display = '';
+            heroPrincipal.style.visibility = '';
+        }
+        if (btnMas) btnMas.classList.remove('hidden');
+        
+        // Disparamos el click de la categoría activa para que tu sistema nativo restaure todo
+        const btnCategoriaActiva = document.querySelector('.cat-btn.bg-stone-950');
+        if (btnCategoriaActiva) {
+            btnCategoriaActiva.click();
+        }
+        return;
     }
+
+    // Hay texto escrito: ocultar hero y botón "ver más"
+    if (heroPrincipal) {
+        heroPrincipal.classList.add('hidden');
+        heroPrincipal.style.display = 'none';
+    }
+    if (btnMas) btnMas.classList.add('hidden');
+
+    // Buscar en TODOS los productos, sin importar si están en otra categoría o escondidos
+    todosLosProductos.forEach(producto => {
+        const titulo = (producto.getAttribute('data-titulo') || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        const subtitulo = (producto.getAttribute('data-subtitulo') || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        const textoCompleto = titulo + ' ' + subtitulo;
+
+        if (textoCompleto.includes(textoBusqueda)) {
+            // ✅ MOSTRAR: quitamos AMBAS clases que lo ocultan
+            producto.classList.remove('hidden');
+            producto.classList.remove('filtro');
+        } else {
+            // ❌ OCULTAR
+            producto.classList.add('hidden');
+        }
+    });
 });
