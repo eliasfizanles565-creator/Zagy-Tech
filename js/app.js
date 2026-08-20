@@ -809,7 +809,7 @@ document.addEventListener('click', (e) => {
             ripple.style.position = 'fixed';
             ripple.style.zIndex = '9999';
             btn.appendChild(ripple);
-            setTimeout(() => ripple.remove(), 500);
+            setTimeout(() => ripple.remove(), 10);
         }
     } else {
         document.querySelectorAll('.btn-precio.activo').forEach(b => b.classList.remove('activo'));
