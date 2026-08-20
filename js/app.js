@@ -851,19 +851,19 @@ buscador.addEventListener('click' , function () {
 
 document.addEventListener('input', e => {
     if (e.target.matches('#buscador')) {
-        const textoBusqueda = e.target.value.toLowerCase();
+        // 1. Limpiamos también lo que escribe el usuario (minúsculas y sin acentos)
+        const textoBusqueda = e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-        // Asegúrate de usar la clase que tengan tus articles (ej. .cat-albums o .producto-tienda)
         document.querySelectorAll('.producto-tienda').forEach(producto => {
             
-            // 1. Obtenemos el título y subtítulo de los data attributes
+            // 2. Obtenemos el título y subtítulo de los data attributes
             const titulo = producto.getAttribute('data-titulo') || '';
             const subtitulo = producto.getAttribute('data-subtitulo') || '';
             
-            // 2. Los unimos en un solo texto en minúsculas para buscar en ambos
-            const textoCompleto = (titulo + ' ' + subtitulo).toLowerCase();
+            // 3. Unimos los textos, los pasamos a minúsculas y les quitamos los acentos
+            const textoCompleto = (titulo + ' ' + subtitulo).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-            // 3. Comparamos si el texto incluye lo que escribió el usuario
+            // 4. Comparamos si el texto limpio incluye lo que escribió el usuario
             if (textoCompleto.includes(textoBusqueda)) {
                 producto.classList.remove('filtro');
             } else {
