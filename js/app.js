@@ -947,7 +947,8 @@ function ejecutarBusqueda(query) {
     }
     msgResultados.classList.remove('hidden');
     
-    // Scroll al grid
+    // Cerrar teclado en móvil y scroll al grid
+    searchInput.blur();
     grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
@@ -999,30 +1000,38 @@ if (searchInput && searchBtn) {
     });
 }
 
+// Botón de búsqueda — pointerdown para móvil (antes de que el teclado cierre)
 if (searchBtn) {
-    searchBtn.addEventListener('click', () => {
+    searchBtn.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
         ejecutarBusqueda(searchInput.value);
     });
 }
 
+// Botón limpiar — pointerdown para móvil
 if (searchClear) {
-    searchClear.addEventListener('click', () => {
+    searchClear.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
         resetearBusqueda();
+        setTimeout(() => searchInput.focus(), 100);
     });
 }
 
+// Sugerencias — pointerdown para móvil (captura antes del blur del input)
 if (searchSuggestions) {
-    searchSuggestions.addEventListener('click', (e) => {
+    searchSuggestions.addEventListener('pointerdown', (e) => {
         const item = e.target.closest('.suggestion-item');
         const verTodos = e.target.closest('.suggestion-ver-todos');
         
         if (item) {
+            e.preventDefault();
             const titulo = item.dataset.titulo;
             searchInput.value = titulo;
             searchClear.classList.remove('hidden');
             searchClear.classList.add('flex');
             ejecutarBusqueda(titulo);
         } else if (verTodos) {
+            e.preventDefault();
             ejecutarBusqueda(searchInput.value);
         }
     });
