@@ -1383,7 +1383,7 @@
 .btn-epico.activo {
   background-color: #FB7701 !important;
   transform: scale(1);
-  box-shadow: 0 0 20px rgba(251, 119, 1, 0.4);
+  box-shadow: 0 0 20px rgba(22, 18, 14, 0.4);
   animation: epico-bounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .btn-epico.activo::before {
@@ -1405,12 +1405,13 @@
   }
 }
 .btn-epico .ripple {
-  position: absolute;
+  position: fixed;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.5);
   transform: scale(0);
   animation: ripple-anim 0.6s linear;
   pointer-events: none;
+  z-index: 9999;
 }
 @keyframes ripple-anim {
   to {
@@ -1507,6 +1508,9 @@
 }
 .btn-favorito-hero {
   transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.filtro {
+  display: none;
 }
 @property --tw-translate-x {
   syntax: "*";
