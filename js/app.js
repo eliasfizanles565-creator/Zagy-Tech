@@ -835,7 +835,7 @@ document.getElementById('logo-zagy').addEventListener('click', () => {
 //     }
 // })
 
-document.addEventListener('keyup', e => {
+document.addEventListener('input', e => {
     if (e.target.matches('#buscador')) {
         const textoBusqueda = e.target.value.toLowerCase();
 
