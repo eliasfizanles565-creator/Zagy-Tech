@@ -972,6 +972,8 @@ if (buscadorInput) {
     buscadorInput.addEventListener('input', e => {
         if (e.target.value.trim() === '') {
             eliminarCategoriaBusqueda(true);
+            mostrarMensajeResultados('');
+            filtrarProductosGlobal('');
         }
     });
     
