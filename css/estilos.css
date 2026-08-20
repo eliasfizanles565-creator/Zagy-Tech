@@ -320,6 +320,15 @@
   .z-50 {
     z-index: 50;
   }
+  .z-90 {
+    z-index: 90;
+  }
+  .z-100 {
+    z-index: 100;
+  }
+  .z-120 {
+    z-index: 120;
+  }
   .mx-auto {
     margin-inline: auto;
   }
