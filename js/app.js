@@ -357,7 +357,7 @@ function renderizarCarrito() {
         const subtotalItem = item.precio * item.cantidad;
         precioTotalGeneral += subtotalItem;
         const articleHTML = `
-            <article class="flex gap-3 py-2 border-t border-stone-950/20 justify-between">
+    <article class="flex gap-3 py-2 border-t border-stone-950/20 justify-between" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}">
                 <article class="flex gap-3">
                     <div class="size-20 border-2 border-temu rounded-lg overflow-hidden"><img src="${item.imagen}" alt="" class="w-full h-full object-cover"></div>
                     <div class="flex flex-col items-start justify-center gap-1">
@@ -487,7 +487,7 @@ function renderizarFavoritos() {
         const dotsHTML = item.dotsHTML || '';
 
         const cardHTML = `
-            <article class="w-[172px] h-[254px] bg-white relative sm:w-[234px] sm:h-[381px]" data-id="${item.id}">
+    <article class="w-[172px] h-[254px] bg-white relative sm:w-[234px] sm:h-[381px]" data-id="${item.id}" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}">
                 <div class="absolute inset-0 ${bgProducto} cardProducto"></div>
                 <div class="w-[172px] h-52.5 ${bgInner} cardProductoInner absolute inset-0 overflow-hidden ${borderClass} sm:w-[234px] sm:h-78.75">
                     <img src="${item.imagen}" alt="" class="w-full h-full object-contain object-[50%_70%] sm:object-[50%_60%]">
@@ -840,10 +840,53 @@ document.getElementById('logo-zagy').addEventListener('click', () => {
 // ======================================================
 let btnCategoriaBusqueda = null;
 
+function mostrarSugerencias(query) {
+    const dropdown = document.getElementById('sugerencias-dropdown');
+    if (!dropdown) return;
+    const q = query.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+    if (!q) { dropdown.classList.add('hidden'); return; }
+
+    const cards = document.querySelectorAll('#product-grid article');
+    const sugerencias = [];
+    cards.forEach(card => {
+        if (sugerencias.length >= 5) return;
+        const titulo = (card.getAttribute('data-titulo') || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        const subtitulo = (card.getAttribute('data-subtitulo') || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        const texto = `${titulo} ${subtitulo}`;
+        if (texto.includes(q) && !sugerencias.some(s => s.titulo === (card.getAttribute('data-titulo') || ''))) {
+            sugerencias.push({
+                titulo: card.getAttribute('data-titulo') || '',
+                subtitulo: card.getAttribute('data-subtitulo') || '',
+                imagen: card.getAttribute('data-imagen') || ''
+            });
+        }
+    });
+
+    if (sugerencias.length === 0) { dropdown.classList.add('hidden'); return; }
+
+    dropdown.innerHTML = sugerencias.map(s => `
+        <div class="sugerencia-item flex items-center gap-3 px-4 py-2 border-b border-stone-100 last:border-0" data-sugerencia="${s.titulo}">
+            <img src="${s.imagen}" class="w-8 h-8 object-cover rounded-lg border border-stone-200 shrink-0">
+            <div class="flex flex-col">
+                <span class="text-sm font-semibold text-stone-950">${s.titulo}</span>
+                <span class="text-xs text-stone-500">${s.subtitulo}</span>
+            </div>
+        </div>
+    `).join('');
+    dropdown.classList.remove('hidden');
+}
+
 function filtrarProductosGlobal(query) {
-    const grid = document.getElementById('product-grid');
-    if (!grid) return 0;
-    const cards = grid.querySelectorAll('article');
+    const enCarrito = !document.getElementById('carrito-section').classList.contains('hidden');
+    const enFavoritos = !document.getElementById('favoritos-section').classList.contains('hidden');
+    
+    let contenedor;
+    if (enCarrito) contenedor = document.getElementById('contenedor-items-carrito');
+    else if (enFavoritos) contenedor = document.getElementById('favoritos-grid');
+    else contenedor = document.getElementById('product-grid');
+    
+    if (!contenedor) return 0;
+    const cards = contenedor.querySelectorAll('article');
     const q = query.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
     let encontrados = 0;
 
@@ -881,10 +924,17 @@ function mostrarMensajeResultados(query, encontrados) {
 function crearCategoriaBusqueda(query) {
     if (!query || !query.trim()) return;
     
-    // 1. Eliminar categoría anterior si existe
+    const enCarrito = !document.getElementById('carrito-section').classList.contains('hidden');
+    const enFavoritos = !document.getElementById('favoritos-section').classList.contains('hidden');
+    
+    if (enCarrito || enFavoritos) {
+        filtrarProductosGlobal(query);
+        document.getElementById('sugerencias-dropdown').classList.add('hidden');
+        return;
+    }
+    
     eliminarCategoriaBusqueda(false);
     
-    // 2. Ocultar hero y botón "Ver más"
     document.querySelectorAll('.hero-container').forEach(h => {
         h.classList.add('hidden');
         h.style.display = 'none';
@@ -892,7 +942,6 @@ function crearCategoriaBusqueda(query) {
     const btnMas = document.getElementById('btn-mas');
     if (btnMas) btnMas.classList.add('hidden');
     
-    // 3. Crear botón "Resultados" en la barra de categorías
     const scrollContainer = document.getElementById('categorias-scroll');
     if (!scrollContainer) return;
     
@@ -901,11 +950,9 @@ function crearCategoriaBusqueda(query) {
     btnCategoriaBusqueda.setAttribute('data-categoria', 'busqueda');
     btnCategoriaBusqueda.innerHTML = `<p class="text-white font-semibold text-sm">Resultados</p>`;
     
-    // Insertar al inicio de la barra
     scrollContainer.insertBefore(btnCategoriaBusqueda, scrollContainer.firstChild);
     scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
     
-    // 4. Activar visualmente (negro = activo)
     document.querySelectorAll('.cat-btn').forEach(b => {
         const txt = b.querySelector('p');
         b.classList.remove('bg-stone-950');
@@ -917,9 +964,9 @@ function crearCategoriaBusqueda(query) {
     const txtActivo = btnCategoriaBusqueda.querySelector('p');
     if (txtActivo) { txtActivo.classList.remove('text-stone-950'); txtActivo.classList.add('text-white'); }
     
-    // 5. Filtrar TODOS los productos (ignora categorías)
     const encontrados = filtrarProductosGlobal(query);
     mostrarMensajeResultados(query, encontrados);
+    document.getElementById('sugerencias-dropdown').classList.add('hidden');
 }
 
 function eliminarCategoriaBusqueda(restaurarVista = true) {
@@ -970,12 +1017,17 @@ const buscadorInput = document.querySelector('#buscador');
 if (buscadorInput) {
     // Al escribir: si borra todo, volver a la tienda
     buscadorInput.addEventListener('input', e => {
-        if (e.target.value.trim() === '') {
-            eliminarCategoriaBusqueda(true);
-            mostrarMensajeResultados('');
-            filtrarProductosGlobal('');
-        }
-    });
+    const val = e.target.value;
+    if (val.trim().length > 0) {
+        mostrarSugerencias(val);
+    } else {
+        document.getElementById('sugerencias-dropdown').classList.add('hidden');
+    }
+    if (val.trim() === '') {
+        eliminarCategoriaBusqueda(true);
+        filtrarProductosGlobal('');
+    }
+});
     
     // Al dar Enter: crear la categoría
     buscadorInput.addEventListener('keydown', e => {
@@ -1004,4 +1056,25 @@ document.querySelectorAll('.cat-btn[data-categoria]').forEach(btn => {
             eliminarCategoriaBusqueda(false); // el click de la cat. normal ya restaura todo
         }
     });
+});
+/////////////
+// Click en sugerencias
+document.getElementById('sugerencias-dropdown').addEventListener('click', e => {
+    const item = e.target.closest('.sugerencia-item');
+    if (!item) return;
+    const texto = item.getAttribute('data-sugerencia');
+    const input = document.getElementById('buscador');
+    if (input) input.value = texto;
+    crearCategoriaBusqueda(texto);
+    document.getElementById('sugerencias-dropdown').classList.add('hidden');
+});
+
+// Cerrar sugerencias al pinchar fuera
+document.addEventListener('click', e => {
+    const dropdown = document.getElementById('sugerencias-dropdown');
+    const buscador = document.getElementById('buscador');
+    if (!dropdown || !buscador) return;
+    if (!dropdown.contains(e.target) && !buscador.contains(e.target)) {
+        dropdown.classList.add('hidden');
+    }
 });
