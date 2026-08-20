@@ -954,9 +954,7 @@ function crearCategoriaBusqueda(query) {
     const enFavoritos = !document.getElementById('favoritos-section').classList.contains('hidden');
     
     if (enCarrito || enFavoritos) {
-        filtrarProductosGlobal(query);
-        document.getElementById('sugerencias-dropdown').classList.add('hidden');
-        return;
+        activateNav('inicio');
     }
     
     if (btnCategoriaBusqueda && btnCategoriaBusqueda.parentNode) {
