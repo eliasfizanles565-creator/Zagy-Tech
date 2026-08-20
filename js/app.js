@@ -825,7 +825,7 @@ document.getElementById('logo-zagy').addEventListener('click', () => {
 
 /////////////////////////////////////////////////////////////////
 // ======================================================
-// BUSCADOR CON SUGERENCIAS
+// BUSCADOR CON SUGERENCIAS (ROBUSTO)
 // ======================================================
 const searchInput = document.getElementById('search-input');
 const searchBtn = document.getElementById('search-btn');
@@ -833,6 +833,7 @@ const searchClear = document.getElementById('search-clear');
 const searchSuggestions = document.getElementById('search-suggestions');
 
 let productosDB = [];
+let busquedaActiva = false;
 
 function construirProductosDB() {
     productosDB = [];
@@ -849,7 +850,8 @@ function construirProductosDB() {
 }
 
 function normalizar(texto) {
-    return texto.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    if (!texto) return '';
+    return texto.toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 }
 
 function resaltarCoincidencia(texto, query) {
@@ -902,18 +904,46 @@ function mostrarSugerencias(query) {
     searchSuggestions.classList.remove('hidden');
 }
 
-function ejecutarBusqueda(query) {
-    if (!query || query.trim() === '') {
-        resetearBusqueda();
-        return;
-    }
+function prepararVistaBusqueda() {
+    // Ocultar hero, carrito, favoritos, botón ver más
+    document.querySelectorAll('.hero-container').forEach(h => { 
+        h.classList.add('hidden'); 
+        h.style.display = 'none'; 
+    });
+    document.getElementById('btn-mas').classList.add('hidden');
     
-    const q = normalizar(query.trim());
+    const carritoSection = document.getElementById('carrito-section');
+    const btnCarritoFlotante = document.getElementById('btn-carrito');
+    const favoritosSection = document.getElementById('favoritos-section');
+    const navCategorias = document.getElementById('nav-categorias');
+    const separadorNav = navCategorias ? navCategorias.nextElementSibling : null;
+    
+    if (carritoSection) carritoSection.classList.add('hidden');
+    if (btnCarritoFlotante) btnCarritoFlotante.classList.add('hidden');
+    if (favoritosSection) favoritosSection.classList.add('hidden');
+    if (navCategorias) navCategorias.classList.remove('hidden');
+    if (separadorNav) separadorNav.classList.remove('hidden');
+    
+    // Mostrar nav superior siempre
+    const navSuperior = document.querySelector('nav');
+    const separadorSuperior = navSuperior ? navSuperior.nextElementSibling : null;
+    if (navSuperior) navSuperior.classList.remove('max-lg:hidden');
+    if (separadorSuperior) separadorSuperior.classList.remove('max-lg:hidden');
+    
+    // Mostrar grid
+    const grid = document.getElementById('product-grid');
+    if (grid) grid.classList.remove('hidden');
+}
+
+function ejecutarBusqueda(query) {
+    const qRaw = query ? query.trim() : '';
+    if (!qRaw) return; // ← Si está vacío, NO PASA NADA. No sale el hero.
+    
+    const q = normalizar(qRaw);
+    busquedaActiva = true;
     searchSuggestions.classList.add('hidden');
     
-    // Ocultar hero y botón ver más
-    document.querySelectorAll('.hero-container').forEach(h => { h.classList.add('hidden'); h.style.display = 'none'; });
-    document.getElementById('btn-mas').classList.add('hidden');
+    prepararVistaBusqueda();
     
     // Filtrar grid
     const grid = document.getElementById('product-grid');
@@ -941,46 +971,82 @@ function ejecutarBusqueda(query) {
     }
     
     if (encontrados === 0) {
-        msgResultados.innerHTML = `<p class="font-Inter text-sm text-stone-500">No se encontraron productos para "<span class="text-temu font-semibold">${query}</span>"</p>`;
+        msgResultados.innerHTML = `<p class="font-Inter text-sm text-stone-500">No se encontraron productos para "<span class="text-temu font-semibold">${qRaw}</span>"</p>`;
     } else {
-        msgResultados.innerHTML = `<p class="font-Inter text-sm text-stone-500">${encontrados} resultado${encontrados !== 1 ? 's' : ''} para "<span class="text-temu font-semibold">${query}</span>"</p>`;
+        msgResultados.innerHTML = `<p class="font-Inter text-sm text-stone-500">${encontrados} resultado${encontrados !== 1 ? 's' : ''} para "<span class="text-temu font-semibold">${qRaw}</span>"</p>`;
     }
     msgResultados.classList.remove('hidden');
     
-    // Cerrar teclado en móvil y scroll al grid
-    searchInput.blur();
-    grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Cerrar teclado en móvil
+    if (searchInput) searchInput.blur();
 }
 
 function resetearBusqueda() {
-    searchInput.value = '';
-    searchClear.classList.add('hidden');
-    searchClear.classList.remove('flex');
-    searchSuggestions.classList.add('hidden');
+    if (searchInput) {
+        searchInput.value = '';
+        searchInput.blur();
+    }
+    if (searchClear) {
+        searchClear.classList.add('hidden');
+        searchClear.classList.remove('flex');
+    }
+    if (searchSuggestions) searchSuggestions.classList.add('hidden');
     
     const msgResultados = document.getElementById('search-results-msg');
     if (msgResultados) msgResultados.classList.add('hidden');
     
     document.getElementById('btn-mas').classList.remove('hidden');
+    busquedaActiva = false;
     
-    // Restaurar vista de la categoría actual
+    // Volver a la vista de tienda con categoría actual
+    gestionarVista('tienda');
+    showHero(categoriaActual);
+    
     const btnCat = document.querySelector(`[data-categoria="${categoriaActual}"]`);
-    if (btnCat) btnCat.click();
+    if (btnCat) setActiveCategory(btnCat);
+    
+    // Refiltrar por categoría actual y límite de pantalla
+    const grid = document.getElementById('product-grid');
+    if (grid) {
+        const cards = grid.querySelectorAll('article');
+        let visibleCount = 0;
+        const width = window.innerWidth;
+        const limit = width >= 1280 ? 15 : width >= 1024 ? 12 : width >= 640 ? 9 : 8;
+        
+        cards.forEach(card => {
+            const pertenece = categoriaActual === 'todos' || card.classList.contains(`cat-${categoriaActual}`);
+            if (pertenece) {
+                if (visibleCount < limit) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+    }
 }
 
-// Eventos
+// Eventos del buscador
 if (searchInput && searchBtn) {
     construirProductosDB();
     
     searchInput.addEventListener('input', (e) => {
         const val = e.target.value;
         if (val.length > 0) {
-            searchClear.classList.remove('hidden');
-            searchClear.classList.add('flex');
+            if (searchClear) {
+                searchClear.classList.remove('hidden');
+                searchClear.classList.add('flex');
+            }
         } else {
-            searchClear.classList.add('hidden');
-            searchClear.classList.remove('flex');
+            if (searchClear) {
+                searchClear.classList.add('hidden');
+                searchClear.classList.remove('flex');
+            }
             resetearBusqueda();
+            return;
         }
         mostrarSugerencias(val);
     });
@@ -992,34 +1058,53 @@ if (searchInput && searchBtn) {
         }
     });
     
-    // Cerrar sugerencias al hacer click fuera
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('#search-input') && !e.target.closest('#search-suggestions')) {
-            searchSuggestions.classList.add('hidden');
-        }
+    // Cerrar dropdown al perder focus, CON DELAY para que el click/touch en la sugerencia se procese primero
+    searchInput.addEventListener('blur', () => {
+        setTimeout(() => {
+            if (searchSuggestions) searchSuggestions.classList.add('hidden');
+        }, 200);
     });
 }
 
-// Botón de búsqueda — pointerdown para móvil (antes de que el teclado cierre)
 if (searchBtn) {
-    searchBtn.addEventListener('pointerdown', (e) => {
+    searchBtn.addEventListener('click', (e) => {
         e.preventDefault();
         ejecutarBusqueda(searchInput.value);
     });
 }
 
-// Botón limpiar — pointerdown para móvil
 if (searchClear) {
-    searchClear.addEventListener('pointerdown', (e) => {
+    searchClear.addEventListener('click', (e) => {
         e.preventDefault();
         resetearBusqueda();
         setTimeout(() => searchInput.focus(), 100);
     });
 }
 
-// Sugerencias — pointerdown para móvil (captura antes del blur del input)
+// === CLAVE PARA MÓVIL: mousedown (antes de blur) + touchstart (antes de que el teclado cierre) ===
 if (searchSuggestions) {
-    searchSuggestions.addEventListener('pointerdown', (e) => {
+    // Desktop
+    searchSuggestions.addEventListener('mousedown', (e) => {
+        const item = e.target.closest('.suggestion-item');
+        const verTodos = e.target.closest('.suggestion-ver-todos');
+        
+        if (item) {
+            e.preventDefault(); // Evita que el input pierda focus ANTES de ejecutar
+            const titulo = item.dataset.titulo;
+            searchInput.value = titulo;
+            if (searchClear) {
+                searchClear.classList.remove('hidden');
+                searchClear.classList.add('flex');
+            }
+            ejecutarBusqueda(titulo);
+        } else if (verTodos) {
+            e.preventDefault();
+            ejecutarBusqueda(searchInput.value);
+        }
+    });
+    
+    // Móvil: touchstart con preventDefault para evitar que el teclado virtual mueva el layout
+    searchSuggestions.addEventListener('touchstart', (e) => {
         const item = e.target.closest('.suggestion-item');
         const verTodos = e.target.closest('.suggestion-ver-todos');
         
@@ -1027,12 +1112,14 @@ if (searchSuggestions) {
             e.preventDefault();
             const titulo = item.dataset.titulo;
             searchInput.value = titulo;
-            searchClear.classList.remove('hidden');
-            searchClear.classList.add('flex');
+            if (searchClear) {
+                searchClear.classList.remove('hidden');
+                searchClear.classList.add('flex');
+            }
             ejecutarBusqueda(titulo);
         } else if (verTodos) {
             e.preventDefault();
             ejecutarBusqueda(searchInput.value);
         }
-    });
+    }, { passive: false });
 }
