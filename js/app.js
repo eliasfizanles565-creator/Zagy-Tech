@@ -804,10 +804,12 @@ document.addEventListener('click', (e) => {
             const size = Math.max(rect.width, rect.height);
             ripple.style.width = size + 'px';
             ripple.style.height = size + 'px';
-            ripple.style.left = (rect.width / 2 - size / 2) + 'px';
-            ripple.style.top = (rect.height / 2 - size / 2) + 'px';
+            ripple.style.left = (e.clientX - size/2) + 'px';  // ← VIEWPORT
+            ripple.style.top = (e.clientY - size/2) + 'px';   // ← no relativas al botón
+            ripple.style.position = 'fixed';
+            ripple.style.zIndex = '9999';
             btn.appendChild(ripple);
-            setTimeout(() => ripple.remove(), 500);
+            setTimeout(() => ripple.remove(), 10);
         }
     } else {
         document.querySelectorAll('.btn-precio.activo').forEach(b => b.classList.remove('activo'));
