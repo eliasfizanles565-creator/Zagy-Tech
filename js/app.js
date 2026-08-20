@@ -839,8 +839,14 @@ const buscador = document.querySelector('#buscador');
 const heroPrincipal = document.querySelector('.hero-container');
 
 buscador.addEventListener('click' , function () {
-    console.log('hola');
-})
+    heroPrincipal.classList.add('hidden');
+    heroPrincipal.style.display = '';
+    heroPrincipal.style.visibility = '';
+});
+
+        // container.classList.add('hidden');
+        // container.style.display = '';
+        // container.style.visibility = '';
 
 
 document.addEventListener('input', e => {
