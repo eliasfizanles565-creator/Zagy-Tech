@@ -779,7 +779,7 @@ document.addEventListener('click', (e) => {
     ripple.style.position = 'fixed';
     ripple.style.zIndex = '9999';
     document.body.appendChild(ripple);  // ← se pone en el body, no en el botón
-    setTimeout(() => ripple.remove(), 60);
+    setTimeout(() => ripple.remove(), 10);
 });
 
 document.addEventListener('click', (e) => {
