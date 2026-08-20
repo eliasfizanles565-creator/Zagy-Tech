@@ -674,7 +674,10 @@ function activateNav(key) {
         categoriaActual = 'todos';
         showingAll = false;
         const btnTodos = document.querySelector('[data-categoria="todos"]');
-        if (btnTodos) setActiveCategory(btnTodos);
+        if (btnTodos) {
+            setActiveCategory(btnTodos);
+            btnTodos.click(); //
+        }
         gestionarVista('tienda');
     }
     // Usuario y Categorias no hacen nada funcional (solo el navbar visual cambia)
@@ -683,8 +686,16 @@ function activateNav(key) {
 }
 
 Object.keys(navConfig).forEach(key => {
+    // Click en el texto del navbar
     const btn = document.querySelector(navConfig[key].textSelector);
     if (btn) btn.addEventListener('click', () => activateNav(key));
+    
+    // Click en la ESFERA naranja (lo que el usuario realmente ve cuando está activo)
+    const sphere = document.querySelector(navConfig[key].sphereId);
+    if (sphere) {
+        sphere.style.cursor = 'pointer';
+        sphere.addEventListener('click', () => activateNav(key));
+    }
 });
 
 document.querySelectorAll('.nav-desktop').forEach(btn => {
