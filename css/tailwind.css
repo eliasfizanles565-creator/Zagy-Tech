@@ -187,7 +187,8 @@
     pointer-events: none; 
 }
 .btn-epico:not(.activo):hover::before { 
-    opacity: 1; transform: scale(1); 
+    opacity: 1; 
+    transform: scale(1); 
 }
 .btn-epico:not(.activo):hover { 
     transform: scale(1.1); 
@@ -222,12 +223,13 @@
 }
 
 .btn-epico .ripple { 
-    position: absolute; 
+    position: fixed; 
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.5); 
     transform: scale(0); 
     animation: ripple-anim 0.6s linear; 
     pointer-events: none;
+    z-index: 9999;
 
 }
 @keyframes ripple-anim { to { transform: scale(4); opacity: 0; } }
