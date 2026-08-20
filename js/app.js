@@ -954,8 +954,7 @@ function crearCategoriaBusqueda(query) {
     const enFavoritos = !document.getElementById('favoritos-section').classList.contains('hidden');
     
     if (enCarrito || enFavoritos) {
-        const encontrados = filtrarProductosGlobal(query);
-        mostrarMensajeResultados(query, encontrados);
+        filtrarProductosGlobal(query);
         document.getElementById('sugerencias-dropdown').classList.add('hidden');
         return;
     }
@@ -976,6 +975,8 @@ function crearCategoriaBusqueda(query) {
     });
     const btnMas = document.getElementById('btn-mas');
     if (btnMas) btnMas.classList.add('hidden');
+    const grid = document.getElementById('product-grid');
+    if (grid) grid.classList.add('pb-24');  
     
     const scrollContainer = document.getElementById('categorias-scroll');
     if (!scrollContainer) return;
