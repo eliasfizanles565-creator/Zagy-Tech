@@ -391,3 +391,42 @@
 .badge-pop-llegada {
     animation: badge-pop-llegada 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+/* ============================================================= */
+
+
+/* ============================================================= */
+/* ===== SWIPE TO DELETE (estilo Temu) ===== */
+.swipe-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.75rem; /* rounded-xl */
+    margin-bottom: 0.5rem;
+    touch-action: pan-y;
+}
+.swipe-delete-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    background: #ef4444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+    cursor: pointer;
+    border-top-right-radius: 0.75rem;
+    border-bottom-right-radius: 0.75rem;
+    transition: background 0.2s;
+}
+.swipe-delete-btn:active {
+    background: #dc2626;
+}
+.card-swipe {
+    position: relative;
+    z-index: 10;
+    background: white;
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+}
