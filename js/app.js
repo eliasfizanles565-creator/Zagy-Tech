@@ -825,7 +825,7 @@ document.getElementById('logo-zagy').addEventListener('click', () => {
 
 /////////////////////////////////////////////////////////////////
 // ======================================================
-// BUSCADOR CON SUGERENCIAS (ROBUSTO)
+// BUSCADOR CON SUGERENCIAS (FINAL v4)
 // ======================================================
 const searchInput = document.getElementById('search-input');
 const searchBtn = document.getElementById('search-btn');
@@ -834,6 +834,7 @@ const searchSuggestions = document.getElementById('search-suggestions');
 
 let productosDB = [];
 let busquedaActiva = false;
+let sugerenciaTimer = null;
 
 function construirProductosDB() {
     productosDB = [];
@@ -910,7 +911,8 @@ function prepararVistaBusqueda() {
         h.classList.add('hidden'); 
         h.style.display = 'none'; 
     });
-    document.getElementById('btn-mas').classList.add('hidden');
+    const btnMas = document.getElementById('btn-mas');
+    if (btnMas) btnMas.classList.add('hidden');
     
     const carritoSection = document.getElementById('carrito-section');
     const btnCarritoFlotante = document.getElementById('btn-carrito');
@@ -935,18 +937,32 @@ function prepararVistaBusqueda() {
     if (grid) grid.classList.remove('hidden');
 }
 
-function ejecutarBusqueda(query) {
+function ejecutarBusqueda(query, desdeSugerencia = false) {
     const qRaw = query ? query.trim() : '';
-    if (!qRaw) return; // ← Si está vacío, NO PASA NADA. No sale el hero.
+    if (!qRaw) return; // Input vacío = no pasa nada
     
     const q = normalizar(qRaw);
     busquedaActiva = true;
-    searchSuggestions.classList.add('hidden');
+    
+    // Si viene de tocar una sugerencia en móvil:
+    // NO cerramos el dropdown ni el teclado inmediatamente.
+    // Esperamos 2 segundos para que el dedo se levante tranquilo y el layout no salte.
+    if (desdeSugerencia) {
+        if (sugerenciaTimer) clearTimeout(sugerenciaTimer);
+        sugerenciaTimer = setTimeout(() => {
+            if (searchSuggestions) searchSuggestions.classList.add('hidden');
+            if (searchInput) searchInput.blur();
+        }, 2000);
+    } else {
+        if (searchSuggestions) searchSuggestions.classList.add('hidden');
+        if (searchInput) searchInput.blur();
+    }
     
     prepararVistaBusqueda();
     
     // Filtrar grid
     const grid = document.getElementById('product-grid');
+    if (!grid) return;
     const cards = grid.querySelectorAll('article');
     let encontrados = 0;
     
@@ -961,24 +977,35 @@ function ejecutarBusqueda(query) {
         }
     });
     
-    // Mensaje de resultados
-    let msgResultados = document.getElementById('search-results-msg');
-    if (!msgResultados) {
-        msgResultados = document.createElement('div');
-        msgResultados.id = 'search-results-msg';
-        msgResultados.className = 'w-full text-center py-4 mb-2';
-        grid.parentNode.insertBefore(msgResultados, grid);
-    }
+    // Mensaje de resultados: NO mostrar si venimos de Favoritos/Carrito
+    // Detectamos si estábamos en esas vistas antes de cambiar
+    const estabaEnFavoritos = document.getElementById('favoritos-section') && 
+                              !document.getElementById('favoritos-section').classList.contains('hidden');
+    const estabaEnCarrito = document.getElementById('carrito-section') && 
+                            !document.getElementById('carrito-section').classList.contains('hidden');
     
-    if (encontrados === 0) {
-        msgResultados.innerHTML = `<p class="font-Inter text-sm text-stone-500">No se encontraron productos para "<span class="text-temu font-semibold">${qRaw}</span>"</p>`;
+    if (!estabaEnFavoritos && !estabaEnCarrito) {
+        let msgResultados = document.getElementById('search-results-msg');
+        if (!msgResultados) {
+            msgResultados = document.createElement('div');
+            msgResultados.id = 'search-results-msg';
+            msgResultados.className = 'w-full text-center py-4 mb-2';
+            grid.parentNode.insertBefore(msgResultados, grid);
+        }
+        if (encontrados === 0) {
+            msgResultados.innerHTML = `<p class="font-Inter text-sm text-stone-500">No se encontraron productos para "<span class="text-temu font-semibold">${qRaw}</span>"</p>`;
+        } else {
+            msgResultados.innerHTML = `<p class="font-Inter text-sm text-stone-500">${encontrados} resultado${encontrados !== 1 ? 's' : ''} para "<span class="text-temu font-semibold">${qRaw}</span>"</p>`;
+        }
+        msgResultados.classList.remove('hidden');
     } else {
-        msgResultados.innerHTML = `<p class="font-Inter text-sm text-stone-500">${encontrados} resultado${encontrados !== 1 ? 's' : ''} para "<span class="text-temu font-semibold">${qRaw}</span>"</p>`;
+        // Si venimos de favoritos/carrito, ocultar mensaje de resultados si existe
+        const msgResultados = document.getElementById('search-results-msg');
+        if (msgResultados) msgResultados.classList.add('hidden');
     }
-    msgResultados.classList.remove('hidden');
     
-    // Cerrar teclado en móvil
-    if (searchInput) searchInput.blur();
+    // Scroll al grid
+    grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function resetearBusqueda() {
@@ -995,10 +1022,11 @@ function resetearBusqueda() {
     const msgResultados = document.getElementById('search-results-msg');
     if (msgResultados) msgResultados.classList.add('hidden');
     
-    document.getElementById('btn-mas').classList.remove('hidden');
+    const btnMas = document.getElementById('btn-mas');
+    if (btnMas) btnMas.classList.remove('hidden');
     busquedaActiva = false;
     
-    // Volver a la vista de tienda con categoría actual
+    // Volver a la vista de la categoría actual
     gestionarVista('tienda');
     showHero(categoriaActual);
     
@@ -1057,15 +1085,9 @@ if (searchInput && searchBtn) {
             ejecutarBusqueda(searchInput.value);
         }
     });
-    
-    // Cerrar dropdown al perder focus, CON DELAY para que el click/touch en la sugerencia se procese primero
-    searchInput.addEventListener('blur', () => {
-        setTimeout(() => {
-            if (searchSuggestions) searchSuggestions.classList.add('hidden');
-        }, 200);
-    });
 }
 
+// Botón de búsqueda (lupa)
 if (searchBtn) {
     searchBtn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -1073,53 +1095,51 @@ if (searchBtn) {
     });
 }
 
+// Botón limpiar (X)
 if (searchClear) {
     searchClear.addEventListener('click', (e) => {
         e.preventDefault();
         resetearBusqueda();
-        setTimeout(() => searchInput.focus(), 100);
+        setTimeout(() => { if (searchInput) searchInput.focus(); }, 100);
     });
 }
 
-// === CLAVE PARA MÓVIL: mousedown (antes de blur) + touchstart (antes de que el teclado cierre) ===
-if (searchSuggestions) {
-    // Desktop
-    searchSuggestions.addEventListener('mousedown', (e) => {
-        const item = e.target.closest('.suggestion-item');
-        const verTodos = e.target.closest('.suggestion-ver-todos');
-        
-        if (item) {
-            e.preventDefault(); // Evita que el input pierda focus ANTES de ejecutar
-            const titulo = item.dataset.titulo;
-            searchInput.value = titulo;
-            if (searchClear) {
-                searchClear.classList.remove('hidden');
-                searchClear.classList.add('flex');
-            }
-            ejecutarBusqueda(titulo);
-        } else if (verTodos) {
-            e.preventDefault();
-            ejecutarBusqueda(searchInput.value);
-        }
-    });
+// Cerrar dropdown al hacer click/touch fuera del buscador
+document.addEventListener('click', (e) => {
+    if (searchSuggestions && !e.target.closest('#search-input') && !e.target.closest('#search-suggestions')) {
+        searchSuggestions.classList.add('hidden');
+    }
+});
+
+// === CLAVE PARA MÓVIL ===
+// Usamos 'touchend' en vez de 'touchstart'/'click' para que:
+// 1. El dedo ya se levantó (no toca nada debajo)
+// 2. El dropdown se mantiene visible 2 segundos gracias al timer en ejecutarBusqueda
+// 3. El teclado NO se cierra inmediatamente, evitando el salto de layout
+function manejarTapSugerencia(e) {
+    const item = e.target.closest('.suggestion-item');
+    const verTodos = e.target.closest('.suggestion-ver-todos');
     
-    // Móvil: touchstart con preventDefault para evitar que el teclado virtual mueva el layout
-    searchSuggestions.addEventListener('touchstart', (e) => {
-        const item = e.target.closest('.suggestion-item');
-        const verTodos = e.target.closest('.suggestion-ver-todos');
-        
-        if (item) {
-            e.preventDefault();
-            const titulo = item.dataset.titulo;
-            searchInput.value = titulo;
-            if (searchClear) {
-                searchClear.classList.remove('hidden');
-                searchClear.classList.add('flex');
-            }
-            ejecutarBusqueda(titulo);
-        } else if (verTodos) {
-            e.preventDefault();
-            ejecutarBusqueda(searchInput.value);
+    if (item) {
+        e.preventDefault();
+        e.stopPropagation();
+        const titulo = item.dataset.titulo;
+        searchInput.value = titulo;
+        if (searchClear) {
+            searchClear.classList.remove('hidden');
+            searchClear.classList.add('flex');
         }
-    }, { passive: false });
+        ejecutarBusqueda(titulo, true);
+    } else if (verTodos) {
+        e.preventDefault();
+        e.stopPropagation();
+        ejecutarBusqueda(searchInput.value, true);
+    }
+}
+
+if (searchSuggestions) {
+    // touchend para móvil (el dedo ya se levantó, no hay riesgo de tocar debajo)
+    searchSuggestions.addEventListener('touchend', manejarTapSugerencia);
+    // click para desktop
+    searchSuggestions.addEventListener('click', manejarTapSugerencia);
 }
