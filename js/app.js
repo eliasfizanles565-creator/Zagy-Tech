@@ -774,11 +774,9 @@ document.addEventListener('click', (e) => {
     const size = Math.max(rect.width, rect.height);
     ripple.style.width = size + 'px';
     ripple.style.height = size + 'px';
-    ripple.style.left = (e.clientX - size/2) + 'px';  // ← coordenadas del VIEWPORT
-    ripple.style.top = (e.clientY - size/2) + 'px';   // ← no relativas al botón
-    ripple.style.position = 'fixed';
-    ripple.style.zIndex = '9999';
-    document.body.appendChild(ripple);  // ← se pone en el body, no en el botón
+    ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+    ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+    btn.appendChild(ripple);
     setTimeout(() => ripple.remove(), 600);
 });
 
