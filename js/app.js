@@ -1068,6 +1068,21 @@ document.querySelectorAll('.cat-btn[data-categoria]').forEach(btn => {
         }
     });
 });
+
+const busquedaFavoritos = document.getElementById('favoritos');
+const busquedaCarrito = document.getElementById('carrito-cambio');
+
+busquedaFavoritos.addEventListener('click', function () {
+    const msg = document.getElementById('search-results-msg');
+    if (msg) msg.classList.add('hidden');
+});
+busquedaCarrito.addEventListener('click', function () {
+    const msg = document.getElementById('search-results-msg');
+    if (msg) msg.classList.add('hidden');
+});
+
+
+
 /////////////
 // Click en sugerencias
 document.getElementById('sugerencias-dropdown').addEventListener('click', e => {
