@@ -337,11 +337,6 @@
 /* =============================================================================== */
 /* FILTRO BUSCADOR */
 /* ====================== */
-#search-suggestions {
-    -webkit-overflow-scrolling: touch;
+.filtro {
+    display: none;
 }
-.suggestion-item, .suggestion-ver-todos, #search-btn, #search-clear {
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-}
-

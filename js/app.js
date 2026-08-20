@@ -824,322 +824,37 @@ document.getElementById('logo-zagy').addEventListener('click', () => {
 
 
 /////////////////////////////////////////////////////////////////
-// ======================================================
-// BUSCADOR CON SUGERENCIAS (FINAL v4)
-// ======================================================
-const searchInput = document.getElementById('search-input');
-const searchBtn = document.getElementById('search-btn');
-const searchClear = document.getElementById('search-clear');
-const searchSuggestions = document.getElementById('search-suggestions');
+// ==== FILTRO BUSCADOR ====
+/////////////////////////////////////////////////////////////////
+// document.addEventListener('keyup', e => {
+//     if(e.target.matches('#buscador')) {
+//         document.querySelectorAll('.producto-tienda').forEach(producto => {
+//             producto.textContent.toLowerCase().includes(e.target.value)?
+//             producto.classList.remove('filtro') : producto.classList.add('filtro');
+//         })
+//     }
+// })
 
-let productosDB = [];
-let busquedaActiva = false;
-let sugerenciaTimer = null;
+document.addEventListener('keyup', e => {
+    if (e.target.matches('#buscador')) {
+        const textoBusqueda = e.target.value.toLowerCase();
 
-function construirProductosDB() {
-    productosDB = [];
-    document.querySelectorAll('#product-grid article').forEach(article => {
-        productosDB.push({
-            id: article.dataset.id,
-            titulo: article.dataset.titulo || '',
-            subtitulo: article.dataset.subtitulo || '',
-            imagen: article.dataset.imagen || '',
-            precio: article.dataset.precio || '',
-            element: article
-        });
-    });
-}
+        // Asegúrate de usar la clase que tengan tus articles (ej. .cat-albums o .producto-tienda)
+        document.querySelectorAll('.producto-tienda').forEach(producto => {
+            
+            // 1. Obtenemos el título y subtítulo de los data attributes
+            const titulo = producto.getAttribute('data-titulo') || '';
+            const subtitulo = producto.getAttribute('data-subtitulo') || '';
+            
+            // 2. Los unimos en un solo texto en minúsculas para buscar en ambos
+            const textoCompleto = (titulo + ' ' + subtitulo).toLowerCase();
 
-function normalizar(texto) {
-    if (!texto) return '';
-    return texto.toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-}
-
-function resaltarCoincidencia(texto, query) {
-    if (!query) return texto;
-    const escapado = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const regex = new RegExp(`(${escapado})`, 'gi');
-    return texto.replace(regex, '<span class="text-temu font-bold">$1</span>');
-}
-
-function mostrarSugerencias(query) {
-    if (!query || query.length < 1) {
-        searchSuggestions.classList.add('hidden');
-        return;
-    }
-    
-    const q = normalizar(query);
-    const coincidencias = productosDB.filter(p => {
-        return normalizar(p.titulo).includes(q) || normalizar(p.subtitulo).includes(q);
-    }).slice(0, 6);
-    
-    if (coincidencias.length === 0) {
-        searchSuggestions.innerHTML = `<div class="px-4 py-3 text-sm text-stone-500">No se encontraron sugerencias</div>`;
-        searchSuggestions.classList.remove('hidden');
-        return;
-    }
-    
-    let html = '';
-    coincidencias.forEach(p => {
-        html += `
-            <div class="suggestion-item flex items-center gap-3 px-3 py-2.5 cursor-pointer hover:bg-stone-50 transition-colors border-b border-stone-100 last:border-0" data-titulo="${p.titulo}">
-                <div class="size-9 rounded-lg overflow-hidden bg-stone-100 shrink-0 border border-stone-200">
-                    <img src="${p.imagen}" class="w-full h-full object-cover">
-                </div>
-                <div class="flex-1 min-w-0">
-                    <p class="text-sm font-medium text-stone-950 truncate">${resaltarCoincidencia(p.titulo, query)}</p>
-                    <p class="text-xs text-stone-500 truncate">${resaltarCoincidencia(p.subtitulo, query)}</p>
-                </div>
-                <p class="text-xs font-Russo text-temu shrink-0">s/ ${parseFloat(p.precio).toFixed(2)}</p>
-            </div>
-        `;
-    });
-    
-    html += `
-        <div class="suggestion-ver-todos px-4 py-2.5 text-center text-sm font-semibold text-temu cursor-pointer hover:bg-stone-50 transition-colors border-t border-stone-100">
-            Ver todos los resultados para "${query}"
-        </div>
-    `;
-    
-    searchSuggestions.innerHTML = html;
-    searchSuggestions.classList.remove('hidden');
-}
-
-function prepararVistaBusqueda() {
-    // Ocultar hero, carrito, favoritos, botón ver más
-    document.querySelectorAll('.hero-container').forEach(h => { 
-        h.classList.add('hidden'); 
-        h.style.display = 'none'; 
-    });
-    const btnMas = document.getElementById('btn-mas');
-    if (btnMas) btnMas.classList.add('hidden');
-    
-    const carritoSection = document.getElementById('carrito-section');
-    const btnCarritoFlotante = document.getElementById('btn-carrito');
-    const favoritosSection = document.getElementById('favoritos-section');
-    const navCategorias = document.getElementById('nav-categorias');
-    const separadorNav = navCategorias ? navCategorias.nextElementSibling : null;
-    
-    if (carritoSection) carritoSection.classList.add('hidden');
-    if (btnCarritoFlotante) btnCarritoFlotante.classList.add('hidden');
-    if (favoritosSection) favoritosSection.classList.add('hidden');
-    if (navCategorias) navCategorias.classList.remove('hidden');
-    if (separadorNav) separadorNav.classList.remove('hidden');
-    
-    // Mostrar nav superior siempre
-    const navSuperior = document.querySelector('nav');
-    const separadorSuperior = navSuperior ? navSuperior.nextElementSibling : null;
-    if (navSuperior) navSuperior.classList.remove('max-lg:hidden');
-    if (separadorSuperior) separadorSuperior.classList.remove('max-lg:hidden');
-    
-    // Mostrar grid
-    const grid = document.getElementById('product-grid');
-    if (grid) grid.classList.remove('hidden');
-}
-
-function ejecutarBusqueda(query, desdeSugerencia = false) {
-    const qRaw = query ? query.trim() : '';
-    if (!qRaw) return; // Input vacío = no pasa nada
-    
-    const q = normalizar(qRaw);
-    busquedaActiva = true;
-    
-    // Si viene de tocar una sugerencia en móvil:
-    // NO cerramos el dropdown ni el teclado inmediatamente.
-    // Esperamos 2 segundos para que el dedo se levante tranquilo y el layout no salte.
-    if (desdeSugerencia) {
-        if (sugerenciaTimer) clearTimeout(sugerenciaTimer);
-        sugerenciaTimer = setTimeout(() => {
-            if (searchSuggestions) searchSuggestions.classList.add('hidden');
-            if (searchInput) searchInput.blur();
-        }, 2000);
-    } else {
-        if (searchSuggestions) searchSuggestions.classList.add('hidden');
-        if (searchInput) searchInput.blur();
-    }
-    
-    prepararVistaBusqueda();
-    
-    // Filtrar grid
-    const grid = document.getElementById('product-grid');
-    if (!grid) return;
-    const cards = grid.querySelectorAll('article');
-    let encontrados = 0;
-    
-    cards.forEach(card => {
-        const titulo = normalizar(card.dataset.titulo || '');
-        const subtitulo = normalizar(card.dataset.subtitulo || '');
-        if (titulo.includes(q) || subtitulo.includes(q)) {
-            card.classList.remove('hidden');
-            encontrados++;
-        } else {
-            card.classList.add('hidden');
-        }
-    });
-    
-    // Mensaje de resultados: NO mostrar si venimos de Favoritos/Carrito
-    // Detectamos si estábamos en esas vistas antes de cambiar
-    const estabaEnFavoritos = document.getElementById('favoritos-section') && 
-                              !document.getElementById('favoritos-section').classList.contains('hidden');
-    const estabaEnCarrito = document.getElementById('carrito-section') && 
-                            !document.getElementById('carrito-section').classList.contains('hidden');
-    
-    if (!estabaEnFavoritos && !estabaEnCarrito) {
-        let msgResultados = document.getElementById('search-results-msg');
-        if (!msgResultados) {
-            msgResultados = document.createElement('div');
-            msgResultados.id = 'search-results-msg';
-            msgResultados.className = 'w-full text-center py-4 mb-2';
-            grid.parentNode.insertBefore(msgResultados, grid);
-        }
-        if (encontrados === 0) {
-            msgResultados.innerHTML = `<p class="font-Inter text-sm text-stone-500">No se encontraron productos para "<span class="text-temu font-semibold">${qRaw}</span>"</p>`;
-        } else {
-            msgResultados.innerHTML = `<p class="font-Inter text-sm text-stone-500">${encontrados} resultado${encontrados !== 1 ? 's' : ''} para "<span class="text-temu font-semibold">${qRaw}</span>"</p>`;
-        }
-        msgResultados.classList.remove('hidden');
-    } else {
-        // Si venimos de favoritos/carrito, ocultar mensaje de resultados si existe
-        const msgResultados = document.getElementById('search-results-msg');
-        if (msgResultados) msgResultados.classList.add('hidden');
-    }
-    
-    // Scroll al grid
-    grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-function resetearBusqueda() {
-    if (searchInput) {
-        searchInput.value = '';
-        searchInput.blur();
-    }
-    if (searchClear) {
-        searchClear.classList.add('hidden');
-        searchClear.classList.remove('flex');
-    }
-    if (searchSuggestions) searchSuggestions.classList.add('hidden');
-    
-    const msgResultados = document.getElementById('search-results-msg');
-    if (msgResultados) msgResultados.classList.add('hidden');
-    
-    const btnMas = document.getElementById('btn-mas');
-    if (btnMas) btnMas.classList.remove('hidden');
-    busquedaActiva = false;
-    
-    // Volver a la vista de la categoría actual
-    gestionarVista('tienda');
-    showHero(categoriaActual);
-    
-    const btnCat = document.querySelector(`[data-categoria="${categoriaActual}"]`);
-    if (btnCat) setActiveCategory(btnCat);
-    
-    // Refiltrar por categoría actual y límite de pantalla
-    const grid = document.getElementById('product-grid');
-    if (grid) {
-        const cards = grid.querySelectorAll('article');
-        let visibleCount = 0;
-        const width = window.innerWidth;
-        const limit = width >= 1280 ? 15 : width >= 1024 ? 12 : width >= 640 ? 9 : 8;
-        
-        cards.forEach(card => {
-            const pertenece = categoriaActual === 'todos' || card.classList.contains(`cat-${categoriaActual}`);
-            if (pertenece) {
-                if (visibleCount < limit) {
-                    card.classList.remove('hidden');
-                    visibleCount++;
-                } else {
-                    card.classList.add('hidden');
-                }
+            // 3. Comparamos si el texto incluye lo que escribió el usuario
+            if (textoCompleto.includes(textoBusqueda)) {
+                producto.classList.remove('filtro');
             } else {
-                card.classList.add('hidden');
+                producto.classList.add('filtro');
             }
         });
-    }
-}
-
-// Eventos del buscador
-if (searchInput && searchBtn) {
-    construirProductosDB();
-    
-    searchInput.addEventListener('input', (e) => {
-        const val = e.target.value;
-        if (val.length > 0) {
-            if (searchClear) {
-                searchClear.classList.remove('hidden');
-                searchClear.classList.add('flex');
-            }
-        } else {
-            if (searchClear) {
-                searchClear.classList.add('hidden');
-                searchClear.classList.remove('flex');
-            }
-            resetearBusqueda();
-            return;
-        }
-        mostrarSugerencias(val);
-    });
-    
-    searchInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            ejecutarBusqueda(searchInput.value);
-        }
-    });
-}
-
-// Botón de búsqueda (lupa)
-if (searchBtn) {
-    searchBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        ejecutarBusqueda(searchInput.value);
-    });
-}
-
-// Botón limpiar (X)
-if (searchClear) {
-    searchClear.addEventListener('click', (e) => {
-        e.preventDefault();
-        resetearBusqueda();
-        setTimeout(() => { if (searchInput) searchInput.focus(); }, 100);
-    });
-}
-
-// Cerrar dropdown al hacer click/touch fuera del buscador
-document.addEventListener('click', (e) => {
-    if (searchSuggestions && !e.target.closest('#search-input') && !e.target.closest('#search-suggestions')) {
-        searchSuggestions.classList.add('hidden');
     }
 });
-
-// === CLAVE PARA MÓVIL ===
-// Usamos 'touchend' en vez de 'touchstart'/'click' para que:
-// 1. El dedo ya se levantó (no toca nada debajo)
-// 2. El dropdown se mantiene visible 2 segundos gracias al timer en ejecutarBusqueda
-// 3. El teclado NO se cierra inmediatamente, evitando el salto de layout
-function manejarTapSugerencia(e) {
-    const item = e.target.closest('.suggestion-item');
-    const verTodos = e.target.closest('.suggestion-ver-todos');
-    
-    if (item) {
-        e.preventDefault();
-        e.stopPropagation();
-        const titulo = item.dataset.titulo;
-        searchInput.value = titulo;
-        if (searchClear) {
-            searchClear.classList.remove('hidden');
-            searchClear.classList.add('flex');
-        }
-        ejecutarBusqueda(titulo, true);
-    } else if (verTodos) {
-        e.preventDefault();
-        e.stopPropagation();
-        ejecutarBusqueda(searchInput.value, true);
-    }
-}
-
-if (searchSuggestions) {
-    // touchend para móvil (el dedo ya se levantó, no hay riesgo de tocar debajo)
-    searchSuggestions.addEventListener('touchend', manejarTapSugerencia);
-    // click para desktop
-    searchSuggestions.addEventListener('click', manejarTapSugerencia);
-}
