@@ -1259,7 +1259,7 @@ function eliminarArticulo(id, animarTachito = true) {
             setTimeout(() => {
                 const card = wrapper.querySelector('.card-swipe');
                 if (card) card.classList.add('card-eliminandose');
-            }, 150);
+            }, 350);
             
             setTimeout(() => {
                 wrapper.classList.add('eliminando');
@@ -1271,8 +1271,8 @@ function eliminarArticulo(id, animarTachito = true) {
                         renderizarCarrito();
                         sincronizarBadgesCantidad();
                     }
-                }, 150);
-            }, 150);
+                }, 300);
+            }, 550);
         } else {
             // Si vino del botón rojo: la card huye inmediatamente, SIN animar tachito
             const card = wrapper.querySelector('.card-swipe');
@@ -1288,8 +1288,8 @@ function eliminarArticulo(id, animarTachito = true) {
                         renderizarCarrito();
                         sincronizarBadgesCantidad();
                     }
-                }, 30);
-            }, 20);
+                }, 300);
+            }, 200);
         }
     } else {
         // Fallback
