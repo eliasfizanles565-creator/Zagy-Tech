@@ -1432,12 +1432,20 @@ document.querySelectorAll('.cat-esfera').forEach(esfera => {
         const cat = esfera.dataset.cat;
         if (!cat) return;
 
-        // Animación épica SOLO en el círculo
         const circulo = esfera.querySelector('.size-10');
+        const texto = esfera.querySelector('p');
+        
+        // Animación épica SOLO en el círculo
         if (circulo) {
             circulo.classList.remove('esfera-pop');
             void circulo.offsetWidth;
             circulo.classList.add('esfera-pop');
+            
+            // TIMEOUT: espera 400ms (más que los 300ms de la animación CSS)
+            setTimeout(() => {
+                
+                cerrarPanelCategorias();
+            }, 600);
         }
         
         // Resaltar círculo + texto de la categoría activa
@@ -1445,7 +1453,6 @@ document.querySelectorAll('.cat-esfera').forEach(esfera => {
             circulo.classList.add('border-temu');
             circulo.style.boxShadow = '0 0 10px rgba(251, 119, 1, 0.5)';
         }
-        const texto = esfera.querySelector('p');
         if (texto) texto.classList.add('text-temu');
 
         // Mostrar tienda sin mover la bottom nav de "Categorías"
@@ -1455,10 +1462,10 @@ document.querySelectorAll('.cat-esfera').forEach(esfera => {
         const btnCat = document.querySelector(`[data-categoria="${cat}"]`);
         if (btnCat) {
             setActiveCategory(btnCat);
-            btnCat.click(); // ← Dispara el filtrado REAL que sí funciona
+            btnCat.click();
         }
-
-        cerrarPanelCategorias();
+        
+        // NO pongas cerrarPanelCategorias() aquí, el timeout lo maneja
     });
 });
 
@@ -1470,6 +1477,9 @@ const btnCategoriasDesktop = document.querySelector('[data-nav="categorias"]');
 function abrirPanelCategorias() {
     if (!panelCategorias) return;
     panelCategorias.classList.remove('hidden');
+
+    // LIMPIAR animaciones residuales para que NO se disparen al reabrir
+    document.querySelectorAll('.cat-esfera .size-10').forEach(c => c.classList.remove('esfera-pop'));
     
     document.querySelectorAll('.cat-esfera').forEach(esfera => {
         const circulo = esfera.querySelector('.size-10');
