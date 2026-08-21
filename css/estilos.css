@@ -1779,6 +1779,12 @@
   opacity: 0;
   overflow: hidden;
 }
+.swipe-abierto .swipe-delete-btn {
+  background: #ef4444;
+}
+.swipe-abierto .swipe-delete-btn:active {
+  background: #dc2626;
+}
 @property --tw-translate-x {
   syntax: "*";
   inherits: false;

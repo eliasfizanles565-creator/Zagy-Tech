@@ -469,3 +469,10 @@
     overflow: hidden;
 }
 
+/* Fondo rojo del botón delete cuando el swipe está activo */
+.swipe-abierto .swipe-delete-btn {
+    background: #ef4444;
+}
+.swipe-abierto .swipe-delete-btn:active {
+    background: #dc2626;
+}
