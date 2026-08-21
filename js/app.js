@@ -437,14 +437,14 @@ function renderizarCarrito() {
         precioTotalGeneral += subtotalItem;
         
         const articleHTML = `
-        <div class="swipe-wrapper relative rounded-xl mb-2 shadow-lg shadow-stone-400" data-swipe-id="${item.id}">
+        <div class="swipe-wrapper shadow-lg shadow-stone-400 relative rounded-xl mb-2" data-swipe-id="${item.id}">
             <!-- Botón rojo que aparece al deslizar -->
             <div class="swipe-delete-btn absolute right-0 top-0 bottom-0 w-20 bg-red-500 flex items-center justify-center z-0 cursor-pointer rounded-r-xl">
                 <i class="ri-delete-bin-6-line text-white text-xl"></i>
             </div>
 
             <!-- Card principal (se desliza) -->
-            <article class="card-swipe relative z-10 flex gap-3 py-2 rounded-xl justify-between bg-white" data-id="${item.id}" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}">
+            <article class=" card-swipe relative z-10 flex gap-3 py-2 rounded-xl justify-between" data-id="${item.id}" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}">
                 <article class="flex gap-3">
                     <div class="size-20 ml-2 rounded-lg overflow-hidden">
                         <img src="${item.imagen}" alt="" class="w-full h-full object-cover">
@@ -1240,40 +1240,54 @@ document.addEventListener('touchstart', (e) => {
 // ======================================================
 // ELIMINAR ARTICULO COMPLETO DEL CARRITO
 // ======================================================
-function eliminarArticulo(id) {
+function eliminarArticulo(id, animarTachito = true) {
     const wrapper = document.querySelector(`.swipe-wrapper[data-swipe-id="${id}"]`);
     
     if (wrapper) {
-        const tachito = wrapper.querySelector('.btn-tachito');
-        if (tachito) {
-            // Forzar reflow para reiniciar la animación si se spamea
-            tachito.classList.remove('tachito-animado');
-            void tachito.offsetWidth;
-            tachito.classList.add('tachito-animado');
-        }
-        
-        // Esperar a que el tachito "grite" antes de que la card se escape
-        setTimeout(() => {
-            const card = wrapper.querySelector('.card-swipe');
-            if (card) {
-                card.classList.add('card-eliminandose');
+        // Solo animar el tachito si se presionó EL TACHITO (no el botón rojo)
+        if (animarTachito) {
+            const tachito = wrapper.querySelector('.btn-tachito');
+            if (tachito) {
+                tachito.classList.remove('tachito-animado');
+                void tachito.offsetWidth;
+                tachito.classList.add('tachito-animado');
             }
-        }, 350); // 350ms de fama para el tachito
-        
-        // Eliminar del array después de la animación completa
-        setTimeout(() => {
-            wrapper.classList.add('eliminando');
+            // Esperar a que el tachito "grite" antes de que la card huya
+            setTimeout(() => {
+                const card = wrapper.querySelector('.card-swipe');
+                if (card) card.classList.add('card-eliminandose');
+            }, 350);
             
             setTimeout(() => {
-                const index = carritoDeCompras.findIndex(item => item.id === id);
-                if (index !== -1) {
-                    carritoDeCompras.splice(index, 1);
-                    guardarCarrito();
-                    renderizarCarrito();
-                    sincronizarBadgesCantidad();
-                }
-            }, 300);
-        }, 550);
+                wrapper.classList.add('eliminando');
+                setTimeout(() => {
+                    const index = carritoDeCompras.findIndex(item => item.id === id);
+                    if (index !== -1) {
+                        carritoDeCompras.splice(index, 1);
+                        guardarCarrito();
+                        renderizarCarrito();
+                        sincronizarBadgesCantidad();
+                    }
+                }, 300);
+            }, 550);
+        } else {
+            // Si vino del botón rojo: la card huye inmediatamente, SIN animar tachito
+            const card = wrapper.querySelector('.card-swipe');
+            if (card) card.classList.add('card-eliminandose');
+            
+            setTimeout(() => {
+                wrapper.classList.add('eliminando');
+                setTimeout(() => {
+                    const index = carritoDeCompras.findIndex(item => item.id === id);
+                    if (index !== -1) {
+                        carritoDeCompras.splice(index, 1);
+                        guardarCarrito();
+                        renderizarCarrito();
+                        sincronizarBadgesCantidad();
+                    }
+                }, 300);
+            }, 200);
+        }
     } else {
         // Fallback
         const index = carritoDeCompras.findIndex(item => item.id === id);
@@ -1373,7 +1387,7 @@ function initSwipeDelete() {
         if (deleteBtn) {
             deleteBtn.addEventListener('click', () => {
                 const id = parseInt(wrapper.dataset.swipeId);
-                eliminarArticulo(id);
+                eliminarArticulo(id, false); // ← false = NO animar el tachito
             });
         }
     });

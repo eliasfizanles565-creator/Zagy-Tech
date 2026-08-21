@@ -1689,7 +1689,7 @@
 }
 .swipe-wrapper {
   position: relative;
-  overflow: hidden;
+  overflow: clip;
   border-radius: 0.75rem;
   margin-bottom: 0.5rem;
   touch-action: pan-y;
