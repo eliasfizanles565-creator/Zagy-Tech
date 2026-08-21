@@ -1416,7 +1416,7 @@ const swiperCategorias = new Swiper('.swiper-categorias', {
     slidesPerView: 1,        // 1 slide = 1 página del grid
     slidesPerGroup: 1,
     spaceBetween: 0,
-    loop: false,             // con 2 slides no hace falta loop
+    loop: true,             // con 2 slides no hace falta loop
     pagination: {
         el: '.pagination-categorias',
         clickable: true
