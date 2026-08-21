@@ -26,6 +26,7 @@
     --color-stone-500: oklch(55.3% 0.013 58.071);
     --color-stone-600: oklch(44.4% 0.011 73.639);
     --color-stone-950: oklch(14.7% 0.004 49.25);
+    --color-black: #000;
     --color-white: #fff;
     --spacing: 0.25rem;
     --container-7xl: 80rem;
@@ -1294,6 +1295,15 @@
     }
     .hover\:border-temu:hover {
       border-color: var(--color-temu);
+    }
+    .hover\:bg-black:hover {
+      background-color: var(--color-black);
+    }
+    .hover\:bg-plomo:hover {
+      background-color: var(--color-plomo);
+    }
+    .hover\:bg-stone-950:hover {
+      background-color: var(--color-stone-950);
     }
     .hover\:bg-white:hover {
       background-color: var(--color-white);

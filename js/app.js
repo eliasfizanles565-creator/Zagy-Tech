@@ -75,10 +75,10 @@ const catButtons = document.querySelectorAll('.cat-btn');
 function setActiveCategory(clickedBtn) {
     catButtons.forEach(btn => {
         const text = btn.querySelector('p');
-        btn.classList.remove('bg-stone-950'); btn.classList.add('bg-white', 'border', 'border-stone-950');
+        btn.classList.remove('bg-stone-950'); btn.classList.add('bg-puro', 'hover:bg-plomo');
         if (text) { text.classList.remove('text-white'); text.classList.add('text-stone-950'); }
     });
-    clickedBtn.classList.remove('bg-white', 'border', 'border-stone-950'); clickedBtn.classList.add('bg-stone-950');
+    clickedBtn.classList.remove('bg-puro', 'border', 'border-stone-950', 'hover:bg-plomo'); clickedBtn.classList.add('bg-stone-950');
     const activeText = clickedBtn.querySelector('p');
     if (activeText) { activeText.classList.remove('text-stone-950'); activeText.classList.add('text-white'); }
 }
