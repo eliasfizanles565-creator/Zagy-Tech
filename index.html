@@ -726,18 +726,158 @@
     <!-- ==================================== -->
     <!-- SECTION CATEGORÍAS  -->
     <!-- ==================================== -->
-    <!-- <section class="w-80 h-45 rounded-2xl bg-stone-950 border-2 border-white fixed z-20 bottom-20 left-2 flex px-5 py-3
+    <section id="panel-categorias" class="hidden w-80 h-45 rounded-2xl bg-stone-950 border-2 border-white fixed z-30 bottom-20 left-2 px-5 py-3 flex flex-col
     sm:left-40
-    lg:bottom-0 lg:top-13 lg:left-25
+    lg:bottom-auto lg:top-13 lg:left-25
     xl:left-35
     2xl:left-97">
-        <div class="w-14 h-17  flex flex-col justify-start items-center gap-1">
-            <div class="size-10 bg-white rounded-4xl overflow-hidden">
-                <img src="assets/04.avif" alt="" class="h-full w-full object-cover">
+        <div class="swiper swiper-categorias w-full flex-1">
+            <div class="swiper-wrapper">
+                <!-- SLIDE 1 -->
+                <div class="swiper-slide">
+                    <div class="grid grid-cols-4 grid-rows-2 gap-x-2 gap-y-3 h-full content-center">
+                        <div class="cursor-pointer cat-esfera" data-cat="todos">
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="size-10 bg-white rounded-full overflow-hidden border-2 border-transparent hover:border-temu transition-colors">
+                                    <img src="assets/04.avif" class="h-full w-full object-cover">
+                                </div>
+                                <p class="text-xs font-Inter text-white">Todos</p>
+                            </div>
+                        </div>
+                        <div class="cursor-pointer cat-esfera" data-cat="ofertas">
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="size-10 bg-white rounded-full overflow-hidden border-2 border-transparent hover:border-temu transition-colors">
+                                    <img src="assets/04.avif" class="h-full w-full object-cover">
+                                </div>
+                                <p class="text-xs font-Inter text-white">Ofertas</p>
+                            </div>
+                        </div>
+                        <div class="cursor-pointer cat-esfera" data-cat="hogar">
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="size-10 bg-white rounded-full overflow-hidden border-2 border-transparent hover:border-temu transition-colors">
+                                    <img src="assets/04.avif" class="h-full w-full object-cover">
+                                </div>
+                                <p class="text-xs font-Inter text-white">Hogar</p>
+                            </div>
+                        </div>
+                        <div class="cursor-pointer cat-esfera" data-cat="tecnologia">
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="size-10 bg-white rounded-full overflow-hidden border-2 border-transparent hover:border-temu transition-colors">
+                                    <img src="assets/04.avif" class="h-full w-full object-cover">
+                                </div>
+                                <p class="text-xs font-Inter text-white">Tecnología</p>
+                            </div>
+                        </div>
+                        <div class="cursor-pointer cat-esfera" data-cat="accesorios">
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="size-10 bg-white rounded-full overflow-hidden border-2 border-transparent hover:border-temu transition-colors">
+                                    <img src="assets/04.avif" class="h-full w-full object-cover">
+                                </div>
+                                <p class="text-xs font-Inter text-white">Accesorios</p>
+                            </div>
+                        </div>
+                        <div class="cursor-pointer cat-esfera" data-cat="figuras">
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="size-10 bg-white rounded-full overflow-hidden border-2 border-transparent hover:border-temu transition-colors">
+                                    <img src="assets/04.avif" class="h-full w-full object-cover">
+                                </div>
+                                <p class="text-xs font-Inter text-white">Figuras</p>
+                            </div>
+                        </div>
+                        <div class="cursor-pointer cat-esfera" data-cat="albums">
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="size-10 bg-white rounded-full overflow-hidden border-2 border-transparent hover:border-temu transition-colors">
+                                    <img src="assets/04.avif" class="h-full w-full object-cover">
+                                </div>
+                                <p class="text-xs font-Inter text-white">Álbums</p>
+                            </div>
+                        </div>
+                        <div class="cursor-pointer cat-esfera" data-cat="ropa">
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="size-10 bg-white rounded-full overflow-hidden border-2 border-transparent hover:border-temu transition-colors">
+                                    <img src="assets/04.avif" class="h-full w-full object-cover">
+                                </div>
+                                <p class="text-xs font-Inter text-white">Ropa</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 2 -->
+                <div class="swiper-slide">
+                    <div class="grid grid-cols-4 grid-rows-2 gap-x-2 gap-y-3 h-full content-center">
+                        <div class="cursor-pointer cat-esfera" data-cat="hombre">
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="size-10 bg-white rounded-full overflow-hidden border-2 border-transparent hover:border-temu transition-colors">
+                                    <img src="assets/04.avif" class="h-full w-full object-cover">
+                                </div>
+                                <p class="text-xs font-Inter text-white">Hombre</p>
+                            </div>
+                        </div>
+                        <div class="cursor-pointer cat-esfera" data-cat="mujer">
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="size-10 bg-white rounded-full overflow-hidden border-2 border-transparent hover:border-temu transition-colors">
+                                    <img src="assets/04.avif" class="h-full w-full object-cover">
+                                </div>
+                                <p class="text-xs font-Inter text-white">Mujer</p>
+                            </div>
+                        </div>
+                        <div class="cursor-pointer cat-esfera" data-cat="moda">
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="size-10 bg-white rounded-full overflow-hidden border-2 border-transparent hover:border-temu transition-colors">
+                                    <img src="assets/04.avif" class="h-full w-full object-cover">
+                                </div>
+                                <p class="text-xs font-Inter text-white">Moda</p>
+                            </div>
+                        </div>
+                        <div class="cursor-pointer cat-esfera" data-cat="zapatillas">
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="size-10 bg-white rounded-full overflow-hidden border-2 border-transparent hover:border-temu transition-colors">
+                                    <img src="assets/04.avif" class="h-full w-full object-cover">
+                                </div>
+                                <p class="text-xs font-Inter text-white">Zapatillas</p>
+                            </div>
+                        </div>
+                        <div class="cursor-pointer cat-esfera" data-cat="relojes">
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="size-10 bg-white rounded-full overflow-hidden border-2 border-transparent hover:border-temu transition-colors">
+                                    <img src="assets/04.avif" class="h-full w-full object-cover">
+                                </div>
+                                <p class="text-xs font-Inter text-white">Relojes</p>
+                            </div>
+                        </div>
+                        <div class="cursor-pointer cat-esfera" data-cat="perfumes">
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="size-10 bg-white rounded-full overflow-hidden border-2 border-transparent hover:border-temu transition-colors">
+                                    <img src="assets/04.avif" class="h-full w-full object-cover">
+                                </div>
+                                <p class="text-xs font-Inter text-white">Perfumes</p>
+                            </div>
+                        </div>
+                        <div class="cursor-pointer cat-esfera" data-cat="joyeria">
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="size-10 bg-white rounded-full overflow-hidden border-2 border-transparent hover:border-temu transition-colors">
+                                    <img src="assets/04.avif" class="h-full w-full object-cover">
+                                </div>
+                                <p class="text-xs font-Inter text-white">Joyería</p>
+                            </div>
+                        </div>
+                        <div class="cursor-pointer cat-esfera" data-cat="licores">
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="size-10 bg-white rounded-full overflow-hidden border-2 border-transparent hover:border-temu transition-colors">
+                                    <img src="assets/04.avif" class="h-full w-full object-cover">
+                                </div>
+                                <p class="text-xs font-Inter text-white">Licores</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <p class="text-xs font-Inter  text-white">Todos</p>
         </div>
-    </section> -->
+        <!-- Dots -->
+        <div class="swiper-pagination pagination-categorias !bottom-0 relative mt-1"></div>
+    </section>
+    
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="js/app.js"></script>

@@ -1299,7 +1299,7 @@ function eliminarArticulo(id, animarTachito = true) {
         }
     }
 }
-            
+
 // ======================================================
 // SWIPE TO DELETE (mouse + touch)
 // ======================================================
@@ -1402,4 +1402,109 @@ document.addEventListener('click', (e) => {
         });
     }
 });
+// ////////////////////////////////////////////////////////////////////////////
 
+
+
+// ////////////////////////////////////////////////////////////////////////////
+
+// ===================================================
+// SECTION CATEGORIAS
+// ===================================================
+// Swiper del panel de categorías
+const swiperCategorias = new Swiper('.swiper-categorias', {
+    slidesPerView: 1,        // 1 slide = 1 página del grid
+    slidesPerGroup: 1,
+    spaceBetween: 0,
+    loop: false,             // con 2 slides no hace falta loop
+    pagination: {
+        el: '.pagination-categorias',
+        clickable: true
+    }
+});
+
+// Click en una esfera del panel
+document.querySelectorAll('.cat-esfera').forEach(esfera => {
+    esfera.addEventListener('click', () => {
+        const cat = esfera.dataset.cat;
+        if (!cat) return;
+
+        // Efecto visual
+        const circulo = esfera.querySelector('div > div');
+        if (circulo) {
+            circulo.classList.add('border-temu');
+            setTimeout(() => circulo.classList.remove('border-temu'), 200);
+        }
+
+        // Ir a inicio
+        activateNav('inicio');
+
+        // Activar categoría
+        const btnCat = document.querySelector(`[data-categoria="${cat}"]`);
+        if (btnCat) {
+            setActiveCategory(btnCat);
+            btnCat.click(); // ← Dispara el filtrado REAL que sí funciona
+        }
+
+        cerrarPanelCategorias();
+    });
+});
+
+const panelCategorias = document.getElementById('panel-categorias');
+const btnCategoriasMobile = document.querySelector('.textCategorias');
+const btnCategoriasDesktop = document.querySelector('[data-nav="categorias"]');
+
+function abrirPanelCategorias() {
+    if (!panelCategorias) return;
+    panelCategorias.classList.remove('hidden');
+    if (swiperCategorias) swiperCategorias.update();
+}
+
+function cerrarPanelCategorias() {
+    if (!panelCategorias) return;
+    panelCategorias.classList.add('hidden');
+}
+
+function togglePanelCategorias() {
+    if (!panelCategorias) return;
+    if (panelCategorias.classList.contains('hidden')) {
+        abrirPanelCategorias();
+    } else {
+        cerrarPanelCategorias();
+    }
+}
+
+// Click en bottom nav (móvil)
+if (btnCategoriasMobile) {
+    btnCategoriasMobile.addEventListener('click', (e) => {
+        e.stopPropagation();
+        togglePanelCategorias();
+    });
+}
+
+// Hover en desktop nav
+if (btnCategoriasDesktop) {
+    btnCategoriasDesktop.addEventListener('mouseenter', () => {
+        abrirPanelCategorias();
+    });
+}
+
+// Cerrar al salir del panel con el mouse (solo desktop)
+if (panelCategorias) {
+    panelCategorias.addEventListener('mouseleave', () => {
+        if (window.innerWidth >= 1024) cerrarPanelCategorias();
+    });
+}
+
+// Cerrar al clickear fuera
+document.addEventListener('click', (e) => {
+    if (!panelCategorias) return;
+    if (panelCategorias.classList.contains('hidden')) return;
+    
+    const clickDentroPanel = panelCategorias.contains(e.target);
+    const clickEnBtnCategorias = btnCategoriasMobile?.contains(e.target) || btnCategoriasDesktop?.contains(e.target);
+    
+    if (!clickDentroPanel && !clickEnBtnCategorias) {
+        cerrarPanelCategorias();
+    }
+});

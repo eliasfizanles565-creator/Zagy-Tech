@@ -468,4 +468,40 @@
     opacity: 0;
     overflow: hidden;
 }
+/* ////////////////////////////////////////////////////////////// */
 
+
+/* ////////////////////////////////////////////////////////////// */
+
+/* ==================================================== */
+/* ===== SECTION CATEGORIAS ===== */
+/* ==================================================== */
+/* Swiper del panel de categorías — GRID 4x2 */
+.swiper-categorias {
+    width: 100%;
+    height: calc(100% - 20px);
+}
+.swiper-categorias .swiper-slide {
+    width: 100% !important;
+    height: 100%;
+}
+
+/* Dots del panel — ID gana sobre el global del hero */
+#panel-categorias .swiper-pagination {
+    position: relative !important;
+    bottom: 0 !important;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 4px;
+}
+#panel-categorias .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    background: rgba(255,255,255,0.4) !important;
+    opacity: 1 !important;
+}
+#panel-categorias .swiper-pagination-bullet-active {
+    background-color: #FB7701 !important;
+    transform: scale(1.3) !important;
+}
