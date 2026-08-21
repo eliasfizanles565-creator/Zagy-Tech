@@ -1445,7 +1445,18 @@ document.querySelectorAll('.cat-esfera').forEach(esfera => {
         const cat = esfera.dataset.cat;
         if (!cat) return;
 
-        // Mostrar tienda sin mover la bottom nav de "Categorías"
+         // 🔥 ELIMINAR resultados de búsqueda si están activos
+        if (btnCategoriaBusqueda) {
+            eliminarCategoriaBusqueda(false);
+        }
+        
+        // Limpiar input y cerrar sugerencias
+        const input = document.getElementById('buscador');
+        if (input) input.value = '';
+        const dropdown = document.getElementById('sugerencias-dropdown');
+        if (dropdown) dropdown.classList.add('hidden');
+
+        // Volver a la tienda (por si estaba en carrito o favoritos)
         gestionarVista('tienda');
 
         // Activar categoría directamente (sin simular click para evitar cierre del panel)
