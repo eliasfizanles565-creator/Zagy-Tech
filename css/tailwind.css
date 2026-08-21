@@ -430,3 +430,41 @@
     user-select: none;
     -webkit-user-select: none;
 }
+
+/* ===== TACHITO "OH NO" ===== */
+@keyframes tachito-ohno {
+    0%   { transform: scale(1) rotate(0deg); }
+    10%  { transform: scale(1.6) rotate(-25deg) translateY(-4px); }
+    25%  { transform: scale(1.4) rotate(20deg) translateY(-2px); }
+    40%  { transform: scale(1.7) rotate(-15deg) translateY(-5px); }
+    55%  { transform: scale(1.3) rotate(10deg); }
+    70%  { transform: scale(1.5) rotate(-5deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+/* Aplicar al DIV completo, no solo al <i> */
+.btn-tachito.tachito-animado {
+    animation: tachito-ohno 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: center center;
+}
+
+/* La card huye deslizándose a la izquierda al eliminar */
+@keyframes card-huyendo {
+    0%   { transform: translateX(0); opacity: 1; max-height: 200px; margin-bottom: 0.5rem; }
+    60%  { transform: translateX(-120%) rotate(-3deg); opacity: 0; max-height: 200px; margin-bottom: 0.5rem; }
+    100% { transform: translateX(-120%); opacity: 0; max-height: 0; margin-bottom: 0; padding: 0; }
+}
+.card-eliminandose {
+    animation: card-huyendo 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* El wrapper también colapsa suavemente */
+.swipe-wrapper.eliminando {
+    transition: max-height 0.3s ease 0.4s, margin 0.3s ease 0.4s, opacity 0.3s ease 0.4s;
+    max-height: 0;
+    margin-bottom: 0;
+    opacity: 0;
+    overflow: hidden;
+}
