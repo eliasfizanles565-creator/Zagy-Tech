@@ -1271,7 +1271,7 @@ function eliminarArticulo(id, animarTachito = true) {
                         renderizarCarrito();
                         sincronizarBadgesCantidad();
                     }
-                }, 300);
+                }, 3000);
             }, 550);
         } else {
             // Si vino del botón rojo: la card huye inmediatamente, SIN animar tachito
@@ -1288,8 +1288,8 @@ function eliminarArticulo(id, animarTachito = true) {
                         renderizarCarrito();
                         sincronizarBadgesCantidad();
                     }
-                }, 300);
-            }, 200);
+                }, 3000);
+            }, 550);
         }
     } else {
         // Fallback
