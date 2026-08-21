@@ -278,6 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showingAll = false;
             showHero(categoriaActual);
             updateDisplay();
+            scrollToCategory(e.currentTarget);
             if (panelCategorias && !panelCategorias.classList.contains('hidden')) {
                 sincronizarEsferasPanel();
             }
@@ -1431,6 +1432,12 @@ const swiperCategorias = new Swiper('.swiper-categorias', {
     }
 });
 
+// Desplaza el scroll horizontal de categorías para que el btn activo sea visible
+function scrollToCategory(btn) {
+    if (!btn || !scrollContainer) return;
+    btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+}
+
 // Click en una esfera del panel
 document.querySelectorAll('.cat-esfera').forEach(esfera => {
     esfera.addEventListener('click', (e) => {
@@ -1445,6 +1452,7 @@ document.querySelectorAll('.cat-esfera').forEach(esfera => {
         const btnCat = document.querySelector(`[data-categoria="${cat}"]`);
         if (btnCat) {
             setActiveCategory(btnCat);
+            scrollToCategory(btnCat);
             categoriaActual = cat;
             showingAll = false;
             showHero(categoriaActual);
@@ -1466,22 +1474,22 @@ function sincronizarEsferasPanel() {
         const texto = esfera.querySelector('p');
         if (esfera.dataset.cat === categoriaActual) {
             if (circulo) {
-                circulo.classList.remove('border-transparent');
-                circulo.classList.add('border-temu');
-                circulo.style.boxShadow = '0 0 10px rgba(251, 119, 1, 0.5)';
+                circulo.classList.remove('ring-transparent');
+                circulo.classList.add('ring-temu');
+                // circulo.style.boxShadow = '0 0 10px rgba(251, 119, 1, 0.5)';
             }
             if (texto) {
                 texto.classList.remove('text-white');
-                texto.classList.add('text-temu');
+                texto.classList.add('text-temu', 'font-semibold');
             }
         } else {
             if (circulo) {
-                circulo.classList.remove('border-temu');
-                circulo.classList.add('border-transparent');
+                circulo.classList.remove('ring-temu');
+                circulo.classList.add('ring-transparent');
                 circulo.style.boxShadow = '';
             }
             if (texto) {
-                texto.classList.remove('text-temu');
+                texto.classList.remove('text-temu', 'font-semibold');
                 texto.classList.add('text-white');
             }
         }
@@ -1498,22 +1506,22 @@ function abrirPanelCategorias() {
         const texto = esfera.querySelector('p');
         if (esfera.dataset.cat === categoriaActual) {
             if (circulo) {
-                circulo.classList.remove('border-transparent');
-                circulo.classList.add('border-temu');
-                circulo.style.boxShadow = '0 0 10px rgba(251, 119, 1, 0.5)';
+                circulo.classList.remove('ring-transparent');
+                circulo.classList.add('ring-temu');
+                // circulo.style.boxShadow = '0 0 10px rgba(251, 119, 1, 0.5)';
             }
             if (texto) {
                 texto.classList.remove('text-white');   // ← QUITAR blanco
-                texto.classList.add('text-temu');       // ← PONER naranja
+                texto.classList.add('text-temu', 'font-semibold');       // ← PONER naranja
             }
         } else {
             if (circulo) {
-                circulo.classList.remove('border-temu');
-                circulo.classList.add('border-transparent');
+                circulo.classList.remove('ring-temu');
+                circulo.classList.add('ring-transparent');
                 circulo.style.boxShadow = '';
             }
             if (texto) {
-                texto.classList.remove('text-temu');    // ← QUITAR naranja
+                texto.classList.remove('text-temu', 'font-semibold');    // ← QUITAR naranja
                 texto.classList.add('text-white');      // ← VOLVER blanco
             }
         }
