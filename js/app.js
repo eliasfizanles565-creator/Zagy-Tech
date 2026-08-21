@@ -439,7 +439,7 @@ function renderizarCarrito() {
         const articleHTML = `
         <div class="swipe-wrapper shadow-lg shadow-stone-400 relative rounded-xl mb-2" data-swipe-id="${item.id}">
             <!-- Botón rojo que aparece al deslizar -->
-            <div class="swipe-delete-btn absolute right-0 top-0 bottom-0 w-20 bg-red-500 flex items-center justify-center z-0 cursor-pointer rounded-r-xl">
+            <div class="swipe-delete-btn absolute right-0 top-0 bottom-0 w-20 flex items-center justify-center z-0 cursor-pointer rounded-r-xl">
                 <i class="ri-delete-bin-6-line text-white text-xl"></i>
             </div>
 

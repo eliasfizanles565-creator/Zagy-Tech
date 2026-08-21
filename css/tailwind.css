@@ -398,7 +398,7 @@
 /* ===== SWIPE TO DELETE (estilo Temu) ===== */
 .swipe-wrapper {
     position: relative;
-    overflow: clip;   /* ← recorta el botón rojo pero NO la sombra */
+    overflow: clip;  
     border-radius: 0.75rem; /* rounded-xl */
     margin-bottom: 0.5rem;
     touch-action: pan-y;
@@ -409,7 +409,7 @@
     top: 0;
     bottom: 0;
     width: 80px;
-    background: #ef4444;
+    /* background: #ef4444; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -425,7 +425,7 @@
 .card-swipe {
     position: relative;
     z-index: 10;
-    background: white;
+    /* background: white; */
     touch-action: pan-y;
     user-select: none;
     -webkit-user-select: none;
