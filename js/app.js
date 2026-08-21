@@ -774,6 +774,9 @@ function activateNav(key) {
         if (activeLabel) { activeLabel.classList.remove('text-stone-950', 'border-transparent'); activeLabel.classList.add('text-temu', 'border-temu'); }
     }
 
+    else if (key === 'categorias') {
+        togglePanelCategorias();
+    }
     if (key === 'carrito') { gestionarVista('carrito'); }
     else if (key === 'favoritos') { gestionarVista('favoritos'); }
     else if (key === 'inicio') {
@@ -1429,15 +1432,24 @@ document.querySelectorAll('.cat-esfera').forEach(esfera => {
         const cat = esfera.dataset.cat;
         if (!cat) return;
 
-        // Efecto visual
-        const circulo = esfera.querySelector('div > div');
+        // Animación épica SOLO en el círculo
+        const circulo = esfera.querySelector('.size-10');
+        if (circulo) {
+            circulo.classList.remove('esfera-pop');
+            void circulo.offsetWidth;
+            circulo.classList.add('esfera-pop');
+        }
+        
+        // Resaltar círculo + texto de la categoría activa
         if (circulo) {
             circulo.classList.add('border-temu');
-            setTimeout(() => circulo.classList.remove('border-temu'), 200);
+            circulo.style.boxShadow = '0 0 10px rgba(251, 119, 1, 0.5)';
         }
+        const texto = esfera.querySelector('p');
+        if (texto) texto.classList.add('text-temu');
 
-        // Ir a inicio
-        activateNav('inicio');
+        // Mostrar tienda sin mover la bottom nav de "Categorías"
+        gestionarVista('tienda');
 
         // Activar categoría
         const btnCat = document.querySelector(`[data-categoria="${cat}"]`);
@@ -1452,11 +1464,39 @@ document.querySelectorAll('.cat-esfera').forEach(esfera => {
 
 const panelCategorias = document.getElementById('panel-categorias');
 const btnCategoriasMobile = document.querySelector('.textCategorias');
+const btnCatMobileNaranja = document.querySelector('#btnCategorias');
 const btnCategoriasDesktop = document.querySelector('[data-nav="categorias"]');
 
 function abrirPanelCategorias() {
     if (!panelCategorias) return;
     panelCategorias.classList.remove('hidden');
+    
+    document.querySelectorAll('.cat-esfera').forEach(esfera => {
+        const circulo = esfera.querySelector('.size-10');
+        const texto = esfera.querySelector('p');
+        if (esfera.dataset.cat === categoriaActual) {
+            if (circulo) {
+                circulo.classList.remove('border-transparent');
+                circulo.classList.add('border-temu');
+                circulo.style.boxShadow = '0 0 10px rgba(251, 119, 1, 0.5)';
+            }
+            if (texto) {
+                texto.classList.remove('text-white');   // ← QUITAR blanco
+                texto.classList.add('text-temu');       // ← PONER naranja
+            }
+        } else {
+            if (circulo) {
+                circulo.classList.remove('border-temu');
+                circulo.classList.add('border-transparent');
+                circulo.style.boxShadow = '';
+            }
+            if (texto) {
+                texto.classList.remove('text-temu');    // ← QUITAR naranja
+                texto.classList.add('text-white');      // ← VOLVER blanco
+            }
+        }
+    });
+    
     if (swiperCategorias) swiperCategorias.update();
 }
 
@@ -1481,6 +1521,15 @@ if (btnCategoriasMobile) {
         togglePanelCategorias();
     });
 }
+
+if (btnCatMobileNaranja) {
+    btnCatMobileNaranja.addEventListener('click', (e) => {
+        e.stopPropagation();
+        togglePanelCategorias();
+    });
+}
+
+
 
 // Hover en desktop nav
 if (btnCategoriasDesktop) {
