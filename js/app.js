@@ -1299,7 +1299,7 @@ function eliminarArticulo(id, animarTachito = true) {
         }
     }
 }
-
+            
 // ======================================================
 // SWIPE TO DELETE (mouse + touch)
 // ======================================================
@@ -1308,10 +1308,10 @@ function initSwipeDelete() {
         const card = wrapper.querySelector('.card-swipe');
         const deleteBtn = wrapper.querySelector('.swipe-delete-btn');
         if (!card) return;
-
+        
         let startX = 0, currentX = 0, isDragging = false;
-        const threshold = 60;
-        const maxOpen = 80;
+        const threshold = 60;   // px mínimos para "abrir"
+        const maxOpen = 80;     // px que se desliza
 
         function setTranslate(x) {
             card.style.transition = 'none';
@@ -1324,10 +1324,8 @@ function initSwipeDelete() {
             card.style.transition = 'transform 0.2s ease-out';
             if (Math.abs(currentX) > threshold) {
                 card.style.transform = `translateX(-${maxOpen}px)`;
-                wrapper.classList.add('swipe-abierto');      // ← FONDO ROJO ON
             } else {
                 card.style.transform = 'translateX(0)';
-                wrapper.classList.remove('swipe-abierto');   // ← FONDO ROJO OFF
             }
         }
 
@@ -1339,7 +1337,6 @@ function initSwipeDelete() {
                         c.style.transition = 'transform 0.2s ease-out';
                         c.style.transform = 'translateX(0)';
                     }
-                    w.classList.remove('swipe-abierto');     // ← apaga el rojo de los demás
                 }
             });
         }
@@ -1359,12 +1356,6 @@ function initSwipeDelete() {
             if (dx < 0) {
                 currentX = Math.max(dx, -maxOpen - 10);
                 setTranslate(currentX);
-                // Preview: si pasa el umbral, prende el rojo
-                if (Math.abs(currentX) > threshold) {
-                    wrapper.classList.add('swipe-abierto');
-                } else {
-                    wrapper.classList.remove('swipe-abierto');
-                }
             }
         }, { passive: true });
 
@@ -1384,11 +1375,6 @@ function initSwipeDelete() {
             if (dx < 0) {
                 currentX = Math.max(dx, -maxOpen - 10);
                 setTranslate(currentX);
-                if (Math.abs(currentX) > threshold) {
-                    wrapper.classList.add('swipe-abierto');
-                } else {
-                    wrapper.classList.remove('swipe-abierto');
-                }
             }
         });
 
@@ -1401,7 +1387,7 @@ function initSwipeDelete() {
         if (deleteBtn) {
             deleteBtn.addEventListener('click', () => {
                 const id = parseInt(wrapper.dataset.swipeId);
-                eliminarArticulo(id, false);
+                eliminarArticulo(id, false); // ← false = NO animar el tachito
             });
         }
     });
@@ -1414,8 +1400,6 @@ document.addEventListener('click', (e) => {
             c.style.transition = 'transform 0.2s ease-out';
             c.style.transform = 'translateX(0)';
         });
-        document.querySelectorAll('.swipe-wrapper').forEach(w => {
-            w.classList.remove('swipe-abierto');   // ← apaga todos los rojos
-        });
     }
 });
+
