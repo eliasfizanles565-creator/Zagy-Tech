@@ -278,6 +278,9 @@ document.addEventListener('DOMContentLoaded', () => {
             showingAll = false;
             showHero(categoriaActual);
             updateDisplay();
+            if (panelCategorias && !panelCategorias.classList.contains('hidden')) {
+                sincronizarEsferasPanel();
+            }
         });
     });
 
@@ -292,6 +295,8 @@ document.addEventListener('DOMContentLoaded', () => {
     sincronizarCorazones();
     sincronizarBadgesCantidad();
     renderizarCarrito();
+
+    window.updateDisplayRef = updateDisplay;
 
 
 
@@ -1428,44 +1433,24 @@ const swiperCategorias = new Swiper('.swiper-categorias', {
 
 // Click en una esfera del panel
 document.querySelectorAll('.cat-esfera').forEach(esfera => {
-    esfera.addEventListener('click', () => {
+    esfera.addEventListener('click', (e) => {
+        e.stopPropagation();
         const cat = esfera.dataset.cat;
         if (!cat) return;
-
-        const circulo = esfera.querySelector('.size-10');
-        const texto = esfera.querySelector('p');
-        
-        // Animación épica SOLO en el círculo
-        if (circulo) {
-            circulo.classList.remove('esfera-pop');
-            void circulo.offsetWidth;
-            circulo.classList.add('esfera-pop');
-            
-            // TIMEOUT: espera 400ms (más que los 300ms de la animación CSS)
-            setTimeout(() => {
-                
-                cerrarPanelCategorias();
-            }, 600);
-        }
-        
-        // Resaltar círculo + texto de la categoría activa
-        if (circulo) {
-            circulo.classList.add('border-temu');
-            circulo.style.boxShadow = '0 0 10px rgba(251, 119, 1, 0.5)';
-        }
-        if (texto) texto.classList.add('text-temu');
 
         // Mostrar tienda sin mover la bottom nav de "Categorías"
         gestionarVista('tienda');
 
-        // Activar categoría
+        // Activar categoría directamente (sin simular click para evitar cierre del panel)
         const btnCat = document.querySelector(`[data-categoria="${cat}"]`);
         if (btnCat) {
             setActiveCategory(btnCat);
-            btnCat.click();
+            categoriaActual = cat;
+            showingAll = false;
+            showHero(categoriaActual);
+            if (typeof window.updateDisplayRef === 'function') window.updateDisplayRef();
         }
-        
-        // NO pongas cerrarPanelCategorias() aquí, el timeout lo maneja
+        sincronizarEsferasPanel();
     });
 });
 
@@ -1474,12 +1459,39 @@ const btnCategoriasMobile = document.querySelector('.textCategorias');
 const btnCatMobileNaranja = document.querySelector('#btnCategorias');
 const btnCategoriasDesktop = document.querySelector('[data-nav="categorias"]');
 
+// Sincroniza el estado visual de las esferas del panel con categoriaActual
+function sincronizarEsferasPanel() {
+    document.querySelectorAll('.cat-esfera').forEach(esfera => {
+        const circulo = esfera.querySelector('.size-10');
+        const texto = esfera.querySelector('p');
+        if (esfera.dataset.cat === categoriaActual) {
+            if (circulo) {
+                circulo.classList.remove('border-transparent');
+                circulo.classList.add('border-temu');
+                circulo.style.boxShadow = '0 0 10px rgba(251, 119, 1, 0.5)';
+            }
+            if (texto) {
+                texto.classList.remove('text-white');
+                texto.classList.add('text-temu');
+            }
+        } else {
+            if (circulo) {
+                circulo.classList.remove('border-temu');
+                circulo.classList.add('border-transparent');
+                circulo.style.boxShadow = '';
+            }
+            if (texto) {
+                texto.classList.remove('text-temu');
+                texto.classList.add('text-white');
+            }
+        }
+    });
+}
+
 function abrirPanelCategorias() {
     if (!panelCategorias) return;
     panelCategorias.classList.remove('hidden');
 
-    // LIMPIAR animaciones residuales para que NO se disparen al reabrir
-    document.querySelectorAll('.cat-esfera .size-10').forEach(c => c.classList.remove('esfera-pop'));
     
     document.querySelectorAll('.cat-esfera').forEach(esfera => {
         const circulo = esfera.querySelector('.size-10');

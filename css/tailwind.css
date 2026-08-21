@@ -22,7 +22,6 @@
     --font-MontAlternates: "Montserrat Alternates", sans-serif;
 }
 
-
 /* ================================================== */
 /* === CLIP PAHT BARRA INFERIOR === */
 .cardUsuario {
@@ -236,9 +235,6 @@
 }
 @keyframes ripple-anim { to { transform: scale(4); opacity: 0; } }
 
-
-
-
 /* ===== BADGE CONTADOR CARRITO ===== */
 .carrito-badge { 
     position: absolute; 
@@ -335,9 +331,7 @@
     transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); 
 }
 
-
 /* =============================================================================== */
-
 
 /* =============================================================================== */
 /* FILTRO BUSCADOR */
@@ -349,7 +343,6 @@
 #sugerencias-dropdown::-webkit-scrollbar { width: 4px; }
 #sugerencias-dropdown .sugerencia-item:hover { background-color: #f5f5f4; }
 /* ============================================================= */
-
 
 /* ============================================================= */
 /* ===== FLY TO CART (efecto Temu) ===== */
@@ -392,7 +385,6 @@
     animation: badge-pop-llegada 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 /* ============================================================= */
-
 
 /* ============================================================= */
 /* ===== SWIPE TO DELETE (estilo Temu) ===== */
@@ -470,7 +462,6 @@
 }
 /* ////////////////////////////////////////////////////////////// */
 
-
 /* ////////////////////////////////////////////////////////////// */
 
 /* ==================================================== */
@@ -504,24 +495,4 @@
 #panel-categorias .swiper-pagination-bullet-active {
     background-color: #FB7701 !important;
     transform: scale(1.3) !important;
-}
-
-.cat-esfera-animada {
-    animation: esfera-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-@keyframes esfera-pop {
-    0%   { transform: scale(1); }
-    40%  { transform: scale(1.25) rotate(-5deg); }
-    70%  { transform: scale(0.95) rotate(3deg); }
-    100% { transform: scale(1) rotate(0deg); }
-}
-
-.esfera-pop {
-    animation: esfera-pop-anim 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-@keyframes esfera-pop-anim {
-    0%   { transform: scale(1); }
-    40%  { transform: scale(1.25); }
-    70%  { transform: scale(0.95); }
-    100% { transform: scale(1); }
 }
