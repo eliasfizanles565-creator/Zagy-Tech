@@ -268,7 +268,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         if (btnVerMas) {
             if (cardsEnCategoria.length <= limit) { btnVerMas.style.display = 'none'; }
-            else { btnVerMas.style.display = 'block'; btnVerMas.textContent = showingAll ? 'Ver menos' : 'Ver mas'; }
+            else { btnVerMas.style.display = 'block'; const t = traducciones[idiomaActual] || traducciones.es;
+            btnVerMas.textContent = showingAll ? t.verMenos : t.verMas;
+            }
         }
     }
 
@@ -1833,10 +1835,12 @@ const traducciones = {
         inicio: 'Inicio',
         favoritos: 'Favoritos',
         carrito: 'Carrito',
+        verMas: 'Ver más',
+        verMenos: 'Ver menos'
         // Agrega aquí más claves según vayas traduciendo tu web...
         // Ejemplo:
         // buscarPlaceholder: 'soporte para celular',
-        // verMas: 'Ver más',
+        
         // verMenos: 'Ver menos',
         // miCarrito: 'Mi Carrito',
         // misFavoritos: 'Mis Favoritos',
@@ -1854,6 +1858,8 @@ const traducciones = {
         inicio: 'Home',
         favoritos: 'Favorites',
         carrito: 'Cart',
+        verMas: 'See more',
+        verMenos: 'See less',
         // Agrega aquí los equivalentes en inglés...
     }
 };
