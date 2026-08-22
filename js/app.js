@@ -75,10 +75,10 @@ const catButtons = document.querySelectorAll('.cat-btn');
 function setActiveCategory(clickedBtn) {
     catButtons.forEach(btn => {
         const text = btn.querySelector('p');
-        btn.classList.remove('bg-stone-950'); btn.classList.add('bg-puro', 'hover:bg-plomo');
-        if (text) { text.classList.remove('text-white'); text.classList.add('text-stone-950'); }
+        btn.classList.remove('bg-stone-950', 'dark:bg-temu'); btn.classList.add('bg-puro', 'dark:bg-stone-800', 'hover:bg-plomo', 'dark:hover:bg-stone-900');
+        if (text) { text.classList.remove('text-white'); text.classList.add('text-stone-950', 'dark:text-white'); }
     });
-    clickedBtn.classList.remove('bg-puro', 'border', 'border-stone-950', 'hover:bg-plomo'); clickedBtn.classList.add('bg-stone-950');
+    clickedBtn.classList.remove('bg-puro', 'dark:bg-stone-800', 'border', 'border-stone-950', 'hover:bg-plomo', 'dark:hover:bg-stone-900'); clickedBtn.classList.add('bg-stone-950', 'dark:bg-temu');
     const activeText = clickedBtn.querySelector('p');
     if (activeText) { activeText.classList.remove('text-stone-950'); activeText.classList.add('text-white'); }
 }
@@ -802,16 +802,16 @@ function activateNav(key) {
     document.querySelectorAll('.nav-desktop').forEach(btn => {
         const icon = btn.querySelector('i');
         const label = btn.querySelector('p');
-        if (icon) { icon.classList.remove('text-temu'); icon.classList.add('text-stone-950'); }
-        if (label) { label.classList.remove('text-temu', 'border-temu'); label.classList.add('text-stone-950', 'border-transparent'); }
+        if (icon) { icon.classList.remove('text-temu'); icon.classList.add('text-stone-950', 'dark:text-white'); }
+        if (label) { label.classList.remove('text-temu', 'border-temu'); label.classList.add('text-stone-950', 'dark:text-white', 'border-transparent'); }
     });
 
     const activeDesktopBtn = document.querySelector(`.nav-desktop[data-nav="${key}"]`);
     if (activeDesktopBtn) {
         const activeIcon = activeDesktopBtn.querySelector('i');
         const activeLabel = activeDesktopBtn.querySelector('p');
-        if (activeIcon) { activeIcon.classList.remove('text-stone-950'); activeIcon.classList.add('text-temu'); }
-        if (activeLabel) { activeLabel.classList.remove('text-stone-950', 'border-transparent'); activeLabel.classList.add('text-temu', 'border-temu'); }
+        if (activeIcon) { activeIcon.classList.remove('text-stone-950', 'dark:text-white'); activeIcon.classList.add('text-temu'); }
+        if (activeLabel) { activeLabel.classList.remove('text-stone-950', 'border-transparent', 'dark:text-white'); activeLabel.classList.add('text-temu', 'border-temu'); }
     }
 
     else if (key === 'usuario') {
