@@ -20,11 +20,11 @@
     <div class="fixed bottom-2 left-1/2 -translate-x-1/2 z-40 w-90 lg:hidden">
         <div class="cardInicio2 h-15.5 w-full bg-white rounded-full absolute -top-0.5 left-0"></div>
         <div class="cardInicio h-15 w-full bg-stone-950 rounded-full relative flex items-center justify-center gap-x-6.5">
-            <i class="ri-user-line text-2xl text-white flex flex-col items-center gap-0 leading-none pb-1.25 textUsuario cursor-pointer"><p class="text-[10px] leading-none mt-0.5 font-semibold">Usuario</p></i>
-            <i class="ri-menu-search-line text-2xl text-white flex flex-col items-center gap-0 leading-none pb-1.25 textCategorias cursor-pointer"><p class="text-[10px] leading-none mt-0.5 font-semibold">Categorías</p></i>
-            <i class="ri-home-line text-2xl text-white flex flex-col items-center gap-0 leading-none pb-1.25 textInicio cursor-pointer opacity-0"><p class="text-[10px] leading-none mt-0.5 font-semibold">Inicio</p></i>
-            <i id="text-favoritos" class="ri-poker-hearts-line text-2xl text-white flex flex-col items-center gap-0 leading-none pb-1.25 textFavoritos cursor-pointer"><p class="text-[10px] leading-none mt-0.5 font-semibold">Favoritos</p></i>
-            <i id="text-carrito" class="ri-shopping-cart-line text-2xl text-white flex flex-col items-center gap-0 leading-none pb-1.25 textCarrito cursor-pointer"><p class="text-[10px] leading-none mt-0.5 font-semibold">Carrito</p></i>
+            <i class="ri-user-line text-2xl text-white flex flex-col items-center gap-0 leading-none pb-1.25 textUsuario cursor-pointer"><p class="text-[10px] leading-none mt-0.5 font-semibold" data-i18n="usuario">Usuario</p></i>
+            <i class="ri-menu-search-line text-2xl text-white flex flex-col items-center gap-0 leading-none pb-1.25 textCategorias cursor-pointer"><p class="text-[10px] leading-none mt-0.5 font-semibold" data-i18n="categorias">Categorías</p></i>
+            <i class="ri-home-line text-2xl text-white flex flex-col items-center gap-0 leading-none pb-1.25 textInicio cursor-pointer opacity-0"><p class="text-[10px] leading-none mt-0.5 font-semibold" data-i18n="inicio">Inicio</p></i>
+            <i id="text-favoritos" class="ri-poker-hearts-line text-2xl text-white flex flex-col items-center gap-0 leading-none pb-1.25 textFavoritos cursor-pointer"><p class="text-[10px] leading-none mt-0.5 font-semibold" data-i18n="favoritos">Favoritos</p></i>
+            <i id="text-carrito" class="ri-shopping-cart-line text-2xl text-white flex flex-col items-center gap-0 leading-none pb-1.25 textCarrito cursor-pointer"><p class="text-[10px] leading-none mt-0.5 font-semibold" data-i18n="carrito">Carrito</p></i>
         </div>
     </div>
 
@@ -42,9 +42,9 @@
         <section class="size-9 absolute top-2 flex gap-8 xl:gap-12">
             <img id="logo-zagy" src="assets/logoZagy.webp" alt="logo" class="cursor-pointer">
             <div class="flex gap-8 max-lg:hidden xl:gap-12">
-                <button class="nav-desktop group flex flex-col justify-center items-center mt-1 cursor-pointer transition-all duration-300" data-nav="usuario"><i class="ri-user-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu"></i><p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu group-hover:border-temu">Usuario</p></button>
-                <button class="nav-desktop group flex flex-col justify-center items-center mt-1 cursor-pointer transition-all duration-300" data-nav="categorias"><i class="ri-menu-search-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu"></i><p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu group-hover:border-temu">Categorías</p></button>
-                <button class="nav-desktop group flex flex-col justify-center items-center mt-1 cursor-pointer transition-all duration-300" data-nav="inicio"><i class="ri-home-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu"></i><p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu group-hover:border-temu">Inicio</p></button>
+                <button class="nav-desktop group flex flex-col justify-center items-center mt-1 cursor-pointer transition-all duration-300" data-nav="usuario"><i class="ri-user-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu"></i><p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu group-hover:border-temu" data-i18n="usuario">Usuario</p></button>
+                <button class="nav-desktop group flex flex-col justify-center items-center mt-1 cursor-pointer transition-all duration-300" data-nav="categorias"><i class="ri-menu-search-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu"></i><p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu group-hover:border-temu" data-i18n="categorias">Categorías</p></button>
+                <button class="nav-desktop group flex flex-col justify-center items-center mt-1 cursor-pointer transition-all duration-300" data-nav="inicio"><i class="ri-home-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu"></i><p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu group-hover:border-temu" data-i18n="inicio">Inicio</p></button>
             </div>
         </section>
 
@@ -58,8 +58,8 @@
 
         <section class="w-30 h-9 absolute top-2 flex gap-8 right-0 xl:gap-12 xl:w-33">
             <div class="flex gap-8 max-lg:hidden xl:gap-12">
-                <button id="favoritos" class="nav-desktop group flex flex-col justify-center items-center mt-1 cursor-pointer transition-all duration-300" data-nav="favoritos"><i class="ri-poker-hearts-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu"></i><p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu group-hover:border-temu">Favoritos</p></button>
-                <button id="carrito-cambio" class="nav-desktop group flex flex-col justify-center items-center mt-1 cursor-pointer transition-all duration-300" data-nav="carrito"><i class="ri-shopping-cart-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu"></i><p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu group-hover:border-temu">Carrito</p></button>
+                <button id="favoritos" class="nav-desktop group flex flex-col justify-center items-center mt-1 cursor-pointer transition-all duration-300" data-nav="favoritos"><i class="ri-poker-hearts-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu"></i><p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu group-hover:border-temu" data-i18n="favoritos">Favoritos</p></button>
+                <button id="carrito-cambio" class="nav-desktop group flex flex-col justify-center items-center mt-1 cursor-pointer transition-all duration-300" data-nav="carrito"><i class="ri-shopping-cart-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu"></i><p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu group-hover:border-temu" data-i18n="carrito">Carrito</p></button>
             </div>
         </section>
     </nav>
@@ -69,22 +69,22 @@
     <nav id="nav-categorias" class="w-[95vw] h-10 mb-2 mx-auto relative lg:max-w-7xl">
         <button id="scroll-left" class="hidden lg:hidden absolute left-0 top-1/2 -translate-y-1/2 z-10 w-6.5 h-6.5 bg-white/70 backdrop-blur-sm border border-stone-200 rounded-full items-center justify-center cursor-pointer shadow-sm hover:bg-white hover:shadow-md transition-all duration-200"><i class="ri-arrow-left-s-line text-lg text-stone-600"></i></button>
         <section id="categorias-scroll" class="flex items-center gap-2 overflow-x-auto scrollbar-hide snap-x snap-mandatory h-full px-1">
-            <button data-categoria="todos" class="cat-btn shrink-0 w-25 h-8 bg-stone-950 rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-white font-semibold text-sm">Todos</p></button>
-            <button data-categoria="ofertas" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm">Ofertas</p></button>
-            <button data-categoria="hogar" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm">Hogar</p></button>
-            <button data-categoria="tecnologia" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm">Tecnología</p></button>
-            <button data-categoria="accesorios" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm">Accesorios</p></button>
-            <button data-categoria="figuras" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm">Figuras</p></button>
-            <button data-categoria="albums" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm">Álbums</p></button>
-            <button data-categoria="ropa" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm">Ropa</p></button>
-            <button data-categoria="hombre" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm">Hombre</p></button>
-            <button data-categoria="mujer" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm">Mujer</p></button>
-            <button data-categoria="moda" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm">Moda</p></button>
-            <button data-categoria="zapatillas" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm">Zapatillas</p></button>
-            <button data-categoria="relojes" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm">Relojes</p></button>
-            <button data-categoria="perfumes" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm">Perfumes</p></button>
-            <button data-categoria="joyeria" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm">Joyería</p></button>
-            <button data-categoria="licores" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm">Licores</p></button>
+            <button data-categoria="todos" class="cat-btn shrink-0 w-25 h-8 bg-stone-950 rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-white font-semibold text-sm" data-i18n="todos">Todos</p></button>
+            <button data-categoria="ofertas" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm" data-i18n="ofertas">Ofertas</p></button>
+            <button data-categoria="hogar" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm" data-i18n="hogar">Hogar</p></button>
+            <button data-categoria="tecnologia" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm" data-i18n="tecnologia">Tecnología</p></button>
+            <button data-categoria="accesorios" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm" data-i18n="accesorios">Accesorios</p></button>
+            <button data-categoria="figuras" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm" data-i18n="figuras">Figuras</p></button>
+            <button data-categoria="albums" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm" data-i18n="albums">Álbums</p></button>
+            <button data-categoria="ropa" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm" data-i18n="ropa">Ropa</p></button>
+            <button data-categoria="hombre" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm" data-i18n="hombre">Hombre</p></button>
+            <button data-categoria="mujer" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm" data-i18n="mujer">Mujer</p></button>
+            <button data-categoria="moda" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm" data-i18n="moda">Moda</p></button>
+            <button data-categoria="zapatillas" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm" data-i18n="zapatillas">Zapatillas</p></button>
+            <button data-categoria="relojes" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm" data-i18n="relojes">Relojes</p></button>
+            <button data-categoria="perfumes" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm" data-i18n="perfumes">Perfumes</p></button>
+            <button data-categoria="joyeria" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm" data-i18n="joyeria">Joyería</p></button>
+            <button data-categoria="licores" class="cat-btn shrink-0 w-25 h-8 bg-puro hover:bg-plomo rounded-4xl flex justify-center items-center cursor-pointer snap-start"><p class="text-stone-950 font-semibold text-sm" data-i18n="licores">Licores</p></button>
         </section>
         <button id="scroll-right" class="hidden lg:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 w-6.5 h-6.5 bg-white/70 backdrop-blur-sm border border-stone-200 rounded-full items-center justify-center cursor-pointer shadow-sm hover:bg-white hover:shadow-md transition-all duration-200"><i class="ri-arrow-right-s-line text-lg text-stone-600"></i></button>
     </nav>
@@ -690,7 +690,7 @@
     <!-- SECTION CARRITO -->
     <!-- ==================================== -->
     <section id="carrito-section" class="hidden mt-2 w-[95vw] h-full min mx-auto lg:max-w-7xl">
-        <h1 class="font-Inter font-bold text-lg h-10 w-42 bg-stone-950 text-white rounded-4xl flex justify-center items-center">
+        <h1 class="font-Inter font-bold text-lg h-10 w-42 bg-stone-950 text-white rounded-4xl flex justify-center items-center" data-i18n="miCarrito">
             Mi Carrito
         </h1>
         <section id="contenedor-items-carrito" class="grid grid-cols-1 gap-x-5 mt-4 mb-40 sm:grid-cols-2
@@ -700,13 +700,13 @@
     <!-- BOTON FIJO FINALIZAR COMPRA Y TOTAL -->
     <div id="btn-carrito" class="hidden z-20 fixed bottom-0 w-full h-35 bg-white border-t border-t-stone-950/20 flex justify-between px-1 left-1/2 -translate-x-1/2 sm:h-38 sm:px-2 sm:pl-4 lg:pt-4 lg:px-10 lg:max-w-350 lg:h-30">
         <div class="flex flex-col justify-start items-start mt-3 pl-1 sm:mt-5 w-50">
-            <p class="font-Inter font-bold leading-2 text-xs">Total</p>
+            <p class="font-Inter font-bold leading-2 text-xs" data-i18n="total">Total</p>
             <p id="precio-total-general" class="font-Russo text-3xl">s/ 0. 
                 <span class="text-xl font-Russo">00</span>
             </p>
         </div>
         <button class="w-[70vw] h-12 bg-temu rounded-4xl flex items-center justify-center mt-3 sm:h-15 sm:w-[72vw] lg:w-[40vw] cursor-pointer">
-            <p class="font-Inter font-semibold text-white text-base sm:text-xl">Finalizar compra</p>
+            <p class="font-Inter font-semibold text-white text-base sm:text-xl" data-i18n="finalizarCompra">Finalizar compra</p>
         </button>
     </div>
 
@@ -716,18 +716,20 @@
     <section id="favoritos-section" class="hidden w-[350px] h-full mx-auto mt-2 pb-22 relative
     sm:w-[726px]
     lg:w-[95vw] lg:max-w-7xl">
-        <h1 class="font-Inter font-bold text-lg bg-stone-950 text-white h-10 w-47 border rounded-4xl flex justify-center items-center mb-4 pl-2">
+        <h1 class="font-Inter font-bold text-lg bg-stone-950 text-white h-10 w-47 border rounded-4xl flex justify-center items-center mb-4 pl-2" data-i18n="misFavoritos">
             Mis Favoritos
         </h1>
         <section id="favoritos-grid" class="flex justify-start gap-x-1.5 gap-y-3 flex-wrap sm:gap-x-3">
-            <p id="favoritos-vacio" class="font-Inter text-xs text-stone-500 px-2 w-full ">Guarda aquí lo que te gusta.</p>
+            <p id="favoritos-vacio" class="font-Inter text-xs text-stone-500 px-2 w-full " data-i18n="guardarFavoritos">
+                Guarda aquí lo que te gusta.
+            </p>
         </section>
     </section>
 
     <!-- ==================================== -->
     <!-- SECTION CATEGORÍAS  -->
     <!-- ==================================== -->
-    <section id="panel-categorias" class="hidden w-80 h-45 rounded-4xl bg-stone-950 border-2 border-white fixed z-35 bottom-20 left-2 px-5 py-3 flex flex-col
+    <section id="panel-categorias" class="hidden w-80 h-45 rounded-4xl bg-stone-950 border-2 border-white fixed z-35 bottom-20 left-2 px-3 py-3 flex flex-col
     sm:left-40
     lg:bottom-auto lg:top-13 lg:left-25
     xl:left-35
@@ -742,7 +744,7 @@
                                 <div class="size-10 bg-stone-950 rounded-full overflow-hidden ring-2 ring-transparent hover:ring-temu transition-colors">
                                     <img src="assets/02 capibara.avif" class="h-full w-full object-cover">
                                 </div>
-                                <p class="text-xs font-Inter text-white">Todos</p>
+                                <p class="text-xs font-Inter text-white" data-i18n="todos">Todos</p>
                             </div>
                         </div>
                         <div class="cursor-pointer cat-esfera" data-cat="ofertas">
@@ -750,7 +752,7 @@
                                 <div class="size-10 bg-white rounded-full overflow-hidden ring-2 ring-transparent hover:ring-temu transition-colors">
                                     <img src="assets/05 goku.avif" class="h-full w-full object-cover">
                                 </div>
-                                <p class="text-xs font-Inter text-white">Ofertas</p>
+                                <p class="text-xs font-Inter text-white" data-i18n="ofertas">Ofertas</p>
                             </div>
                         </div>
                         <div class="cursor-pointer cat-esfera" data-cat="hogar">
@@ -758,7 +760,7 @@
                                 <div class="size-10 bg-stone-950 rounded-full overflow-hidden ring-2 ring-transparent hover:ring-temu transition-colors">
                                     <img src="assets/22 PROYECTOR L018/01.webp" class="h-full w-full object-cover">
                                 </div>
-                                <p class="text-xs font-Inter text-white">Hogar</p>
+                                <p class="text-xs font-Inter text-white" data-i18n="hogar">Hogar</p>
                             </div>
                         </div>
                         <div class="cursor-pointer cat-esfera" data-cat="tecnologia">
@@ -766,7 +768,7 @@
                                 <div class="size-10 bg-white rounded-full overflow-hidden ring-2 ring-transparent hover:ring-temu transition-colors">
                                     <img src="assets/15 mandoPlay.jpg" class="h-full w-full object-cover">
                                 </div>
-                                <p class="text-xs font-Inter text-white">Tecnología</p>
+                                <p class="text-xs font-Inter text-white" data-i18n="tecnologia">Tecnología</p>
                             </div>
                         </div>
                         <div class="cursor-pointer cat-esfera" data-cat="accesorios">
@@ -774,7 +776,7 @@
                                 <div class="size-10 bg-stone-950 rounded-full overflow-hidden ring-2 ring-transparent hover:ring-temu transition-colors">
                                     <img src="assets/03 SOPORTE IMANTADO 360 -SUPREME/01.webp" class="h-full w-full object-cover">
                                 </div>
-                                <p class="text-xs font-Inter text-white">Accesorios</p>
+                                <p class="text-xs font-Inter text-white" data-i18n="accesorios">Accesorios</p>
                             </div>
                         </div>
                         <div class="cursor-pointer cat-esfera" data-cat="figuras">
@@ -782,7 +784,7 @@
                                 <div class="size-10 rounded-full overflow-hidden ring-2 ring-transparent hover:ring-temu transition-colors">
                                     <img src="assets/03 zeroTwo.jpg" class="h-full w-full object-cover object-[50%_20%]">
                                 </div>
-                                <p class="text-xs font-Inter text-white">Figuras</p>
+                                <p class="text-xs font-Inter text-white" data-i18n="figuras">Figuras</p>
                             </div>
                         </div>
                         <div class="cursor-pointer cat-esfera" data-cat="albums">
@@ -790,7 +792,7 @@
                                 <div class="size-10 bg-white rounded-full overflow-hidden ring-2 ring-transparent hover:ring-temu transition-colors">
                                     <img src="assets/06.jpg" class="size-10 object-cover ">
                                 </div>
-                                <p class="text-xs font-Inter text-white">Álbums</p>
+                                <p class="text-xs font-Inter text-white" data-i18n="albums">Álbums</p>
                             </div>
                         </div>
                         <div class="cursor-pointer cat-esfera" data-cat="ropa">
@@ -798,7 +800,7 @@
                                 <div class="size-10 bg-white rounded-full overflow-hidden ring-2 ring-transparent hover:ring-temu transition-colors">
                                     <img src="assets/33 CASACA CORTAVIENTO AZUL/01.webp" class="h-full w-full object-cover">
                                 </div>
-                                <p class="text-xs font-Inter text-white">Ropa</p>
+                                <p class="text-xs font-Inter text-white" data-i18n="ropa">Ropa</p>
                             </div>
                         </div>
                     </div>
@@ -806,13 +808,13 @@
 
                 <!-- SLIDE 2 -->
                 <div class="swiper-slide">
-                    <div class="grid grid-cols-4 grid-rows-2 gap-x-2 gap-y-3 h-full content-center mt-1">
+                    <div class="grid grid-cols-4 grid-rows-2 gap-x-2 gap-y-0 h-full content-center mt-1">
                         <div class="cursor-pointer cat-esfera" data-cat="hombre">
                             <div class="flex flex-col items-center gap-1">
                                 <div class="size-10 bg-white rounded-full overflow-hidden ring-2 ring-transparent hover:ring-temu transition-colors">
                                     <img src="assets/07 hombre.avif" class="h-full w-full object-cover object-[50%_20%]">
                                 </div>
-                                <p class="text-xs font-Inter text-white">Hombre</p>
+                                <p class="text-xs font-Inter text-white" data-i18n="hombre">Hombre</p>
                             </div>
                         </div>
                         <div class="cursor-pointer cat-esfera" data-cat="mujer">
@@ -820,7 +822,7 @@
                                 <div class="size-10 bg-white rounded-full overflow-hidden ring-2 ring-transparent hover:ring-temu transition-colors">
                                     <img src="assets/08 mujer.avif" class="h-full w-full object-cover object-[50%_20%]">
                                 </div>
-                                <p class="text-xs font-Inter text-white">Mujer</p>
+                                <p class="text-xs font-Inter text-white" data-i18n="mujer">Mujer</p>
                             </div>
                         </div>
                         <div class="cursor-pointer cat-esfera" data-cat="moda">
@@ -828,7 +830,7 @@
                                 <div class="size-10 bg-white rounded-full overflow-hidden ring-2 ring-transparent hover:ring-temu transition-colors">
                                     <img src="assets/10 moda.avif" class="h-full w-full object-cover">
                                 </div>
-                                <p class="text-xs font-Inter text-white">Moda</p>
+                                <p class="text-xs font-Inter text-white" data-i18n="moda">Moda</p>
                             </div>
                         </div>
                         <div class="cursor-pointer cat-esfera" data-cat="zapatillas">
@@ -836,7 +838,7 @@
                                 <div class="size-10 bg-white rounded-full overflow-hidden ring-2 ring-transparent hover:ring-temu transition-colors">
                                     <img src="assets/09 zapatilla.jpg" class="h-full w-full object-cover">
                                 </div>
-                                <p class="text-xs font-Inter text-white">Zapatillas</p>
+                                <p class="text-xs font-Inter text-white" data-i18n="zapatillas">Zapatillas</p>
                             </div>
                         </div>
                         <div class="cursor-pointer cat-esfera" data-cat="relojes">
@@ -844,7 +846,7 @@
                                 <div class="size-10 bg-white rounded-full overflow-hidden ring-2 ring-transparent hover:ring-temu transition-colors">
                                     <img src="assets/11 reloj.jpg" class="h-full w-full object-cover">
                                 </div>
-                                <p class="text-xs font-Inter text-white">Relojes</p>
+                                <p class="text-xs font-Inter text-white" data-i18n="relojes">Relojes</p>
                             </div>
                         </div>
                         <div class="cursor-pointer cat-esfera" data-cat="perfumes">
@@ -852,7 +854,7 @@
                                 <div class="size-10 bg-white rounded-full overflow-hidden ring-2 ring-transparent hover:ring-temu transition-colors">
                                     <img src="assets/12 perfume.jpg" class="h-full w-full object-cover">
                                 </div>
-                                <p class="text-xs font-Inter text-white">Perfumes</p>
+                                <p class="text-xs font-Inter text-white" data-i18n="perfumes">Perfumes</p>
                             </div>
                         </div>
                         <div class="cursor-pointer cat-esfera" data-cat="joyeria">
@@ -860,7 +862,7 @@
                                 <div class="size-10 bg-white rounded-full overflow-hidden ring-2 ring-transparent hover:ring-temu transition-colors">
                                     <img src="assets/13 joyeria.jpg" class="h-full w-full object-cover">
                                 </div>
-                                <p class="text-xs font-Inter text-white">Joyería</p>
+                                <p class="text-xs font-Inter text-white" data-i18n="joyeria">Joyería</p>
                             </div>
                         </div>
                         <div class="cursor-pointer cat-esfera" data-cat="licores">
@@ -868,7 +870,7 @@
                                 <div class="size-10 bg-white rounded-full overflow-hidden ring-2 ring-transparent hover:ring-temu transition-colors">
                                     <img src="assets/14 licores.jpg" class="h-full w-full object-cover">
                                 </div>
-                                <p class="text-xs font-Inter text-white">Licores</p>
+                                <p class="text-xs font-Inter text-white" data-i18n="licores">Licores</p>
                             </div>
                         </div>
                     </div>
