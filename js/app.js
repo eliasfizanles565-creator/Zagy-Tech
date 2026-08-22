@@ -76,9 +76,9 @@ function setActiveCategory(clickedBtn) {
     catButtons.forEach(btn => {
         const text = btn.querySelector('p');
         btn.classList.remove('bg-stone-950', 'dark:bg-temu'); btn.classList.add('bg-puro', 'dark:bg-stone-800', 'hover:bg-plomo', 'dark:hover:bg-stone-900');
-        if (text) { text.classList.remove('text-white'); text.classList.add('text-stone-950', 'dark:text-white/50'); }
+        if (text) { text.classList.remove('text-white', 'dark:text-white/90'); text.classList.add('text-stone-950', 'dark:text-white/50'); }
     });
-    clickedBtn.classList.remove('bg-puro', 'dark:bg-stone-800', 'border', 'border-stone-950', 'hover:bg-plomo', 'dark:hover:bg-stone-900'); clickedBtn.classList.add('bg-stone-950', 'dark:bg-temu');
+    clickedBtn.classList.remove('bg-puro', 'dark:bg-stone-800', 'border', 'border-stone-950', 'hover:bg-plomo', 'dark:hover:bg-stone-900' ); clickedBtn.classList.add('bg-stone-950', 'dark:bg-temu');
     const activeText = clickedBtn.querySelector('p');
     if (activeText) { activeText.classList.remove('text-stone-950', 'dark:text-white/50'); activeText.classList.add('text-white', 'dark:text-white/90'); }
 }
@@ -449,48 +449,48 @@ function renderizarCarrito() {
 const subSizeClass = subtotalStr.length > 7 ? 'text-sm' : 'text-lg';
 
 const articleHTML = `
-<div class="swipe-wrapper shadow-lg shadow-stone-400 relative rounded-xl" data-swipe-id="${item.id}">
-    <!-- Botón rojo que aparece al deslizar -->
-    <div class="swipe-delete-btn absolute right-0 top-0 bottom-0 w-20 flex items-center justify-center z-0 cursor-pointer rounded-r-xl">
-        <i class="ri-delete-bin-6-line text-white text-xl"></i>
-    </div>
+    <div class="swipe-wrapper shadow-lg shadow-stone-400 dark:shadow-temu/0 relative rounded-xl" data-swipe-id="${item.id}">
+        <!-- Botón rojo que aparece al deslizar -->
+        <div class="swipe-delete-btn absolute right-0 top-0 bottom-0 w-20 flex items-center justify-center z-0 cursor-pointer rounded-r-xl">
+            <i class="ri-delete-bin-6-line text-white text-xl"></i>
+        </div>
 
-    <!-- Card principal (se desliza) -->
-    <article class="card-swipe relative z-10 flex gap-3 py-2 rounded-xl justify-between" data-id="${item.id}" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}">
-        <article class="flex gap-3 min-w-0">
-            <div class="size-20 ml-2 rounded-lg overflow-hidden shrink-0">
-                <img src="${item.imagen}" alt="" class="w-full h-full object-cover">
-            </div>
-            <div class="flex flex-col items-start justify-center gap-1 min-w-0">
-                <div>
-                    <p class="font-Inter font-medium text-xs truncate w-full">${item.titulo}</p>
-                    <p class="font-Inter font-medium text-xs truncate w-full">${item.subtitulo}</p>
+        <!-- Card principal (se desliza) -->
+        <article class="card-swipe relative z-10 flex gap-3 py-2 rounded-xl justify-between" data-id="${item.id}" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}">
+            <article class="flex gap-3 min-w-0">
+                <div class="size-20 ml-2 rounded-lg overflow-hidden shrink-0">
+                    <img src="${item.imagen}" alt="" class="w-full h-full object-cover">
                 </div>
-                <button class="h-6 w-30 bg-verdeTemu3 rounded-4xl flex justify-center items-center text-xs font-semibold text-white">
-                    Color: Estandar
-                </button>
-                <p class="text-xs font-bold font-MontAlternates">s/ ${item.precio.toFixed(2)}</p>
+                <div class="flex flex-col items-start justify-center gap-1 min-w-0">
+                    <div>
+                        <p class="font-Inter font-medium text-xs truncate w-full dark:text-temu">${item.titulo}</p>
+                        <p class="font-Inter font-medium text-xs truncate w-ful dark:text-temu">${item.subtitulo}</p>
+                    </div>
+                    <button class="h-6 w-30 bg-verdeTemu3 dark:bg-stone-800 rounded-4xl flex justify-center items-center text-xs font-semibold text-white dark:text-verdeTemu2">
+                        Color: Estandar
+                    </button>
+                    <p class="text-xs font-bold font-MontAlternates dark:text-stone-500">s/ ${item.precio.toFixed(2)}</p>
+                </div>
+            </article>
+
+            <div class="flex flex-col justify-start items-end mr-2 mt-6 shrink-0">
+                <!-- s/ y número juntos, nunca se rompen, se encojen si es necesario -->
+                <p class="${subSizeClass} text-temu font-Russo pr-1 leading-3 whitespace-nowrap">s/ ${subtotalStr}</p>
+                <div class="flex justify-center items-center h-5 w-15 rounded-4xl bg-stone-950 dark:bg-stone-800 gap-2 text-white dark:text-white/70 font-semibold mt-5">
+                    <button onclick="cambiarCantidad(${item.id}, -1)" class="bg-transparent cursor-pointer rounded-4xl size-5 flex items-center justify-center">-</button>
+                    <div class="flex flex-col items-center justify-center">
+                        <p class="leading-3 text-xs">${item.cantidad}</p>
+                    </div>
+                    <button onclick="cambiarCantidad(${item.id}, 1)" class="bg-transparent cursor-pointer rounded-4xl size-5 flex items-center justify-center">+</button>
+                </div>
+            </div>
+
+            <!-- Tachito de la esquina superior derecha (click directo) -->
+            <div class="btn-tachito bg-temu h-5 w-7 absolute top-0 right-0 rounded-bl-xl flex justify-center items-center text-white cursor-pointer z-20" onclick="eliminarArticulo(${item.id})">
+                <i class="ri-delete-bin-6-line text-xs pl-1"></i>
             </div>
         </article>
-
-        <div class="flex flex-col justify-start items-end mr-2 mt-6 shrink-0">
-            <!-- s/ y número juntos, nunca se rompen, se encojen si es necesario -->
-            <p class="${subSizeClass} text-temu font-Russo pr-1 leading-3 whitespace-nowrap">s/ ${subtotalStr}</p>
-            <div class="flex justify-center items-center h-5 w-15 rounded-4xl bg-stone-950 gap-2 text-white font-semibold mt-5">
-                <button onclick="cambiarCantidad(${item.id}, -1)" class="bg-transparent cursor-pointer rounded-4xl size-5 flex items-center justify-center">-</button>
-                <div class="flex flex-col items-center justify-center">
-                    <p class="leading-3 text-xs">${item.cantidad}</p>
-                </div>
-                <button onclick="cambiarCantidad(${item.id}, 1)" class="bg-transparent cursor-pointer rounded-4xl size-5 flex items-center justify-center">+</button>
-            </div>
-        </div>
-
-        <!-- Tachito de la esquina superior derecha (click directo) -->
-        <div class="btn-tachito bg-temu h-5 w-7 absolute top-0 right-0 rounded-bl-xl flex justify-center items-center text-white cursor-pointer z-20" onclick="eliminarArticulo(${item.id})">
-            <i class="ri-delete-bin-6-line text-xs pl-1"></i>
-        </div>
-    </article>
-</div>`;
+    </div>`;
         
         contenedorItems.innerHTML += articleHTML;
     });
@@ -622,28 +622,29 @@ function renderizarFavoritos() {
         const dotsHTML = item.dotsHTML || '';
 
         const cardHTML = `
-    <article class="w-[172px] h-[254px] relative sm:w-[234px] sm:h-[381px]" data-id="${item.id}" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}">
-                <div class="absolute inset-0 ${bgProducto} cardProducto"></div>
-                <div class="w-[172px] h-52.5 ${bgInner} cardProductoInner absolute inset-0 overflow-hidden ${borderClass} sm:w-[234px] sm:h-78.75">
-                    <img src="${item.imagen}" alt="" class="w-full h-full object-contain object-[50%_70%] sm:object-[50%_60%]">
-                </div>
-                <button class="btn-favorito absolute top-1.5 right-1.5 z-20 size-6 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2 activo">
-                    <i class="ri-heart-fill text-sm text-stone-950 transition-colors duration-200 sm:text-lg"></i>
-                </button>
-                <div class="w-18 h-6 absolute top-0.5 left-2.25 ${bgInner} ${hasBorder ? 'border' : ''} rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
-                    <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ ${parseFloat(item.precio).toFixed(2)}</p>
-                </div>
-                <button class="btn-agregar-carrito size-7 bg-stone-950 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]"
-                    data-id="${item.id}" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}" data-precio="${item.precio}" data-imagen="${item.imagen}">
-                    <i class="ri-shopping-cart-2-line text-white text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
-                </button>
-                <div class="absolute ${bgInfo} bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
-                <div class="w-[172px] h-10 absolute bottom-0 ${bgInfoInner} cardInfoInner flex flex-col justify-center ${borderClass} sm:w-[234px] sm:h-15">
-                    <p class="${titleClasses}">${item.titulo}</p>
-                    <p class="${subtitleClasses}">${item.subtitulo}</p>
-                </div>
-                ${dotsHTML ? `<button class="absolute bg-white right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio sm:w-11.25 sm:h-[13.5px] sm:right-1.5 sm:bottom-3.75">${dotsHTML}</button>` : ''}
-            </article>`;
+        <article class="w-[172px] h-[254px] relative sm:w-[234px] sm:h-[381px]" data-id="${item.id}" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}">
+            <div class="absolute inset-0 ${bgProducto} dark:bg-temu cardProducto"></div>
+            <div class="w-[172px] h-52.5 ${bgInner} dark:bg-stone-900 cardProductoInner absolute inset-0 overflow-hidden ${borderClass} dark:border-temu sm:w-[234px] sm:h-78.75">
+                <img src="${item.imagen}" alt="" class="w-full h-full object-contain object-[50%_70%] sm:object-[50%_60%]">
+            </div>
+            <button class="btn-favorito absolute top-1.5 right-1.5 z-20 size-6 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2 activo">
+                <i class="ri-heart-fill text-sm text-stone-950 dark:text-white/20 transition-colors duration-200 sm:text-lg"></i>
+            </button>
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 ${bgInner} dark:bg-stone-800 dark:text-temu ${hasBorder ? 'border dark:border-stone-800' : ''} rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+                <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ ${parseFloat(item.precio).toFixed(2)}</p>
+            </div>
+            <button class="btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]"
+                data-id="${item.id}" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}" data-precio="${item.precio}" data-imagen="${item.imagen}">
+                <i class="ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
+            </button>
+            <div class="absolute ${bgInfo} dark:bg-temu bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
+            <div class="w-[172px] h-10 absolute bottom-0 ${bgInfoInner} dark:bg-stone-900 dark:text-temu cardInfoInner flex flex-col justify-center ${borderClass} dark:border-temu sm:w-[234px] sm:h-15">
+                <p class="${titleClasses}">${item.titulo}</p>
+                <p class="${subtitleClasses}">${item.subtitulo}</p>
+            </div>
+            ${dotsHTML ? `<button class="absolute bg-white dark:bg-stone-600 right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio sm:w-11.25 sm:h-[13.5px] sm:right-1.5 sm:bottom-3.75">${dotsHTML}</button>` : ''}
+        </article>`;
+    
         grid.insertAdjacentHTML('beforeend', cardHTML);
     });
 }
@@ -1018,10 +1019,10 @@ function mostrarSugerencias(query) {
     if (sugerencias.length === 0) { dropdown.classList.add('hidden'); return; }
 
     dropdown.innerHTML = sugerencias.map(s => `
-        <div class="sugerencia-item flex items-center gap-3 px-4 py-2 border-b border-stone-100 last:border-0" data-sugerencia="${s.titulo}">
-            <img src="${s.imagen}" class="w-8 h-8 object-cover rounded-lg border border-stone-200 shrink-0">
+        <div class="sugerencia-item flex items-center gap-3 px-4 py-2 border-b border-stone-100 dark:border-stone-700 last:border-0 cursor-default" data-sugerencia="${s.titulo}">
+            <img src="${s.imagen}" class="w-8 h-8 object-cover rounded-lg border border-stone-200 dark:border-temu shrink-0">
             <div class="flex flex-col">
-                <span class="text-sm font-semibold text-stone-950">${s.titulo}</span>
+                <span class="text-sm font-semibold text-stone-950 dark:text-temu">${s.titulo}</span>
                 <span class="text-xs text-stone-500">${s.subtitulo}</span>
             </div>
         </div>
@@ -1517,7 +1518,7 @@ function sincronizarEsferasPanel() {
                 // circulo.style.boxShadow = '0 0 10px rgba(251, 119, 1, 0.5)';
             }
             if (texto) {
-                texto.classList.remove('text-white');
+                texto.classList.remove('text-white', 'dark:text-stone-400');
                 texto.classList.add('text-temu', 'font-semibold');
             }
         } else {
@@ -1528,7 +1529,7 @@ function sincronizarEsferasPanel() {
             }
             if (texto) {
                 texto.classList.remove('text-temu', 'font-semibold');
-                texto.classList.add('text-white');
+                texto.classList.add('text-white', 'dark:text-stone-400');
             }
         }
     });
@@ -1549,7 +1550,7 @@ function abrirPanelCategorias() {
                 // circulo.style.boxShadow = '0 0 10px rgba(251, 119, 1, 0.5)';
             }
             if (texto) {
-                texto.classList.remove('text-white');   // ← QUITAR blanco
+                texto.classList.remove('text-white','dark:text-stone-400');   // ← QUITAR blanco
                 texto.classList.add('text-temu', 'font-semibold');       // ← PONER naranja
             }
         } else {
@@ -1560,7 +1561,7 @@ function abrirPanelCategorias() {
             }
             if (texto) {
                 texto.classList.remove('text-temu', 'font-semibold');    // ← QUITAR naranja
-                texto.classList.add('text-white');      // ← VOLVER blanco
+                texto.classList.add('text-white', 'dark:text-stone-400');      // ← VOLVER blanco
             }
         }
     });
