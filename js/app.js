@@ -1147,26 +1147,17 @@ function eliminarCategoriaBusqueda(restaurarVista = true) {
     }
     
     if (restaurarVista) {
-        const btnTodos = document.querySelector('[data-categoria="todos"]');
-        if (btnTodos) {
-            document.querySelectorAll('.cat-btn').forEach(b => {
-                const txt = b.querySelector('p');
-                b.classList.remove('bg-stone-950');
-                b.classList.add('bg-white', 'border', 'border-stone-950');
-                if (txt) { txt.classList.remove('text-white'); txt.classList.add('text-stone-950'); }
-            });
-            btnTodos.classList.remove('bg-white', 'border', 'border-stone-950');
-            btnTodos.classList.add('bg-stone-950');
-            const t = btnTodos.querySelector('p');
-            if (t) { t.classList.remove('text-stone-950'); t.classList.add('text-white'); }
-            
-            categoriaActual = 'todos';
-            showingAll = false;
-            showHero('todos');
-            if (typeof updateDisplayRef === 'function') updateDisplayRef();
-        }
-        const btnMas = document.getElementById('btn-mas');
-        if (btnMas) btnMas.classList.remove('hidden');
+    const btnTodos = document.querySelector('[data-categoria="todos"]');
+    if (btnTodos) {
+        setActiveCategory(btnTodos);  // ← USA TU FUNCIÓN QUE YA FUNCIONA
+        
+        categoriaActual = 'todos';
+        showingAll = false;
+        showHero('todos');
+        if (typeof updateDisplayRef === 'function') updateDisplayRef();
+    }
+    const btnMas = document.getElementById('btn-mas');
+    if (btnMas) btnMas.classList.remove('hidden');
     }
 }
 
