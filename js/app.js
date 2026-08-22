@@ -1800,6 +1800,12 @@ function aplicarModo(modo) {
         }
     }
     localStorage.setItem('zagy_modo', modo);
+
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    if (metaTheme) {
+        metaTheme.setAttribute('content', modo === 'dark' ? '#1c1917' : '#ffffff');
+    }
+    
 }
 
 function iniciarModo() {
