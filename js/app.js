@@ -1693,39 +1693,6 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// ======================================================
-// INTEGRAR EN activateNav
-// ======================================================
-// Busca en tu función activateNav esta parte:
-//
-// if (key === 'carrito') { gestionarVista('carrito'); }
-// else if (key === 'favoritos') { gestionarVista('favoritos'); }
-//
-// Y reemplázala por esto:
-/*
-if (key === 'usuario') {
-    togglePanelUsuario();
-}
-else if (key === 'carrito') { 
-    gestionarVista('carrito'); 
-}
-else if (key === 'favoritos') { 
-    gestionarVista('favoritos'); 
-}
-else if (key === 'categorias') {
-    togglePanelCategorias();
-}
-else if (key === 'inicio') {
-    categoriaActual = 'todos';
-    showingAll = false;
-    const btnTodos = document.querySelector('[data-categoria="todos"]');
-    if (btnTodos) {
-        setActiveCategory(btnTodos);
-        btnTodos.click();
-    }
-    gestionarVista('tienda');
-}
-*/
 
 // ======================================================
 // MODO OSCURO / CLARO
@@ -1888,7 +1855,7 @@ if (btnLangEn) btnLangEn.addEventListener('click', () => aplicarIdioma('en'));
 const btnFirstWeb = document.getElementById('btn-first-web');
 if (btnFirstWeb) {
     btnFirstWeb.addEventListener('click', () => {
-        window.open('https://tuprimeraweb.com', '_blank');
+        window.open('https://zagy-tech-import.vercel.app', '_blank');
     });
 }
 
