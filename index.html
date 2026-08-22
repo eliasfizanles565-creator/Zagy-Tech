@@ -64,10 +64,10 @@
         </section>
 
         <!-- BUSCADOR -->
-        <section class="bg-white dark:bg-stone-950 border border-stone-950 dark:border-white rounded-4xl absolute right-0 top-2 h-9 w-[82dvw] sm:w-[88dvw] lg:w-157 lg:left-1/2 lg:-translate-x-[calc(50%-74px)] xl:w-187 xl:-translate-x-[calc(50%-92px)] z-90">
+        <section class="bg-white dark:bg-stone-950 border border-stone-950 dark:border-stone-800 rounded-4xl absolute right-0 top-2 h-9 w-[82dvw] sm:w-[88dvw] lg:w-157 lg:left-1/2 lg:-translate-x-[calc(50%-74px)] xl:w-187 xl:-translate-x-[calc(50%-92px)] z-90">
             <input id="buscador" class="bg-transparent dark:text-white/50 outline-none pl-4 pr-14 pt-0 text-base w-full h-full rounded-4xl" type="text" placeholder="soporte para celular">
-            <button id="search-btn" type="button" class="h-7.5 w-11 rounded-3xl flex items-center justify-center absolute right-0.5 top-0.5 bg-stone-950 dark:bg-white cursor-pointer btn-epico z-120 border-none touch-manipulation">
-                <i class="ri-search-line text-lg text-white dark:text-stone-950 pointer-events-none"></i>
+            <button id="search-btn" type="button" class="h-7.5 w-11 rounded-3xl flex items-center justify-center absolute right-0.5 top-0.5 bg-stone-950 dark:bg-stone-800 cursor-pointer btn-epico z-120 border-none touch-manipulation">
+                <i class="ri-search-line text-lg text-white dark:text-temu pointer-events-none"></i>
             </button>
             <div id="sugerencias-dropdown" class="absolute top-full left-0 w-full bg-white border-x border-b border-stone-950 rounded-b-4xl max-h-60 overflow-y-auto hidden z-100 shadow-lg"></div>
         </section>
@@ -132,34 +132,80 @@
     <section id="hero-todos" class="hero-container w-[350px] mx-auto lg:max-w-7xl pb-8 relative sm:w-[726px]">
         <div id="swiper-todos" class="swiper hero-swiper relative overflow-hidden">
             <div class="swiper-wrapper hero-track">
+
                 <div class="swiper-slide relative w-full h-70" data-id="1" data-titulo="Álbum Tapa Dura" data-subtitulo="PANINI - Mundial 2026" data-precio="45.00" data-imagen="assets/06.jpg">
-                    <div class="absolute inset-0 cardHero bg-stone-950"></div>
-                    <div class="absolute cardHeroInner bg-white overflow-hidden inset-0"><img src="assets/06.jpg" class="w-full h-full object-cover object-[50%_40%]"></div>
-                    <button class="btn-favorito-hero absolute top-3 right-5 z-20 size-8 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110"><i class="ri-heart-line text-lg text-stone-950 transition-colors duration-200"></i></button>
-                    <div class="absolute w-25 h-10 bg-stone-950 z-10 top-3 left-5 cardPrecioHero cursor-pointer"></div>
-                    <div class="btn-precio absolute w-25 h-10 bg-puro z-10 top-3 left-5 cardPrecioHeroInner flex justify-center items-center cursor-pointer"><p class="font-Russo text-[16px] iconoPrecio">s/ 45.00</p></div>
-                    <button class="btn-epico absolute w-15 h-10 bg-stone-950 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer transition-transform duration-300"><i class="ri-shopping-cart-line text-xl text-white"></i></button>
-                    <div class="absolute w-55 h-12 bg-stone-950/50 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1"><p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">Álbum Tapa Dura</p><p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">PANINI - Mundial 2026</p></div>
+                    <div class="absolute inset-0 cardHero bg-stone-950 dark:bg-temu"></div>
+                    <div class="absolute cardHeroInner bg-white dark:bg-stone-900 overflow-hidden inset-0">
+                        <img src="assets/06 mundial.webp" class="w-full h-full object-cover object-[50%_40%]">
+                    </div>
+                    <button class="btn-favorito-hero absolute top-3 right-5 z-20 size-8 bg-white/80 dark:bg-stone-900 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110">
+                        <i class="ri-heart-line text-lg text-stone-950 dark:text-white/20 transition-colors duration-200"></i>
+                    </button>
+                    <div class="absolute w-25 h-10 bg-stone-950 dark:bg-stone-800 z-10 top-3 left-5 cardPrecioHero cursor-pointer"></div>
+                    <div class="btn-precio absolute w-25 h-10 bg-puro dark:bg-stone-800 dark:text-temu z-10 top-3 left-5 cardPrecioHeroInner flex justify-center items-center cursor-pointer">
+                        <p class="font-Russo text-[16px] iconoPrecio">s/ 45.00</p>
+                    </div>
+                    <button class="btn-epico absolute w-15 h-10 bg-stone-950 dark:bg-stone-800 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer transition-transform duration-300">
+                        <i class="ri-shopping-cart-line text-xl text-white dark:text-temu"></i>
+                    </button>
+                    <div class="absolute w-55 h-12 bg-stone-950/50 dark:bg-stone-950/90 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1 text-white dark:text-temu">
+                        <p class="font-MontAlternates font-semibold pl-5 text-[14px] leading-none">
+                            Álbum Tapa Dura
+                        </p>
+                        <p class="font-MontAlternates font-semibold pl-5 text-[14px] leading-none">
+                            PANINI - Mundial 2026
+                        </p>
+                    </div>
                 </div>
 
                 <div class="swiper-slide relative w-full h-70" data-id="11" data-titulo="Dispensador de Jabón" data-subtitulo="Automático" data-precio="109.90" data-imagen="assets/21 DISPENSADOR DE JABÓN/00.webp">
-                    <div class="absolute inset-0 cardHero bg-stone-950"></div>
-                    <div class="absolute cardHeroInner bg-white overflow-hidden inset-0"><img src="assets/21 DISPENSADOR DE JABÓN/00.webp" class="w-full h-full object-cover object-[50%_40%] sm:object-[50%_60%]"></div>
-                    <button class="btn-favorito-hero absolute top-3 right-5 z-20 size-8 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110"><i class="ri-heart-line text-lg text-stone-950 transition-colors duration-200"></i></button>
-                    <div class="absolute w-25 h-10 bg-stone-950 z-10 top-3 left-5 cardPrecioHero cursor-pointer"></div>
-                    <div class="btn-precio absolute w-25 h-10 bg-puro z-10 top-3 left-5 cardPrecioHeroInner flex justify-center items-center cursor-pointer"><p class="font-Russo text-[16px] iconoPrecio">s/ 109.90</p></div>
-                    <button class="btn-epico absolute w-15 h-10 bg-stone-950 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer transition-transform duration-300"><i class="ri-shopping-cart-line text-xl text-white"></i></button>
-                    <div class="absolute w-55 h-12 bg-stone-950/50 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1"><p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">Dispensador de Jabón</p><p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">Automático</p></div>
+                    <div class="absolute inset-0 cardHero bg-stone-950 dark:bg-temu"></div>
+                    <div class="absolute cardHeroInner bg-white dark:bg-stone-900 overflow-hidden inset-0"><img src="assets/21 DISPENSADOR DE JABÓN/00.webp" class="w-full h-full object-cover object-[50%_40%] sm:object-[50%_60%]"></div>
+                    <button class="btn-favorito-hero absolute top-3 right-5 z-20 size-8 bg-white/80 dark:bg-stone-900 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110">
+                        <i class="ri-heart-line text-lg text-stone-950 dark:text-white/20 transition-colors duration-200"></i>
+                    </button>
+                    <div class="absolute w-25 h-10 bg-stone-950 dark:bg-stone-800 z-10 top-3 left-5 cardPrecioHero cursor-pointer"></div>
+                    <div class="btn-precio absolute w-25 h-10 bg-puro dark:bg-stone-800 dark:text-temu z-10 top-3 left-5 cardPrecioHeroInner flex justify-center items-center cursor-pointer">
+                        <p class="font-Russo text-[16px] iconoPrecio">
+                            s/ 109.90
+                        </p>
+                    </div>
+                    <button class="btn-epico absolute w-15 h-10 bg-stone-950 dark:bg-stone-800 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer transition-transform duration-300">
+                        <i class="ri-shopping-cart-line text-xl text-white dark:text-temu"></i>
+                    </button>
+                    <div class="absolute w-55 h-12 bg-stone-950/50 dark:bg-stone-950/90 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1 text-white dark:text-temu">
+                        <p class="font-MontAlternates font-semibold pl-5 text-[14px] leading-none">
+                            Dispensador de Jabón
+                        </p>
+                        <p class="font-MontAlternates font-semibold pl-5 text-[14px] leading-none">
+                            Automático
+                        </p>
+                    </div>
                 </div>
 
                 <div class="swiper-slide relative w-full h-70" data-id="4" data-titulo="Soporte Imantado" data-subtitulo="360° Supreme" data-precio="29.90" data-imagen="assets/03 SOPORTE IMANTADO 360 -SUPREME/01.webp">
-                    <div class="absolute inset-0 cardHero bg-stone-950"></div>
-                    <div class="absolute cardHeroInner bg-white overflow-hidden inset-0"><img src="assets/03 SOPORTE IMANTADO 360 -SUPREME/01.webp" class="w-full h-full object-cover object-[50%_40%] sm:object-[50%_50%]"></div>
-                    <button class="btn-favorito-hero absolute top-3 right-5 z-20 size-8 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110"><i class="ri-heart-line text-lg text-stone-950 transition-colors duration-200"></i></button>
-                    <div class="absolute w-25 h-10 bg-stone-950 z-10 top-3 left-5 cardPrecioHero cursor-pointer"></div>
-                    <div class="btn-precio absolute w-25 h-10 bg-puro z-10 top-3 left-5 cardPrecioHeroInner flex justify-center items-center cursor-pointer"><p class="font-Russo text-[16px] iconoPrecio">s/ 29.90</p></div>
-                    <button class="btn-epico absolute w-15 h-10 bg-stone-950 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer transition-transform duration-300"><i class="ri-shopping-cart-line text-xl text-white"></i></button>
-                    <div class="absolute w-55 h-12 bg-stone-950/50 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1"><p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">Soporte Imantado</p><p class="text-white font-MontAlternates font-semibold pl-5 text-[14px] leading-none">360° Supreme</p></div>
+                    <div class="absolute inset-0 cardHero bg-stone-950 dark:bg-temu"></div>
+                    <div class="absolute cardHeroInner bg-white dark:bg-stone-900 overflow-hidden inset-0"><img src="assets/03 SOPORTE IMANTADO 360 -SUPREME/01.webp" class="w-full h-full object-cover object-[50%_40%] sm:object-[50%_50%]"></div>
+                    <button class="btn-favorito-hero absolute top-3 right-5 z-20 size-8 bg-white/80 dark:bg-stone-900 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110">
+                        <i class="ri-heart-line text-lg text-stone-950 dark:text-white/20 transition-colors duration-200"></i>
+                    </button>
+                    <div class="absolute w-25 h-10 bg-stone-950 dark:bg-stone-800 z-10 top-3 left-5 cardPrecioHero cursor-pointer"></div>
+                    <div class="btn-precio absolute w-25 h-10 bg-puro dark:bg-stone-800 dark:text-temu z-10 top-3 left-5 cardPrecioHeroInner flex justify-center items-center cursor-pointer">
+                        <p class="font-Russo text-[16px] iconoPrecio">
+                            s/ 29.90
+                        </p>
+                    </div>
+                    <button class="btn-epico absolute w-15 h-10 bg-stone-950 dark:bg-stone-800 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer transition-transform duration-300">
+                        <i class="ri-shopping-cart-line text-xl text-white dark:text-temu"></i>
+                    </button>
+                    <div class="absolute w-55 h-12 bg-stone-950/50 dark:bg-stone-950/90 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1 text-white dark:text-temu">
+                        <p class="font-MontAlternates font-semibold pl-5 text-[14px] leading-none">
+                            Soporte Imantado
+                        </p>
+                        <p class="font-MontAlternates font-semibold pl-5 text-[14px] leading-none">
+                            360° Supreme
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -260,26 +306,30 @@
     <section id="product-grid" class="w-[350px] mb-6 h-full mx-auto relative lg:max-w-7xl flex justify-start gap-x-1.5 gap-y-3 flex-wrap sm:gap-x-3 sm:w-[726px] lg:w-[972px] xl:w-[1218px]">
 
         <!-- 01 ALBUM PANINI -->
-        <article class="producto-tienda cat-albums cat-ofertas w-[172px] h-[254px] relative sm:w-[234px] sm:h-[381px]" data-id="1" data-titulo="Álbum Tapa Dura" data-subtitulo="PANINI - 2026" data-precio="45.00" data-imagen="assets/06.jpg">
-            <div class="absolute inset-0 bg-stone-950 cardProducto"></div>
-            <div class="w-[172px] h-52.5 bg-white cardProductoInner absolute inset-0 overflow-hidden border border-stone-950 sm:w-[234px] sm:h-78.75">
-                <img src="assets/06.jpg" alt="" class="w-full h-full object-contain object-[50%_70%] sm:object-[50%_60%]">
+        <article class="producto-tienda cat-albums cat-ofertas w-[172px] h-[254px] relative sm:w-[234px] sm:h-[381px]" data-id="1" data-titulo="Álbum Tapa Dura" data-subtitulo="PANINI - 2026" data-precio="45.00" data-imagen="assets/06 mundial.webp">
+            <div class="absolute inset-0 bg-stone-950 dark:bg-temu cardProducto"></div>
+            <div class="w-[172px] h-52.5 bg-white dark:bg-stone-900 cardProductoInner absolute inset-0 overflow-hidden border border-stone-950 dark:border-temu sm:w-[234px] sm:h-78.75">
+                <img src="assets/06 mundial.webp" alt="" class="w-full h-full object-contain object-[50%_70%] sm:object-[50%_60%]">
             </div>
             <button class="btn-favorito absolute top-1.5 right-1.5 z-20 size-6 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2">
                 <i class="ri-heart-line text-sm text-stone-950 transition-colors duration-200 sm:text-lg"></i>
             </button>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-puro border rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-puro dark:bg-stone-800 dark:text-temu border dark:border-stone-800 rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                 <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ 45.00</p>
             </div>
-            <button class="btn-agregar-carrito size-7 bg-stone-950 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]" data-id="1" data-titulo="Álbum Tapa Dura" data-subtitulo="PANINI - Mundial 2026" data-precio="45.00" data-imagen="assets/06.jpg">
-                <i class="ri-shopping-cart-2-line text-white text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
+            <button class="btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]" data-id="1" data-titulo="Álbum Tapa Dura" data-subtitulo="PANINI - Mundial 2026" data-precio="45.00" data-imagen="assets/06 mundial.webp">
+                <i class="ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
             <div class="absolute bg-stone-950 bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-puro cardInfoInner flex flex-col justify-center border border-stone-950 sm:w-[234px] sm:h-15">
-                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">Álbum Tapa Dura</p>
-                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">PANINI - 2026</p>
+            <div class="w-[172px] h-10 absolute bottom-0 bg-puro dark:bg-stone-800 dark:text-temu cardInfoInner flex flex-col justify-center border border-stone-950 sm:w-[234px] sm:h-15 ">
+                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25 lg:font-bold">
+                    Álbum Tapa Dura
+                </p>
+                <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5 lg:font-bold">
+                    PANINI - 2026
+                </p>
             </div>
-            <button class="absolute bg-white right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio sm:w-11.25 sm:h-[13.5px] sm:right-1.5 sm:bottom-3.75">
+            <button class="absolute bg-white dark:bg-stone-600 right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio sm:w-11.25 sm:h-[13.5px] sm:right-1.5 sm:bottom-3.75">
                 <div class="size-1.5 bg-yellow-400 rounded-4xl sm:size-2.25"></div>
                 <div class="size-1.5 bg-blue-400 rounded-4xl sm:size-2.25"></div>
                 <div class="size-1.5 bg-white border border-stone-950/20 rounded-4xl sm:size-2.25"></div>

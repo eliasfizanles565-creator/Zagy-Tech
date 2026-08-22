@@ -76,11 +76,11 @@ function setActiveCategory(clickedBtn) {
     catButtons.forEach(btn => {
         const text = btn.querySelector('p');
         btn.classList.remove('bg-stone-950', 'dark:bg-temu'); btn.classList.add('bg-puro', 'dark:bg-stone-800', 'hover:bg-plomo', 'dark:hover:bg-stone-900');
-        if (text) { text.classList.remove('text-white'); text.classList.add('text-stone-950', 'dark:text-white'); }
+        if (text) { text.classList.remove('text-white'); text.classList.add('text-stone-950', 'dark:text-white/50'); }
     });
     clickedBtn.classList.remove('bg-puro', 'dark:bg-stone-800', 'border', 'border-stone-950', 'hover:bg-plomo', 'dark:hover:bg-stone-900'); clickedBtn.classList.add('bg-stone-950', 'dark:bg-temu');
     const activeText = clickedBtn.querySelector('p');
-    if (activeText) { activeText.classList.remove('text-stone-950'); activeText.classList.add('text-white'); }
+    if (activeText) { activeText.classList.remove('text-stone-950', 'dark:text-white/50'); activeText.classList.add('text-white', 'dark:text-white/90'); }
 }
 catButtons.forEach(btn => btn.addEventListener('click', () => setActiveCategory(btn)));
 
@@ -622,7 +622,7 @@ function renderizarFavoritos() {
         const dotsHTML = item.dotsHTML || '';
 
         const cardHTML = `
-    <article class="w-[172px] h-[254px] bg-white relative sm:w-[234px] sm:h-[381px]" data-id="${item.id}" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}">
+    <article class="w-[172px] h-[254px] relative sm:w-[234px] sm:h-[381px]" data-id="${item.id}" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}">
                 <div class="absolute inset-0 ${bgProducto} cardProducto"></div>
                 <div class="w-[172px] h-52.5 ${bgInner} cardProductoInner absolute inset-0 overflow-hidden ${borderClass} sm:w-[234px] sm:h-78.75">
                     <img src="${item.imagen}" alt="" class="w-full h-full object-contain object-[50%_70%] sm:object-[50%_60%]">
@@ -802,16 +802,16 @@ function activateNav(key) {
     document.querySelectorAll('.nav-desktop').forEach(btn => {
         const icon = btn.querySelector('i');
         const label = btn.querySelector('p');
-        if (icon) { icon.classList.remove('text-temu'); icon.classList.add('text-stone-950', 'dark:text-white'); }
-        if (label) { label.classList.remove('text-temu', 'border-temu'); label.classList.add('text-stone-950', 'dark:text-white', 'border-transparent'); }
+        if (icon) { icon.classList.remove('text-temu'); icon.classList.add('text-stone-950', 'dark:text-white/70'); }
+        if (label) { label.classList.remove('text-temu', 'border-temu'); label.classList.add('text-stone-950', 'dark:text-white/70', 'border-transparent'); }
     });
 
     const activeDesktopBtn = document.querySelector(`.nav-desktop[data-nav="${key}"]`);
     if (activeDesktopBtn) {
         const activeIcon = activeDesktopBtn.querySelector('i');
         const activeLabel = activeDesktopBtn.querySelector('p');
-        if (activeIcon) { activeIcon.classList.remove('text-stone-950', 'dark:text-white'); activeIcon.classList.add('text-temu'); }
-        if (activeLabel) { activeLabel.classList.remove('text-stone-950', 'border-transparent', 'dark:text-white'); activeLabel.classList.add('text-temu', 'border-temu'); }
+        if (activeIcon) { activeIcon.classList.remove('text-stone-950', 'dark:text-white/70'); activeIcon.classList.add('text-temu'); }
+        if (activeLabel) { activeLabel.classList.remove('text-stone-950', 'border-transparent', 'dark:text-white/70'); activeLabel.classList.add('text-temu', 'border-temu'); }
     }
 
     else if (key === 'usuario') {
