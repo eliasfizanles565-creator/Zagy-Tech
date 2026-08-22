@@ -584,6 +584,9 @@
   .w-34 {
     width: calc(var(--spacing) * 34);
   }
+  .w-35 {
+    width: calc(var(--spacing) * 35);
+  }
   .w-40 {
     width: calc(var(--spacing) * 40);
   }
@@ -601,6 +604,18 @@
   }
   .w-60 {
     width: calc(var(--spacing) * 60);
+  }
+  .w-65 {
+    width: calc(var(--spacing) * 65);
+  }
+  .w-67 {
+    width: calc(var(--spacing) * 67);
+  }
+  .w-68 {
+    width: calc(var(--spacing) * 68);
+  }
+  .w-70 {
+    width: calc(var(--spacing) * 70);
   }
   .w-80 {
     width: calc(var(--spacing) * 80);

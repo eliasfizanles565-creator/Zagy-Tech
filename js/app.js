@@ -761,6 +761,18 @@ function activateNav(key) {
     const config = navConfig[key];
     if (!config) return;
 
+    // Cierra paneles que NO sean el activo (directo por ID, sin variables globales)
+    if (key !== 'usuario') {
+        const pu = document.getElementById('panel-usuario');
+        if (pu) pu.classList.add('hidden');
+    }
+    if (key !== 'categorias') {
+        const pc = document.getElementById('panel-categorias');
+        if (pc) pc.classList.add('hidden');
+    }
+
+    
+
     if (navigationBar && navigationBarBorder) {
         Object.values(navConfig).forEach(c => {
             navigationBar.classList.remove(c.barClass);
@@ -819,8 +831,6 @@ function activateNav(key) {
         }
         gestionarVista('tienda');
     }
-    
-    // Usuario y Categorias no hacen nada funcional (solo el navbar visual cambia)
 
     activeKey = key;
 }
@@ -1586,19 +1596,6 @@ if (btnCatMobileNaranja) {
 }
 
 
-// Hover en desktop nav
-if (btnCategoriasDesktop) {
-    btnCategoriasDesktop.addEventListener('mouseenter', () => {
-        abrirPanelCategorias();
-    });
-}
-
-// Cerrar al salir del panel con el mouse (solo desktop)
-if (panelCategorias) {
-    panelCategorias.addEventListener('mouseleave', () => {
-        if (window.innerWidth >= 1024) cerrarPanelCategorias();
-    });
-}
 
 // Cerrar al clickear fuera
 document.addEventListener('click', (e) => {
@@ -1666,19 +1663,6 @@ if (btnUsuarioNaranja) {
     });
 }
 
-// Hover en desktop nav
-if (btnUsuarioDesktop) {
-    btnUsuarioDesktop.addEventListener('mouseenter', () => {
-        abrirPanelUsuario();
-    });
-}
-
-// Cerrar al salir del panel con mouse (solo desktop)
-if (panelUsuario) {
-    panelUsuario.addEventListener('mouseleave', () => {
-        if (window.innerWidth >= 1024) cerrarPanelUsuario();
-    });
-}
 
 // Cerrar al clickear fuera
 document.addEventListener('click', (e) => {
@@ -1692,6 +1676,72 @@ document.addEventListener('click', (e) => {
         cerrarPanelUsuario();
     }
 });
+
+///////////////////////////////////////////////////////////
+
+// ======================================================
+// HOVER DESKTOP CON FLAGS (no depende de mouseleave)
+// ======================================================
+(function initDesktopHoverPanels() {
+    // Flags de estado
+    let overCatBtn = false, overCatPanel = false;
+    let overUserBtn = false, overUserPanel = false;
+
+    const btnCat = document.querySelector('[data-nav="categorias"]');
+    const panelCat = document.getElementById('panel-categorias');
+    const btnUser = document.querySelector('[data-nav="usuario"]');
+    const panelUser = document.getElementById('panel-usuario');
+
+    function checkClose() {
+        if (window.innerWidth < 1024) return;
+        // Si el mouse NO está ni en el botón ni en el panel → cerrar
+        if (!overCatBtn && !overCatPanel) cerrarPanelCategorias();
+        if (!overUserBtn && !overUserPanel) cerrarPanelUsuario();
+    }
+
+    // --- CATEGORÍAS ---
+    if (btnCat) {
+        btnCat.addEventListener('mouseenter', () => { 
+            overCatBtn = true; 
+            if (window.innerWidth >= 1024) abrirPanelCategorias(); 
+        });
+        btnCat.addEventListener('mouseleave', () => { 
+            overCatBtn = false; 
+            setTimeout(checkClose, 60); // 60ms para cruzar al panel
+        });
+    }
+    if (panelCat) {
+        panelCat.addEventListener('mouseenter', () => { overCatPanel = true; });
+        panelCat.addEventListener('mouseleave', () => { 
+            overCatPanel = false; 
+            setTimeout(checkClose, 60); 
+        });
+    }
+
+    // --- USUARIO ---
+    if (btnUser) {
+        btnUser.addEventListener('mouseenter', () => { 
+            overUserBtn = true; 
+            if (window.innerWidth >= 1024) abrirPanelUsuario(); 
+        });
+        btnUser.addEventListener('mouseleave', () => { 
+            overUserBtn = false; 
+            setTimeout(checkClose, 60); 
+        });
+    }
+    if (panelUser) {
+        panelUser.addEventListener('mouseenter', () => { overUserPanel = true; });
+        panelUser.addEventListener('mouseleave', () => { 
+            overUserPanel = false; 
+            setTimeout(checkClose, 60); 
+        });
+    }
+})();
+
+
+
+
+/////////////////////////////////////////////////////////
 
 
 // ======================================================
@@ -1777,7 +1827,7 @@ const traducciones = {
     es: {
         modo: 'Modo:',
         idioma: 'Idioma:',
-        firstWeb: 'First Web:',
+        firstWeb: 'Primera Web:',
         usuario: 'Usuario',
         categorias: 'Categorías',
         inicio: 'Inicio',
@@ -1820,6 +1870,13 @@ function aplicarIdioma(lang) {
         const clave = el.getAttribute('data-i18n');
         if (t[clave]) el.textContent = t[clave];
     });
+
+    // 2. AQUÍ VA EL PLACEHOLDER DEL BUSCADOR
+    const inputBuscar = document.getElementById('buscador');
+    if (inputBuscar && t.buscarPlaceholder) {
+        inputBuscar.placeholder = t.buscarPlaceholder;
+    }
+
     
     // Actualizar botones visuales
     if (lang === 'es') {
