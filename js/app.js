@@ -442,55 +442,75 @@ function renderizarCarrito() {
         const subtotalItem = item.precio * item.cantidad;
         precioTotalGeneral += subtotalItem;
         
-        const articleHTML = `
-        <div class="swipe-wrapper shadow-lg shadow-stone-400 relative rounded-xl" data-swipe-id="${item.id}">
-            <!-- Botón rojo que aparece al deslizar -->
-            <div class="swipe-delete-btn absolute right-0 top-0 bottom-0 w-20 flex items-center justify-center z-0 cursor-pointer rounded-r-xl">
-                <i class="ri-delete-bin-6-line text-white text-xl"></i>
+        const subtotalStr = subtotalItem.toFixed(2);
+// Si el número es muy largo, baja el tamaño para que no rompa la línea
+const subSizeClass = subtotalStr.length > 7 ? 'text-sm' : 'text-lg';
+
+const articleHTML = `
+<div class="swipe-wrapper shadow-lg shadow-stone-400 relative rounded-xl" data-swipe-id="${item.id}">
+    <!-- Botón rojo que aparece al deslizar -->
+    <div class="swipe-delete-btn absolute right-0 top-0 bottom-0 w-20 flex items-center justify-center z-0 cursor-pointer rounded-r-xl">
+        <i class="ri-delete-bin-6-line text-white text-xl"></i>
+    </div>
+
+    <!-- Card principal (se desliza) -->
+    <article class="card-swipe relative z-10 flex gap-3 py-2 rounded-xl justify-between" data-id="${item.id}" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}">
+        <article class="flex gap-3 min-w-0">
+            <div class="size-20 ml-2 rounded-lg overflow-hidden shrink-0">
+                <img src="${item.imagen}" alt="" class="w-full h-full object-cover">
             </div>
-
-            <!-- Card principal (se desliza) -->
-            <article class=" card-swipe relative z-10 flex gap-3 py-2 rounded-xl justify-between" data-id="${item.id}" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}">
-                <article class="flex gap-3">
-                    <div class="size-20 ml-2 rounded-lg overflow-hidden">
-                        <img src="${item.imagen}" alt="" class="w-full h-full object-cover">
-                    </div>
-                    <div class="flex flex-col items-start justify-center gap-1">
-                        <div>
-                            <p class="font-Inter font-medium text-xs">${item.titulo}</p>
-                            <p class="font-Inter font-medium text-xs">${item.subtitulo}</p>
-                        </div>
-                        <button class="h-6 w-30 bg-verdeTemu3 rounded-4xl flex justify-center items-center text-xs font-semibold text-white">
-                            Color: Estandar
-                        </button>
-                        <p class="text-xs font-bold font-MontAlternates">s/ ${item.precio.toFixed(2)}</p>
-                    </div>
-                </article>
-
-                <div class="flex flex-col justify-start items-end mr-2 mt-6">
-                    <p class="text-lg text-temu font-Russo pr-1 leading-3">s/ ${subtotalItem.toFixed(2)}</p>
-                    <div class="flex justify-center items-center h-5 w-15 rounded-4xl bg-stone-950 gap-2 text-white font-semibold mt-5">
-                        <button onclick="cambiarCantidad(${item.id}, -1)" class="bg-transparent cursor-pointer rounded-4xl size-5 flex items-center justify-center">-</button>
-                        <div class="flex flex-col items-center justify-center">
-                            <p class="leading-3 text-xs">${item.cantidad}</p>
-                        </div>
-                        <button onclick="cambiarCantidad(${item.id}, 1)" class="bg-transparent cursor-pointer rounded-4xl size-5 flex items-center justify-center">+</button>
-                    </div>
+            <div class="flex flex-col items-start justify-center gap-1 min-w-0">
+                <div>
+                    <p class="font-Inter font-medium text-xs truncate w-full">${item.titulo}</p>
+                    <p class="font-Inter font-medium text-xs truncate w-full">${item.subtitulo}</p>
                 </div>
+                <button class="h-6 w-30 bg-verdeTemu3 rounded-4xl flex justify-center items-center text-xs font-semibold text-white">
+                    Color: Estandar
+                </button>
+                <p class="text-xs font-bold font-MontAlternates">s/ ${item.precio.toFixed(2)}</p>
+            </div>
+        </article>
 
-                <!-- Tachito de la esquina superior derecha (click directo) -->
-                <div class="btn-tachito bg-temu h-5 w-7 absolute top-0 right-0 rounded-bl-xl flex justify-center items-center text-white cursor-pointer z-20" onclick="eliminarArticulo(${item.id})">
-                    <i class="ri-delete-bin-6-line text-xs pl-1"></i>
+        <div class="flex flex-col justify-start items-end mr-2 mt-6 shrink-0">
+            <!-- s/ y número juntos, nunca se rompen, se encojen si es necesario -->
+            <p class="${subSizeClass} text-temu font-Russo pr-1 leading-3 whitespace-nowrap">s/ ${subtotalStr}</p>
+            <div class="flex justify-center items-center h-5 w-15 rounded-4xl bg-stone-950 gap-2 text-white font-semibold mt-5">
+                <button onclick="cambiarCantidad(${item.id}, -1)" class="bg-transparent cursor-pointer rounded-4xl size-5 flex items-center justify-center">-</button>
+                <div class="flex flex-col items-center justify-center">
+                    <p class="leading-3 text-xs">${item.cantidad}</p>
                 </div>
-            </article>
-        </div>`;
+                <button onclick="cambiarCantidad(${item.id}, 1)" class="bg-transparent cursor-pointer rounded-4xl size-5 flex items-center justify-center">+</button>
+            </div>
+        </div>
+
+        <!-- Tachito de la esquina superior derecha (click directo) -->
+        <div class="btn-tachito bg-temu h-5 w-7 absolute top-0 right-0 rounded-bl-xl flex justify-center items-center text-white cursor-pointer z-20" onclick="eliminarArticulo(${item.id})">
+            <i class="ri-delete-bin-6-line text-xs pl-1"></i>
+        </div>
+    </article>
+</div>`;
         
         contenedorItems.innerHTML += articleHTML;
     });
     
     const precioStr = precioTotalGeneral.toFixed(2);
-    const [entero, decimal] = precioStr.split('.');
-    if (elementoTotal) elementoTotal.innerHTML = `s/ ${entero}.<span class="text-xl font-Russo">${decimal}</span>`;
+const [entero, decimal] = precioStr.split('.');
+const totalChars = precioStr.length;
+
+// Si el número es muy largo, reduce el tamaño para que no rompa el layout
+let totalSizeClass = 'text-3xl';
+let decimalSizeClass = 'text-xl';
+if (totalChars > 9) {
+    totalSizeClass = 'text-xl';
+    decimalSizeClass = 'text-base';
+} else if (totalChars > 7) {
+    totalSizeClass = 'text-2xl';
+    decimalSizeClass = 'text-lg';
+}
+
+if (elementoTotal) {
+    elementoTotal.innerHTML = `<span class="font-Russo ${totalSizeClass} whitespace-nowrap">s/ ${entero}.<span class="${decimalSizeClass} font-Russo">${decimal}</span></span>`;
+}
     
     // ¡IMPORTANTE! Inicializar el swipe después de pintar
     initSwipeDelete();
