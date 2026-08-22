@@ -349,6 +349,9 @@
   .z-30 {
     z-index: 30;
   }
+  .z-35 {
+    z-index: 35;
+  }
   .z-40 {
     z-index: 40;
   }
@@ -569,6 +572,9 @@
   .w-20 {
     width: calc(var(--spacing) * 20);
   }
+  .w-24 {
+    width: calc(var(--spacing) * 24);
+  }
   .w-25 {
     width: calc(var(--spacing) * 25);
   }
@@ -577,9 +583,6 @@
   }
   .w-34 {
     width: calc(var(--spacing) * 34);
-  }
-  .w-35 {
-    width: calc(var(--spacing) * 35);
   }
   .w-40 {
     width: calc(var(--spacing) * 40);
@@ -596,29 +599,17 @@
   .w-55 {
     width: calc(var(--spacing) * 55);
   }
+  .w-60 {
+    width: calc(var(--spacing) * 60);
+  }
   .w-80 {
     width: calc(var(--spacing) * 80);
   }
   .w-90 {
     width: calc(var(--spacing) * 90);
   }
-  .w-\[52vw\] {
-    width: 52vw;
-  }
-  .w-\[55vw\] {
-    width: 55vw;
-  }
-  .w-\[62vw\] {
-    width: 62vw;
-  }
-  .w-\[67vw\] {
-    width: 67vw;
-  }
   .w-\[70vw\] {
     width: 70vw;
-  }
-  .w-\[72vw\] {
-    width: 72vw;
   }
   .w-\[82dvw\] {
     width: 82dvw;
@@ -1006,14 +997,8 @@
   .object-cover {
     object-fit: cover;
   }
-  .object-\[50\%_10\%\] {
-    object-position: 50% 10%;
-  }
   .object-\[50\%_20\%\] {
     object-position: 50% 20%;
-  }
-  .object-\[50\%_30\%\] {
-    object-position: 50% 30%;
   }
   .object-\[50\%_40\%\] {
     object-position: 50% 40%;
@@ -1023,15 +1008,6 @@
   }
   .object-\[50\%_70\%\] {
     object-position: 50% 70%;
-  }
-  .object-\[50\%_80\%\] {
-    object-position: 50% 80%;
-  }
-  .object-\[50\%_90\%\] {
-    object-position: 50% 90%;
-  }
-  .object-\[50\%_100\%\] {
-    object-position: 50% 100%;
   }
   .px-1 {
     padding-inline: var(--spacing);
@@ -1065,6 +1041,9 @@
   }
   .pt-0\.25 {
     padding-top: calc(var(--spacing) * 0.25);
+  }
+  .pt-\[1px\] {
+    padding-top: 1px;
   }
   .pr-1 {
     padding-right: var(--spacing);
@@ -1117,17 +1096,11 @@
   .text-center {
     text-align: center;
   }
-  .text-right {
-    text-align: right;
-  }
   .font-Inter {
     font-family: var(--font-Inter);
   }
   .font-MontAlternates {
     font-family: var(--font-MontAlternates);
-  }
-  .font-Playfair {
-    font-family: var(--font-Playfair);
   }
   .font-Russo {
     font-family: var(--font-Russo);
@@ -1227,9 +1200,6 @@
   .opacity-0 {
     opacity: 0%;
   }
-  .opacity-80 {
-    opacity: 80%;
-  }
   .opacity-100 {
     opacity: 100%;
   }
@@ -1328,17 +1298,8 @@
       --tw-scale-z: 110%;
       scale: var(--tw-scale-x) var(--tw-scale-y);
     }
-    .hover\:border-temu:hover {
-      border-color: var(--color-temu);
-    }
-    .hover\:bg-black:hover {
-      background-color: var(--color-black);
-    }
     .hover\:bg-plomo:hover {
       background-color: var(--color-plomo);
-    }
-    .hover\:bg-stone-950:hover {
-      background-color: var(--color-stone-950);
     }
     .hover\:bg-white:hover {
       background-color: var(--color-white);
@@ -1349,6 +1310,10 @@
     }
     .hover\:ring-temu:hover {
       --tw-ring-color: var(--color-temu);
+    }
+    .hover\:brightness-110:hover {
+      --tw-brightness: brightness(110%);
+      filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
     }
   }
   @media (width < 64rem) {
@@ -1516,6 +1481,9 @@
     .lg\:left-1\/2 {
       left: calc(1 / 2 * 100%);
     }
+    .lg\:left-12 {
+      left: calc(var(--spacing) * 12);
+    }
     .lg\:left-25 {
       left: calc(var(--spacing) * 25);
     }
@@ -1561,6 +1529,9 @@
     }
   }
   @media (width >= 80rem) {
+    .xl\:left-20 {
+      left: calc(var(--spacing) * 20);
+    }
     .xl\:left-35 {
       left: calc(var(--spacing) * 35);
     }
@@ -1582,9 +1553,18 @@
     }
   }
   @media (width >= 96rem) {
+    .\32 xl\:left-80 {
+      left: calc(var(--spacing) * 80);
+    }
     .\32 xl\:left-97 {
       left: calc(var(--spacing) * 97);
     }
+  }
+  .dark\:bg-stone-950:where(.dark, .dark *) {
+    background-color: var(--color-stone-950);
+  }
+  .dark\:text-white:where(.dark, .dark *) {
+    color: var(--color-white);
   }
 }
 .cardUsuario {

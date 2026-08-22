@@ -800,6 +800,9 @@ function activateNav(key) {
         if (activeLabel) { activeLabel.classList.remove('text-stone-950', 'border-transparent'); activeLabel.classList.add('text-temu', 'border-temu'); }
     }
 
+    else if (key === 'usuario') {
+    togglePanelUsuario();
+    }
     else if (key === 'categorias') {
         togglePanelCategorias();
     }
@@ -816,6 +819,7 @@ function activateNav(key) {
         }
         gestionarVista('tienda');
     }
+    
     // Usuario y Categorias no hacen nada funcional (solo el navbar visual cambia)
 
     activeKey = key;
@@ -1582,7 +1586,6 @@ if (btnCatMobileNaranja) {
 }
 
 
-
 // Hover en desktop nav
 if (btnCategoriasDesktop) {
     btnCategoriasDesktop.addEventListener('mouseenter', () => {
@@ -1608,4 +1611,291 @@ document.addEventListener('click', (e) => {
     if (!clickDentroPanel && !clickEnBtnCategorias) {
         cerrarPanelCategorias();
     }
+});
+/////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////
+// ==== SECTION USUARIO ====
+/////////////////////////////////////////////////////////////////
+const panelUsuario = document.getElementById('panel-usuario');
+const btnUsuarioMobile = document.querySelector('.textUsuario');
+const btnUsuarioNaranja = document.querySelector('#btnUsuario');
+const btnUsuarioDesktop = document.querySelector('[data-nav="usuario"]');
+
+function abrirPanelUsuario() {
+    if (!panelUsuario) return;
+    panelUsuario.classList.remove('hidden');
+    // Cerrar panel de categorías si está abierto
+    if (panelCategorias && !panelCategorias.classList.contains('hidden')) {
+        cerrarPanelCategorias();
+    }
+}
+
+function cerrarPanelUsuario() {
+    if (!panelUsuario) return;
+    panelUsuario.classList.add('hidden');
+}
+
+function togglePanelUsuario() {
+    if (!panelUsuario) return;
+    if (panelUsuario.classList.contains('hidden')) {
+        abrirPanelUsuario();
+    } else {
+        cerrarPanelUsuario();
+    }
+}
+
+// Click en bottom nav móvil (texto)
+if (btnUsuarioMobile) {
+    btnUsuarioMobile.addEventListener('click', (e) => {
+        e.stopPropagation();
+        togglePanelUsuario();
+    });
+}
+
+// Click en esfera naranja
+if (btnUsuarioNaranja) {
+    btnUsuarioNaranja.addEventListener('click', (e) => {
+        e.stopPropagation();
+        togglePanelUsuario();
+    });
+}
+
+// Hover en desktop nav
+if (btnUsuarioDesktop) {
+    btnUsuarioDesktop.addEventListener('mouseenter', () => {
+        abrirPanelUsuario();
+    });
+}
+
+// Cerrar al salir del panel con mouse (solo desktop)
+if (panelUsuario) {
+    panelUsuario.addEventListener('mouseleave', () => {
+        if (window.innerWidth >= 1024) cerrarPanelUsuario();
+    });
+}
+
+// Cerrar al clickear fuera
+document.addEventListener('click', (e) => {
+    if (!panelUsuario) return;
+    if (panelUsuario.classList.contains('hidden')) return;
+    
+    const clickDentroPanel = panelUsuario.contains(e.target);
+    const clickEnBtnUsuario = btnUsuarioMobile?.contains(e.target) || btnUsuarioDesktop?.contains(e.target) || btnUsuarioNaranja?.contains(e.target);
+    
+    if (!clickDentroPanel && !clickEnBtnUsuario) {
+        cerrarPanelUsuario();
+    }
+});
+
+// ======================================================
+// INTEGRAR EN activateNav
+// ======================================================
+// Busca en tu función activateNav esta parte:
+//
+// if (key === 'carrito') { gestionarVista('carrito'); }
+// else if (key === 'favoritos') { gestionarVista('favoritos'); }
+//
+// Y reemplázala por esto:
+/*
+if (key === 'usuario') {
+    togglePanelUsuario();
+}
+else if (key === 'carrito') { 
+    gestionarVista('carrito'); 
+}
+else if (key === 'favoritos') { 
+    gestionarVista('favoritos'); 
+}
+else if (key === 'categorias') {
+    togglePanelCategorias();
+}
+else if (key === 'inicio') {
+    categoriaActual = 'todos';
+    showingAll = false;
+    const btnTodos = document.querySelector('[data-categoria="todos"]');
+    if (btnTodos) {
+        setActiveCategory(btnTodos);
+        btnTodos.click();
+    }
+    gestionarVista('tienda');
+}
+*/
+
+// ======================================================
+// MODO OSCURO / CLARO
+// ======================================================
+const btnModoClaro = document.getElementById('btn-modo-claro');
+const btnModoOscuro = document.getElementById('btn-modo-oscuro');
+const htmlRoot = document.documentElement;
+
+function aplicarModo(modo) {
+    // modo: 'light' | 'dark'
+    if (modo === 'dark') {
+        htmlRoot.classList.add('dark');
+        
+        // Botón oscuro ACTIVO
+        if (btnModoOscuro) {
+            btnModoOscuro.classList.add('bg-temu');
+            const icono = btnModoOscuro.querySelector('i');
+            if (icono) {
+                icono.classList.remove('ri-moon-line');
+                icono.classList.add('ri-moon-fill');
+            }
+        }
+        // Botón claro INACTIVO
+        if (btnModoClaro) {
+            btnModoClaro.classList.remove('bg-temu');
+            const icono = btnModoClaro.querySelector('i');
+            if (icono) {
+                icono.classList.remove('ri-sun-fill');
+                icono.classList.add('ri-sun-line');
+            }
+        }
+    } else {
+        htmlRoot.classList.remove('dark');
+        
+        // Botón claro ACTIVO
+        if (btnModoClaro) {
+            btnModoClaro.classList.add('bg-temu');
+            const icono = btnModoClaro.querySelector('i');
+            if (icono) {
+                icono.classList.remove('ri-sun-line');
+                icono.classList.add('ri-sun-fill');
+            }
+        }
+        // Botón oscuro INACTIVO
+        if (btnModoOscuro) {
+            btnModoOscuro.classList.remove('bg-temu');
+            const icono = btnModoOscuro.querySelector('i');
+            if (icono) {
+                icono.classList.remove('ri-moon-fill');
+                icono.classList.add('ri-moon-line');
+            }
+        }
+    }
+    localStorage.setItem('zagy_modo', modo);
+}
+
+function iniciarModo() {
+    const guardado = localStorage.getItem('zagy_modo');
+    if (guardado) {
+        aplicarModo(guardado);
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        aplicarModo('dark');
+    } else {
+        aplicarModo('light');
+    }
+}
+
+if (btnModoClaro) {
+    btnModoClaro.addEventListener('click', () => aplicarModo('light'));
+}
+if (btnModoOscuro) {
+    btnModoOscuro.addEventListener('click', () => aplicarModo('dark'));
+}
+
+// ======================================================
+// IDIOMA (ES / EN)
+// ======================================================
+const btnLangEs = document.getElementById('btn-lang-es');
+const btnLangEn = document.getElementById('btn-lang-en');
+
+const traducciones = {
+    es: {
+        modo: 'Modo:',
+        idioma: 'Idioma:',
+        firstWeb: 'First Web:',
+        usuario: 'Usuario',
+        categorias: 'Categorías',
+        inicio: 'Inicio',
+        favoritos: 'Favoritos',
+        carrito: 'Carrito',
+        // Agrega aquí más claves según vayas traduciendo tu web...
+        // Ejemplo:
+        // buscarPlaceholder: 'soporte para celular',
+        // verMas: 'Ver más',
+        // verMenos: 'Ver menos',
+        // miCarrito: 'Mi Carrito',
+        // misFavoritos: 'Mis Favoritos',
+        // total: 'Total',
+        // finalizarCompra: 'Finalizar compra',
+        // carritoVacio: 'Tu carrito esta vacio.',
+        // favoritosVacio: 'Guarda aquí lo que te gusta.',
+    },
+    en: {
+        modo: 'Mode:',
+        idioma: 'Language:',
+        firstWeb: 'First Web:',
+        usuario: 'User',
+        categorias: 'Categories',
+        inicio: 'Home',
+        favoritos: 'Favorites',
+        carrito: 'Cart',
+        // Agrega aquí los equivalentes en inglés...
+    }
+};
+
+let idiomaActual = 'es';
+
+function aplicarIdioma(lang) {
+    idiomaActual = lang;
+    const t = traducciones[lang];
+    if (!t) return;
+    
+    // Actualizar todos los elementos con data-i18n
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const clave = el.getAttribute('data-i18n');
+        if (t[clave]) el.textContent = t[clave];
+    });
+    
+    // Actualizar botones visuales
+    if (lang === 'es') {
+        btnLangEs?.classList.add('border-temu', 'bg-temu');
+        btnLangEs?.classList.remove('border-transparent');
+        btnLangEn?.classList.remove('border-temu', 'bg-temu');
+        btnLangEn?.classList.add('border-transparent');
+    } else {
+        btnLangEn?.classList.add('border-temu', 'bg-temu');
+        btnLangEn?.classList.remove('border-transparent');
+        btnLangEs?.classList.remove('border-temu', 'bg-temu');
+        btnLangEs?.classList.add('border-transparent');
+    }
+    
+    localStorage.setItem('zagy_idioma', lang);
+}
+
+function iniciarIdioma() {
+    const guardado = localStorage.getItem('zagy_idioma');
+    if (guardado && traducciones[guardado]) {
+        aplicarIdioma(guardado);
+    } else {
+        aplicarIdioma('es');
+    }
+}
+
+if (btnLangEs) btnLangEs.addEventListener('click', () => aplicarIdioma('es'));
+if (btnLangEn) btnLangEn.addEventListener('click', () => aplicarIdioma('en'));
+
+// ======================================================
+// FIRST WEB - Redirección externa
+// ======================================================
+const btnFirstWeb = document.getElementById('btn-first-web');
+if (btnFirstWeb) {
+    btnFirstWeb.addEventListener('click', () => {
+        window.open('https://tuprimeraweb.com', '_blank');
+    });
+}
+
+// ======================================================
+// INICIALIZAR TODO AL CARGAR
+// ======================================================
+document.addEventListener('DOMContentLoaded', () => {
+    iniciarModo();
+    iniciarIdioma();
 });
