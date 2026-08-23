@@ -31,7 +31,37 @@ function guardarFavoritos() {
 function cargarFavoritos() {
     const data = localStorage.getItem('zagy_favoritos');
     if (data) {
-        try { favoritos = JSON.parse(data); } catch (e) { favoritos = []; }
+        try { 
+            favoritos = JSON.parse(data); 
+            // Si un favorito antiguo no tiene clsProducto, lo buscamos en el DOM y copiamos todo
+            favoritos.forEach(f => {
+                if (!f.clsProducto) {
+                    const card = document.querySelector(`article[data-id="${f.id}"]`);
+                    if (card) {
+                        const getCls = (sel) => {
+                            const el = card.querySelector(sel);
+                            return el ? el.className : '';
+                        };
+                        f.clsProducto      = getCls('.cardProducto');
+                        f.clsProductoInner = getCls('.cardProductoInner');
+                        f.clsInfo          = getCls('.cardInfo');
+                        f.clsInfoInner     = getCls('.cardInfoInner');
+                        f.clsBtnFav        = getCls('.btn-favorito');
+                        f.clsBtnPrecio     = getCls('div.btn-precio');
+                        f.clsBtnCarrito    = getCls('.btn-agregar-carrito');
+                        const dotsBtn = card.querySelector('button.btn-precio');
+                        f.clsBtnDots = dotsBtn ? dotsBtn.className : '';
+                        f.dotsHTML   = dotsBtn ? dotsBtn.innerHTML : '';
+                        const infoInner = card.querySelector('.cardInfoInner');
+                        if (infoInner) {
+                            const ps = infoInner.querySelectorAll('p');
+                            f.clsTitle    = ps[0] ? ps[0].className : '';
+                            f.clsSubtitle = ps[1] ? ps[1].className : '';
+                        }
+                    }
+                }
+            });
+        } catch (e) { favoritos = []; }
     }
 }
 
@@ -540,25 +570,34 @@ function toggleFavorito(producto) {
         favoritos.splice(index, 1); 
     }
     else { 
-        // Buscar la card original para copiar sus estilos exactos
         const card = document.querySelector(`article[data-id="${producto.id}"]`);
         if (card) {
-            const cardProducto = card.querySelector('.cardProducto');
-            const cardProductoInner = card.querySelector('.cardProductoInner');
-            const cardInfo = card.querySelector('.cardInfo');
-            const cardInfoInner = card.querySelector('.cardInfoInner');
-            const titleEl = cardInfoInner?.querySelector('p:first-child');
-            const subtitleEl = cardInfoInner?.querySelector('p:last-child');
-            const dotsBtn = card.querySelector('button.btn-precio.absolute.right-1.bottom-2\\.5, button.btn-precio.absolute.right-1.bottom-3\\.75');
+            const getCls = (sel) => {
+                const el = card.querySelector(sel);
+                return el ? el.className : '';
+            };
             
-            producto.bgProducto = extractBgClass(cardProducto);
-            producto.bgInner = extractBgClass(cardProductoInner);
-            producto.bgInfo = extractBgClass(cardInfo);
-            producto.bgInfoInner = extractBgClass(cardInfoInner);
-            producto.hasBorder = cardProductoInner ? cardProductoInner.classList.contains('border') : false;
-            producto.titleClasses = titleEl ? titleEl.className : '';
-            producto.subtitleClasses = subtitleEl ? subtitleEl.className : '';
-            producto.dotsHTML = dotsBtn ? dotsBtn.innerHTML : '';
+            // Copiamos TODAS las clases de cada pieza
+            producto.clsProducto      = getCls('.cardProducto');
+            producto.clsProductoInner = getCls('.cardProductoInner');
+            producto.clsInfo          = getCls('.cardInfo');
+            producto.clsInfoInner     = getCls('.cardInfoInner');
+            producto.clsBtnFav        = getCls('.btn-favorito');
+            producto.clsBtnPrecio     = getCls('div.btn-precio');   // el div del precio
+            producto.clsBtnCarrito    = getCls('.btn-agregar-carrito');
+            
+            // Dots = el button.btn-precio (siempre es <button> en tu HTML)
+            const dotsBtn = card.querySelector('button.btn-precio');
+            producto.clsBtnDots = dotsBtn ? dotsBtn.className : '';
+            producto.dotsHTML   = dotsBtn ? dotsBtn.innerHTML : '';
+            
+            // Textos (título y subtítulo)
+            const infoInner = card.querySelector('.cardInfoInner');
+            if (infoInner) {
+                const ps = infoInner.querySelectorAll('p');
+                producto.clsTitle    = ps[0] ? ps[0].className : '';
+                producto.clsSubtitle = ps[1] ? ps[1].className : '';
+            }
         }
         favoritos.push(producto); 
     }
@@ -611,38 +650,28 @@ function renderizarFavoritos() {
     if (vacioMsg) vacioMsg.classList.add('hidden');
 
     favoritos.forEach(item => {
-        const bgProducto = item.bgProducto || 'bg-stone-950';
-        const bgInner = item.bgInner || 'bg-puro';
-        const bgInfo = item.bgInfo || 'bg-stone-950';
-        const bgInfoInner = item.bgInfoInner || 'bg-puro';
-        const hasBorder = item.hasBorder !== undefined ? item.hasBorder : true;
-        const borderClass = hasBorder ? 'border border-stone-950' : '';
-        const titleClasses = item.titleClasses || 'font-Inter text-xs font-extrabold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25';
-        const subtitleClasses = item.subtitleClasses || 'font-Inter text-xs font-extrabold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5';
-        const dotsHTML = item.dotsHTML || '';
-
         const cardHTML = `
         <article class="w-[172px] h-[254px] relative sm:w-[234px] sm:h-[381px]" data-id="${item.id}" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}">
-            <div class="absolute inset-0 ${bgProducto} dark:bg-temu cardProducto"></div>
-            <div class="w-[172px] h-52.5 ${bgInner} dark:bg-stone-900 cardProductoInner absolute inset-0 overflow-hidden ${borderClass} dark:border-temu sm:w-[234px] sm:h-78.75">
+            <div class="${item.clsProducto || 'absolute inset-0 bg-stone-950 dark:bg-temu cardProducto'}"></div>
+            <div class="${item.clsProductoInner || 'w-[172px] h-52.5 bg-white dark:bg-stone-900 cardProductoInner absolute inset-0 overflow-hidden border border-stone-950 dark:border-temu sm:w-[234px] sm:h-78.75'}">
                 <img src="${item.imagen}" alt="" class="w-full h-full object-contain object-[50%_70%] sm:object-[50%_60%]">
             </div>
-            <button class="btn-favorito absolute top-1.5 right-1.5 z-20 size-6 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2 activo">
+            <button class="${item.clsBtnFav || 'btn-favorito absolute top-1.5 right-1.5 z-20 size-6 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2'} activo">
                 <i class="ri-heart-fill text-sm text-stone-950 dark:text-white/20 transition-colors duration-200 sm:text-lg"></i>
             </button>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 ${bgInner} dark:bg-stone-800 dark:text-temu ${hasBorder ? 'border dark:border-stone-800' : ''} rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+            <div class="${item.clsBtnPrecio || 'w-18 h-6 absolute top-0.5 left-2.25 bg-puro dark:bg-stone-800 dark:text-temu dark:border dark:border-stone-800 rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]'}">
                 <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ ${parseFloat(item.precio).toFixed(2)}</p>
             </div>
-            <button class="btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]"
+            <button class="${item.clsBtnCarrito || 'btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]'}"
                 data-id="${item.id}" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}" data-precio="${item.precio}" data-imagen="${item.imagen}">
                 <i class="ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
-            <div class="absolute ${bgInfo} dark:bg-temu bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
-            <div class="w-[172px] h-10 absolute bottom-0 ${bgInfoInner} dark:bg-stone-900 dark:text-temu cardInfoInner flex flex-col justify-center ${borderClass} dark:border-temu sm:w-[234px] sm:h-15">
-                <p class="${titleClasses}">${item.titulo}</p>
-                <p class="${subtitleClasses}">${item.subtitulo}</p>
+            <div class="${item.clsInfo || 'absolute bg-stone-950 dark:bg-temu bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15'}"></div>
+            <div class="${item.clsInfoInner || 'w-[172px] h-10 absolute bottom-0 bg-puro dark:bg-stone-900 dark:text-temu cardInfoInner flex flex-col justify-center border border-stone-950 dark:border-temu sm:w-[234px] sm:h-15'}">
+                <p class="${item.clsTitle || 'font-Inter text-xs font-extrabold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25'}">${item.titulo}</p>
+                <p class="${item.clsSubtitle || 'font-Inter text-xs font-extrabold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5'}">${item.subtitulo}</p>
             </div>
-            ${dotsHTML ? `<button class="absolute bg-white dark:bg-stone-600 right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio sm:w-11.25 sm:h-[13.5px] sm:right-1.5 sm:bottom-3.75">${dotsHTML}</button>` : ''}
+            ${item.clsBtnDots ? `<button class="${item.clsBtnDots}">${item.dotsHTML || ''}</button>` : ''}
         </article>`;
     
         grid.insertAdjacentHTML('beforeend', cardHTML);

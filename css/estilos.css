@@ -865,6 +865,9 @@
     --tw-border-style: none;
     border-style: none;
   }
+  .border-puro {
+    border-color: var(--color-puro);
+  }
   .border-stone-100 {
     border-color: var(--color-stone-100);
   }
@@ -948,6 +951,9 @@
   }
   .bg-stone-500 {
     background-color: var(--color-stone-500);
+  }
+  .bg-stone-900 {
+    background-color: var(--color-stone-900);
   }
   .bg-stone-950 {
     background-color: var(--color-stone-950);
@@ -1566,11 +1572,9 @@
       left: calc(var(--spacing) * 97);
     }
   }
-  .dark\:border-stone-400:where(.dark, .dark *) {
-    border-color: var(--color-stone-400);
-  }
-  .dark\:border-stone-600:where(.dark, .dark *) {
-    border-color: var(--color-stone-600);
+  .dark\:border:where(.dark, .dark *) {
+    border-style: var(--tw-border-style);
+    border-width: 1px;
   }
   .dark\:border-stone-700:where(.dark, .dark *) {
     border-color: var(--color-stone-700);
@@ -1608,17 +1612,11 @@
   .dark\:bg-temu:where(.dark, .dark *) {
     background-color: var(--color-temu);
   }
-  .dark\:text-red-400:where(.dark, .dark *) {
-    color: var(--color-red-400);
-  }
   .dark\:text-stone-400:where(.dark, .dark *) {
     color: var(--color-stone-400);
   }
   .dark\:text-stone-500:where(.dark, .dark *) {
     color: var(--color-stone-500);
-  }
-  .dark\:text-stone-600:where(.dark, .dark *) {
-    color: var(--color-stone-600);
   }
   .dark\:text-temu:where(.dark, .dark *) {
     color: var(--color-temu);
@@ -1663,12 +1661,6 @@
     --tw-shadow-color: color-mix(in srgb, #FB7701 0%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-temu) 0%, transparent) var(--tw-shadow-alpha), transparent);
-    }
-  }
-  .dark\:shadow-temu\/5:where(.dark, .dark *) {
-    --tw-shadow-color: color-mix(in srgb, #FB7701 5%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-temu) 5%, transparent) var(--tw-shadow-alpha), transparent);
     }
   }
   @media (hover: hover) {
