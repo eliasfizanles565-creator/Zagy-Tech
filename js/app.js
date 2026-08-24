@@ -1865,6 +1865,7 @@ if (btnModoOscuro) {
 // ======================================================
 const btnLangEs = document.getElementById('btn-lang-es');
 const btnLangEn = document.getElementById('btn-lang-en');
+const btnLangQu = document.getElementById('btn-lang-qu');
 
 const traducciones = {
     es: {
@@ -1948,6 +1949,43 @@ const traducciones = {
         finalizarCompra: 'Complete Purchase',
 
         // Agrega aquí los equivalentes en inglés...
+    },
+    // ============================================
+    // NUEVO: QUECHUA
+    // ============================================
+    qu: {
+        modo: 'Sami:',
+        idioma: 'Simi:',
+        firstWeb: 'Ñawpaq Web:',
+        usuario: 'Ruraq',
+        categorias: 'T\'inkikuna',
+        inicio: 'Qallariy',
+        favoritos: 'Munasqakuna',
+        carrito: 'Churana',
+        verMas: 'Aswan rikuy',
+        verMenos: 'Aswan pisiy',
+        buscarPlaceholder: 'kipu apaykachana',
+        todos: 'Tukuy',
+        ofertas: 'Chaninchasqa',
+        hogar: 'Wasi',
+        tecnologia: 'Tecnología',
+        accesorios: 'Yanapakuna',
+        figuras: 'Rikch\'akuna',
+        albums: 'Álbumkuna',
+        ropa: 'Churana',
+        hombre: 'Qhari',
+        mujer: 'Warmi',
+        moda: 'Takiy',
+        zapatillas: 'Sapatillakuna',
+        relojes: 'Unanchakuna',
+        perfumes: 'Perfumekuna',
+        joyeria: 'Qhapaq ñanikuna',
+        licores: 'Usphakuna',
+        misFavoritos: 'Munasqaykuna',
+        guardarFavoritos: 'Kaypi waqaychay munasqaykita',
+        miCarrito: 'Churanay',
+        total: 'Tukuy chanin',
+        finalizarCompra: 'Tukuchiy rantiyta',
     }
 };
 
@@ -1971,18 +2009,26 @@ function aplicarIdioma(lang) {
     }
 
     
-    // Actualizar botones visuales
-    if (lang === 'es') {
-        btnLangEs?.classList.add('border-temu', 'bg-temu');
-        btnLangEs?.classList.remove('border-transparent');
-        btnLangEn?.classList.remove('border-temu', 'bg-temu');
-        btnLangEn?.classList.add('border-transparent');
-    } else {
-        btnLangEn?.classList.add('border-temu', 'bg-temu');
-        btnLangEn?.classList.remove('border-transparent');
-        btnLangEs?.classList.remove('border-temu', 'bg-temu');
-        btnLangEs?.classList.add('border-transparent');
-    }
+     // ============================================
+    // ACTUALIZAR BOTONES VISUALES (ES / EN / QU)
+    // ============================================
+    const botones = {
+        es: document.getElementById('btn-lang-es'),
+        en: document.getElementById('btn-lang-en'),
+        qu: document.getElementById('btn-lang-qu')
+    };
+
+    Object.keys(botones).forEach(key => {
+        const btn = botones[key];
+        if (!btn) return;
+        if (key === lang) {
+            btn.classList.add('border-temu', 'bg-temu');
+            btn.classList.remove('border-transparent');
+        } else {
+            btn.classList.remove('border-temu', 'bg-temu');
+            btn.classList.add('border-transparent');
+        }
+    });
     
     localStorage.setItem('zagy_idioma', lang);
 }
@@ -1998,6 +2044,7 @@ function iniciarIdioma() {
 
 if (btnLangEs) btnLangEs.addEventListener('click', () => aplicarIdioma('es'));
 if (btnLangEn) btnLangEn.addEventListener('click', () => aplicarIdioma('en'));
+if (btnLangQu) btnLangQu.addEventListener('click', () => aplicarIdioma('qu'));
 
 // ======================================================
 // FIRST WEB - Redirección externa
