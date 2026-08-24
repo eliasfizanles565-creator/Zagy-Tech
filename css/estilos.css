@@ -15,12 +15,22 @@
     --color-yellow-400: oklch(85.2% 0.199 91.936);
     --color-green-700: oklch(52.7% 0.154 150.069);
     --color-blue-100: oklch(93.2% 0.032 255.585);
+    --color-blue-300: oklch(80.9% 0.105 251.813);
     --color-blue-400: oklch(70.7% 0.165 254.624);
+    --color-blue-700: oklch(48.8% 0.243 264.376);
+    --color-blue-800: oklch(42.4% 0.199 265.638);
     --color-blue-900: oklch(37.9% 0.146 265.522);
+    --color-blue-950: oklch(28.2% 0.091 267.935);
     --color-indigo-100: oklch(93% 0.034 272.788);
     --color-purple-100: oklch(94.6% 0.033 307.174);
+    --color-purple-300: oklch(82.7% 0.119 306.383);
+    --color-purple-950: oklch(29.1% 0.149 302.717);
     --color-pink-100: oklch(94.8% 0.028 342.258);
+    --color-pink-300: oklch(82.3% 0.12 346.018);
+    --color-pink-950: oklch(28.4% 0.109 3.907);
     --color-rose-200: oklch(89.2% 0.058 10.001);
+    --color-zinc-700: oklch(37% 0.013 285.805);
+    --color-neutral-700: oklch(37.1% 0 none);
     --color-stone-100: oklch(97% 0.001 106.424);
     --color-stone-200: oklch(92.3% 0.003 48.717);
     --color-stone-400: oklch(70.9% 0.01 56.259);
@@ -1576,6 +1586,9 @@
     border-style: var(--tw-border-style);
     border-width: 1px;
   }
+  .dark\:border-stone-500:where(.dark, .dark *) {
+    border-color: var(--color-stone-500);
+  }
   .dark\:border-stone-700:where(.dark, .dark *) {
     border-color: var(--color-stone-700);
   }
@@ -1591,8 +1604,86 @@
   .dark\:border-t-stone-700:where(.dark, .dark *) {
     border-top-color: var(--color-stone-700);
   }
+  .dark\:bg-blue-700:where(.dark, .dark *) {
+    background-color: var(--color-blue-700);
+  }
+  .dark\:bg-blue-800:where(.dark, .dark *) {
+    background-color: var(--color-blue-800);
+  }
+  .dark\:bg-blue-900:where(.dark, .dark *) {
+    background-color: var(--color-blue-900);
+  }
+  .dark\:bg-blue-950:where(.dark, .dark *) {
+    background-color: var(--color-blue-950);
+  }
+  .dark\:bg-blue-950\/30:where(.dark, .dark *) {
+    background-color: color-mix(in srgb, oklch(28.2% 0.091 267.935) 30%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-blue-950) 30%, transparent);
+    }
+  }
+  .dark\:bg-blue-950\/70:where(.dark, .dark *) {
+    background-color: color-mix(in srgb, oklch(28.2% 0.091 267.935) 70%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-blue-950) 70%, transparent);
+    }
+  }
+  .dark\:bg-neutral-700:where(.dark, .dark *) {
+    background-color: var(--color-neutral-700);
+  }
+  .dark\:bg-pink-950:where(.dark, .dark *) {
+    background-color: var(--color-pink-950);
+  }
+  .dark\:bg-pink-950\/10:where(.dark, .dark *) {
+    background-color: color-mix(in srgb, oklch(28.4% 0.109 3.907) 10%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-pink-950) 10%, transparent);
+    }
+  }
+  .dark\:bg-pink-950\/20:where(.dark, .dark *) {
+    background-color: color-mix(in srgb, oklch(28.4% 0.109 3.907) 20%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-pink-950) 20%, transparent);
+    }
+  }
+  .dark\:bg-pink-950\/30:where(.dark, .dark *) {
+    background-color: color-mix(in srgb, oklch(28.4% 0.109 3.907) 30%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-pink-950) 30%, transparent);
+    }
+  }
+  .dark\:bg-pink-950\/50:where(.dark, .dark *) {
+    background-color: color-mix(in srgb, oklch(28.4% 0.109 3.907) 50%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-pink-950) 50%, transparent);
+    }
+  }
+  .dark\:bg-pink-950\/70:where(.dark, .dark *) {
+    background-color: color-mix(in srgb, oklch(28.4% 0.109 3.907) 70%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-pink-950) 70%, transparent);
+    }
+  }
+  .dark\:bg-purple-950:where(.dark, .dark *) {
+    background-color: var(--color-purple-950);
+  }
+  .dark\:bg-purple-950\/30:where(.dark, .dark *) {
+    background-color: color-mix(in srgb, oklch(29.1% 0.149 302.717) 30%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-purple-950) 30%, transparent);
+    }
+  }
+  .dark\:bg-purple-950\/70:where(.dark, .dark *) {
+    background-color: color-mix(in srgb, oklch(29.1% 0.149 302.717) 70%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-purple-950) 70%, transparent);
+    }
+  }
   .dark\:bg-stone-600:where(.dark, .dark *) {
     background-color: var(--color-stone-600);
+  }
+  .dark\:bg-stone-700:where(.dark, .dark *) {
+    background-color: var(--color-stone-700);
   }
   .dark\:bg-stone-800:where(.dark, .dark *) {
     background-color: var(--color-stone-800);
@@ -1612,11 +1703,35 @@
   .dark\:bg-temu:where(.dark, .dark *) {
     background-color: var(--color-temu);
   }
+  .dark\:bg-zinc-700:where(.dark, .dark *) {
+    background-color: var(--color-zinc-700);
+  }
+  .dark\:text-blue-300:where(.dark, .dark *) {
+    color: var(--color-blue-300);
+  }
+  .dark\:text-pink-300:where(.dark, .dark *) {
+    color: var(--color-pink-300);
+  }
+  .dark\:text-purple-300:where(.dark, .dark *) {
+    color: var(--color-purple-300);
+  }
   .dark\:text-stone-400:where(.dark, .dark *) {
     color: var(--color-stone-400);
   }
   .dark\:text-stone-500:where(.dark, .dark *) {
     color: var(--color-stone-500);
+  }
+  .dark\:text-stone-600:where(.dark, .dark *) {
+    color: var(--color-stone-600);
+  }
+  .dark\:text-stone-800:where(.dark, .dark *) {
+    color: var(--color-stone-800);
+  }
+  .dark\:text-stone-900:where(.dark, .dark *) {
+    color: var(--color-stone-900);
+  }
+  .dark\:text-stone-950:where(.dark, .dark *) {
+    color: var(--color-stone-950);
   }
   .dark\:text-temu:where(.dark, .dark *) {
     color: var(--color-temu);

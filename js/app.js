@@ -49,6 +49,7 @@ function cargarFavoritos() {
                         f.clsBtnFav        = getCls('.btn-favorito');
                         f.clsBtnPrecio     = getCls('div.btn-precio');
                         f.clsBtnCarrito    = getCls('.btn-agregar-carrito');
+                        
                         const dotsBtn = card.querySelector('button.btn-precio');
                         f.clsBtnDots = dotsBtn ? dotsBtn.className : '';
                         f.dotsHTML   = dotsBtn ? dotsBtn.innerHTML : '';
@@ -585,6 +586,10 @@ function toggleFavorito(producto) {
             producto.clsBtnFav        = getCls('.btn-favorito');
             producto.clsBtnPrecio     = getCls('div.btn-precio');   // el div del precio
             producto.clsBtnCarrito    = getCls('.btn-agregar-carrito');
+
+            // Guardar las clases exactas del <i> dentro del botón carrito
+            const carritoIcon = card.querySelector('.btn-agregar-carrito i');
+            producto.clsCarritoIcon = carritoIcon ? carritoIcon.className : '';
             
             // Dots = el button.btn-precio (siempre es <button> en tu HTML)
             const dotsBtn = card.querySelector('button.btn-precio');
@@ -664,7 +669,7 @@ function renderizarFavoritos() {
             </div>
             <button class="${item.clsBtnCarrito || 'btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]'}"
                 data-id="${item.id}" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}" data-precio="${item.precio}" data-imagen="${item.imagen}">
-                <i class="ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
+                <i class="${item.clsCarritoIcon || 'ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]'}"></i>
             </button>
             <div class="${item.clsInfo || 'absolute bg-stone-950 dark:bg-temu bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15'}"></div>
             <div class="${item.clsInfoInner || 'w-[172px] h-10 absolute bottom-0 bg-puro dark:bg-stone-900 dark:text-temu cardInfoInner flex flex-col justify-center border border-stone-950 dark:border-temu sm:w-[234px] sm:h-15'}">
