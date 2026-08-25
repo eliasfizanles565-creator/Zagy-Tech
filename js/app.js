@@ -690,16 +690,16 @@ const articleHTML = `
                 <!-- s/ y número juntos, nunca se rompen, se encojen si es necesario -->
                 <p class="${subSizeClass} text-temu font-Russo pr-1 leading-3 whitespace-nowrap">s/ ${subtotalStr}</p>
                 <div class="flex justify-center items-center h-5 w-15 rounded-4xl bg-stone-950 dark:bg-stone-800 gap-2 text-white dark:text-white/70 font-semibold mt-5">
-                    <button onclick="cambiarCantidad(${item.cartId}, -1)" class="bg-transparent cursor-pointer rounded-4xl size-5 flex items-center justify-center">-</button>
+                    <button onclick="cambiarCantidad('${item.cartId}', -1)" class="bg-transparent cursor-pointer rounded-4xl size-5 flex items-center justify-center">-</button>
                     <div class="flex flex-col items-center justify-center">
                         <p class="leading-3 text-xs">${item.cantidad}</p>
                     </div>
-                    <button onclick="cambiarCantidad(${item.cartId}, 1)" class="bg-transparent cursor-pointer rounded-4xl size-5 flex items-center justify-center">+</button>
+                    <button onclick="cambiarCantidad('${item.cartId}', 1)" class="bg-transparent cursor-pointer rounded-4xl size-5 flex items-center justify-center">+</button>
                 </div>
             </div>
 
             <!-- Tachito de la esquina superior derecha (click directo) -->
-            <div class="btn-tachito bg-temu h-5 w-7 absolute top-0 right-0 rounded-bl-xl flex justify-center items-center text-white cursor-pointer z-20" onclick="eliminarArticulo(${item.cartId})">
+            <div class="btn-tachito bg-temu h-5 w-7 absolute top-0 right-0 rounded-bl-xl flex justify-center items-center text-white cursor-pointer z-20" onclick="eliminarArticulo('${item.cartId}')">
                 <i class="ri-delete-bin-6-line text-xs pl-1"></i>
             </div>
         </article>
@@ -1729,8 +1729,8 @@ function initSwipeDelete() {
         // Click en el botón rojo del swipe
         if (deleteBtn) {
             deleteBtn.addEventListener('click', () => {
-                const id = parseInt(wrapper.dataset.swipeId);
-                eliminarArticulo(id, false);
+                const cartId = wrapper.dataset.swipeId;
+                eliminarArticulo(cartId, false);    
             });
         }
     });
@@ -3072,7 +3072,8 @@ function renderizarRelacionados(ids) {
 document.addEventListener('click', (e) => {
     // 🔥 LÍNEAS NUEVAS: Si estamos haciendo swipe en el carrito, NO abrir detalle
     if (window._isSwiping) return;
-    if (e.target.closest('.swipe-wrapper') && window._isSwiping) return;
+    if (e.target.closest('.swipe-wrapper')) return;
+
     
     // Detectar card en grid, favoritos, carrito o hero
     const card = e.target.closest('#product-grid article[data-id], #favoritos-grid article[data-id], #contenedor-items-carrito article[data-id], .swiper-slide[data-id]');
