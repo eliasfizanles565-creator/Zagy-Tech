@@ -181,7 +181,14 @@ function guardarCarrito() {
 function cargarCarrito() {
     const data = localStorage.getItem('zagy_carrito');
     if (data) {
-        try { carritoDeCompras = JSON.parse(data); } catch (e) { carritoDeCompras = []; }
+        try { 
+            carritoDeCompras = JSON.parse(data); 
+            carritoDeCompras.forEach(item => {
+                if (!item.cartId) {
+                    item.cartId = Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+                }
+            });
+        } catch (e) { carritoDeCompras = []; }
     }
 }
 function guardarFavoritos() {
@@ -611,9 +618,20 @@ document.addEventListener('click', (e) => {
 });
 
 function agregarAlCarrito(producto) {
-    const index = carritoDeCompras.findIndex(item => item.id === producto.id);
-    if (index !== -1) { carritoDeCompras[index].cantidad += 1; }
-    else { carritoDeCompras.push({ ...producto, cantidad: 1 }); }
+    const index = carritoDeCompras.findIndex(item => 
+        item.id === producto.id && 
+        (item.variante?.valor || '') === (producto.variante?.valor || '')
+    );
+    
+    if (index !== -1) {
+        carritoDeCompras[index].cantidad += 1;
+    } else {
+        carritoDeCompras.push({ 
+            ...producto, 
+            cantidad: 1, 
+            cartId: Date.now().toString(36) + Math.random().toString(36).substr(2, 5)
+        });
+    }
     guardarCarrito();
     renderizarCarrito();
     sincronizarBadgesCantidad();
@@ -644,7 +662,7 @@ const varianteTexto = item.variante
     : 'Color: Estándar';
 
 const articleHTML = `
-    <div class="swipe-wrapper shadow-lg shadow-stone-400 dark:shadow-temu/0 relative rounded-xl" data-swipe-id="${item.id}">
+    <div class="swipe-wrapper shadow-lg shadow-stone-400 dark:shadow-temu/0 relative rounded-xl" data-swipe-id="${item.cartId}">
         <!-- Botón rojo que aparece al deslizar -->
         <div class="swipe-delete-btn absolute right-0 top-0 bottom-0 w-20 flex items-center justify-center z-0 cursor-pointer rounded-r-xl">
             <i class="ri-delete-bin-6-line text-white text-xl"></i>
@@ -672,16 +690,16 @@ const articleHTML = `
                 <!-- s/ y número juntos, nunca se rompen, se encojen si es necesario -->
                 <p class="${subSizeClass} text-temu font-Russo pr-1 leading-3 whitespace-nowrap">s/ ${subtotalStr}</p>
                 <div class="flex justify-center items-center h-5 w-15 rounded-4xl bg-stone-950 dark:bg-stone-800 gap-2 text-white dark:text-white/70 font-semibold mt-5">
-                    <button onclick="cambiarCantidad(${item.id}, -1)" class="bg-transparent cursor-pointer rounded-4xl size-5 flex items-center justify-center">-</button>
+                    <button onclick="cambiarCantidad(${item.cartId}, -1)" class="bg-transparent cursor-pointer rounded-4xl size-5 flex items-center justify-center">-</button>
                     <div class="flex flex-col items-center justify-center">
                         <p class="leading-3 text-xs">${item.cantidad}</p>
                     </div>
-                    <button onclick="cambiarCantidad(${item.id}, 1)" class="bg-transparent cursor-pointer rounded-4xl size-5 flex items-center justify-center">+</button>
+                    <button onclick="cambiarCantidad(${item.cartId}, 1)" class="bg-transparent cursor-pointer rounded-4xl size-5 flex items-center justify-center">+</button>
                 </div>
             </div>
 
             <!-- Tachito de la esquina superior derecha (click directo) -->
-            <div class="btn-tachito bg-temu h-5 w-7 absolute top-0 right-0 rounded-bl-xl flex justify-center items-center text-white cursor-pointer z-20" onclick="eliminarArticulo(${item.id})">
+            <div class="btn-tachito bg-temu h-5 w-7 absolute top-0 right-0 rounded-bl-xl flex justify-center items-center text-white cursor-pointer z-20" onclick="eliminarArticulo(${item.cartId})">
                 <i class="ri-delete-bin-6-line text-xs pl-1"></i>
             </div>
         </article>
@@ -713,8 +731,8 @@ if (elementoTotal) {
     initSwipeDelete();
 }
 
-function cambiarCantidad(id, delta) {
-    const index = carritoDeCompras.findIndex(item => item.id === id);
+function cambiarCantidad(cartId, delta) {
+    const index = carritoDeCompras.findIndex(item => item.cartId === cartId);
     if (index !== -1) {
         carritoDeCompras[index].cantidad += delta;
         if (carritoDeCompras[index].cantidad <= 0) carritoDeCompras.splice(index, 1);
@@ -941,8 +959,29 @@ function gestionarVista(vista) {
         if (favoritosSection) favoritosSection.classList.add('hidden');
         if (separadorNav) separadorNav.classList.remove('hidden');
         // Mostrar nav superior completo en movil/tablet
-        if (navSuperior) navSuperior.classList.remove('max-lg:hidden');
-        if (separadorSuperior) separadorSuperior.classList.remove('max-lg:hidden');
+        // if (navSuperior) navSuperior.classList.remove('max-lg:hidden');
+        // if (separadorSuperior) separadorSuperior.classList.remove('max-lg:hidden');
+    }
+}
+
+function setNavMobileVisible(mostrar) {
+    const nav = document.querySelector('nav');
+    const sep = nav?.nextElementSibling;
+    if (!nav || window.innerWidth >= 1024) return;
+    
+    nav.style.transition = 'transform 0.35s ease, opacity 0.35s ease';
+    nav.style.willChange = 'transform, opacity';
+    
+    if (mostrar) {
+        nav.style.transform = 'translateY(0)';
+        nav.style.opacity = '1';
+        nav.style.pointerEvents = 'auto';
+        if (sep) { sep.style.display = 'block'; sep.style.opacity = '1'; }
+    } else {
+        nav.style.transform = 'translateY(-120%)';
+        nav.style.opacity = '0';
+        nav.style.pointerEvents = 'none';
+        if (sep) { sep.style.opacity = '0'; setTimeout(() => sep.style.display = 'none', 300); }
     }
 }
 
@@ -1528,11 +1567,10 @@ document.addEventListener('touchstart', (e) => {
 // ======================================================
 // ELIMINAR ARTICULO COMPLETO DEL CARRITO
 // ======================================================
-function eliminarArticulo(id, animarTachito = true) {
-    const wrapper = document.querySelector(`.swipe-wrapper[data-swipe-id="${id}"]`);
+function eliminarArticulo(cartId, animarTachito = true) {
+    const wrapper = document.querySelector(`.swipe-wrapper[data-swipe-id="${cartId}"]`);
     
     if (wrapper) {
-        // Solo animar el tachito si se presionó EL TACHITO (no el botón rojo)
         if (animarTachito) {
             const tachito = wrapper.querySelector('.btn-tachito');
             if (tachito) {
@@ -1540,7 +1578,6 @@ function eliminarArticulo(id, animarTachito = true) {
                 void tachito.offsetWidth;
                 tachito.classList.add('tachito-animado');
             }
-            // Esperar a que el tachito "grite" antes de que la card huya
             setTimeout(() => {
                 const card = wrapper.querySelector('.card-swipe');
                 if (card) card.classList.add('card-eliminandose');
@@ -1549,7 +1586,7 @@ function eliminarArticulo(id, animarTachito = true) {
             setTimeout(() => {
                 wrapper.classList.add('eliminando');
                 setTimeout(() => {
-                    const index = carritoDeCompras.findIndex(item => item.id === id);
+                    const index = carritoDeCompras.findIndex(item => item.cartId === cartId);
                     if (index !== -1) {
                         carritoDeCompras.splice(index, 1);
                         guardarCarrito();
@@ -1559,14 +1596,12 @@ function eliminarArticulo(id, animarTachito = true) {
                 }, 300);
             }, 550);
         } else {
-            // Si vino del botón rojo: la card huye inmediatamente, SIN animar tachito
             const card = wrapper.querySelector('.card-swipe');
             if (card) card.classList.add('card-eliminandose');
-            
             setTimeout(() => {
                 wrapper.classList.add('eliminando');
                 setTimeout(() => {
-                    const index = carritoDeCompras.findIndex(item => item.id === id);
+                    const index = carritoDeCompras.findIndex(item => item.cartId === cartId);
                     if (index !== -1) {
                         carritoDeCompras.splice(index, 1);
                         guardarCarrito();
@@ -1577,8 +1612,7 @@ function eliminarArticulo(id, animarTachito = true) {
             }, 200);
         }
     } else {
-        // Fallback
-        const index = carritoDeCompras.findIndex(item => item.id === id);
+        const index = carritoDeCompras.findIndex(item => item.cartId === cartId);
         if (index !== -1) {
             carritoDeCompras.splice(index, 1);
             guardarCarrito();
@@ -2373,13 +2407,11 @@ function getProducto(id) {
 
 // ─── ABRIR DETALLE ───
 function abrirDetalleProducto(id) {
-
-     // Ocultar mensaje de resultados
     const msg = document.getElementById('search-results-msg');
     if (msg) msg.classList.add('hidden');
     
     const producto = getProducto(id);
-    if (!producto) { console.warn('Producto no encontrado:', id); return; }
+    if (!producto) return;
 
     productoActualId = id;
     cantidadDetalle = 1;
@@ -2388,7 +2420,7 @@ function abrirDetalleProducto(id) {
     const detalleSection = document.getElementById('producto-detalle');
     if (!detalleSection) return;
 
-    // Ocultar todo lo demás
+    // OCULTAR TODO LO DEMÁS
     document.querySelectorAll('.hero-container').forEach(h => { h.classList.add('hidden'); h.style.display = 'none'; });
     const grid = document.getElementById('product-grid');
     const navCat = document.getElementById('nav-categorias');
@@ -2396,8 +2428,6 @@ function abrirDetalleProducto(id) {
     const carritoSec = document.getElementById('carrito-section');
     const favSec = document.getElementById('favoritos-section');
     const btnCarritoFlotante = document.getElementById('btn-carrito');
-    const navSup = document.querySelector('nav');
-    const sepNav = navCat?.nextElementSibling;
 
     if (grid) grid.classList.add('hidden');
     if (navCat) navCat.classList.add('hidden');
@@ -2405,22 +2435,28 @@ function abrirDetalleProducto(id) {
     if (carritoSec) carritoSec.classList.add('hidden');
     if (favSec) favSec.classList.add('hidden');
     if (btnCarritoFlotante) btnCarritoFlotante.classList.add('hidden');
-    if (navSup) navSup.classList.remove('max-lg:hidden');
-    if (sepNav) sepNav.classList.add('hidden');
 
-    // Mostrar detalle con fade suave (sin scroll brusco)
+    // 🔥 ESTO ES LO QUE FALTABA: LIMPIAR CUALQUIER TRANSFORM BASURA
     detalleSection.classList.remove('hidden');
+    detalleSection.style.removeProperty('transform');
+    detalleSection.style.removeProperty('transition');
     detalleSection.style.opacity = '0';
-    detalleSection.style.transform = 'translateY(30px)';
-    detalleSection.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     
-    setTimeout(() => {
-        detalleSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Fade in simple, SIN transform
+    requestAnimationFrame(() => {
+        detalleSection.style.transition = 'opacity 0.3s ease';
         detalleSection.style.opacity = '1';
-        detalleSection.style.transform = 'translateY(0)';
-    }, 30);
+    });
 
-    // ─── INFO BÁSICA ───
+    if (window.innerWidth >= 1024) {
+        window.scrollTo({ top: 0, behavior: 'auto' });
+    } else {
+        setTimeout(() => {
+            detalleSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
+    }
+
+    // --- RESTO DE LA FUNCIÓN (info, precios, etc.) ---
     document.getElementById('detalle-titulo').textContent = producto.titulo || '';
     document.getElementById('detalle-subtitulo').textContent = producto.subtitulo || '';
     document.getElementById('detalle-marca').textContent = producto.marca || '';
@@ -2431,7 +2467,6 @@ function abrirDetalleProducto(id) {
     const descLarga = document.getElementById('detalle-descripcion-larga');
     if (descLarga) descLarga.textContent = (producto.detalles?.[idiomaActual] || producto.detalles?.es || '');
 
-    // Precio tachado
     const precioTachado = document.getElementById('detalle-precio-tachado');
     const badgeDesc = document.getElementById('detalle-descuento');
     if (producto.precioOriginal && producto.descuento > 0) {
@@ -2444,11 +2479,9 @@ function abrirDetalleProducto(id) {
         badgeDesc.classList.add('hidden');
     }
 
-    // Cantidad reset
     const cantEl = document.getElementById('detalle-cantidad-valor');
     if (cantEl) cantEl.textContent = '1';
 
-    // Accordions textos
     const accEnv = document.getElementById('accordion-envio');
     const accGar = document.getElementById('accordion-garantia');
     const accDet = document.getElementById('accordion-detalles');
@@ -2458,27 +2491,19 @@ function abrirDetalleProducto(id) {
     if (accDet) accDet.textContent = producto.detalles?.[idiomaActual] || producto.detalles?.es || '';
     if (accDon) accDon.textContent = producto.donacion?.[idiomaActual] || producto.donacion?.es || '';
 
-    // Cerrar accordions
     document.querySelectorAll('.accordion-content').forEach(c => {
         c.style.maxHeight = '0px';
         c.classList.remove('abierto');
     });
     document.querySelectorAll('.accordion-icon').forEach(i => i.classList.remove('rotado'));
 
-    // ─── MEDIAS (imágenes + videos) ───
+    // MEDIAS
     const medias = [];
     (producto.imagenes || []).forEach(src => medias.push({ tipo: 'imagen', src }));
     (producto.videos || []).forEach(src => medias.push({ tipo: 'video', src }));
 
-    if (!medias.length) {
-        console.warn('El producto no tiene imágenes ni videos:', id);
-        return;
-    }
-
-    // Guardar global para lightbox
     window._detalleMedias = medias;
 
-    // Renderizar todo
     renderizarMiniaturas(medias);
     cambiarImagenPrincipal(medias, 0);
     initZoom();
@@ -2486,7 +2511,6 @@ function abrirDetalleProducto(id) {
     renderizarEstilos(producto);
     renderizarCollage(producto, medias);
     renderizarRelacionados(producto.relacionados || []);
-
     initMarqueeEnvio();
 }
 
@@ -2591,35 +2615,52 @@ function cambiarImagenPrincipal(medias, idx) {
     if (oldVideo) { oldVideo.pause(); oldVideo.remove(); }
     imgPrincipal.style.display = 'block';
 
-    if (media.tipo === 'video') {
-        // Ocultar img, crear video con poster
-        imgPrincipal.style.display = 'none';
-        
-        const video = document.createElement('video');
-        video.src = media.src;
-        video.poster = medias.find(m => m.tipo === 'imagen')?.src || ''; // primera imagen como poster
-        video.controls = true;
-        video.playsInline = true;
-        video.preload = 'metadata';
-        video.className = 'w-full h-full object-contain';
-        video.style.borderRadius = '1rem';
-        
-        // Overlay play inicial (opcional, el poster ya tiene el frame)
-        // Pero si quieres un botón play custom:
-        const playOverlay = document.createElement('div');
-        playOverlay.className = 'absolute inset-0 flex items-center justify-center bg-black/20 cursor-pointer z-10';
-        playOverlay.innerHTML = '<div class="size-14 bg-white/90 rounded-full flex items-center justify-center shadow-lg"><i class="ri-play-fill text-3xl text-temu ml-1"></i></div>';
-        
-        video.addEventListener('play', () => { playOverlay.remove(); });
-        
-        container.appendChild(video);
-        container.appendChild(playOverlay);
-        
-        playOverlay.addEventListener('click', () => {
-            video.play();
-        });
+     if (media.tipo === 'video') {
+    imgPrincipal.style.display = 'none';
+    
+    const video = document.createElement('video');
+    video.src = media.src;
+    video.poster = medias.find(m => m.tipo === 'imagen')?.src || '';
+    video.playsInline = true;
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+    video.preload = 'metadata';
+    video.className = 'w-full h-full object-contain';
+    video.style.borderRadius = '1rem';
+    video.loop = false;
+    video.muted = false;
+    
+    const playOverlay = document.createElement('div');
+    playOverlay.id = 'video-play-overlay';
+    playOverlay.className = 'absolute inset-0 flex items-center justify-center bg-black/30 cursor-pointer z-10 transition-opacity duration-300';
+    playOverlay.innerHTML = `
+        <div class="size-16 bg-white/90 rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-transform">
+            <i class="ri-play-fill text-4xl text-temu ml-1"></i>
+        </div>
+    `;
+    
+    playOverlay.addEventListener('click', (e) => {
+        e.stopPropagation();
+        video.play();
+    });
+    
+    video.addEventListener('play', () => {
+        playOverlay.style.opacity = '0';
+        setTimeout(() => playOverlay.style.display = 'none', 300);
+    });
+    video.addEventListener('pause', () => {
+        playOverlay.style.display = 'flex';
+        setTimeout(() => playOverlay.style.opacity = '1', 10);
+    });
+    video.addEventListener('ended', () => {
+        playOverlay.style.display = 'flex';
+        setTimeout(() => playOverlay.style.opacity = '1', 10);
+    });
 
-        if (badgeVideo) badgeVideo.classList.remove('hidden');
+    container.appendChild(video);
+    container.appendChild(playOverlay);
+    
+    if (badgeVideo) badgeVideo.classList.remove('hidden');
     } else {
         imgPrincipal.src = media.src;
         imgPrincipal.style.display = 'block';
@@ -2924,21 +2965,30 @@ document.getElementById('detalle-btn-favorito')?.addEventListener('click', () =>
 
 // ─── VOLVER ───
 function cerrarDetalleProducto() {
+    const detalle = document.getElementById('producto-detalle');
+    if (detalle) {
+        detalle.classList.add('hidden');
+        // 🔥 LIMPIAR TODA LA BASURA INLINE
+        detalle.style.removeProperty('transform');
+        detalle.style.removeProperty('opacity');
+        detalle.style.removeProperty('transition');
+    }
 
-    // 🔥 PEGAR AQUÍ — PAUSAR Y LIMPIAR VIDEOS PRIMERO
+    // Pausar y matar videos
     document.querySelectorAll('#zoom-container video').forEach(v => {
         v.pause();
-        v.currentTime = 0;
+        v.removeAttribute('src');
+        v.load();
         v.remove();
     });
+    document.querySelectorAll('#zoom-container #video-play-overlay').forEach(o => o.remove());
     const imgPrincipal = document.getElementById('img-principal');
-    if (imgPrincipal) imgPrincipal.style.display = 'block';
-    // 🔥 HASTA AQUÍ
+    if (imgPrincipal) {
+        imgPrincipal.style.display = 'block';
+        imgPrincipal.src = '';
+    }
 
-    const detalle = document.getElementById('producto-detalle');
-    if (detalle) detalle.classList.add('hidden');
-
-    // Restaurar vista tienda
+    // Restaurar tienda
     const grid = document.getElementById('product-grid');
     const navCat = document.getElementById('nav-categorias');
     const btnMas = document.getElementById('btn-mas');
