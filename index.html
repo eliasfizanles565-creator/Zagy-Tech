@@ -1082,207 +1082,252 @@
         <!-- ==================================== -->
     <!-- SECTION DETALLE DE PRODUCTO          -->
     <!-- ==================================== -->
-    <section id="producto-detalle" class="hidden w-full min-h-screen bg-white dark:bg-stone-950 pb-24">
+    <section id="producto-detalle" class="hidden w-full min-h-screen bg-white dark:bg-stone-950 pb-24 lg:pb-10">
         
-        <!-- BOTÓN VOLVER -->
-        <div class="w-[95vw] mx-auto lg:max-w-7xl pt-3 pb-2 flex items-center gap-2">
+        <!-- BOTÓN VOLVER (solo mobile) -->
+        <div class="w-[95vw] mx-auto lg:max-w-7xl pt-3 pb-2 flex items-center gap-2 lg:hidden">
             <button id="btn-volver-detalle" class="flex items-center gap-1 text-stone-950 dark:text-white hover:text-temu transition-colors cursor-pointer">
                 <i class="ri-arrow-left-line text-xl"></i>
                 <span class="font-Inter text-sm font-semibold" data-i18n="volver">Volver</span>
             </button>
         </div>
 
-        <!-- GALERÍA PRINCIPAL -->
-        <div class="w-[95vw] mx-auto lg:max-w-7xl">
-            <div class="flex flex-col lg:flex-row gap-4 lg:gap-6">
-                
-                <!-- COLUMNA IZQUIERDA: Miniaturas Vertical -->
-                <div class="hidden lg:block w-20 shrink-0">
-                    <div class="swiper swiper-mini-v-left h-[400px] overflow-hidden">
-                        <div class="swiper-wrapper" id="mini-v-left-wrapper">
-                            <!-- Se llena por JS -->
-                        </div>
-                    </div>
-                </div>
-
-                <!-- CENTRO: Imagen Principal + Zoom -->
-                <div class="flex-1 relative">
-                    <div id="zoom-container" class="relative w-full h-[350px] sm:h-[450px] lg:h-[500px] bg-stone-100 dark:bg-stone-900 rounded-2xl overflow-hidden cursor-zoom-in group">
-                        <img id="img-principal" src="" alt="" class="w-full h-full object-contain transition-transform duration-200 ease-out">
-                        <!-- Indicador de video (solo si hay videos) -->
-                        <div id="badge-video-principal" class="hidden absolute top-3 right-3 bg-stone-950/80 text-white px-2 py-1 rounded-lg text-xs font-semibold backdrop-blur-sm">
-                            <i class="ri-video-line mr-1"></i>VIDEO
-                        </div>
-                    </div>
-                    <p class="text-[10px] text-stone-400 mt-1 text-center font-Inter hidden sm:block" data-i18n="zoomHint">Pasa el mouse o mantén presionado para ampliar</p>
-                </div>
-
-                <!-- COLUMNA DERECHA: Miniaturas Vertical -->
-                <div class="hidden lg:block w-20 shrink-0">
-                    <div class="swiper swiper-mini-v-right h-[400px] overflow-hidden">
-                        <div class="swiper-wrapper" id="mini-v-right-wrapper">
-                            <!-- Se llena por JS -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- BARRA HORIZONTAL MINIATURAS (con flechas) -->
-            <div class="relative mt-4 px-8">
-                <button id="mini-h-prev" class="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-full flex items-center justify-center shadow-sm hover:bg-stone-50 dark:hover:bg-stone-700 transition-colors cursor-pointer">
-                    <i class="ri-arrow-left-s-line text-stone-600 dark:text-white"></i>
-                </button>
-                <div class="swiper swiper-mini-h overflow-hidden">
-                    <div class="swiper-wrapper" id="mini-h-wrapper">
-                        <!-- Se llena por JS -->
-                    </div>
-                </div>
-                <button id="mini-h-next" class="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-full flex items-center justify-center shadow-sm hover:bg-stone-50 dark:hover:bg-stone-700 transition-colors cursor-pointer">
-                    <i class="ri-arrow-right-s-line text-stone-600 dark:text-white"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- INFO DEL PRODUCTO -->
-        <div class="w-[95vw] mx-auto lg:max-w-7xl mt-6 px-1">
-            <!-- Tags -->
-            <div class="flex flex-wrap gap-2 mb-2">
-                <span id="detalle-marca" class="px-3 py-1 bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 text-xs font-semibold rounded-full"></span>
-                <span id="detalle-disponible" class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-semibold rounded-full"></span>
-            </div>
-
-            <!-- Título -->
-            <h1 id="detalle-titulo" class="font-Inter font-bold text-xl sm:text-2xl text-stone-950 dark:text-white leading-tight"></h1>
-            <p id="detalle-subtitulo" class="font-Inter text-sm text-stone-500 dark:text-stone-400 mt-1"></p>
-
-            <!-- Precio -->
-            <div class="flex items-end gap-3 mt-3">
-                <div class="flex items-baseline gap-1">
-                    <span class="text-sm font-Russo text-stone-950 dark:text-white">s/</span>
-                    <span id="detalle-precio" class="text-3xl font-Russo text-temu"></span>
-                </div>
-                <div id="detalle-precio-tachado" class="hidden flex items-baseline gap-1">
-                    <span class="text-sm font-Russo text-stone-400 line-through">s/</span>
-                    <span id="detalle-precio-original" class="text-lg font-Russo text-stone-400 line-through"></span>
-                </div>
-                <span id="detalle-descuento" class="hidden px-2 py-0.5 bg-temu text-white text-xs font-bold rounded-lg"></span>
-            </div>
-
-            <!-- Estilo -->
-            <div class="mt-4">
-                <p class="text-xs font-Inter font-semibold text-stone-500 dark:text-stone-400 mb-2" data-i18n="estilo">Estilo:</p>
-                <div id="detalle-estilo-badge" class="inline-flex px-4 py-2 border-2 border-temu rounded-xl text-sm font-semibold text-stone-950 dark:text-white cursor-default"></div>
-            </div>
-
-            <!-- Botones Acción -->
-            <div class="flex gap-3 mt-6">
-                <button id="detalle-btn-favorito" class="size-12 rounded-2xl border-2 border-stone-200 dark:border-stone-700 flex items-center justify-center transition-all duration-300 hover:scale-105 cursor-pointer shrink-0">
-                    <i class="ri-heart-line text-xl text-stone-950 dark:text-white transition-colors duration-200"></i>
-                </button>
-                <button id="detalle-btn-carrito" class="flex-1 h-12 bg-temu rounded-2xl flex items-center justify-center gap-2 btn-epico cursor-pointer transition-transform duration-300">
-                    <i class="ri-shopping-cart-2-line text-white text-lg"></i>
-                    <span class="font-Inter font-semibold text-white text-sm" data-i18n="agregarCarrito">Agregar al Carrito</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- ACCORDIONS -->
-        <div class="w-[95vw] mx-auto lg:max-w-7xl mt-8 space-y-2">
+        <!-- LAYOUT PRINCIPAL: en lg se divide en 2 columnas -->
+        <div class="w-[95vw] mx-auto lg:max-w-7xl flex flex-col lg:flex-row lg:gap-10">
             
-            <!-- Envío -->
-            <div class="accordion-item border border-stone-200 dark:border-stone-800 rounded-2xl overflow-hidden">
-                <button class="accordion-header w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-stone-900 cursor-pointer">
-                    <div class="flex items-center gap-2">
-                        <i class="ri-truck-line text-temu text-lg"></i>
-                        <span class="font-Inter font-semibold text-sm text-stone-950 dark:text-white" data-i18n="envioTitulo">Envío</span>
+            <!-- COLUMNA IZQUIERDA: GALERÍA -->
+            <div class="w-full lg:w-[58%] xl:w-1/2 shrink-0">
+                
+                <!-- GALERÍA: Mini-izq | Principal | Mini-der -->
+                <div class="flex gap-2 sm:gap-3">
+                    
+                    <!-- Miniaturas izquierda (solo lg+) -->
+                    <div class="hidden lg:block w-[72px] xl:w-20 shrink-0">
+                        <div class="swiper swiper-mini-v-left h-[420px] xl:h-[500px] overflow-hidden rounded-xl">
+                            <div class="swiper-wrapper" id="mini-v-left-wrapper"></div>
+                        </div>
                     </div>
-                    <i class="ri-arrow-down-s-line text-stone-400 transition-transform duration-300 accordion-icon"></i>
-                </button>
-                <div class="accordion-content hidden px-4 pb-4 bg-white dark:bg-stone-900">
-                    <p id="accordion-envio" class="font-Inter text-xs text-stone-600 dark:text-stone-400 whitespace-pre-line leading-relaxed"></p>
+
+                    <!-- Imagen principal -->
+                    <div class="flex-1 relative">
+                        <div id="zoom-container" class="relative w-full h-[320px] sm:h-[420px] lg:h-[420px] xl:h-[500px] bg-stone-50 dark:bg-stone-900 rounded-2xl overflow-hidden cursor-zoom-in">
+                            <img id="img-principal" src="" alt="" class="w-full h-full object-contain transition-transform duration-200 ease-out">
+                            <!-- Badge video -->
+                            <div id="badge-video-principal" class="hidden absolute top-3 right-3 bg-stone-950/80 text-white px-2.5 py-1 rounded-lg text-[11px] font-bold backdrop-blur-sm flex items-center gap-1">
+                                <i class="ri-play-circle-fill text-temu"></i> VIDEO
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Miniaturas derecha (solo lg+) -->
+                    <div class="hidden lg:block w-[72px] xl:w-20 shrink-0">
+                        <div class="swiper swiper-mini-v-right h-[420px] xl:h-[500px] overflow-hidden rounded-xl">
+                            <div class="swiper-wrapper" id="mini-v-right-wrapper"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BARRA HORIZONTAL MINIATURAS (todos los breakpoints) -->
+                <div class="relative mt-3 sm:mt-4 px-9 sm:px-10">
+                    <button id="mini-h-prev" class="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-7 h-7 sm:w-8 sm:h-8 bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-full flex items-center justify-center shadow-sm hover:bg-stone-50 dark:hover:bg-stone-700 transition-colors cursor-pointer">
+                        <i class="ri-arrow-left-s-line text-stone-600 dark:text-white text-sm sm:text-base"></i>
+                    </button>
+                    
+                    <div class="swiper swiper-mini-h overflow-hidden py-1">
+                        <div class="swiper-wrapper" id="mini-h-wrapper"></div>
+                    </div>
+                    
+                    <button id="mini-h-next" class="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-7 h-7 sm:w-8 sm:h-8 bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-full flex items-center justify-center shadow-sm hover:bg-stone-50 dark:hover:bg-stone-700 transition-colors cursor-pointer">
+                        <i class="ri-arrow-right-s-line text-stone-600 dark:text-white text-sm sm:text-base"></i>
+                    </button>
                 </div>
             </div>
 
-            <!-- ¿Por qué elegirnos? -->
-            <div class="accordion-item border border-stone-200 dark:border-stone-800 rounded-2xl overflow-hidden">
-                <button class="accordion-header w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-stone-900 cursor-pointer">
-                    <div class="flex items-center gap-2">
-                        <i class="ri-shield-check-line text-temu text-lg"></i>
-                        <span class="font-Inter font-semibold text-sm text-stone-950 dark:text-white" data-i18n="porQueElegirnos">¿Por qué elegirnos?</span>
-                    </div>
-                    <i class="ri-arrow-down-s-line text-stone-400 transition-transform duration-300 accordion-icon"></i>
-                </button>
-                <div class="accordion-content hidden px-4 pb-4 bg-white dark:bg-stone-900">
-                    <div class="grid grid-cols-2 gap-3">
-                        <div class="flex items-start gap-2">
-                            <i class="ri-checkbox-circle-fill text-green-500 text-sm mt-0.5"></i>
-                            <p class="font-Inter text-xs text-stone-600 dark:text-stone-400" data-i18n="pagoSeguro">Pagos seguros</p>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <i class="ri-checkbox-circle-fill text-green-500 text-sm mt-0.5"></i>
-                            <p class="font-Inter text-xs text-stone-600 dark:text-stone-400" data-i18n="pagaRecibir">Paga cuando recibas</p>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <i class="ri-checkbox-circle-fill text-green-500 text-sm mt-0.5"></i>
-                            <p class="font-Inter text-xs text-stone-600 dark:text-stone-400" data-i18n="privacidadSegura">Privacidad segura</p>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <i class="ri-checkbox-circle-fill text-green-500 text-sm mt-0.5"></i>
-                            <p class="font-Inter text-xs text-stone-600 dark:text-stone-400" data-i18n="entregaRapida">Entrega coordinada</p>
-                        </div>
-                    </div>
-                    <p id="accordion-garantia" class="font-Inter text-xs text-stone-600 dark:text-stone-400 whitespace-pre-line leading-relaxed mt-3 pt-3 border-t border-stone-100 dark:border-stone-800"></p>
-                </div>
-            </div>
+            <!-- COLUMNA DERECHA: INFO DEL PRODUCTO -->
+            <div class="w-full lg:w-[42%] xl:w-1/2 mt-5 lg:mt-0 flex flex-col">
+                
+                <!-- Descripción larga (solo desktop) -->
+                <p id="detalle-descripcion-larga" class="hidden lg:block font-Inter text-sm text-stone-600 dark:text-stone-300 leading-relaxed mb-3"></p>
 
-            <!-- Detalles del producto -->
-            <div class="accordion-item border border-stone-200 dark:border-stone-800 rounded-2xl overflow-hidden">
-                <button class="accordion-header w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-stone-900 cursor-pointer">
-                    <div class="flex items-center gap-2">
-                        <i class="ri-file-list-3-line text-temu text-lg"></i>
-                        <span class="font-Inter font-semibold text-sm text-stone-950 dark:text-white" data-i18n="detallesProducto">Detalles del producto</span>
-                    </div>
-                    <i class="ri-arrow-down-s-line text-stone-400 transition-transform duration-300 accordion-icon"></i>
-                </button>
-                <div class="accordion-content hidden px-4 pb-4 bg-white dark:bg-stone-900">
-                    <p id="accordion-detalles" class="font-Inter text-xs text-stone-600 dark:text-stone-400 leading-relaxed"></p>
+                <!-- Marca -->
+                <div class="mb-2">
+                    <span id="detalle-marca" class="inline-block px-3 py-1 bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 text-[11px] font-bold rounded-lg tracking-wide"></span>
                 </div>
-            </div>
 
-            <!-- Donación -->
-            <div class="accordion-item border border-stone-200 dark:border-stone-800 rounded-2xl overflow-hidden">
-                <button class="accordion-header w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-stone-900 cursor-pointer">
-                    <div class="flex items-center gap-2">
-                        <i class="ri-heart-3-line text-temu text-lg"></i>
-                        <span class="font-Inter font-semibold text-sm text-stone-950 dark:text-white" data-i18n="programaDonacion">Programa de Donación</span>
+                <!-- Título -->
+                <h1 id="detalle-titulo" class="font-Inter font-bold text-xl sm:text-2xl text-stone-950 dark:text-white leading-tight"></h1>
+                <p id="detalle-subtitulo" class="font-Inter text-sm text-stone-500 dark:text-stone-400 mt-0.5"></p>
+
+                <!-- Precio -->
+                <div class="flex items-end gap-2 sm:gap-3 mt-3 flex-wrap">
+                    <div class="flex items-baseline gap-1">
+                        <span class="text-sm font-Russo text-stone-950 dark:text-white">s/</span>
+                        <span id="detalle-precio" class="text-3xl font-Russo text-stone-950 dark:text-white"></span>
                     </div>
-                    <i class="ri-arrow-down-s-line text-stone-400 transition-transform duration-300 accordion-icon"></i>
-                </button>
-                <div class="accordion-content hidden px-4 pb-4 bg-white dark:bg-stone-900">
-                    <p id="accordion-donacion" class="font-Inter text-xs text-stone-600 dark:text-stone-400 leading-relaxed"></p>
+                    <div id="detalle-precio-tachado" class="hidden flex items-baseline gap-1">
+                        <span class="text-sm font-Russo text-stone-400 line-through">s/</span>
+                        <span id="detalle-precio-original" class="text-lg font-Russo text-stone-400 line-through"></span>
+                    </div>
+                    <span id="detalle-descuento" class="hidden px-2 py-0.5 bg-temu text-white text-[11px] font-bold rounded-md"></span>
+                    <span id="detalle-disponible" class="px-2 py-0.5 bg-verdeTemu/10 text-verdeTemu dark:text-verdeTemu2 text-[11px] font-bold rounded-md"></span>
+                </div>
+
+                <!-- Envío resumen (verde Temu) -->
+                <div class="mt-3 p-2.5 sm:p-3 bg-verdeTemu/5 dark:bg-verdeTemu/10 rounded-xl border border-verdeTemu/10 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-x-4">
+                    <span class="flex items-center gap-1.5 text-xs font-Inter font-semibold text-verdeTemu dark:text-verdeTemu2">
+                        <i class="ri-check-double-line"></i>
+                        <span data-i18n="envioGratisTren">Envío gratis en Estaciones del Tren</span>
+                    </span>
+                    <span class="hidden sm:inline text-stone-300 text-xs">|</span>
+                    <span class="flex items-center gap-1.5 text-xs font-Inter text-stone-600 dark:text-stone-400">
+                        <i class="ri-check-line text-verdeTemu"></i>
+                        <span data-i18n="envioDomicilio">S/10 a domicilio o Provincia</span>
+                    </span>
+                </div>
+
+                <!-- Estilo / Color selector -->
+                <div class="mt-4">
+                    <p class="text-xs font-Inter font-semibold text-stone-500 dark:text-stone-400 mb-2">
+                        <span data-i18n="estilo">Estilo:</span> <span id="detalle-estilo-nombre" class="text-stone-950 dark:text-white font-bold"></span>
+                    </p>
+                    <div id="detalle-estilos-container" class="flex flex-wrap gap-2.5"></div>
+                </div>
+
+                <!-- Cantidad + Agregar + Favorito -->
+                <div class="flex gap-2.5 sm:gap-3 mt-5">
+                    <!-- Contador -->
+                    <div class="flex items-center h-11 sm:h-12 px-1 rounded-xl border-2 border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900 shrink-0">
+                        <button id="detalle-cantidad-menos" class="w-9 sm:w-10 h-full flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-temu transition-colors cursor-pointer text-lg font-bold select-none">-</button>
+                        <span id="detalle-cantidad-valor" class="w-7 sm:w-8 text-center font-Inter font-bold text-stone-950 dark:text-white text-sm">1</span>
+                        <button id="detalle-cantidad-mas" class="w-9 sm:w-10 h-full flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-temu transition-colors cursor-pointer text-lg font-bold select-none">+</button>
+                    </div>
+
+                    <!-- Agregar (hover naranja, sin btn-epico) -->
+                    <button id="detalle-btn-carrito" class="flex-1 h-11 sm:h-12 bg-temu hover:bg-orange-600 active:scale-[0.97] rounded-xl flex items-center justify-center gap-2 cursor-pointer transition-all duration-200 shadow-lg shadow-temu/25">
+                        <i class="ri-shopping-cart-2-line text-white text-lg"></i>
+                        <span class="font-Inter font-bold text-white text-sm" data-i18n="agregarCarrito">Agregar al Carrito</span>
+                    </button>
+
+                    <!-- Favorito -->
+                    <button id="detalle-btn-favorito" class="size-11 sm:size-12 rounded-xl border-2 border-stone-200 dark:border-stone-700 flex items-center justify-center transition-all duration-200 hover:border-temu hover:scale-105 cursor-pointer shrink-0 bg-white dark:bg-stone-900">
+                        <i class="ri-heart-line text-xl text-stone-950 dark:text-white transition-colors duration-200"></i>
+                    </button>
+                </div>
+
+                <!-- ACCORDIONS -->
+                <div class="mt-6 space-y-2">
+                    
+                    <!-- Envío -->
+                    <div class="accordion-item border border-stone-200 dark:border-stone-800 rounded-xl overflow-hidden">
+                        <button class="accordion-header w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-stone-900 cursor-pointer hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors">
+                            <div class="flex items-center gap-2">
+                                <i class="ri-truck-line text-verdeTemu text-lg"></i>
+                                <span class="font-Inter font-semibold text-sm text-stone-950 dark:text-white" data-i18n="envioTitulo">Envío gratis para este artículo</span>
+                            </div>
+                            <i class="ri-arrow-down-s-line text-stone-400 transition-transform duration-300 accordion-icon"></i>
+                        </button>
+                        <div class="accordion-content bg-white dark:bg-stone-900 overflow-hidden" style="max-height:0px; transition: max-height 0.35s ease;">
+                            <div class="px-4 pb-3.5 pt-1">
+                                <p class="text-xs font-Inter text-verdeTemu dark:text-verdeTemu2 font-bold mb-1" data-i18n="entregaHorario">Entrega: 10 am - 9 pm</p>
+                                <p id="accordion-envio" class="font-Inter text-xs text-stone-600 dark:text-stone-400 whitespace-pre-line leading-relaxed"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ¿Por qué elegirnos? -->
+                    <div class="accordion-item border border-stone-200 dark:border-stone-800 rounded-xl overflow-hidden">
+                        <button class="accordion-header w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-stone-900 cursor-pointer hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors">
+                            <div class="flex items-center gap-2">
+                                <i class="ri-shield-check-line text-verdeTemu text-lg"></i>
+                                <span class="font-Inter font-semibold text-sm text-stone-950 dark:text-white" data-i18n="porQueElegirnos">¿Por qué elegirnos?</span>
+                            </div>
+                            <i class="ri-arrow-down-s-line text-stone-400 transition-transform duration-300 accordion-icon"></i>
+                        </button>
+                        <div class="accordion-content bg-white dark:bg-stone-900 overflow-hidden" style="max-height:0px; transition: max-height 0.35s ease;">
+                            <div class="px-4 pb-3.5 pt-1">
+                                <div class="grid grid-cols-2 gap-x-3 gap-y-2 mb-3">
+                                    <div class="flex items-start gap-1.5">
+                                        <i class="ri-checkbox-circle-fill text-verdeTemu text-sm mt-0.5"></i>
+                                        <p class="font-Inter text-xs text-stone-600 dark:text-stone-400" data-i18n="pagoSeguro">Pagos seguros</p>
+                                    </div>
+                                    <div class="flex items-start gap-1.5">
+                                        <i class="ri-checkbox-circle-fill text-verdeTemu text-sm mt-0.5"></i>
+                                        <p class="font-Inter text-xs text-stone-600 dark:text-stone-400" data-i18n="pagaRecibir">Paga cuando recibas</p>
+                                    </div>
+                                    <div class="flex items-start gap-1.5">
+                                        <i class="ri-checkbox-circle-fill text-verdeTemu text-sm mt-0.5"></i>
+                                        <p class="font-Inter text-xs text-stone-600 dark:text-stone-400" data-i18n="privacidadSegura">Privacidad segura</p>
+                                    </div>
+                                    <div class="flex items-start gap-1.5">
+                                        <i class="ri-checkbox-circle-fill text-verdeTemu text-sm mt-0.5"></i>
+                                        <p class="font-Inter text-xs text-stone-600 dark:text-stone-400" data-i18n="entregaRapida">Entrega coordinada</p>
+                                    </div>
+                                </div>
+                                <p id="accordion-garantia" class="font-Inter text-xs text-stone-600 dark:text-stone-400 whitespace-pre-line leading-relaxed pt-2 border-t border-stone-100 dark:border-stone-800"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detalles -->
+                    <div class="accordion-item border border-stone-200 dark:border-stone-800 rounded-xl overflow-hidden">
+                        <button class="accordion-header w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-stone-900 cursor-pointer hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors">
+                            <div class="flex items-center gap-2">
+                                <i class="ri-file-list-3-line text-verdeTemu text-lg"></i>
+                                <span class="font-Inter font-semibold text-sm text-stone-950 dark:text-white" data-i18n="detallesProducto">Detalles del producto</span>
+                            </div>
+                            <i class="ri-arrow-down-s-line text-stone-400 transition-transform duration-300 accordion-icon"></i>
+                        </button>
+                        <div class="accordion-content bg-white dark:bg-stone-900 overflow-hidden" style="max-height:0px; transition: max-height 0.35s ease;">
+                            <div class="px-4 pb-3.5 pt-1">
+                                <p id="accordion-detalles" class="font-Inter text-xs text-stone-600 dark:text-stone-400 leading-relaxed"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Donación -->
+                    <div class="accordion-item border border-stone-200 dark:border-stone-800 rounded-xl overflow-hidden">
+                        <button class="accordion-header w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-stone-900 cursor-pointer hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors">
+                            <div class="flex items-center gap-2">
+                                <i class="ri-heart-3-line text-verdeTemu text-lg"></i>
+                                <span class="font-Inter font-semibold text-sm text-stone-950 dark:text-white" data-i18n="programaDonacion">Programa de Donación para los niños</span>
+                            </div>
+                            <i class="ri-arrow-down-s-line text-stone-400 transition-transform duration-300 accordion-icon"></i>
+                        </button>
+                        <div class="accordion-content bg-white dark:bg-stone-900 overflow-hidden" style="max-height:0px; transition: max-height 0.35s ease;">
+                            <div class="px-4 pb-3.5 pt-1">
+                                <p id="accordion-donacion" class="font-Inter text-xs text-stone-600 dark:text-stone-400 leading-relaxed"></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- GRID COLLAGE DE IMÁGENES -->
-        <div class="w-[95vw] mx-auto lg:max-w-7xl mt-8">
-            <h2 class="font-Inter font-bold text-lg text-stone-950 dark:text-white mb-3" data-i18n="galeriaProducto">Galería del producto</h2>
-            <div id="collage-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
-                <!-- Se llena por JS según collageOrder -->
-            </div>
+        <!-- COLLAGE -->
+        <div class="w-[95vw] mx-auto lg:max-w-7xl mt-8 sm:mt-10">
+            <h2 class="font-Inter font-bold text-base sm:text-lg text-stone-950 dark:text-white mb-3 sm:mb-4" data-i18n="galeriaProducto">Galería del producto</h2>
+            <div id="collage-grid" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-2.5"></div>
         </div>
 
-        <!-- EXPLORA MÁS PRODUCTOS -->
-        <div class="w-[95vw] mx-auto lg:max-w-7xl mt-10">
-            <h2 class="font-Inter font-bold text-lg text-stone-950 dark:text-white mb-3" data-i18n="exploraMas">Explora más productos</h2>
-            <div id="detalle-relacionados" class="flex gap-3 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-4">
-                <!-- Se llena por JS -->
-            </div>
+        <!-- RELACIONADOS -->
+        <div class="w-[95vw] mx-auto lg:max-w-7xl mt-8 sm:mt-10">
+            <h2 class="font-Inter font-bold text-base sm:text-lg text-stone-950 dark:text-white mb-3 sm:mb-4" data-i18n="exploraMas">Explora más productos</h2>
+            <div id="detalle-relacionados" class="flex gap-3 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-4"></div>
         </div>
 
-        <!-- FOOTER ESPACIO -->
-        <div class="h-20"></div>
+        <div class="h-16 sm:h-20 lg:h-10"></div>
     </section>
+
+    <!-- LIGHTBOX -->
+    <div id="lightbox-detalle" class="hidden fixed inset-0 z-[100] bg-black/95 flex flex-col items-center justify-center">
+        <button id="lightbox-close" class="absolute top-3 right-3 sm:top-4 sm:right-4 text-white text-3xl z-10 cursor-pointer hover:text-temu transition-colors">
+            <i class="ri-close-line"></i>
+        </button>
+        <div class="swiper swiper-lightbox w-full h-full">
+            <div class="swiper-wrapper" id="lightbox-wrapper"></div>
+        </div>
+        <div class="swiper-pagination pagination-lightbox absolute bottom-4 sm:bottom-6"></div>
+    </div>
 
 
 

@@ -101,7 +101,18 @@ const productosDB = [
         videos: [
             // "assets/videos/albedo-360.mp4",
             "assets/35 FIGURA ALBEDO/17.webm",
+            "assets/35 FIGURA ALBEDO/18.mp4",
         ],
+        // ─── ESTILOS / COLORES ───
+        // Onii-chan: aquí defines los diferentes colores/estilos del producto.
+        // Cada uno tiene una mini imagen para el selector.
+        estilos: [
+        { nombre: "Albedo", imagen: "assets/01 albedo.avif", color: "Estándar" },
+        { nombre: "Albedo Dark", imagen: "assets/35 FIGURA ALBEDO/09.jpg", color: "Negro" },
+        { nombre: "Albedo Gold", imagen: "assets/35 FIGURA ALBEDO/13.webp", color: "Dorado" },
+        ],
+        ///////////////
+
         collageOrder: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
         detalles: {
             es: "Figura de Anime de Albedo del anime Overlord en Pose de Batalla. Estatua de 24cm/9.45 pulgadas con accesorios. Adorno de Escritorio, Regalo Coleccionable para Fans.",
@@ -945,6 +956,26 @@ const navConfig = {
 let activeKey = 'inicio';
 
 function activateNav(key) {
+
+     // Cerrar detalle si está abierto
+    const detalleSection = document.getElementById('producto-detalle');
+    if (detalleSection && !detalleSection.classList.contains('hidden')) {
+        detalleSection.classList.add('hidden');
+        const grid = document.getElementById('product-grid');
+        const navCat = document.getElementById('nav-categorias');
+        const btnMas = document.getElementById('btn-mas');
+        const navSup = document.querySelector('nav');
+        const sepNav = navCat?.nextElementSibling;
+        if (grid) grid.classList.remove('hidden');
+        if (navCat) navCat.classList.remove('hidden');
+        if (btnMas) btnMas.classList.remove('hidden');
+        if (navSup) navSup.classList.remove('max-lg:hidden');
+        if (sepNav) sepNav.classList.remove('hidden');
+    }
+    // ... resto de tu activateNav ...
+
+
+    //////////////////////////
     const config = navConfig[key];
     if (!config) return;
 
@@ -1283,6 +1314,22 @@ function mostrarMensajeResultados(query, encontrados) {
 }
 
 function crearCategoriaBusqueda(query) {
+
+    // >>> AGREGAR ESTO AL INICIO <<<
+    // Cerrar detalle de producto si está abierto
+    const detalleSection = document.getElementById('producto-detalle');
+    if (detalleSection && !detalleSection.classList.contains('hidden')) {
+        detalleSection.classList.add('hidden');
+        const grid = document.getElementById('product-grid');
+        const navCat = document.getElementById('nav-categorias');
+        const btnMas = document.getElementById('btn-mas');
+        if (grid) grid.classList.remove('hidden');
+        if (navCat) navCat.classList.remove('hidden');
+        if (btnMas) btnMas.classList.remove('hidden');
+    }
+    // >>> FIN DEL AGREGADO <<<
+
+    ///////////////////////////////////////////////
     if (!query || !query.trim()) return;
     
     const enCarrito = !document.getElementById('carrito-section').classList.contains('hidden');
@@ -2270,22 +2317,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //////////////////////////////////////////////////////////////////////////
 // ======================================================
-// DETALLE DE PRODUCTO - FUNCIONES GLOBALES
+// DETALLE DE PRODUCTO - V3 FUNCIONAL
 // ======================================================
 
 let swiperMiniVLeft, swiperMiniVRight, swiperMiniH, swiperLightbox;
 let productoActualId = null;
+let estiloSeleccionado = null;
+let cantidadDetalle = 1;
 
-// ─── ABRIR DETALLE DESDE CUALQUIER CARD ───
+// Helper para obtener producto
+function getProducto(id) {
+    return productosDB.find(p => p.id === id) || null;
+}
+
+// ─── ABRIR DETALLE ───
 function abrirDetalleProducto(id) {
     const producto = getProducto(id);
-    if (!producto) return;
+    if (!producto) { console.warn('Producto no encontrado:', id); return; }
 
     productoActualId = id;
+    cantidadDetalle = 1;
+    estiloSeleccionado = null;
+
     const detalleSection = document.getElementById('producto-detalle');
     if (!detalleSection) return;
 
-    // 1. Ocultar todo lo demás
+    // Ocultar todo lo demás
     document.querySelectorAll('.hero-container').forEach(h => { h.classList.add('hidden'); h.style.display = 'none'; });
     const grid = document.getElementById('product-grid');
     const navCat = document.getElementById('nav-categorias');
@@ -2294,6 +2351,7 @@ function abrirDetalleProducto(id) {
     const favSec = document.getElementById('favoritos-section');
     const btnCarritoFlotante = document.getElementById('btn-carrito');
     const navSup = document.querySelector('nav');
+    const sepNav = navCat?.nextElementSibling;
 
     if (grid) grid.classList.add('hidden');
     if (navCat) navCat.classList.add('hidden');
@@ -2302,349 +2360,439 @@ function abrirDetalleProducto(id) {
     if (favSec) favSec.classList.add('hidden');
     if (btnCarritoFlotante) btnCarritoFlotante.classList.add('hidden');
     if (navSup) navSup.classList.remove('max-lg:hidden');
+    if (sepNav) sepNav.classList.add('hidden');
 
-    // 2. Mostrar sección detalle
+    // Mostrar detalle
     detalleSection.classList.remove('hidden');
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    // 3. Renderizar info básica
-    document.getElementById('detalle-titulo').textContent = producto.titulo;
-    document.getElementById('detalle-subtitulo').textContent = producto.subtitulo;
-    document.getElementById('detalle-marca').textContent = producto.marca;
-    document.getElementById('detalle-disponible').textContent = `${producto.disponible} disponible(s)`;
-    document.getElementById('detalle-precio').textContent = producto.precio.toFixed(2);
-    document.getElementById('detalle-estilo-badge').textContent = producto.estilo;
+    // ─── INFO BÁSICA ───
+    document.getElementById('detalle-titulo').textContent = producto.titulo || '';
+    document.getElementById('detalle-subtitulo').textContent = producto.subtitulo || '';
+    document.getElementById('detalle-marca').textContent = producto.marca || '';
+    document.getElementById('detalle-disponible').textContent = (producto.disponible || 0) + ' disponible(s)';
+    document.getElementById('detalle-precio').textContent = (producto.precio || 0).toFixed(2);
+    document.getElementById('detalle-estilo-nombre').textContent = producto.estilo || '';
 
-    // Precio tachado y descuento
+    const descLarga = document.getElementById('detalle-descripcion-larga');
+    if (descLarga) descLarga.textContent = (producto.detalles?.[idiomaActual] || producto.detalles?.es || '');
+
+    // Precio tachado
     const precioTachado = document.getElementById('detalle-precio-tachado');
     const badgeDesc = document.getElementById('detalle-descuento');
     if (producto.precioOriginal && producto.descuento > 0) {
         precioTachado.classList.remove('hidden');
         badgeDesc.classList.remove('hidden');
         document.getElementById('detalle-precio-original').textContent = producto.precioOriginal.toFixed(2);
-        badgeDesc.textContent = `${producto.descuento}% OFF`;
+        badgeDesc.textContent = producto.descuento + '% OFF';
     } else {
         precioTachado.classList.add('hidden');
         badgeDesc.classList.add('hidden');
     }
 
-    // 4. Textos de accordions (según idioma actual)
-    const tDetalle = producto.detalles[idiomaActual] || producto.detalles.es;
-    const tEnvio = producto.envio[idiomaActual] || producto.envio.es;
-    const tGarantia = producto.garantia[idiomaActual] || producto.garantia.es;
-    const tDonacion = producto.donacion[idiomaActual] || producto.donacion.es;
+    // Cantidad reset
+    const cantEl = document.getElementById('detalle-cantidad-valor');
+    if (cantEl) cantEl.textContent = '1';
 
-    document.getElementById('accordion-detalles').textContent = tDetalle;
-    document.getElementById('accordion-envio').textContent = tEnvio;
-    document.getElementById('accordion-garantia').textContent = tGarantia;
-    document.getElementById('accordion-donacion').textContent = tDonacion;
+    // Accordions textos
+    const accEnv = document.getElementById('accordion-envio');
+    const accGar = document.getElementById('accordion-garantia');
+    const accDet = document.getElementById('accordion-detalles');
+    const accDon = document.getElementById('accordion-donacion');
+    if (accEnv) accEnv.textContent = producto.envio?.[idiomaActual] || producto.envio?.es || '';
+    if (accGar) accGar.textContent = producto.garantia?.[idiomaActual] || producto.garantia?.es || '';
+    if (accDet) accDet.textContent = producto.detalles?.[idiomaActual] || producto.detalles?.es || '';
+    if (accDon) accDon.textContent = producto.donacion?.[idiomaActual] || producto.donacion?.es || '';
 
-    // 5. Construir array de medias (imágenes + videos)
+    // Cerrar accordions
+    document.querySelectorAll('.accordion-content').forEach(c => {
+        c.style.maxHeight = '0px';
+        c.classList.remove('abierto');
+    });
+    document.querySelectorAll('.accordion-icon').forEach(i => i.classList.remove('rotado'));
+
+    // ─── MEDIAS (imágenes + videos) ───
     const medias = [];
-    producto.imagenes.forEach(img => medias.push({ tipo: 'imagen', src: img }));
-    producto.videos.forEach(vid => medias.push({ tipo: 'video', src: vid }));
+    (producto.imagenes || []).forEach(src => medias.push({ tipo: 'imagen', src }));
+    (producto.videos || []).forEach(src => medias.push({ tipo: 'video', src }));
 
-    // 6. Renderizar miniaturas verticales (divididas entre izq y der)
+    if (!medias.length) {
+        console.warn('El producto no tiene imágenes ni videos:', id);
+        return;
+    }
+
+    // Guardar global para lightbox
+    window._detalleMedias = medias;
+
+    // Renderizar todo
+    renderizarMiniaturas(medias);
+    cambiarImagenPrincipal(medias, 0);
+    initZoom();
+    sincronizarFavoritoDetalle();
+    renderizarEstilos(producto);
+    renderizarCollage(producto, medias);
+    renderizarRelacionados(producto.relacionados || []);
+}
+
+// ─── MINIATURAS ───
+function renderizarMiniaturas(medias) {
     const wrapLeft = document.getElementById('mini-v-left-wrapper');
     const wrapRight = document.getElementById('mini-v-right-wrapper');
     const wrapH = document.getElementById('mini-h-wrapper');
+    if (!wrapLeft || !wrapRight || !wrapH) return;
+
     wrapLeft.innerHTML = '';
     wrapRight.innerHTML = '';
     wrapH.innerHTML = '';
 
     medias.forEach((media, idx) => {
         const isVideo = media.tipo === 'video';
-        const slideHTML = `
-            <div class="swiper-slide" data-media-idx="${idx}">
-                ${isVideo ? '<div class="mini-video-badge"><i class="ri-play-fill"></i></div>' : ''}
-                <img src="${isVideo ? 'assets/video-thumb.webp' : media.src}" ${!isVideo ? `data-src="${media.src}"` : ''}>
-            </div>
-        `;
-        // Mitad a la izquierda, mitad a la derecha (alternando)
-        if (idx % 2 === 0) wrapLeft.insertAdjacentHTML('beforeend', slideHTML);
-        else wrapRight.insertAdjacentHTML('beforeend', slideHTML);
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
+        slide.dataset.mediaIdx = idx;
 
-        // Horizontal: todas
-        wrapH.insertAdjacentHTML('beforeend', slideHTML);
+        if (isVideo) {
+            slide.innerHTML = `
+                <video src="${media.src}" preload="metadata" muted playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+                <div class="mini-video-overlay"><i class="ri-play-fill"></i></div>
+            `;
+        } else {
+            slide.innerHTML = `<img src="${media.src}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">`;
+        }
+
+        // Distribución: pares izq, impares der
+        if (idx % 2 === 0) wrapLeft.appendChild(slide.cloneNode(true));
+        else wrapRight.appendChild(slide.cloneNode(true));
+
+        // Horizontal: todos
+        wrapH.appendChild(slide);
     });
 
-    // 7. Inicializar Swipers
-    setTimeout(() => {
-        if (swiperMiniVLeft) swiperMiniVLeft.destroy();
-        if (swiperMiniVRight) swiperMiniVRight.destroy();
-        if (swiperMiniH) swiperMiniH.destroy();
+    // Destruir previos
+    if (swiperMiniVLeft) swiperMiniVLeft.destroy(true, true);
+    if (swiperMiniVRight) swiperMiniVRight.destroy(true, true);
+    if (swiperMiniH) swiperMiniH.destroy(true, true);
 
-        swiperMiniVLeft = new Swiper('.swiper-mini-v-left', {
-            direction: 'vertical',
-            slidesPerView: 'auto',
-            spaceBetween: 8,
-            loop: medias.length > 3,
-            mousewheel: true,
-        });
+    // Crear nuevos
+    swiperMiniVLeft = new Swiper('.swiper-mini-v-left', {
+        direction: 'vertical',
+        slidesPerView: 'auto',
+        spaceBetween: 8,
+        loop: medias.length > 4,
+        mousewheel: true,
+    });
+    swiperMiniVRight = new Swiper('.swiper-mini-v-right', {
+        direction: 'vertical',
+        slidesPerView: 'auto',
+        spaceBetween: 8,
+        loop: medias.length > 4,
+        mousewheel: true,
+    });
+    swiperMiniH = new Swiper('.swiper-mini-h', {
+        slidesPerView: 'auto',
+        spaceBetween: 8,
+        loop: medias.length > 4,
+        navigation: { prevEl: '#mini-h-prev', nextEl: '#mini-h-next' },
+    });
 
-        swiperMiniVRight = new Swiper('.swiper-mini-v-right', {
-            direction: 'vertical',
-            slidesPerView: 'auto',
-            spaceBetween: 8,
-            loop: medias.length > 3,
-            mousewheel: true,
-        });
-
-        swiperMiniH = new Swiper('.swiper-mini-h', {
-            slidesPerView: 'auto',
-            spaceBetween: 8,
-            loop: medias.length > 4,
-            navigation: {
-                prevEl: '#mini-h-prev',
-                nextEl: '#mini-h-next',
-            },
-        });
-
-        // Click en miniatura → cambiar imagen principal
-        document.querySelectorAll('.swiper-mini-v-left .swiper-slide, .swiper-mini-v-right .swiper-slide, .swiper-mini-h .swiper-slide').forEach(slide => {
+    // Click handlers
+    const addClick = (swiperInstance) => {
+        if (!swiperInstance) return;
+        swiperInstance.slides.forEach(slide => {
             slide.addEventListener('click', () => {
                 const idx = parseInt(slide.dataset.mediaIdx);
-                cambiarImagenPrincipal(medias, idx);
-                // Sincronizar active en todos los swipers
-                [swiperMiniVLeft, swiperMiniVRight, swiperMiniH].forEach(s => {
-                    if (s) s.slideToLoop(idx);
-                });
+                if (!isNaN(idx)) {
+                    cambiarImagenPrincipal(window._detalleMedias, idx);
+                    marcarMiniaturaActiva(idx);
+                }
             });
         });
-    }, 50);
+    };
+    addClick(swiperMiniH);
+    addClick(swiperMiniVLeft);
+    addClick(swiperMiniVRight);
+}
 
-    // 8. Imagen principal inicial
-    cambiarImagenPrincipal(medias, 0);
-
-    // 9. Sincronizar botón favorito
-    sincronizarFavoritoDetalle();
-
-    // 10. Renderizar grid collage
-    renderizarCollage(producto, medias);
-
-    // 11. Renderizar relacionados
-    renderizarRelacionados(producto.relacionados);
+function marcarMiniaturaActiva(idxActivo) {
+    document.querySelectorAll('.swiper-mini-h .swiper-slide, .swiper-mini-v-left .swiper-slide, .swiper-mini-v-right .swiper-slide').forEach(slide => {
+        const idx = parseInt(slide.dataset.mediaIdx);
+        if (idx === idxActivo) slide.classList.add('swiper-slide-thumb-active');
+        else slide.classList.remove('swiper-slide-thumb-active');
+    });
 }
 
 function cambiarImagenPrincipal(medias, idx) {
     const imgPrincipal = document.getElementById('img-principal');
     const badgeVideo = document.getElementById('badge-video-principal');
+    if (!imgPrincipal) return;
+
     const media = medias[idx];
-    if (!media || !imgPrincipal) return;
+    if (!media) return;
 
     if (media.tipo === 'video') {
-        imgPrincipal.src = 'assets/video-thumb.webp'; // thumbnail genérico o primer frame
-        badgeVideo.classList.remove('hidden');
+        // Para video, intentamos capturar frame o mostrar un placeholder
+        generarThumbnailVideo(media.src, (dataUrl) => {
+            imgPrincipal.src = dataUrl || media.src;
+        });
+        if (badgeVideo) badgeVideo.classList.remove('hidden');
         imgPrincipal.dataset.videoSrc = media.src;
     } else {
         imgPrincipal.src = media.src;
-        badgeVideo.classList.add('hidden');
+        if (badgeVideo) badgeVideo.classList.add('hidden');
         delete imgPrincipal.dataset.videoSrc;
     }
     imgPrincipal.dataset.mediaIdx = idx;
+    marcarMiniaturaActiva(idx);
 }
 
-// ─── ZOOM x2 (mouse + touch) ───
-(function initZoom() {
+// Genera thumbnail de video de forma asíncrona
+function generarThumbnailVideo(videoSrc, callback) {
+    const video = document.createElement('video');
+    video.src = videoSrc;
+    video.crossOrigin = 'anonymous';
+    video.muted = true;
+    video.playsInline = true;
+    video.preload = 'metadata';
+
+    const onReady = () => {
+        try {
+            video.currentTime = 0.1;
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth || 320;
+            canvas.height = video.videoHeight || 240;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            callback(canvas.toDataURL('image/jpeg', 0.7));
+        } catch (e) {
+            callback(null);
+        }
+    };
+
+    video.addEventListener('loadeddata', onReady);
+    video.addEventListener('error', () => callback(null));
+    video.load();
+}
+
+// ─── ZOOM ───
+function initZoom() {
     const container = document.getElementById('zoom-container');
     const img = document.getElementById('img-principal');
     if (!container || !img) return;
 
-    // Mouse (desktop)
-    container.addEventListener('mousemove', (e) => {
-        const rect = container.getBoundingClientRect();
+    // Limpiar listeners previos reemplazando el nodo
+    const newContainer = container.cloneNode(true);
+    container.parentNode.replaceChild(newContainer, container);
+    const newImg = newContainer.querySelector('#img-principal');
+
+    // Mouse
+    newContainer.addEventListener('mousemove', (e) => {
+        const rect = newContainer.getBoundingClientRect();
         const x = ((e.clientX - rect.left) / rect.width) * 100;
         const y = ((e.clientY - rect.top) / rect.height) * 100;
-        img.style.transformOrigin = `${x}% ${y}%`;
-        container.classList.add('zoom-activo');
+        newImg.style.transformOrigin = `${x}% ${y}%`;
+        newContainer.classList.add('zoom-activo');
+        newImg.style.transform = 'scale(2.5)';
     });
-    container.addEventListener('mouseleave', () => {
-        container.classList.remove('zoom-activo');
-        img.style.transform = 'scale(1)';
-    });
-    container.addEventListener('mouseenter', () => {
-        if (container.classList.contains('zoom-activo')) {
-            img.style.transform = 'scale(2)';
-        }
+    newContainer.addEventListener('mouseleave', () => {
+        newContainer.classList.remove('zoom-activo');
+        newImg.style.transform = 'scale(1)';
     });
 
-    // Touch (móvil) - hold to zoom
+    // Touch hold
     let touchTimer = null;
-    container.addEventListener('touchstart', (e) => {
+    newContainer.addEventListener('touchstart', (e) => {
         touchTimer = setTimeout(() => {
             const touch = e.touches[0];
-            const rect = container.getBoundingClientRect();
+            const rect = newContainer.getBoundingClientRect();
             const x = ((touch.clientX - rect.left) / rect.width) * 100;
             const y = ((touch.clientY - rect.top) / rect.height) * 100;
-            img.style.transformOrigin = `${x}% ${y}%`;
-            container.classList.add('zoom-activo');
-            img.style.transform = 'scale(2)';
-        }, 400); // 400ms hold
+            newImg.style.transformOrigin = `${x}% ${y}%`;
+            newContainer.classList.add('zoom-activo');
+            newImg.style.transform = 'scale(2.5)';
+        }, 350);
     }, { passive: true });
-    container.addEventListener('touchend', () => {
+    newContainer.addEventListener('touchend', () => {
         clearTimeout(touchTimer);
-        container.classList.remove('zoom-activo');
-        img.style.transform = 'scale(1)';
+        newContainer.classList.remove('zoom-activo');
+        newImg.style.transform = 'scale(1)';
     });
-    container.addEventListener('touchmove', (e) => {
-        if (container.classList.contains('zoom-activo')) {
-            const touch = e.touches[0];
-            const rect = container.getBoundingClientRect();
-            const x = ((touch.clientX - rect.left) / rect.width) * 100;
-            const y = ((touch.clientY - rect.top) / rect.height) * 100;
-            img.style.transformOrigin = `${x}% ${y}%`;
-        }
+    newContainer.addEventListener('touchmove', (e) => {
+        if (!newContainer.classList.contains('zoom-activo')) return;
+        const touch = e.touches[0];
+        const rect = newContainer.getBoundingClientRect();
+        const x = ((touch.clientX - rect.left) / rect.width) * 100;
+        const y = ((touch.clientY - rect.top) / rect.height) * 100;
+        newImg.style.transformOrigin = `${x}% ${y}%`;
     }, { passive: true });
-})();
+
+    // Click → lightbox
+    newContainer.addEventListener('click', () => {
+        const idx = parseInt(newImg.dataset.mediaIdx || 0);
+        abrirLightbox(idx);
+    });
+}
 
 // ─── LIGHTBOX ───
 function abrirLightbox(startIdx) {
-    const producto = getProducto(productoActualId);
-    if (!producto) return;
+    const medias = window._detalleMedias || [];
+    if (!medias.length) return;
 
-    const medias = [];
-    producto.imagenes.forEach(img => medias.push({ tipo: 'imagen', src: img }));
-    producto.videos.forEach(vid => medias.push({ tipo: 'video', src: vid }));
-
-    // Crear modal si no existe
-    let lightbox = document.getElementById('lightbox-detalle');
-    if (!lightbox) {
-        lightbox = document.createElement('div');
-        lightbox.id = 'lightbox-detalle';
-        lightbox.className = 'fixed inset-0 z-[100] bg-black/95 flex flex-col items-center justify-center';
-        lightbox.innerHTML = `
-            <button id="lightbox-close" class="absolute top-4 right-4 text-white text-3xl z-10 cursor-pointer hover:text-temu transition-colors"><i class="ri-close-line"></i></button>
-            <div class="swiper swiper-lightbox w-full h-full">
-                <div class="swiper-wrapper" id="lightbox-wrapper"></div>
-            </div>
-            <div class="swiper-pagination pagination-lightbox absolute bottom-4"></div>
-        `;
-        document.body.appendChild(lightbox);
-        document.body.style.overflow = 'hidden';
-
-        document.getElementById('lightbox-close').addEventListener('click', cerrarLightbox);
-    }
-
+    const lightbox = document.getElementById('lightbox-detalle');
     const wrapper = document.getElementById('lightbox-wrapper');
+    if (!lightbox || !wrapper) return;
+
     wrapper.innerHTML = '';
     medias.forEach(media => {
-        const slideContent = media.tipo === 'video'
-            ? `<video src="${media.src}" controls class="max-h-[85vh] max-w-[95vw] rounded-lg"></video>`
-            : `<img src="${media.src}" class="max-h-[85vh] max-w-[95vw] object-contain rounded-lg" alt="">`;
-        wrapper.insertAdjacentHTML('beforeend', `<div class="swiper-slide">${slideContent}</div>`);
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
+        if (media.tipo === 'video') {
+            slide.innerHTML = `<video src="${media.src}" controls autoplay playsinline class="max-h-[85vh] max-w-[90vw] rounded-lg"></video>`;
+        } else {
+            slide.innerHTML = `<img src="${media.src}" class="max-h-[85vh] max-w-[90vw] object-contain rounded-lg" alt="">`;
+        }
+        wrapper.appendChild(slide);
     });
 
-    if (swiperLightbox) swiperLightbox.destroy();
+    document.body.style.overflow = 'hidden';
+    lightbox.classList.remove('hidden');
+
+    if (swiperLightbox) swiperLightbox.destroy(true, true);
     swiperLightbox = new Swiper('.swiper-lightbox', {
         initialSlide: startIdx,
         loop: medias.length > 1,
         pagination: { el: '.pagination-lightbox', clickable: true },
         keyboard: { enabled: true },
     });
-
-    lightbox.classList.remove('hidden');
 }
 
 function cerrarLightbox() {
     const lightbox = document.getElementById('lightbox-detalle');
-    if (lightbox) {
-        lightbox.classList.add('hidden');
-        document.body.style.overflow = '';
-        if (swiperLightbox) {
-            swiperLightbox.slides.forEach(slide => {
-                const vid = slide.querySelector('video');
-                if (vid) vid.pause();
-            });
-        }
+    if (!lightbox) return;
+    lightbox.classList.add('hidden');
+    document.body.style.overflow = '';
+    if (swiperLightbox) {
+        swiperLightbox.slides.forEach(slide => {
+            const vid = slide.querySelector('video');
+            if (vid) { vid.pause(); vid.currentTime = 0; }
+        });
     }
 }
 
-// Click en imagen principal → lightbox
-document.addEventListener('click', (e) => {
-    const zoomContainer = e.target.closest('#zoom-container');
-    if (zoomContainer) {
-        const img = document.getElementById('img-principal');
-        const idx = parseInt(img?.dataset.mediaIdx || 0);
-        abrirLightbox(idx);
-    }
-    if (e.target.closest('#lightbox-detalle') && !e.target.closest('.swiper-slide') && !e.target.closest('#lightbox-close')) {
-        cerrarLightbox();
-    }
+document.getElementById('lightbox-close')?.addEventListener('click', cerrarLightbox);
+document.getElementById('lightbox-detalle')?.addEventListener('click', (e) => {
+    if (e.target.id === 'lightbox-detalle') cerrarLightbox();
 });
 
-// ─── ACCORDIONS ───
+// ─── ACCORDIONS (delegación global, 100% funcional) ───
 document.addEventListener('click', (e) => {
     const header = e.target.closest('.accordion-header');
     if (!header) return;
+
     const item = header.closest('.accordion-item');
-    const content = item.querySelector('.accordion-content');
+    const content = item?.querySelector('.accordion-content');
     const icon = header.querySelector('.accordion-icon');
-    const isOpen = content.classList.contains('abierto');
+    if (!content || !icon) return;
 
-    // Cerrar todos los demás (opcional, quita esto si quieres múltiples abiertos)
-    document.querySelectorAll('.accordion-content.abierto').forEach(c => {
-        if (c !== content) {
-            c.classList.remove('abierto');
-            c.closest('.accordion-item').querySelector('.accordion-icon').classList.remove('rotado');
-        }
+    const estaAbierto = content.classList.contains('abierto');
+
+    // Cerrar todos
+    document.querySelectorAll('.accordion-content').forEach(c => {
+        c.style.maxHeight = '0px';
+        c.classList.remove('abierto');
     });
+    document.querySelectorAll('.accordion-icon').forEach(i => i.classList.remove('rotado'));
 
-    if (isOpen) {
-        content.classList.remove('abierto');
-        icon.classList.remove('rotado');
-    } else {
+    if (!estaAbierto) {
         content.classList.add('abierto');
         icon.classList.add('rotado');
+        content.style.maxHeight = content.scrollHeight + 'px';
     }
 });
 
-// ─── COLLAGE ───
-function renderizarCollage(producto, medias) {
-    const grid = document.getElementById('collage-grid');
-    if (!grid) return;
-    grid.innerHTML = '';
+// ─── ESTILOS / COLORES ───
+function renderizarEstilos(producto) {
+    const container = document.getElementById('detalle-estilos-container');
+    if (!container) return;
+    container.innerHTML = '';
 
-    // Usa collageOrder para determinar el orden. Si no hay, usa orden natural.
-    const orden = producto.collageOrder || producto.imagenes.map((_, i) => i);
+    const estilos = producto.estilos || [];
+    if (!estilos.length) {
+        // Fallback: un solo estilo con imagen principal
+        estilos.push({ nombre: producto.estilo || 'Estándar', imagen: producto.imagenes?.[0] || '', color: 'Estándar' });
+    }
 
-    orden.forEach(imgIdx => {
-        const media = medias[imgIdx];
-        if (!media || media.tipo !== 'imagen') return;
+    estilos.forEach((est, idx) => {
+        const btn = document.createElement('div');
+        btn.className = 'estilo-btn' + (idx === 0 ? ' activo' : '');
+        btn.dataset.nombre = est.nombre;
+        btn.dataset.color = est.color || est.nombre;
+        btn.dataset.imagen = est.imagen;
 
-        const item = document.createElement('div');
-        item.className = 'collage-item';
-        item.innerHTML = `
-            <img src="${media.src}" alt="" loading="lazy">
-        `;
-        item.addEventListener('click', () => abrirLightbox(imgIdx));
-        grid.appendChild(item);
+        const isVideo = est.imagen && est.imagen.match(/\.(mp4|webm|ogg|mov)$/i);
+        if (isVideo) {
+            btn.innerHTML = `<video src="${est.imagen}" preload="metadata" muted playsinline style="width:100%;height:100%;object-fit:cover;"></video>`;
+        } else {
+            btn.innerHTML = `<img src="${est.imagen}" alt="${est.nombre}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">`;
+        }
+        if (est.color && est.color !== est.nombre) {
+            btn.innerHTML += `<div class="estilo-label">${est.color}</div>`;
+        }
+
+        btn.addEventListener('click', () => {
+            container.querySelectorAll('.estilo-btn').forEach(b => b.classList.remove('activo'));
+            btn.classList.add('activo');
+            estiloSeleccionado = { nombre: est.nombre, color: est.color || est.nombre, imagen: est.imagen };
+            document.getElementById('detalle-estilo-nombre').textContent = est.nombre;
+            const imgPrincipal = document.getElementById('img-principal');
+            if (imgPrincipal) imgPrincipal.src = est.imagen;
+        });
+
+        container.appendChild(btn);
     });
+
+    if (estilos.length && !estiloSeleccionado) {
+        estiloSeleccionado = { nombre: estilos[0].nombre, color: estilos[0].color || estilos[0].nombre, imagen: estilos[0].imagen };
+    }
 }
 
-// ─── RELACIONADOS ───
-function renderizarRelacionados(ids) {
-    const contenedor = document.getElementById('detalle-relacionados');
-    if (!contenedor) return;
-    contenedor.innerHTML = '';
+// ─── CANTIDAD +/- ───
+document.getElementById('detalle-cantidad-menos')?.addEventListener('click', () => {
+    if (cantidadDetalle > 1) {
+        cantidadDetalle--;
+        const el = document.getElementById('detalle-cantidad-valor');
+        if (el) el.textContent = cantidadDetalle;
+    }
+});
+document.getElementById('detalle-cantidad-mas')?.addEventListener('click', () => {
+    cantidadDetalle++;
+    const el = document.getElementById('detalle-cantidad-valor');
+    if (el) el.textContent = cantidadDetalle;
+});
 
-    ids.forEach(id => {
-        const p = getProducto(id);
-        if (!p) return;
-        const card = document.createElement('div');
-        card.className = 'card-relacionada snap-start cursor-pointer';
-        card.innerHTML = `
-            <div class="w-full h-36 rounded-xl overflow-hidden bg-stone-100 dark:bg-stone-800 mb-2">
-                <img src="${p.imagenes[0]}" class="w-full h-full object-cover">
-            </div>
-            <p class="font-Inter text-xs font-semibold text-stone-950 dark:text-white truncate">${p.titulo}</p>
-            <p class="font-Russo text-xs text-temu">s/ ${p.precio.toFixed(2)}</p>
-        `;
-        card.addEventListener('click', () => abrirDetalleProducto(p.id));
-        contenedor.appendChild(card);
-    });
-}
+// ─── AGREGAR CARRITO ───
+document.getElementById('detalle-btn-carrito')?.addEventListener('click', (e) => {
+    const producto = getProducto(productoActualId);
+    if (!producto) return;
 
-// ─── FAVORITO EN DETALLE ───
+    const itemBase = {
+        id: producto.id,
+        titulo: producto.titulo,
+        subtitulo: estiloSeleccionado ? `${producto.subtitulo} - ${estiloSeleccionado.color}` : producto.subtitulo,
+        precio: producto.precio,
+        imagen: estiloSeleccionado?.imagen || producto.imagenes?.[0] || '',
+    };
+
+    for (let i = 0; i < cantidadDetalle; i++) {
+        agregarAlCarrito(itemBase);
+    }
+
+    animarFlyToCart(e.currentTarget, itemBase.imagen);
+    cantidadDetalle = 1;
+    const el = document.getElementById('detalle-cantidad-valor');
+    if (el) el.textContent = '1';
+});
+
+// ─── FAVORITO ───
 function sincronizarFavoritoDetalle() {
     const btn = document.getElementById('detalle-btn-favorito');
     const icono = btn?.querySelector('i');
@@ -2653,7 +2801,7 @@ function sincronizarFavoritoDetalle() {
     const esFav = favoritos.some(f => f.id === productoActualId);
     if (esFav) {
         btn.classList.add('activo');
-        icono.classList.remove('ri-heart-line');
+        icono.classList.remove('ri-heart-line', 'text-stone-950', 'dark:text-white');
         icono.classList.add('ri-heart-fill', 'text-temu');
     } else {
         btn.classList.remove('activo');
@@ -2670,44 +2818,106 @@ document.getElementById('detalle-btn-favorito')?.addEventListener('click', () =>
         titulo: producto.titulo,
         subtitulo: producto.subtitulo,
         precio: producto.precio,
-        imagen: producto.imagenes[0]
+        imagen: producto.imagenes?.[0] || '',
     });
     sincronizarFavoritoDetalle();
 });
 
-// ─── AGREGAR CARRITO DESDE DETALLE ───
-document.getElementById('detalle-btn-carrito')?.addEventListener('click', (e) => {
-    const producto = getProducto(productoActualId);
-    if (!producto) return;
-    agregarAlCarrito({
-        id: producto.id,
-        titulo: producto.titulo,
-        subtitulo: producto.subtitulo,
-        precio: producto.precio,
-        imagen: producto.imagenes[0]
-    });
-    // Efecto ripple en el botón
-    const btn = e.currentTarget;
-    btn.classList.add('activo');
-    setTimeout(() => btn.classList.remove('activo'), 600);
-});
-
 // ─── VOLVER ───
-document.getElementById('btn-volver-detalle')?.addEventListener('click', () => {
+function cerrarDetalleProducto() {
     const detalle = document.getElementById('producto-detalle');
     if (detalle) detalle.classList.add('hidden');
 
-    // Restaurar vista anterior (tienda por defecto)
-    gestionarVista('tienda');
-    activateNav('inicio');
-});
+    // Restaurar vista tienda
+    const grid = document.getElementById('product-grid');
+    const navCat = document.getElementById('nav-categorias');
+    const btnMas = document.getElementById('btn-mas');
+    const navSup = document.querySelector('nav');
+    const sepNav = navCat?.nextElementSibling;
 
-// ─── CLICK EN CARDS DEL GRID PRINCIPAL ───
+    if (grid) grid.classList.remove('hidden');
+    if (navCat) navCat.classList.remove('hidden');
+    if (btnMas) btnMas.classList.remove('hidden');
+    if (navSup) navSup.classList.remove('max-lg:hidden');
+    if (sepNav) sepNav.classList.remove('hidden');
+
+    categoriaActual = 'todos';
+    showingAll = false;
+    const btnTodos = document.querySelector('[data-categoria="todos"]');
+    if (btnTodos) setActiveCategory(btnTodos);
+    showHero('todos');
+    if (typeof updateDisplayRef === 'function') updateDisplayRef();
+}
+
+document.getElementById('btn-volver-detalle')?.addEventListener('click', cerrarDetalleProducto);
+
+// ─── COLLAGE COMPLEJO ───
+function renderizarCollage(producto, medias) {
+    const grid = document.getElementById('collage-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    const imagenes = medias.filter(m => m.tipo === 'imagen');
+    const orden = producto.collageOrder || imagenes.map((_, i) => i);
+
+    // Layouts rotativos usando clases Tailwind estándar
+    const layouts = [
+        'col-span-2 row-span-2',   // 0: grande 2x2
+        'col-span-1 row-span-2',   // 1: alto 1x2
+        'col-span-2 row-span-1',   // 2: ancho 2x1
+        'col-span-2 row-span-2',   // 3: grande 2x2
+        'col-span-2 row-span-1',   // 4: ancho 2x1
+        'col-span-1 row-span-2',   // 5: alto 1x2
+        'col-span-2 row-span-2',   // 6: grande 2x2
+        'col-span-2 row-span-1',   // 7: ancho 2x1
+    ];
+
+    orden.forEach((imgIdx, pos) => {
+        const media = imagenes[imgIdx];
+        if (!media) return;
+
+        const item = document.createElement('div');
+        const layoutClass = layouts[pos % layouts.length];
+        item.className = `collage-item ${layoutClass}`;
+        item.innerHTML = `<img src="${media.src}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;">`;
+        item.addEventListener('click', () => abrirLightbox(medias.indexOf(media)));
+        grid.appendChild(item);
+    });
+}
+
+// ─── RELACIONADOS ───
+function renderizarRelacionados(ids) {
+    const contenedor = document.getElementById('detalle-relacionados');
+    if (!contenedor) return;
+    contenedor.innerHTML = '';
+
+    ids.forEach(id => {
+        const p = getProducto(id);
+        if (!p) return;
+        const card = document.createElement('div');
+        card.className = 'card-relacionada snap-start';
+        card.innerHTML = `
+            <div class="rel-img-wrap">
+                <img src="${p.imagenes?.[0] || ''}" alt="${p.titulo || ''}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <p class="font-Inter text-xs font-semibold text-stone-950 dark:text-white truncate leading-tight mt-1">${p.titulo || ''}</p>
+            <p class="font-Russo text-xs text-temu mt-0.5">s/ ${(p.precio || 0).toFixed(2)}</p>
+        `;
+        card.addEventListener('click', () => abrirDetalleProducto(p.id));
+        contenedor.appendChild(card);
+    });
+}
+
+// ─── CLICK EN CUALQUIER CARD PARA ABRIR DETALLE ───
 document.addEventListener('click', (e) => {
+    // Detectar card en grid, favoritos, carrito o hero
     const card = e.target.closest('#product-grid article[data-id], #favoritos-grid article[data-id], #contenedor-items-carrito article[data-id], .swiper-slide[data-id]');
     if (!card) return;
-    // No abrir si el click fue en botón de carrito o favorito
-    if (e.target.closest('.btn-agregar-carrito') || e.target.closest('.btn-favorito') || e.target.closest('.btn-favorito-hero')) return;
+
+    // Ignorar clicks en botones internos
+    if (e.target.closest('.btn-agregar-carrito') || e.target.closest('.btn-favorito') || e.target.closest('.btn-favorito-hero') || e.target.closest('.btn-epico')) return;
+
     const id = parseInt(card.dataset.id);
     if (!isNaN(id)) abrirDetalleProducto(id);
 });
+

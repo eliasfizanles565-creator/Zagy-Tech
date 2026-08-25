@@ -546,194 +546,224 @@
 
 /* ///////////////////////////////////////////////////////////////////////// */
 /* ================================================== */
-/* ==== DETALLE DE PRODUCTO - GALERÍA ==== */
+/* DETALLE PRODUCTO - CORRECCIONES V2 */
 /* ================================================== */
 
-/* Swipers de miniaturas */
-.swiper-mini-v-left, .swiper-mini-v-right {
-    width: 80px;
+/* Miniaturas verticales */
+.swiper-mini-v-left,
+.swiper-mini-v-right {
+    width: 100%;
 }
 .swiper-mini-v-left .swiper-slide,
-.swiper-mini-v-right .swiper-slide {
-    width: 80px !important;
-    height: 80px !important;
-    border-radius: 12px;
-    overflow: hidden;
-    cursor: pointer;
-    opacity: 0.6;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-}
-.swiper-mini-v-left .swiper-slide-thumb-active,
-.swiper-mini-v-right .swiper-slide-thumb-active,
-.swiper-mini-h .swiper-slide-thumb-active {
-    opacity: 1;
-    border-color: #FB7701;
-}
-.swiper-mini-v-left .swiper-slide img,
-.swiper-mini-v-right .swiper-slide img,
-.swiper-mini-h .swiper-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Swiper horizontal miniaturas */
-.swiper-mini-h {
-    width: 100%;
-    padding: 4px 0;
-}
+.swiper-mini-v-right .swiper-slide,
 .swiper-mini-h .swiper-slide {
-    width: 70px !important;
-    height: 70px !important;
     border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
-    opacity: 0.6;
-    transition: all 0.3s ease;
+    opacity: 0.5;
+    transition: all 0.2s ease;
     border: 2px solid transparent;
+    position: relative;
+    background: #e7e5e4;
 }
-.swiper-mini-h .swiper-slide img {
+.swiper-mini-v-left .swiper-slide {
+    width: 72px !important;
+    height: 72px !important;
+}
+.swiper-mini-v-right .swiper-slide {
+    width: 72px !important;
+    height: 72px !important;
+}
+.swiper-mini-h .swiper-slide {
+    width: 68px !important;
+    height: 68px !important;
+}
+@media (min-width: 640px) {
+    .swiper-mini-h .swiper-slide {
+        width: 76px !important;
+        height: 76px !important;
+    }
+}
+@media (min-width: 1024px) {
+    .swiper-mini-v-left .swiper-slide,
+    .swiper-mini-v-right .swiper-slide {
+        width: 72px !important;
+        height: 72px !important;
+    }
+}
+
+.swiper-mini-v-left .swiper-slide img,
+.swiper-mini-v-right .swiper-slide img,
+.swiper-mini-h .swiper-slide img,
+.swiper-mini-v-left .swiper-slide video,
+.swiper-mini-v-right .swiper-slide video,
+.swiper-mini-h .swiper-slide video {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
 }
 
-/* Badge de video en miniaturas */
-.mini-video-badge {
+/* Miniatura activa = borde temu */
+.swiper-slide-thumb-active {
+    opacity: 1 !important;
+    border-color: #FB7701 !important;
+    box-shadow: 0 0 0 3px rgba(251, 119, 1, 0.2) !important;
+}
+
+/* Overlay play en miniaturas video */
+.mini-video-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.4);
+    background: rgba(0,0,0,0.35);
     display: flex;
     align-items: center;
     justify-content: center;
+    pointer-events: none;
+    z-index: 2;
 }
-.mini-video-badge i {
+.mini-video-overlay i {
     color: white;
     font-size: 20px;
 }
 
-/* ================================================== */
-/* ==== ZOOM (LUPA) ==== */
-/* ================================================== */
+/* Zoom */
 #zoom-container {
     touch-action: none;
 }
 #zoom-container.zoom-activo img {
-    transform: scale(2);
+    transform: scale(2.5);
     cursor: zoom-out;
 }
 #zoom-container img {
     transform-origin: center center;
+    will-change: transform;
 }
 
-/* ================================================== */
-/* ==== LIGHTBOX ==== */
-/* ================================================== */
-#lightbox-detalle {
-    touch-action: manipulation;
-}
+/* Lightbox */
 #lightbox-detalle .swiper-slide {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-#lightbox-detalle .swiper-slide img {
-    max-height: 85vh;
-    max-width: 95vw;
-    object-fit: contain;
-}
+#lightbox-detalle .swiper-slide img,
 #lightbox-detalle .swiper-slide video {
     max-height: 85vh;
-    max-width: 95vw;
+    max-width: 90vw;
+    object-fit: contain;
+    border-radius: 8px;
 }
 
-/* En móvil, forzar orientación según la imagen */
-@media (max-width: 640px) {
-    #lightbox-detalle.landscape-active .swiper-slide img {
-        max-height: 60vh;
-        max-width: 95vw;
-    }
-}
-
-/* ================================================== */
-/* ==== ACCORDION ==== */
-/* ================================================== */
+/* Accordions funcionales */
 .accordion-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease;
-    padding-top: 0;
-    padding-bottom: 0;
+    opacity: 0;
+    transition: max-height 0.35s ease, opacity 0.25s ease;
 }
 .accordion-content.abierto {
-    max-height: 500px;
-    padding-top: 0.5rem;
-    padding-bottom: 1rem;
+    opacity: 1;
 }
 .accordion-icon.rotado {
     transform: rotate(180deg);
 }
 
-/* ================================================== */
-/* ==== GRID COLLAGE ==== */
-/* ================================================== */
-#collage-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 150px;
-    gap: 8px;
-}
-@media (min-width: 640px) {
-    #collage-grid {
-        grid-template-columns: repeat(3, 1fr);
-        grid-auto-rows: 180px;
-    }
-}
-@media (min-width: 1024px) {
-    #collage-grid {
-        grid-template-columns: repeat(4, 1fr);
-        grid-auto-rows: 200px;
-    }
-}
+/* Collage items */
 .collage-item {
-    border-radius: 16px;
+    border-radius: 12px;
     overflow: hidden;
     cursor: pointer;
     position: relative;
+    background: #f5f5f4;
+    min-height: 120px;
 }
-.collage-item:nth-child(1) {
-    grid-column: span 2;
-    grid-row: span 2;
+@media (min-width: 640px) {
+    .collage-item { min-height: 140px; border-radius: 14px; }
 }
-.collage-item img {
+@media (min-width: 1024px) {
+    .collage-item { min-height: 160px; border-radius: 16px; }
+}
+.collage-item img,
+.collage-item video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.4s ease;
 }
-.collage-item:hover img {
-    transform: scale(1.05);
-}
-.collage-item .collage-video-icon {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0,0,0,0.3);
-    pointer-events: none;
-}
-.collage-item .collage-video-icon i {
-    color: white;
-    font-size: 32px;
+.collage-item:hover img,
+.collage-item:hover video {
+    transform: scale(1.06);
 }
 
-/* ================================================== */
-/* ==== CARD RELACIONADA MINI ==== */
-/* ================================================== */
+/* Selector de estilos/colores */
+.estilo-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2.5px solid transparent;
+    transition: all 0.2s ease;
+    position: relative;
+    flex-shrink: 0;
+    background: #f5f5f4;
+}
+@media (min-width: 640px) {
+    .estilo-btn { width: 64px; height: 64px; }
+}
+.estilo-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+.estilo-btn.activo {
+    border-color: #FB7701;
+    box-shadow: 0 0 0 3px rgba(251, 119, 1, 0.25);
+}
+.estilo-btn img,
+.estilo-btn video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.estilo-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.65);
+    color: white;
+    font-size: 9px;
+    text-align: center;
+    padding: 2px 0;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+/* Cards relacionadas */
 .card-relacionada {
     min-width: 140px;
     width: 140px;
     flex-shrink: 0;
+    cursor: pointer;
+}
+@media (min-width: 640px) {
+    .card-relacionada { min-width: 160px; width: 160px; }
+}
+.card-relacionada .rel-img-wrap {
+    width: 100%;
+    height: 140px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #f5f5f4;
+    margin-bottom: 6px;
+}
+@media (min-width: 640px) {
+    .card-relacionada .rel-img-wrap { height: 160px; }
+}
+.card-relacionada img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+.card-relacionada:hover img {
+    transform: scale(1.05);
 }
