@@ -1089,7 +1089,7 @@
         lg:hidden"></div>
         
         <!-- BOTÓN VOLVER (solo mobile) -->
-        <div class="w-[95vw] mx-auto lg:max-w-7xl pt-3 pb-2 flex items-center gap-2 lg:hidden">
+        <div class="w-[95vw] hidden mx-auto lg:max-w-7xl pt-3 pb-2 flex items-center gap-2">
             <button id="btn-volver-detalle" class="flex items-center gap-1 text-stone-950 dark:text-white hover:text-temu transition-colors cursor-pointer">
                 <i class="ri-arrow-left-line text-xl"></i>
                 <span class="font-Inter text-sm font-semibold" data-i18n="volver">Volver</span>
@@ -1147,24 +1147,31 @@
                     </button>
                 </div>
 
-                <!-- Envío resumen (verde Temu) -->
-                <div class="mt-3 mb-10 p-2.5 bg-verdeTemu/5 dark:bg-verdeTemu/10 rounded-xl border border-verdeTemu/10 flex w-[120%] absolute left-0 gap-1 flex-row items-center justify-center
-                sm:gap-x-4 sm:p-3
-                lg:hidden">
-
-                    <span class="flex items-center gap-1.5 text-xs font-Inter font-semibold text-verdeTemu dark:text-verdeTemu2">
-                        <i class="ri-check-double-line"></i>
-                        <span data-i18n="envioGratisTren">Envío gratis en Estaciones del Tren</span>
-                    </span>
-
-                    <span class="hidden sm:inline text-stone-300 text-xs">|</span>
-
-                    <span class="flex items-center gap-1.5 text-xs font-Inter text-stone-600 dark:text-stone-400">
-                        <i class="ri-check-line text-verdeTemu"></i>
-                        <span data-i18n="envioDomicilio">S/10 a domicilio o Provincia</span>
-                    </span>
-
+                <!-- Envío resumen (verde Temu) - SOLO mobile/tablet -->
+                <div id="envio-marquee" class="mt-3 mb-10 overflow-hidden w-full absolute left-0 lg:hidden">
+                    <div id="envio-track" class="flex gap-4 whitespace-nowrap cursor-grab active:cursor-grabbing select-none px-4">
+                        <span class="flex items-center gap-1.5 text-xs font-Inter font-semibold text-verdeTemu dark:text-verdeTemu2 shrink-0">
+                            <i class="ri-check-double-line"></i>
+                            <span data-i18n="envioGratisTren">Envío gratis en Estaciones del Tren</span>
+                        </span>
+                        <span class="text-stone-300 text-xs shrink-0">|</span>
+                        <span class="flex items-center gap-1.5 text-xs font-Inter text-stone-600 dark:text-stone-400 shrink-0">
+                            <i class="ri-check-line text-verdeTemu"></i>
+                            <span data-i18n="envioDomicilio">S/10 a domicilio o Provincia</span>
+                        </span>
+                        <!-- Duplicamos para loop visual -->
+                        <span class="flex items-center gap-1.5 text-xs font-Inter font-semibold text-verdeTemu dark:text-verdeTemu2 shrink-0">
+                            <i class="ri-check-double-line"></i>
+                            <span>Envío gratis en Estaciones del Tren</span>
+                        </span>
+                        <span class="text-stone-300 text-xs shrink-0">|</span>
+                        <span class="flex items-center gap-1.5 text-xs font-Inter text-stone-600 dark:text-stone-400 shrink-0">
+                            <i class="ri-check-line text-verdeTemu"></i>
+                            <span>S/10 a domicilio o Provincia</span>
+                        </span>
+                    </div>
                 </div>
+
             </div>
 
             <!-- COLUMNA DERECHA: INFO DEL PRODUCTO -->

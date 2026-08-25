@@ -103,6 +103,8 @@ const productosDB = [
             "assets/35 FIGURA ALBEDO/17.webm",
             
         ],
+
+        tipoVariante: "color", // ← 'estilo' | 'color' | 'talla'
         // ─── ESTILOS / COLORES ───
         // Onii-chan: aquí defines los diferentes colores/estilos del producto.
         // Cada uno tiene una mini imagen para el selector.
@@ -636,6 +638,11 @@ function renderizarCarrito() {
 // Si el número es muy largo, baja el tamaño para que no rompa la línea
 const subSizeClass = subtotalStr.length > 7 ? 'text-sm' : 'text-lg';
 
+// Reemplaza el botón de "Color: Estandar" en renderizarCarrito por:
+const varianteTexto = item.variante 
+    ? `${item.variante.tipo}: ${item.variante.valor}` 
+    : 'Color: Estándar';
+
 const articleHTML = `
     <div class="swipe-wrapper shadow-lg shadow-stone-400 dark:shadow-temu/0 relative rounded-xl" data-swipe-id="${item.id}">
         <!-- Botón rojo que aparece al deslizar -->
@@ -655,7 +662,7 @@ const articleHTML = `
                         <p class="font-Inter font-medium text-xs truncate w-ful dark:text-temu">${item.subtitulo}</p>
                     </div>
                     <button class="h-6 w-30 bg-verdeTemu3 dark:bg-stone-800 rounded-4xl flex justify-center items-center text-xs font-semibold text-white dark:text-verdeTemu2">
-                        Color: Estandar
+                        ${varianteTexto}
                     </button>
                     <p class="text-xs font-bold font-MontAlternates dark:text-stone-500">s/ ${item.precio.toFixed(2)}</p>
                 </div>
@@ -1377,6 +1384,17 @@ function crearCategoriaBusqueda(query) {
 
 function eliminarCategoriaBusqueda(restaurarVista = true) {
     window.filtrandoBusqueda = false;
+
+    // 🔥 SI ESTAMOS EN DETALLE DE PRODUCTO, NO HACER NADA
+    const detalle = document.getElementById('producto-detalle');
+    if (detalle && !detalle.classList.contains('hidden')) {
+        // Solo limpiar input y msg, no tocar hero
+        const input = document.getElementById('buscador');
+        if (input) input.value = '';
+        const msg = document.getElementById('search-results-msg');
+        if (msg) msg.classList.add('hidden');
+        return;
+    }
     
     if (btnCategoriaBusqueda && btnCategoriaBusqueda.parentNode) {
         btnCategoriaBusqueda.parentNode.removeChild(btnCategoriaBusqueda);
@@ -1413,10 +1431,12 @@ const buscadorInput = document.querySelector('#buscador');
 if (buscadorInput) {
     buscadorInput.addEventListener('input', e => {
         const val = e.target.value;
+        const detalle = document.getElementById('producto-detalle');
+        const enDetalle = detalle && !detalle.classList.contains('hidden');
         
         if (val.trim().length > 0) {
             mostrarSugerencias(val);
-            filtrarProductosGlobal(val);
+            if (!enDetalle) filtrarProductosGlobal(val);
         } else {
             document.getElementById('sugerencias-dropdown').classList.add('hidden');
         }
@@ -1578,8 +1598,9 @@ function initSwipeDelete() {
         if (!card) return;
         
         let startX = 0, currentX = 0, isDragging = false;
-        const threshold = 60;   // px mínimos para "abrir"
-        const maxOpen = 80;     // px que se desliza
+        let hasDragged = false; // 🔥 NUEVO
+        const threshold = 60;
+        const maxOpen = 80;
 
         function setTranslate(x) {
             card.style.transition = 'none';
@@ -1589,6 +1610,7 @@ function initSwipeDelete() {
         function endDrag() {
             if (!isDragging) return;
             isDragging = false;
+            window._isSwiping = false; // 🔥 NUEVO: liberar flag
             card.style.transition = 'transform 0.2s ease-out';
             if (Math.abs(currentX) > threshold) {
                 card.style.transform = `translateX(-${maxOpen}px)`;
@@ -1613,12 +1635,16 @@ function initSwipeDelete() {
         card.addEventListener('touchstart', (e) => {
             startX = e.touches[0].clientX;
             isDragging = true;
+            hasDragged = false; // 🔥 NUEVO
+            window._isSwiping = false; // 🔥 NUEVO
             currentX = 0;
             closeOthers();
         }, { passive: true });
 
         card.addEventListener('touchmove', (e) => {
             if (!isDragging) return;
+            hasDragged = true; // 🔥 NUEVO
+            window._isSwiping = true; // 🔥 NUEVO
             const x = e.touches[0].clientX;
             const dx = x - startX;
             if (dx < 0) {
@@ -1627,18 +1653,26 @@ function initSwipeDelete() {
             }
         }, { passive: true });
 
-        card.addEventListener('touchend', () => endDrag());
+        card.addEventListener('touchend', () => {
+            endDrag();
+            // 🔥 NUEVO: dar tiempo a que el click se dispare antes de liberar
+            setTimeout(() => { window._isSwiping = false; }, 80);
+        });
 
         // --- MOUSE ---
         card.addEventListener('mousedown', (e) => {
             startX = e.clientX;
             isDragging = true;
+            hasDragged = false; // 🔥 NUEVO
+            window._isSwiping = false; // 🔥 NUEVO
             currentX = 0;
             closeOthers();
         });
 
         card.addEventListener('mousemove', (e) => {
             if (!isDragging) return;
+            hasDragged = true; // 🔥 NUEVO
+            window._isSwiping = true; // 🔥 NUEVO
             const dx = e.clientX - startX;
             if (dx < 0) {
                 currentX = Math.max(dx, -maxOpen - 10);
@@ -1646,16 +1680,23 @@ function initSwipeDelete() {
             }
         });
 
-        card.addEventListener('mouseup', () => endDrag());
+        card.addEventListener('mouseup', () => {
+            endDrag();
+            setTimeout(() => { window._isSwiping = false; }, 80); // 🔥 NUEVO
+        });
+        
         card.addEventListener('mouseleave', () => {
-            if (isDragging) endDrag();
+            if (isDragging) {
+                endDrag();
+                setTimeout(() => { window._isSwiping = false; }, 80); // 🔥 NUEVO
+            }
         });
 
         // Click en el botón rojo del swipe
         if (deleteBtn) {
             deleteBtn.addEventListener('click', () => {
                 const id = parseInt(wrapper.dataset.swipeId);
-                eliminarArticulo(id, false); // ← false = NO animar el tachito
+                eliminarArticulo(id, false);
             });
         }
     });
@@ -2332,6 +2373,11 @@ function getProducto(id) {
 
 // ─── ABRIR DETALLE ───
 function abrirDetalleProducto(id) {
+
+     // Ocultar mensaje de resultados
+    const msg = document.getElementById('search-results-msg');
+    if (msg) msg.classList.add('hidden');
+    
     const producto = getProducto(id);
     if (!producto) { console.warn('Producto no encontrado:', id); return; }
 
@@ -2362,9 +2408,17 @@ function abrirDetalleProducto(id) {
     if (navSup) navSup.classList.remove('max-lg:hidden');
     if (sepNav) sepNav.classList.add('hidden');
 
-    // Mostrar detalle
+    // Mostrar detalle con fade suave (sin scroll brusco)
     detalleSection.classList.remove('hidden');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    detalleSection.style.opacity = '0';
+    detalleSection.style.transform = 'translateY(30px)';
+    detalleSection.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    
+    setTimeout(() => {
+        detalleSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        detalleSection.style.opacity = '1';
+        detalleSection.style.transform = 'translateY(0)';
+    }, 30);
 
     // ─── INFO BÁSICA ───
     document.getElementById('detalle-titulo').textContent = producto.titulo || '';
@@ -2432,6 +2486,8 @@ function abrirDetalleProducto(id) {
     renderizarEstilos(producto);
     renderizarCollage(producto, medias);
     renderizarRelacionados(producto.relacionados || []);
+
+    initMarqueeEnvio();
 }
 
 // ─── MINIATURAS ───
@@ -2522,24 +2578,52 @@ function marcarMiniaturaActiva(idxActivo) {
 }
 
 function cambiarImagenPrincipal(medias, idx) {
+    const container = document.getElementById('zoom-container');
     const imgPrincipal = document.getElementById('img-principal');
     const badgeVideo = document.getElementById('badge-video-principal');
-    if (!imgPrincipal) return;
+    if (!container || !imgPrincipal) return;
 
     const media = medias[idx];
     if (!media) return;
 
+    // Limpiar container (por si hay video anterior)
+    const oldVideo = container.querySelector('video');
+    if (oldVideo) { oldVideo.pause(); oldVideo.remove(); }
+    imgPrincipal.style.display = 'block';
+
     if (media.tipo === 'video') {
-        // Para video, intentamos capturar frame o mostrar un placeholder
-        generarThumbnailVideo(media.src, (dataUrl) => {
-            imgPrincipal.src = dataUrl || media.src;
+        // Ocultar img, crear video con poster
+        imgPrincipal.style.display = 'none';
+        
+        const video = document.createElement('video');
+        video.src = media.src;
+        video.poster = medias.find(m => m.tipo === 'imagen')?.src || ''; // primera imagen como poster
+        video.controls = true;
+        video.playsInline = true;
+        video.preload = 'metadata';
+        video.className = 'w-full h-full object-contain';
+        video.style.borderRadius = '1rem';
+        
+        // Overlay play inicial (opcional, el poster ya tiene el frame)
+        // Pero si quieres un botón play custom:
+        const playOverlay = document.createElement('div');
+        playOverlay.className = 'absolute inset-0 flex items-center justify-center bg-black/20 cursor-pointer z-10';
+        playOverlay.innerHTML = '<div class="size-14 bg-white/90 rounded-full flex items-center justify-center shadow-lg"><i class="ri-play-fill text-3xl text-temu ml-1"></i></div>';
+        
+        video.addEventListener('play', () => { playOverlay.remove(); });
+        
+        container.appendChild(video);
+        container.appendChild(playOverlay);
+        
+        playOverlay.addEventListener('click', () => {
+            video.play();
         });
+
         if (badgeVideo) badgeVideo.classList.remove('hidden');
-        imgPrincipal.dataset.videoSrc = media.src;
     } else {
         imgPrincipal.src = media.src;
+        imgPrincipal.style.display = 'block';
         if (badgeVideo) badgeVideo.classList.add('hidden');
-        delete imgPrincipal.dataset.videoSrc;
     }
     imgPrincipal.dataset.mediaIdx = idx;
     marcarMiniaturaActiva(idx);
@@ -2636,6 +2720,12 @@ function initZoom() {
 function abrirLightbox(startIdx) {
     const medias = window._detalleMedias || [];
     if (!medias.length) return;
+    
+    // 🔥 PAUSAR TODOS LOS VIDEOS DEL DETALLE PRIMERO
+    document.querySelectorAll('#zoom-container video').forEach(v => {
+        v.pause();
+        v.currentTime = 0;
+    });
 
     const lightbox = document.getElementById('lightbox-detalle');
     const wrapper = document.getElementById('lightbox-wrapper');
@@ -2774,12 +2864,21 @@ document.getElementById('detalle-btn-carrito')?.addEventListener('click', (e) =>
     const producto = getProducto(productoActualId);
     if (!producto) return;
 
+    // Determinar label según tipoVariante
+    const tipo = producto.tipoVariante || 'estilo';
+    const labelMap = { estilo: 'Estilo', color: 'Color', talla: 'Talla' };
+    const label = labelMap[tipo] || 'Estilo';
+
     const itemBase = {
         id: producto.id,
         titulo: producto.titulo,
-        subtitulo: estiloSeleccionado ? `${producto.subtitulo} - ${estiloSeleccionado.color}` : producto.subtitulo,
+        subtitulo: producto.subtitulo,
         precio: producto.precio,
         imagen: estiloSeleccionado?.imagen || producto.imagenes?.[0] || '',
+        variante: estiloSeleccionado ? {
+            tipo: label,           // "Color"
+            valor: estiloSeleccionado.color || estiloSeleccionado.nombre // "Negro"
+        } : null
     };
 
     for (let i = 0; i < cantidadDetalle; i++) {
@@ -2825,6 +2924,17 @@ document.getElementById('detalle-btn-favorito')?.addEventListener('click', () =>
 
 // ─── VOLVER ───
 function cerrarDetalleProducto() {
+
+    // 🔥 PEGAR AQUÍ — PAUSAR Y LIMPIAR VIDEOS PRIMERO
+    document.querySelectorAll('#zoom-container video').forEach(v => {
+        v.pause();
+        v.currentTime = 0;
+        v.remove();
+    });
+    const imgPrincipal = document.getElementById('img-principal');
+    if (imgPrincipal) imgPrincipal.style.display = 'block';
+    // 🔥 HASTA AQUÍ
+
     const detalle = document.getElementById('producto-detalle');
     if (detalle) detalle.classList.add('hidden');
 
@@ -2910,6 +3020,10 @@ function renderizarRelacionados(ids) {
 
 // ─── CLICK EN CUALQUIER CARD PARA ABRIR DETALLE ───
 document.addEventListener('click', (e) => {
+    // 🔥 LÍNEAS NUEVAS: Si estamos haciendo swipe en el carrito, NO abrir detalle
+    if (window._isSwiping) return;
+    if (e.target.closest('.swipe-wrapper') && window._isSwiping) return;
+    
     // Detectar card en grid, favoritos, carrito o hero
     const card = e.target.closest('#product-grid article[data-id], #favoritos-grid article[data-id], #contenedor-items-carrito article[data-id], .swiper-slide[data-id]');
     if (!card) return;
@@ -2921,3 +3035,89 @@ document.addEventListener('click', (e) => {
     if (!isNaN(id)) abrirDetalleProducto(id);
 });
 
+// ======================================================
+// MARQUEE ENVÍO - Scroll infinito + arrastre
+// ======================================================
+function initMarqueeEnvio() {
+    const track = document.getElementById('envio-track');
+    if (!track) return;
+
+    let x = 0;
+    let speed = 0.5; // px por frame
+    let isDragging = false;
+    let startX = 0;
+    let scrollLeft = 0;
+    let rafId = null;
+    let autoScroll = true;
+
+    function animate() {
+        if (autoScroll && !isDragging) {
+            x -= speed;
+            // Cuando la primera mitad se va, reseteamos
+            const halfWidth = track.scrollWidth / 2;
+            if (Math.abs(x) >= halfWidth) {
+                x = 0;
+            }
+            track.style.transform = `translateX(${x}px)`;
+        }
+        rafId = requestAnimationFrame(animate);
+    }
+
+    // Touch
+    track.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        autoScroll = false;
+        startX = e.touches[0].pageX;
+        scrollLeft = x;
+        track.style.transition = 'none';
+    }, { passive: true });
+
+    track.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        const dx = e.touches[0].pageX - startX;
+        x = scrollLeft + dx;
+        track.style.transform = `translateX(${x}px)`;
+    }, { passive: true });
+
+    track.addEventListener('touchend', () => {
+        isDragging = false;
+        track.style.transition = 'transform 0.3s ease-out';
+        // Retomar auto-scroll después de 1s
+        setTimeout(() => { autoScroll = true; }, 1000);
+    });
+
+    // Mouse
+    track.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        autoScroll = false;
+        startX = e.pageX;
+        scrollLeft = x;
+        track.style.transition = 'none';
+        track.style.cursor = 'grabbing';
+    });
+
+    track.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const dx = e.pageX - startX;
+        x = scrollLeft + dx;
+        track.style.transform = `translateX(${x}px)`;
+    });
+
+    track.addEventListener('mouseup', () => {
+        isDragging = false;
+        track.style.cursor = 'grab';
+        track.style.transition = 'transform 0.3s ease-out';
+        setTimeout(() => { autoScroll = true; }, 1000);
+    });
+
+    track.addEventListener('mouseleave', () => {
+        if (isDragging) {
+            isDragging = false;
+            track.style.cursor = 'grab';
+            setTimeout(() => { autoScroll = true; }, 1000);
+        }
+    });
+
+    rafId = requestAnimationFrame(animate);
+}
