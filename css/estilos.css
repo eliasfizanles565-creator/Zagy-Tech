@@ -1653,6 +1653,9 @@
     .sm\:mb-4 {
       margin-bottom: calc(var(--spacing) * 4);
     }
+    .sm\:block {
+      display: block;
+    }
     .sm\:inline {
       display: inline;
     }
@@ -1719,6 +1722,9 @@
     }
     .sm\:w-51 {
       width: calc(var(--spacing) * 51);
+    }
+    .sm\:w-\[58\%\] {
+      width: 58%;
     }
     .sm\:w-\[72vw\] {
       width: 72vw;
