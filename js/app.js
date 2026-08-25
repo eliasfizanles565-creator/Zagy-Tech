@@ -671,8 +671,8 @@ const articleHTML = `
         <!-- Card principal (se desliza) -->
         <article class="card-swipe relative z-10 flex gap-3 py-2 rounded-xl justify-between" data-id="${item.id}" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}">
             <article class="flex gap-3 min-w-0">
-                <div class="size-20 ml-2 rounded-lg overflow-hidden shrink-0">
-                    <img src="${item.imagen}" alt="" class="w-full h-full object-cover">
+                <div class="size-20 ml-2 rounded-lg overflow-hidden shrink-0 cursor-pointer" onclick="event.stopPropagation(); abrirDetalleProducto(${item.id})">
+                    <img src="${item.imagen}" alt="" class="w-full h-full object-cover pointer-events-none">
                 </div>
                 <div class="flex flex-col items-start justify-center gap-1 min-w-0">
                     <div>
