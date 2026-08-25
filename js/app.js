@@ -101,7 +101,7 @@ const productosDB = [
         videos: [
             // "assets/videos/albedo-360.mp4",
             "assets/35 FIGURA ALBEDO/17.webm",
-            "assets/35 FIGURA ALBEDO/18.mp4",
+            
         ],
         // ─── ESTILOS / COLORES ───
         // Onii-chan: aquí defines los diferentes colores/estilos del producto.
