@@ -1003,8 +1003,17 @@
   .border-stone-200 {
     border-color: var(--color-stone-200);
   }
+  .border-stone-500 {
+    border-color: var(--color-stone-500);
+  }
   .border-stone-950 {
     border-color: var(--color-stone-950);
+  }
+  .border-stone-950\/10 {
+    border-color: color-mix(in srgb, oklch(14.7% 0.004 49.25) 10%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-stone-950) 10%, transparent);
+    }
   }
   .border-stone-950\/20 {
     border-color: color-mix(in srgb, oklch(14.7% 0.004 49.25) 20%, transparent);
