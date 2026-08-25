@@ -784,6 +784,32 @@
                 <div class="size-1.5 bg-white border border-stone-950/20 rounded-4xl sm:size-2.25"></div>
             </button>
         </article>
+
+        <!-- 18 FIGURA ALBEDO -->
+        <article class="producto-tienda cat-figuras w-[172px] h-[254px] relative sm:w-[234px] sm:h-[381px]" data-id="18" data-titulo="figura de Albedo" data-subtitulo="35x50 cm" data-precio="51.87" data-imagen="assets/01 albedo.avif">
+            <div class="absolute inset-0 bg-plomo dark:bg-stone-800 cardProducto"></div>
+            <div class="w-[172px] h-52.5 bg-plomo dark:bg-stone-800 cardProductoInner absolute inset-0 overflow-hidden sm:w-[234px] sm:h-78.5">
+                <img src="assets/01 albedo.avif" alt="" class="w-full h-full object-cover object-[50%_50%] sm:object-[50%_50%]">
+            </div>
+            <button class="btn-favorito absolute top-1.5 right-1.5 z-20 size-6 rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2">
+                <i class="ri-heart-line text-sm text-stone-950 transition-colors duration-200 sm:text-lg"></i>
+            </button>
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-albedo dark:bg-stone-900 dark:text-temu rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+                <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ 51.87</p>
+            </div>
+            <button class="btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]" data-id="18" data-titulo="Figura de Albedo" data-subtitulo="35x50 cm" data-precio="51.87" data-imagen="assets/01 albedo.avif">
+                <i class="ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
+            </button>
+            <div class="absolute bg-albedo dark:bg-stone-900 bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
+            <div class="w-[172px] h-10 absolute bottom-0 bg-albedo dark:bg-stone-900 dark:text-temu cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
+                <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">Figura de Albedo</p>
+                <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">35x50 cm</p>
+            </div>
+            <button class="absolute bg-white dark:bg-stone-600 right-1 bottom-2.5 w-7.5 h-2.25 z-10 rounded-4xl flex justify-center items-center gap-0.5 btn-precio sm:w-11.25 sm:h-[13.5px] sm:right-1.5 sm:bottom-3.75">
+                <div class="size-1.5 bg-stone-950 rounded-4xl border border-white/20 sm:size-2.25"></div>
+                <div class="size-1.5 bg-white border border-stone-950/20 rounded-4xl sm:size-2.25"></div>
+            </button>
+        </article>
     </section>
     <!-- ================================================================ -->
     
@@ -1047,6 +1073,219 @@
             </div>
         </div>
     </section>
+    <!-- =============================================================== -->
+
+
+
+
+    <!-- =============================================================== -->
+        <!-- ==================================== -->
+    <!-- SECTION DETALLE DE PRODUCTO          -->
+    <!-- ==================================== -->
+    <section id="producto-detalle" class="hidden w-full min-h-screen bg-white dark:bg-stone-950 pb-24">
+        
+        <!-- BOTÓN VOLVER -->
+        <div class="w-[95vw] mx-auto lg:max-w-7xl pt-3 pb-2 flex items-center gap-2">
+            <button id="btn-volver-detalle" class="flex items-center gap-1 text-stone-950 dark:text-white hover:text-temu transition-colors cursor-pointer">
+                <i class="ri-arrow-left-line text-xl"></i>
+                <span class="font-Inter text-sm font-semibold" data-i18n="volver">Volver</span>
+            </button>
+        </div>
+
+        <!-- GALERÍA PRINCIPAL -->
+        <div class="w-[95vw] mx-auto lg:max-w-7xl">
+            <div class="flex flex-col lg:flex-row gap-4 lg:gap-6">
+                
+                <!-- COLUMNA IZQUIERDA: Miniaturas Vertical -->
+                <div class="hidden lg:block w-20 shrink-0">
+                    <div class="swiper swiper-mini-v-left h-[400px] overflow-hidden">
+                        <div class="swiper-wrapper" id="mini-v-left-wrapper">
+                            <!-- Se llena por JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CENTRO: Imagen Principal + Zoom -->
+                <div class="flex-1 relative">
+                    <div id="zoom-container" class="relative w-full h-[350px] sm:h-[450px] lg:h-[500px] bg-stone-100 dark:bg-stone-900 rounded-2xl overflow-hidden cursor-zoom-in group">
+                        <img id="img-principal" src="" alt="" class="w-full h-full object-contain transition-transform duration-200 ease-out">
+                        <!-- Indicador de video (solo si hay videos) -->
+                        <div id="badge-video-principal" class="hidden absolute top-3 right-3 bg-stone-950/80 text-white px-2 py-1 rounded-lg text-xs font-semibold backdrop-blur-sm">
+                            <i class="ri-video-line mr-1"></i>VIDEO
+                        </div>
+                    </div>
+                    <p class="text-[10px] text-stone-400 mt-1 text-center font-Inter hidden sm:block" data-i18n="zoomHint">Pasa el mouse o mantén presionado para ampliar</p>
+                </div>
+
+                <!-- COLUMNA DERECHA: Miniaturas Vertical -->
+                <div class="hidden lg:block w-20 shrink-0">
+                    <div class="swiper swiper-mini-v-right h-[400px] overflow-hidden">
+                        <div class="swiper-wrapper" id="mini-v-right-wrapper">
+                            <!-- Se llena por JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BARRA HORIZONTAL MINIATURAS (con flechas) -->
+            <div class="relative mt-4 px-8">
+                <button id="mini-h-prev" class="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-full flex items-center justify-center shadow-sm hover:bg-stone-50 dark:hover:bg-stone-700 transition-colors cursor-pointer">
+                    <i class="ri-arrow-left-s-line text-stone-600 dark:text-white"></i>
+                </button>
+                <div class="swiper swiper-mini-h overflow-hidden">
+                    <div class="swiper-wrapper" id="mini-h-wrapper">
+                        <!-- Se llena por JS -->
+                    </div>
+                </div>
+                <button id="mini-h-next" class="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-full flex items-center justify-center shadow-sm hover:bg-stone-50 dark:hover:bg-stone-700 transition-colors cursor-pointer">
+                    <i class="ri-arrow-right-s-line text-stone-600 dark:text-white"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- INFO DEL PRODUCTO -->
+        <div class="w-[95vw] mx-auto lg:max-w-7xl mt-6 px-1">
+            <!-- Tags -->
+            <div class="flex flex-wrap gap-2 mb-2">
+                <span id="detalle-marca" class="px-3 py-1 bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 text-xs font-semibold rounded-full"></span>
+                <span id="detalle-disponible" class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-semibold rounded-full"></span>
+            </div>
+
+            <!-- Título -->
+            <h1 id="detalle-titulo" class="font-Inter font-bold text-xl sm:text-2xl text-stone-950 dark:text-white leading-tight"></h1>
+            <p id="detalle-subtitulo" class="font-Inter text-sm text-stone-500 dark:text-stone-400 mt-1"></p>
+
+            <!-- Precio -->
+            <div class="flex items-end gap-3 mt-3">
+                <div class="flex items-baseline gap-1">
+                    <span class="text-sm font-Russo text-stone-950 dark:text-white">s/</span>
+                    <span id="detalle-precio" class="text-3xl font-Russo text-temu"></span>
+                </div>
+                <div id="detalle-precio-tachado" class="hidden flex items-baseline gap-1">
+                    <span class="text-sm font-Russo text-stone-400 line-through">s/</span>
+                    <span id="detalle-precio-original" class="text-lg font-Russo text-stone-400 line-through"></span>
+                </div>
+                <span id="detalle-descuento" class="hidden px-2 py-0.5 bg-temu text-white text-xs font-bold rounded-lg"></span>
+            </div>
+
+            <!-- Estilo -->
+            <div class="mt-4">
+                <p class="text-xs font-Inter font-semibold text-stone-500 dark:text-stone-400 mb-2" data-i18n="estilo">Estilo:</p>
+                <div id="detalle-estilo-badge" class="inline-flex px-4 py-2 border-2 border-temu rounded-xl text-sm font-semibold text-stone-950 dark:text-white cursor-default"></div>
+            </div>
+
+            <!-- Botones Acción -->
+            <div class="flex gap-3 mt-6">
+                <button id="detalle-btn-favorito" class="size-12 rounded-2xl border-2 border-stone-200 dark:border-stone-700 flex items-center justify-center transition-all duration-300 hover:scale-105 cursor-pointer shrink-0">
+                    <i class="ri-heart-line text-xl text-stone-950 dark:text-white transition-colors duration-200"></i>
+                </button>
+                <button id="detalle-btn-carrito" class="flex-1 h-12 bg-temu rounded-2xl flex items-center justify-center gap-2 btn-epico cursor-pointer transition-transform duration-300">
+                    <i class="ri-shopping-cart-2-line text-white text-lg"></i>
+                    <span class="font-Inter font-semibold text-white text-sm" data-i18n="agregarCarrito">Agregar al Carrito</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- ACCORDIONS -->
+        <div class="w-[95vw] mx-auto lg:max-w-7xl mt-8 space-y-2">
+            
+            <!-- Envío -->
+            <div class="accordion-item border border-stone-200 dark:border-stone-800 rounded-2xl overflow-hidden">
+                <button class="accordion-header w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-stone-900 cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <i class="ri-truck-line text-temu text-lg"></i>
+                        <span class="font-Inter font-semibold text-sm text-stone-950 dark:text-white" data-i18n="envioTitulo">Envío</span>
+                    </div>
+                    <i class="ri-arrow-down-s-line text-stone-400 transition-transform duration-300 accordion-icon"></i>
+                </button>
+                <div class="accordion-content hidden px-4 pb-4 bg-white dark:bg-stone-900">
+                    <p id="accordion-envio" class="font-Inter text-xs text-stone-600 dark:text-stone-400 whitespace-pre-line leading-relaxed"></p>
+                </div>
+            </div>
+
+            <!-- ¿Por qué elegirnos? -->
+            <div class="accordion-item border border-stone-200 dark:border-stone-800 rounded-2xl overflow-hidden">
+                <button class="accordion-header w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-stone-900 cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <i class="ri-shield-check-line text-temu text-lg"></i>
+                        <span class="font-Inter font-semibold text-sm text-stone-950 dark:text-white" data-i18n="porQueElegirnos">¿Por qué elegirnos?</span>
+                    </div>
+                    <i class="ri-arrow-down-s-line text-stone-400 transition-transform duration-300 accordion-icon"></i>
+                </button>
+                <div class="accordion-content hidden px-4 pb-4 bg-white dark:bg-stone-900">
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="flex items-start gap-2">
+                            <i class="ri-checkbox-circle-fill text-green-500 text-sm mt-0.5"></i>
+                            <p class="font-Inter text-xs text-stone-600 dark:text-stone-400" data-i18n="pagoSeguro">Pagos seguros</p>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <i class="ri-checkbox-circle-fill text-green-500 text-sm mt-0.5"></i>
+                            <p class="font-Inter text-xs text-stone-600 dark:text-stone-400" data-i18n="pagaRecibir">Paga cuando recibas</p>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <i class="ri-checkbox-circle-fill text-green-500 text-sm mt-0.5"></i>
+                            <p class="font-Inter text-xs text-stone-600 dark:text-stone-400" data-i18n="privacidadSegura">Privacidad segura</p>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <i class="ri-checkbox-circle-fill text-green-500 text-sm mt-0.5"></i>
+                            <p class="font-Inter text-xs text-stone-600 dark:text-stone-400" data-i18n="entregaRapida">Entrega coordinada</p>
+                        </div>
+                    </div>
+                    <p id="accordion-garantia" class="font-Inter text-xs text-stone-600 dark:text-stone-400 whitespace-pre-line leading-relaxed mt-3 pt-3 border-t border-stone-100 dark:border-stone-800"></p>
+                </div>
+            </div>
+
+            <!-- Detalles del producto -->
+            <div class="accordion-item border border-stone-200 dark:border-stone-800 rounded-2xl overflow-hidden">
+                <button class="accordion-header w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-stone-900 cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <i class="ri-file-list-3-line text-temu text-lg"></i>
+                        <span class="font-Inter font-semibold text-sm text-stone-950 dark:text-white" data-i18n="detallesProducto">Detalles del producto</span>
+                    </div>
+                    <i class="ri-arrow-down-s-line text-stone-400 transition-transform duration-300 accordion-icon"></i>
+                </button>
+                <div class="accordion-content hidden px-4 pb-4 bg-white dark:bg-stone-900">
+                    <p id="accordion-detalles" class="font-Inter text-xs text-stone-600 dark:text-stone-400 leading-relaxed"></p>
+                </div>
+            </div>
+
+            <!-- Donación -->
+            <div class="accordion-item border border-stone-200 dark:border-stone-800 rounded-2xl overflow-hidden">
+                <button class="accordion-header w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-stone-900 cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <i class="ri-heart-3-line text-temu text-lg"></i>
+                        <span class="font-Inter font-semibold text-sm text-stone-950 dark:text-white" data-i18n="programaDonacion">Programa de Donación</span>
+                    </div>
+                    <i class="ri-arrow-down-s-line text-stone-400 transition-transform duration-300 accordion-icon"></i>
+                </button>
+                <div class="accordion-content hidden px-4 pb-4 bg-white dark:bg-stone-900">
+                    <p id="accordion-donacion" class="font-Inter text-xs text-stone-600 dark:text-stone-400 leading-relaxed"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- GRID COLLAGE DE IMÁGENES -->
+        <div class="w-[95vw] mx-auto lg:max-w-7xl mt-8">
+            <h2 class="font-Inter font-bold text-lg text-stone-950 dark:text-white mb-3" data-i18n="galeriaProducto">Galería del producto</h2>
+            <div id="collage-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+                <!-- Se llena por JS según collageOrder -->
+            </div>
+        </div>
+
+        <!-- EXPLORA MÁS PRODUCTOS -->
+        <div class="w-[95vw] mx-auto lg:max-w-7xl mt-10">
+            <h2 class="font-Inter font-bold text-lg text-stone-950 dark:text-white mb-3" data-i18n="exploraMas">Explora más productos</h2>
+            <div id="detalle-relacionados" class="flex gap-3 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-4">
+                <!-- Se llena por JS -->
+            </div>
+        </div>
+
+        <!-- FOOTER ESPACIO -->
+        <div class="h-20"></div>
+    </section>
+
+
+
     
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

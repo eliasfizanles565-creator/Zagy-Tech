@@ -1,5 +1,151 @@
 "use strict";
 
+// ======================================================
+// BASE DE DATOS DE PRODUCTOS
+// ======================================================
+// INSTRUCCIONES PARA ONII-CHAN:
+// 1. Cada producto tiene un array "imagenes" con las rutas de sus fotos.
+// 2. El array "videos" es para archivos locales (.mp4, .webm).
+//    Si no tiene videos, déjalo vacío: videos: []
+// 3. "collageOrder" controla el ORDEN de las imágenes en el grid collage.
+//    Ej: collageOrder: [2, 0, 1, 3] → primero muestra imagen índice 2, luego 0, etc.
+// 4. "relacionados" son los IDs de otros productos que aparecen en "Explora más".
+// 5. Agrega más productos copiando la estructura y cambiando el id.
+// ======================================================
+
+const productosDB = [
+    {
+        id: 1,
+        titulo: "Álbum Tapa Dura",
+        subtitulo: "PANINI - Mundial 2026",
+        precio: 45.00,
+        precioOriginal: 77.91,      // null si NO hay descuento
+        descuento: 33,              // % de descuento (0 si no hay)
+        disponible: 7,
+        marca: "PANINI",
+        estilo: "Mundial 2026",
+        categoria: "albums",
+        // ─── IMÁGENES DEL PRODUCTO ───
+        // Agrega aquí todas las fotos que quieras mostrar en la galería
+        imagenes: [
+            "assets/06 mundial.webp",
+            "assets/06 mundial-2.webp",   // ← Onii-chan: reemplaza con tus fotos
+            "assets/06 mundial-3.webp",
+            "assets/06 mundial-4.webp",
+            // "assets/06 mundial-5.webp", // descomenta para agregar más
+        ],
+        // ─── VIDEOS LOCALES ───
+        // Agrega aquí tus archivos .mp4 o .webm
+        videos: [
+            // "assets/videos/album-mundial.mp4", // ← Onii-chan: descomenta y pon tu video
+        ],
+        // ─── ORDEN DEL GRID COLLAGE ───
+        // Controla qué imagen va en cada posición del collage.
+        // Los números son los índices del array "imagenes" de arriba.
+        collageOrder: [0, 2, 1, 3],
+        // ─── TEXTOS LARGOS (por idioma) ───
+        detalles: {
+            es: "Álbum oficial de la FIFA World Cup 2026 edición tapa dura. Incluye 80 páginas a full color con todos los equipos clasificados, jugadores estrella y estadísticas exclusivas. Tapa reforzada con acabado brillante.",
+            en: "Official FIFA World Cup 2026 hardcover album. Includes 80 full-color pages with all qualified teams, star players and exclusive statistics. Reinforced cover with glossy finish.",
+            qu: "FIFA World Cup 2026 album oficial. 80 páginas color nisqan, tukuy equipokuna, star jugadorkuna. Tapa fuerte.",
+        },
+        envio: {
+            es: "✓ Envío gratis en las Estaciones del Tren\n✓ S/10 por Envío a domicilio o Provincia\nEntrega: 10 am - 9 pm",
+            en: "✓ Free shipping at Train Stations\n✓ S/10 for Home or Province Delivery\nDelivery: 10 am - 9 pm",
+            qu: "✓ Libre chaski Tren Estaciones\n✓ S/10 wasi chaski\nChayay: 10 am - 9 pm",
+        },
+        garantia: {
+            es: "✓ Pagos seguros\n✓ Paga cuando recibas tu producto\n✓ Privacidad segura\n✓ Coordinamos tu entrega en la brevedad posible",
+            en: "✓ Secure payments\n✓ Pay when you receive your product\n✓ Secure privacy\n✓ We coordinate your delivery as soon as possible",
+            qu: "✓ Seguro pagokuna\n✓ Chaskispay paga\n✓ Seguro privacidad",
+        },
+        donacion: {
+            es: "Ayúdanos para poder llevarle un bonito regalo a los niños por esta Navidad y un delicioso compartir.",
+            en: "Help us bring a nice gift to children this Christmas and a delicious sharing moment.",
+            qu: "Yanapayku churay regalo wawakunaman Navidad p'unchaypi.",
+        },
+        // ─── PRODUCTOS RELACIONADOS (Explora más) ───
+        // IDs de otros productos que quieres mostrar al final
+        relacionados: [18, 4, 6, 11, 2, 3],
+    },
+    {
+        id: 18,
+        titulo: "Figura de Albedo",
+        subtitulo: "35x50 cm",
+        precio: 51.87,
+        precioOriginal: 77.91,
+        descuento: 33,
+        disponible: 7,
+        marca: "BANDAI",
+        estilo: "Albedo",
+        categoria: "figuras",
+        imagenes: [
+            "assets/35 FIGURA ALBEDO/01.avif",
+            "assets/35 FIGURA ALBEDO/02.avif",   // ← Onii-chan: pon tus fotos aquí
+            "assets/35 FIGURA ALBEDO/03.avif",
+            "assets/35 FIGURA ALBEDO/04.avif",
+            "assets/35 FIGURA ALBEDO/05.avif",
+            "assets/35 FIGURA ALBEDO/06.jpg",
+            "assets/35 FIGURA ALBEDO/07.avif",
+            "assets/35 FIGURA ALBEDO/08.avif",
+            "assets/35 FIGURA ALBEDO/09.jpg",
+            "assets/35 FIGURA ALBEDO/10.jpg",
+            "assets/35 FIGURA ALBEDO/11.jpg",
+            "assets/35 FIGURA ALBEDO/12.jpg",
+            "assets/35 FIGURA ALBEDO/13.webp",
+            "assets/35 FIGURA ALBEDO/14.jpg",
+            "assets/35 FIGURA ALBEDO/15.webp",
+            "assets/35 FIGURA ALBEDO/16.avif",
+            
+        ],
+        videos: [
+            // "assets/videos/albedo-360.mp4",
+            "assets/35 FIGURA ALBEDO/17.webm",
+        ],
+        collageOrder: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+        detalles: {
+            es: "Figura de Anime de Albedo del anime Overlord en Pose de Batalla. Estatua de 24cm/9.45 pulgadas con accesorios. Adorno de Escritorio, Regalo Coleccionable para Fans.",
+            en: "Anime Figure of Albedo from Overlord in Battle Pose. 24cm/9.45 inches statue with accessories. Desktop Ornament, Collectible Gift for Fans.",
+            qu: "Albedo figura anime Overlord. 24cm estatua, accesorios nisqan.",
+        },
+        envio: {
+            es: "✓ Envío gratis en las Estaciones del Tren\n✓ S/10 por Envío a domicilio o Provincia",
+            en: "✓ Free shipping at Train Stations\n✓ S/10 for Home Delivery",
+            qu: "✓ Libre chaski Tren Estaciones\n✓ S/10 wasi chaski",
+        },
+        garantia: {
+            es: "✓ Pagos seguros\n✓ Paga cuando recibas tu producto\n✓ Privacidad segura",
+            en: "✓ Secure payments\n✓ Pay on delivery\n✓ Secure privacy",
+            qu: "✓ Seguro pagokuna\n✓ Chaskispay paga",
+        },
+        donacion: {
+            es: "Ayúdanos para poder llevarle un bonito regalo a los niños por esta Navidad.",
+            en: "Help us bring a nice gift to children this Christmas.",
+            qu: "Yanapayku wawakunaman regalo churay.",
+        },
+        relacionados: [1, 4, 6, 11, 12, 9],
+    },
+    // ═══════════════════════════════════════════════════════
+    // ONII-CHAN: COPIA Y PEGA EL BLOQUE DE ARRIBA PARA AGREGAR MÁS PRODUCTOS.
+    // Solo cambia el id, los textos, las rutas de imágenes y videos.
+    // ═══════════════════════════════════════════════════════
+];
+
+// Helper para obtener un producto por ID
+function getProducto(id) {
+    return productosDB.find(p => p.id === id) || null;
+}
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////
 
 function extractBgClass(el) {
     if (!el) return 'bg-puro';
@@ -299,8 +445,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         if (btnVerMas) {
             if (cardsEnCategoria.length <= limit) { btnVerMas.style.display = 'none'; }
-            else { btnVerMas.style.display = 'block'; const t = traducciones[idiomaActual] || traducciones.es;
-            btnVerMas.textContent = showingAll ? t.verMenos : t.verMas;
+            else { btnVerMas.style.display = 'block';
+            btnVerMas.textContent = showingAll ? _t().verMenos : _t().verMas;
             }
         }
     }
@@ -466,7 +612,7 @@ function renderizarCarrito() {
     if (!contenedorItems) return;
     contenedorItems.innerHTML = '';
     if (carritoDeCompras.length === 0) {
-        contenedorItems.innerHTML = `<p class="font-Inter text-xs text-stone-500 py-0 px-2">Tu carrito esta vacio.</p>`;
+        contenedorItems.innerHTML = `<p class="font-Inter text-xs text-stone-500 py-0 px-2">${_t().carritoVacio}.</p>`;
         if (elementoTotal) elementoTotal.innerHTML = `s/ 0.<span class="text-xl font-Russo">00</span>`;
         return;
     }
@@ -590,6 +736,10 @@ function toggleFavorito(producto) {
             // Guardar las clases exactas del <i> dentro del botón carrito
             const carritoIcon = card.querySelector('.btn-agregar-carrito i');
             producto.clsCarritoIcon = carritoIcon ? carritoIcon.className : '';
+
+            // Guardar las clases exactas de la imagen del producto
+            const imgProducto = card.querySelector('.cardProductoInner img');
+            producto.clsImgProducto = imgProducto ? imgProducto.className : '';
             
             // Dots = el button.btn-precio (siempre es <button> en tu HTML)
             const dotsBtn = card.querySelector('button.btn-precio');
@@ -659,7 +809,7 @@ function renderizarFavoritos() {
         <article class="w-[172px] h-[254px] relative sm:w-[234px] sm:h-[381px]" data-id="${item.id}" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}">
             <div class="${item.clsProducto || 'absolute inset-0 bg-stone-950 dark:bg-temu cardProducto'}"></div>
             <div class="${item.clsProductoInner || 'w-[172px] h-52.5 bg-white dark:bg-stone-900 cardProductoInner absolute inset-0 overflow-hidden border border-stone-950 dark:border-temu sm:w-[234px] sm:h-78.75'}">
-                <img src="${item.imagen}" alt="" class="w-full h-full object-contain object-[50%_70%] sm:object-[50%_60%]">
+                <img src="${item.imagen}" alt="" class="${item.clsImgProducto || 'w-full h-full object-contain object-[50%_70%] sm:object-[50%_60%]'}">
             </div>
             <button class="${item.clsBtnFav || 'btn-favorito absolute top-1.5 right-1.5 z-20 size-6 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2'} activo">
                 <i class="ri-heart-fill text-sm text-stone-950 dark:text-white/20 transition-colors duration-200 sm:text-lg"></i>
@@ -1906,6 +2056,21 @@ const traducciones = {
         miCarrito: 'Mi Carrito',
         total: 'Total',
         finalizarCompra: 'Finalizar Compra',
+        carritoVacio: 'Tu carrito está vacío',
+volver: "Volver",
+estilo: "Estilo:",
+agregarCarrito: "Agregar al Carrito",
+envioTitulo: "Envío",
+porQueElegirnos: "¿Por qué elegirnos?",
+detallesProducto: "Detalles del producto",
+programaDonacion: "Programa de Donación",
+galeriaProducto: "Galería del producto",
+exploraMas: "Explora más productos",
+zoomHint: "Pasa el mouse o mantén presionado para ampliar",
+pagoSeguro: "Pagos seguros",
+pagaRecibir: "Paga cuando recibas",
+privacidadSegura: "Privacidad segura",
+entregaRapida: "Entrega coordinada",
         // Agrega aquí más claves según vayas traduciendo tu web...
         
     },
@@ -1947,7 +2112,21 @@ const traducciones = {
         miCarrito: 'My Cart',
         total: 'Total',
         finalizarCompra: 'Complete Purchase',
-
+        carritoVacio: 'You cart is empty',
+volver: "Back",
+estilo: "Style:",
+agregarCarrito: "Add to Cart",
+envioTitulo: "Shipping",
+porQueElegirnos: "Why choose us?",
+detallesProducto: "Product details",
+programaDonacion: "Donation Program",
+galeriaProducto: "Product Gallery",
+exploraMas: "Explore more products",
+zoomHint: "Hover or hold to zoom",
+pagoSeguro: "Secure payments",
+pagaRecibir: "Pay on delivery",
+privacidadSegura: "Secure privacy",
+entregaRapida: "Coordinated delivery",
         // Agrega aquí los equivalentes en inglés...
     },
     // ============================================
@@ -1986,10 +2165,30 @@ const traducciones = {
         miCarrito: 'Churanay',
         total: 'Tukuy chanin',
         finalizarCompra: 'Tukuchiy rantiyta',
+        carritoVacio: 'Carroykiqa ch\'usaqmi kashan',
+volver: "Kuti",
+estilo: "Sami:",
+agregarCarrito: "Churana Carroy",
+envioTitulo: "Chaski",
+porQueElegirnos: "Imataq akllasunki?",
+detallesProducto: "Producto detalles",
+programaDonacion: "Donacion Programa",
+galeriaProducto: "Producto Galería",
+exploraMas: "Aswan productokuna",
+zoomHint: "Yapay icha hapiy",
+pagoSeguro: "Seguro pagokuna",
+pagaRecibir: "Chaskispay paga",
+privacidadSegura: "Seguro privacidad",
+entregaRapida: "Utqay chaski",
     }
 };
 
 let idiomaActual = 'es';
+
+// Helper para obtener traducciones del idioma actual (siempre fresco)
+function _t() {
+    return traducciones[idiomaActual] || traducciones.es;
+}
 
 function aplicarIdioma(lang) {
     idiomaActual = lang;
@@ -2029,6 +2228,8 @@ function aplicarIdioma(lang) {
             btn.classList.add('border-transparent');
         }
     });
+
+    renderizarCarrito();
     
     localStorage.setItem('zagy_idioma', lang);
 }
@@ -2062,4 +2263,451 @@ if (btnFirstWeb) {
 document.addEventListener('DOMContentLoaded', () => {
     iniciarModo();
     iniciarIdioma();
+});
+//////////////////////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////////////////////
+// ======================================================
+// DETALLE DE PRODUCTO - FUNCIONES GLOBALES
+// ======================================================
+
+let swiperMiniVLeft, swiperMiniVRight, swiperMiniH, swiperLightbox;
+let productoActualId = null;
+
+// ─── ABRIR DETALLE DESDE CUALQUIER CARD ───
+function abrirDetalleProducto(id) {
+    const producto = getProducto(id);
+    if (!producto) return;
+
+    productoActualId = id;
+    const detalleSection = document.getElementById('producto-detalle');
+    if (!detalleSection) return;
+
+    // 1. Ocultar todo lo demás
+    document.querySelectorAll('.hero-container').forEach(h => { h.classList.add('hidden'); h.style.display = 'none'; });
+    const grid = document.getElementById('product-grid');
+    const navCat = document.getElementById('nav-categorias');
+    const btnMas = document.getElementById('btn-mas');
+    const carritoSec = document.getElementById('carrito-section');
+    const favSec = document.getElementById('favoritos-section');
+    const btnCarritoFlotante = document.getElementById('btn-carrito');
+    const navSup = document.querySelector('nav');
+
+    if (grid) grid.classList.add('hidden');
+    if (navCat) navCat.classList.add('hidden');
+    if (btnMas) btnMas.classList.add('hidden');
+    if (carritoSec) carritoSec.classList.add('hidden');
+    if (favSec) favSec.classList.add('hidden');
+    if (btnCarritoFlotante) btnCarritoFlotante.classList.add('hidden');
+    if (navSup) navSup.classList.remove('max-lg:hidden');
+
+    // 2. Mostrar sección detalle
+    detalleSection.classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // 3. Renderizar info básica
+    document.getElementById('detalle-titulo').textContent = producto.titulo;
+    document.getElementById('detalle-subtitulo').textContent = producto.subtitulo;
+    document.getElementById('detalle-marca').textContent = producto.marca;
+    document.getElementById('detalle-disponible').textContent = `${producto.disponible} disponible(s)`;
+    document.getElementById('detalle-precio').textContent = producto.precio.toFixed(2);
+    document.getElementById('detalle-estilo-badge').textContent = producto.estilo;
+
+    // Precio tachado y descuento
+    const precioTachado = document.getElementById('detalle-precio-tachado');
+    const badgeDesc = document.getElementById('detalle-descuento');
+    if (producto.precioOriginal && producto.descuento > 0) {
+        precioTachado.classList.remove('hidden');
+        badgeDesc.classList.remove('hidden');
+        document.getElementById('detalle-precio-original').textContent = producto.precioOriginal.toFixed(2);
+        badgeDesc.textContent = `${producto.descuento}% OFF`;
+    } else {
+        precioTachado.classList.add('hidden');
+        badgeDesc.classList.add('hidden');
+    }
+
+    // 4. Textos de accordions (según idioma actual)
+    const tDetalle = producto.detalles[idiomaActual] || producto.detalles.es;
+    const tEnvio = producto.envio[idiomaActual] || producto.envio.es;
+    const tGarantia = producto.garantia[idiomaActual] || producto.garantia.es;
+    const tDonacion = producto.donacion[idiomaActual] || producto.donacion.es;
+
+    document.getElementById('accordion-detalles').textContent = tDetalle;
+    document.getElementById('accordion-envio').textContent = tEnvio;
+    document.getElementById('accordion-garantia').textContent = tGarantia;
+    document.getElementById('accordion-donacion').textContent = tDonacion;
+
+    // 5. Construir array de medias (imágenes + videos)
+    const medias = [];
+    producto.imagenes.forEach(img => medias.push({ tipo: 'imagen', src: img }));
+    producto.videos.forEach(vid => medias.push({ tipo: 'video', src: vid }));
+
+    // 6. Renderizar miniaturas verticales (divididas entre izq y der)
+    const wrapLeft = document.getElementById('mini-v-left-wrapper');
+    const wrapRight = document.getElementById('mini-v-right-wrapper');
+    const wrapH = document.getElementById('mini-h-wrapper');
+    wrapLeft.innerHTML = '';
+    wrapRight.innerHTML = '';
+    wrapH.innerHTML = '';
+
+    medias.forEach((media, idx) => {
+        const isVideo = media.tipo === 'video';
+        const slideHTML = `
+            <div class="swiper-slide" data-media-idx="${idx}">
+                ${isVideo ? '<div class="mini-video-badge"><i class="ri-play-fill"></i></div>' : ''}
+                <img src="${isVideo ? 'assets/video-thumb.webp' : media.src}" ${!isVideo ? `data-src="${media.src}"` : ''}>
+            </div>
+        `;
+        // Mitad a la izquierda, mitad a la derecha (alternando)
+        if (idx % 2 === 0) wrapLeft.insertAdjacentHTML('beforeend', slideHTML);
+        else wrapRight.insertAdjacentHTML('beforeend', slideHTML);
+
+        // Horizontal: todas
+        wrapH.insertAdjacentHTML('beforeend', slideHTML);
+    });
+
+    // 7. Inicializar Swipers
+    setTimeout(() => {
+        if (swiperMiniVLeft) swiperMiniVLeft.destroy();
+        if (swiperMiniVRight) swiperMiniVRight.destroy();
+        if (swiperMiniH) swiperMiniH.destroy();
+
+        swiperMiniVLeft = new Swiper('.swiper-mini-v-left', {
+            direction: 'vertical',
+            slidesPerView: 'auto',
+            spaceBetween: 8,
+            loop: medias.length > 3,
+            mousewheel: true,
+        });
+
+        swiperMiniVRight = new Swiper('.swiper-mini-v-right', {
+            direction: 'vertical',
+            slidesPerView: 'auto',
+            spaceBetween: 8,
+            loop: medias.length > 3,
+            mousewheel: true,
+        });
+
+        swiperMiniH = new Swiper('.swiper-mini-h', {
+            slidesPerView: 'auto',
+            spaceBetween: 8,
+            loop: medias.length > 4,
+            navigation: {
+                prevEl: '#mini-h-prev',
+                nextEl: '#mini-h-next',
+            },
+        });
+
+        // Click en miniatura → cambiar imagen principal
+        document.querySelectorAll('.swiper-mini-v-left .swiper-slide, .swiper-mini-v-right .swiper-slide, .swiper-mini-h .swiper-slide').forEach(slide => {
+            slide.addEventListener('click', () => {
+                const idx = parseInt(slide.dataset.mediaIdx);
+                cambiarImagenPrincipal(medias, idx);
+                // Sincronizar active en todos los swipers
+                [swiperMiniVLeft, swiperMiniVRight, swiperMiniH].forEach(s => {
+                    if (s) s.slideToLoop(idx);
+                });
+            });
+        });
+    }, 50);
+
+    // 8. Imagen principal inicial
+    cambiarImagenPrincipal(medias, 0);
+
+    // 9. Sincronizar botón favorito
+    sincronizarFavoritoDetalle();
+
+    // 10. Renderizar grid collage
+    renderizarCollage(producto, medias);
+
+    // 11. Renderizar relacionados
+    renderizarRelacionados(producto.relacionados);
+}
+
+function cambiarImagenPrincipal(medias, idx) {
+    const imgPrincipal = document.getElementById('img-principal');
+    const badgeVideo = document.getElementById('badge-video-principal');
+    const media = medias[idx];
+    if (!media || !imgPrincipal) return;
+
+    if (media.tipo === 'video') {
+        imgPrincipal.src = 'assets/video-thumb.webp'; // thumbnail genérico o primer frame
+        badgeVideo.classList.remove('hidden');
+        imgPrincipal.dataset.videoSrc = media.src;
+    } else {
+        imgPrincipal.src = media.src;
+        badgeVideo.classList.add('hidden');
+        delete imgPrincipal.dataset.videoSrc;
+    }
+    imgPrincipal.dataset.mediaIdx = idx;
+}
+
+// ─── ZOOM x2 (mouse + touch) ───
+(function initZoom() {
+    const container = document.getElementById('zoom-container');
+    const img = document.getElementById('img-principal');
+    if (!container || !img) return;
+
+    // Mouse (desktop)
+    container.addEventListener('mousemove', (e) => {
+        const rect = container.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        img.style.transformOrigin = `${x}% ${y}%`;
+        container.classList.add('zoom-activo');
+    });
+    container.addEventListener('mouseleave', () => {
+        container.classList.remove('zoom-activo');
+        img.style.transform = 'scale(1)';
+    });
+    container.addEventListener('mouseenter', () => {
+        if (container.classList.contains('zoom-activo')) {
+            img.style.transform = 'scale(2)';
+        }
+    });
+
+    // Touch (móvil) - hold to zoom
+    let touchTimer = null;
+    container.addEventListener('touchstart', (e) => {
+        touchTimer = setTimeout(() => {
+            const touch = e.touches[0];
+            const rect = container.getBoundingClientRect();
+            const x = ((touch.clientX - rect.left) / rect.width) * 100;
+            const y = ((touch.clientY - rect.top) / rect.height) * 100;
+            img.style.transformOrigin = `${x}% ${y}%`;
+            container.classList.add('zoom-activo');
+            img.style.transform = 'scale(2)';
+        }, 400); // 400ms hold
+    }, { passive: true });
+    container.addEventListener('touchend', () => {
+        clearTimeout(touchTimer);
+        container.classList.remove('zoom-activo');
+        img.style.transform = 'scale(1)';
+    });
+    container.addEventListener('touchmove', (e) => {
+        if (container.classList.contains('zoom-activo')) {
+            const touch = e.touches[0];
+            const rect = container.getBoundingClientRect();
+            const x = ((touch.clientX - rect.left) / rect.width) * 100;
+            const y = ((touch.clientY - rect.top) / rect.height) * 100;
+            img.style.transformOrigin = `${x}% ${y}%`;
+        }
+    }, { passive: true });
+})();
+
+// ─── LIGHTBOX ───
+function abrirLightbox(startIdx) {
+    const producto = getProducto(productoActualId);
+    if (!producto) return;
+
+    const medias = [];
+    producto.imagenes.forEach(img => medias.push({ tipo: 'imagen', src: img }));
+    producto.videos.forEach(vid => medias.push({ tipo: 'video', src: vid }));
+
+    // Crear modal si no existe
+    let lightbox = document.getElementById('lightbox-detalle');
+    if (!lightbox) {
+        lightbox = document.createElement('div');
+        lightbox.id = 'lightbox-detalle';
+        lightbox.className = 'fixed inset-0 z-[100] bg-black/95 flex flex-col items-center justify-center';
+        lightbox.innerHTML = `
+            <button id="lightbox-close" class="absolute top-4 right-4 text-white text-3xl z-10 cursor-pointer hover:text-temu transition-colors"><i class="ri-close-line"></i></button>
+            <div class="swiper swiper-lightbox w-full h-full">
+                <div class="swiper-wrapper" id="lightbox-wrapper"></div>
+            </div>
+            <div class="swiper-pagination pagination-lightbox absolute bottom-4"></div>
+        `;
+        document.body.appendChild(lightbox);
+        document.body.style.overflow = 'hidden';
+
+        document.getElementById('lightbox-close').addEventListener('click', cerrarLightbox);
+    }
+
+    const wrapper = document.getElementById('lightbox-wrapper');
+    wrapper.innerHTML = '';
+    medias.forEach(media => {
+        const slideContent = media.tipo === 'video'
+            ? `<video src="${media.src}" controls class="max-h-[85vh] max-w-[95vw] rounded-lg"></video>`
+            : `<img src="${media.src}" class="max-h-[85vh] max-w-[95vw] object-contain rounded-lg" alt="">`;
+        wrapper.insertAdjacentHTML('beforeend', `<div class="swiper-slide">${slideContent}</div>`);
+    });
+
+    if (swiperLightbox) swiperLightbox.destroy();
+    swiperLightbox = new Swiper('.swiper-lightbox', {
+        initialSlide: startIdx,
+        loop: medias.length > 1,
+        pagination: { el: '.pagination-lightbox', clickable: true },
+        keyboard: { enabled: true },
+    });
+
+    lightbox.classList.remove('hidden');
+}
+
+function cerrarLightbox() {
+    const lightbox = document.getElementById('lightbox-detalle');
+    if (lightbox) {
+        lightbox.classList.add('hidden');
+        document.body.style.overflow = '';
+        if (swiperLightbox) {
+            swiperLightbox.slides.forEach(slide => {
+                const vid = slide.querySelector('video');
+                if (vid) vid.pause();
+            });
+        }
+    }
+}
+
+// Click en imagen principal → lightbox
+document.addEventListener('click', (e) => {
+    const zoomContainer = e.target.closest('#zoom-container');
+    if (zoomContainer) {
+        const img = document.getElementById('img-principal');
+        const idx = parseInt(img?.dataset.mediaIdx || 0);
+        abrirLightbox(idx);
+    }
+    if (e.target.closest('#lightbox-detalle') && !e.target.closest('.swiper-slide') && !e.target.closest('#lightbox-close')) {
+        cerrarLightbox();
+    }
+});
+
+// ─── ACCORDIONS ───
+document.addEventListener('click', (e) => {
+    const header = e.target.closest('.accordion-header');
+    if (!header) return;
+    const item = header.closest('.accordion-item');
+    const content = item.querySelector('.accordion-content');
+    const icon = header.querySelector('.accordion-icon');
+    const isOpen = content.classList.contains('abierto');
+
+    // Cerrar todos los demás (opcional, quita esto si quieres múltiples abiertos)
+    document.querySelectorAll('.accordion-content.abierto').forEach(c => {
+        if (c !== content) {
+            c.classList.remove('abierto');
+            c.closest('.accordion-item').querySelector('.accordion-icon').classList.remove('rotado');
+        }
+    });
+
+    if (isOpen) {
+        content.classList.remove('abierto');
+        icon.classList.remove('rotado');
+    } else {
+        content.classList.add('abierto');
+        icon.classList.add('rotado');
+    }
+});
+
+// ─── COLLAGE ───
+function renderizarCollage(producto, medias) {
+    const grid = document.getElementById('collage-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    // Usa collageOrder para determinar el orden. Si no hay, usa orden natural.
+    const orden = producto.collageOrder || producto.imagenes.map((_, i) => i);
+
+    orden.forEach(imgIdx => {
+        const media = medias[imgIdx];
+        if (!media || media.tipo !== 'imagen') return;
+
+        const item = document.createElement('div');
+        item.className = 'collage-item';
+        item.innerHTML = `
+            <img src="${media.src}" alt="" loading="lazy">
+        `;
+        item.addEventListener('click', () => abrirLightbox(imgIdx));
+        grid.appendChild(item);
+    });
+}
+
+// ─── RELACIONADOS ───
+function renderizarRelacionados(ids) {
+    const contenedor = document.getElementById('detalle-relacionados');
+    if (!contenedor) return;
+    contenedor.innerHTML = '';
+
+    ids.forEach(id => {
+        const p = getProducto(id);
+        if (!p) return;
+        const card = document.createElement('div');
+        card.className = 'card-relacionada snap-start cursor-pointer';
+        card.innerHTML = `
+            <div class="w-full h-36 rounded-xl overflow-hidden bg-stone-100 dark:bg-stone-800 mb-2">
+                <img src="${p.imagenes[0]}" class="w-full h-full object-cover">
+            </div>
+            <p class="font-Inter text-xs font-semibold text-stone-950 dark:text-white truncate">${p.titulo}</p>
+            <p class="font-Russo text-xs text-temu">s/ ${p.precio.toFixed(2)}</p>
+        `;
+        card.addEventListener('click', () => abrirDetalleProducto(p.id));
+        contenedor.appendChild(card);
+    });
+}
+
+// ─── FAVORITO EN DETALLE ───
+function sincronizarFavoritoDetalle() {
+    const btn = document.getElementById('detalle-btn-favorito');
+    const icono = btn?.querySelector('i');
+    if (!btn || !productoActualId) return;
+
+    const esFav = favoritos.some(f => f.id === productoActualId);
+    if (esFav) {
+        btn.classList.add('activo');
+        icono.classList.remove('ri-heart-line');
+        icono.classList.add('ri-heart-fill', 'text-temu');
+    } else {
+        btn.classList.remove('activo');
+        icono.classList.remove('ri-heart-fill', 'text-temu');
+        icono.classList.add('ri-heart-line', 'text-stone-950', 'dark:text-white');
+    }
+}
+
+document.getElementById('detalle-btn-favorito')?.addEventListener('click', () => {
+    const producto = getProducto(productoActualId);
+    if (!producto) return;
+    toggleFavorito({
+        id: producto.id,
+        titulo: producto.titulo,
+        subtitulo: producto.subtitulo,
+        precio: producto.precio,
+        imagen: producto.imagenes[0]
+    });
+    sincronizarFavoritoDetalle();
+});
+
+// ─── AGREGAR CARRITO DESDE DETALLE ───
+document.getElementById('detalle-btn-carrito')?.addEventListener('click', (e) => {
+    const producto = getProducto(productoActualId);
+    if (!producto) return;
+    agregarAlCarrito({
+        id: producto.id,
+        titulo: producto.titulo,
+        subtitulo: producto.subtitulo,
+        precio: producto.precio,
+        imagen: producto.imagenes[0]
+    });
+    // Efecto ripple en el botón
+    const btn = e.currentTarget;
+    btn.classList.add('activo');
+    setTimeout(() => btn.classList.remove('activo'), 600);
+});
+
+// ─── VOLVER ───
+document.getElementById('btn-volver-detalle')?.addEventListener('click', () => {
+    const detalle = document.getElementById('producto-detalle');
+    if (detalle) detalle.classList.add('hidden');
+
+    // Restaurar vista anterior (tienda por defecto)
+    gestionarVista('tienda');
+    activateNav('inicio');
+});
+
+// ─── CLICK EN CARDS DEL GRID PRINCIPAL ───
+document.addEventListener('click', (e) => {
+    const card = e.target.closest('#product-grid article[data-id], #favoritos-grid article[data-id], #contenedor-items-carrito article[data-id], .swiper-slide[data-id]');
+    if (!card) return;
+    // No abrir si el click fue en botón de carrito o favorito
+    if (e.target.closest('.btn-agregar-carrito') || e.target.closest('.btn-favorito') || e.target.closest('.btn-favorito-hero')) return;
+    const id = parseInt(card.dataset.id);
+    if (!isNaN(id)) abrirDetalleProducto(id);
 });

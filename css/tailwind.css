@@ -539,4 +539,201 @@
     background-color: #FB7701 !important;
     transform: scale(1.3) !important;
 }
+/* ///////////////////////////////////////////////////////////////////////// */
 
+
+
+
+/* ///////////////////////////////////////////////////////////////////////// */
+/* ================================================== */
+/* ==== DETALLE DE PRODUCTO - GALERÍA ==== */
+/* ================================================== */
+
+/* Swipers de miniaturas */
+.swiper-mini-v-left, .swiper-mini-v-right {
+    width: 80px;
+}
+.swiper-mini-v-left .swiper-slide,
+.swiper-mini-v-right .swiper-slide {
+    width: 80px !important;
+    height: 80px !important;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+.swiper-mini-v-left .swiper-slide-thumb-active,
+.swiper-mini-v-right .swiper-slide-thumb-active,
+.swiper-mini-h .swiper-slide-thumb-active {
+    opacity: 1;
+    border-color: #FB7701;
+}
+.swiper-mini-v-left .swiper-slide img,
+.swiper-mini-v-right .swiper-slide img,
+.swiper-mini-h .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Swiper horizontal miniaturas */
+.swiper-mini-h {
+    width: 100%;
+    padding: 4px 0;
+}
+.swiper-mini-h .swiper-slide {
+    width: 70px !important;
+    height: 70px !important;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+.swiper-mini-h .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Badge de video en miniaturas */
+.mini-video-badge {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.mini-video-badge i {
+    color: white;
+    font-size: 20px;
+}
+
+/* ================================================== */
+/* ==== ZOOM (LUPA) ==== */
+/* ================================================== */
+#zoom-container {
+    touch-action: none;
+}
+#zoom-container.zoom-activo img {
+    transform: scale(2);
+    cursor: zoom-out;
+}
+#zoom-container img {
+    transform-origin: center center;
+}
+
+/* ================================================== */
+/* ==== LIGHTBOX ==== */
+/* ================================================== */
+#lightbox-detalle {
+    touch-action: manipulation;
+}
+#lightbox-detalle .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#lightbox-detalle .swiper-slide img {
+    max-height: 85vh;
+    max-width: 95vw;
+    object-fit: contain;
+}
+#lightbox-detalle .swiper-slide video {
+    max-height: 85vh;
+    max-width: 95vw;
+}
+
+/* En móvil, forzar orientación según la imagen */
+@media (max-width: 640px) {
+    #lightbox-detalle.landscape-active .swiper-slide img {
+        max-height: 60vh;
+        max-width: 95vw;
+    }
+}
+
+/* ================================================== */
+/* ==== ACCORDION ==== */
+/* ================================================== */
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.accordion-content.abierto {
+    max-height: 500px;
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+}
+.accordion-icon.rotado {
+    transform: rotate(180deg);
+}
+
+/* ================================================== */
+/* ==== GRID COLLAGE ==== */
+/* ================================================== */
+#collage-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 150px;
+    gap: 8px;
+}
+@media (min-width: 640px) {
+    #collage-grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: 180px;
+    }
+}
+@media (min-width: 1024px) {
+    #collage-grid {
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: 200px;
+    }
+}
+.collage-item {
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+}
+.collage-item:nth-child(1) {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+.collage-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+.collage-item:hover img {
+    transform: scale(1.05);
+}
+.collage-item .collage-video-icon {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.3);
+    pointer-events: none;
+}
+.collage-item .collage-video-icon i {
+    color: white;
+    font-size: 32px;
+}
+
+/* ================================================== */
+/* ==== CARD RELACIONADA MINI ==== */
+/* ================================================== */
+.card-relacionada {
+    min-width: 140px;
+    width: 140px;
+    flex-shrink: 0;
+}
