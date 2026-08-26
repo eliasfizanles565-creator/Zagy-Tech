@@ -1368,21 +1368,30 @@
     </section>
 
     <!-- LIGHTBOX -->
-    <div id="lightbox-detalle" class="hidden fixed inset-0 z-[100] bg-black/95 flex flex-col items-center justify-center">
-        <!-- CONTADOR LIGHTBOX (arriba centro, estilo Temu) -->
-        <div id="lightbox-contador" class="absolute top-4 left-1/2 -translate-x-1/2 z-20 bg-black/60 text-white text-sm font-bold px-3 py-1 rounded-full backdrop-blur-sm pointer-events-none select-none hidden">
-            1/1
-        </div>
-
-        <button id="lightbox-close" class="absolute top-3 right-3 sm:top-4 sm:right-4 text-white text-3xl z-10 cursor-pointer hover:text-temu transition-colors">
+<div id="lightbox-detalle" class="hidden fixed inset-0 z-[100] bg-black/95 flex flex-col">
+    <!-- Header -->
+    <div class="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-4 py-3 bg-gradient-to-b from-black/60 to-transparent">
+        <button id="lightbox-close" class="text-white text-3xl cursor-pointer hover:text-temu transition-colors">
             <i class="ri-close-line"></i>
         </button>
+        <div id="lightbox-contador" class="text-white text-sm font-bold px-3 py-1 rounded-full backdrop-blur-sm bg-black/40 pointer-events-none select-none hidden">
+            1/1
+        </div>
+        <div class="w-10"></div> <!-- spacer -->
+    </div>
 
+    <!-- Área principal de imagen/video -->
+    <div class="flex-1 relative flex items-center justify-center overflow-hidden" id="lightbox-main-area">
         <div class="swiper swiper-lightbox w-full h-full">
             <div class="swiper-wrapper" id="lightbox-wrapper"></div>
         </div>
-        <div class="swiper-pagination pagination-lightbox absolute bottom-4 sm:bottom-6"></div>
     </div>
+
+    <!-- Miniaturas bottom (siempre visibles en lightbox hasta que haces zoom) -->
+    <div id="lightbox-thumbnails" class="shrink-0 h-20 sm:h-24 bg-black/80 backdrop-blur-md border-t border-white/10 transition-transform duration-300">
+        <div class="flex items-center gap-2 px-4 h-full overflow-x-auto scrollbar-hide" id="lightbox-thumb-strip"></div>
+    </div>
+</div>
     
 
 

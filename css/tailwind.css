@@ -775,13 +775,6 @@
     align-items: flex-start;
 }
 
-/* ================================================== */
-/* LUPA MAGNIFIER (PC) */
-/* ================================================== */
-.lupa-magnifier {
-    box-shadow: 0 0 0 2px rgba(255,255,255,0.9), 0 8px 32px rgba(0,0,0,0.4);
-    background-color: #fff;
-}
 
 /* ================================================== */
 /* CONTADORES */
@@ -795,19 +788,87 @@
     letter-spacing: 0.5px;
 }
 
+/* ==================================================== */
+
 /* ================================================== */
-/* FULL BLEED MOBILE (imagen principal sin bordes) */
+/* TRANSICIÓN SUAVE IMAGEN PRINCIPAL DETALLE          */
 /* ================================================== */
-.full-bleed {
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+#img-principal {
+    transition: opacity 0.25s ease, transform 0.25s ease;
 }
-@media (min-width: 640px) {
-    .full-bleed {
-        width: 100%;
-        left: auto;
-        transform: none;
-    }
+#img-principal.cambiando {
+    opacity: 0.6;
+    transform: scale(0.97);
+}
+
+/* ================================================== */
+/* MAGNIFIER / LUPA ESTILO TEMU (PC)                  */
+/* ================================================== */
+#zoom-container {
+    position: relative;
+    overflow: hidden;
+}
+.lupa-lens {
+    position: absolute;
+    border: 2px solid rgba(255,255,255,0.6);
+    border-radius: 50%;
+    cursor: none;
+    pointer-events: none;
+    display: none;
+    box-shadow: 0 0 0 9999px rgba(0,0,0,0.15), inset 0 0 20px rgba(0,0,0,0.1);
+    background-repeat: no-repeat;
+    z-index: 30;
+}
+.lupa-lens.activa {
+    display: block;
+}
+
+/* ================================================== */
+/* LIGHTBOX MINIATURAS BOTTOM                         */
+/* ================================================== */
+#lightbox-thumb-strip {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+.lightbox-thumb-item {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    opacity: 0.6;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    background: #333;
+}
+.lightbox-thumb-item.activa {
+    border-color: #FB7701;
+    opacity: 1;
+    box-shadow: 0 0 0 2px rgba(251,119,1,0.3);
+}
+.lightbox-thumb-item img,
+.lightbox-thumb-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Ocultar miniaturas al hacer zoom en lightbox */
+#lightbox-detalle.zoom-activo #lightbox-thumbnails {
+    transform: translateY(100%);
+}
+
+/* ================================================== */
+/* SWIPER VERTICALES: SIN LOOP PROBLEMÁTICO           */
+/* ================================================== */
+.swiper-mini-v-left,
+.swiper-mini-v-right {
+    overflow: hidden;
+}
+/* Evitar que se vean slides fantasmas */
+.swiper-mini-v-left .swiper-slide,
+.swiper-mini-v-right .swiper-slide {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
