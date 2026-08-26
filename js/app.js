@@ -3145,26 +3145,41 @@ function abrirLightbox(startIdx) {
     wrapper.innerHTML = '';
     if (overlayMiniWrapper) overlayMiniWrapper.innerHTML = '';
 
-    // Slides principales
+    // ═══════════════════════════════════════════════════════
+    // 1. CREAR SLIDES (diferente para PC y móvil)
+    // ═══════════════════════════════════════════════════════
     medias.forEach((media, idx) => {
         const slide = document.createElement('div');
         slide.className = 'swiper-slide flex items-center justify-center overflow-hidden';
         slide.style.touchAction = 'pan-y';
         
         if (media.tipo === 'video') {
+            // Video igual para ambos
             slide.innerHTML = `<video src="${media.src}" controls playsinline class="max-h-[85vh] max-w-[90vw] lg:max-h-full lg:max-w-full lg:w-full lg:h-full object-contain rounded-lg transition-all duration-300 overlay-pc-media" data-idx="${idx}"></video>`;
         } else {
-            slide.innerHTML = `
-                <div class="lightbox-img-wrapper relative flex items-center justify-center w-full h-full overflow-hidden">
-                    <img src="${media.src}" class="max-h-[85vh] max-w-[90vw] lg:max-h-full lg:max-w-full lg:w-full lg:h-full object-contain rounded-lg transition-all duration-300 overlay-pc-media" data-idx="${idx}" alt="">
-                </div>
-            `;
+            if (isPC) {
+                // PC: tu HTML actual con overlay-pc-media
+                slide.innerHTML = `
+                    <div class="lightbox-img-wrapper relative flex items-center justify-center w-full h-full overflow-hidden">
+                        <img src="${media.src}" class="max-h-[85vh] max-w-[90vw] lg:max-h-full lg:max-w-full lg:w-full lg:h-full object-contain rounded-lg transition-all duration-300 overlay-pc-media" data-idx="${idx}" alt="">
+                    </div>
+                `;
+            } else {
+                // MÓVIL: HTML simple del antiguo con lightbox-zoom-target
+                slide.innerHTML = `
+                    <div class="lightbox-img-wrapper relative flex items-center justify-center w-full h-full overflow-hidden">
+                        <img src="${media.src}" class="max-h-[85vh] max-w-[90vw] object-contain rounded-lg lightbox-zoom-target transition-transform duration-75" alt="">
+                    </div>
+                `;
+            }
         }
         wrapper.appendChild(slide);
     });
 
-    // Miniaturas abajo (PC y móvil)
-    if (overlayMiniWrapper) {
+    // ═══════════════════════════════════════════════════════
+    // 2. MINIATURAS ABAJO (solo PC)
+    // ═══════════════════════════════════════════════════════
+    if (isPC && overlayMiniWrapper) {
         medias.forEach((media, idx) => {
             const slide = document.createElement('div');
             slide.className = 'swiper-slide';
@@ -3195,27 +3210,47 @@ function abrirLightbox(startIdx) {
         });
     }
 
+    // Destruir anteriores
     if (swiperLightbox) swiperLightbox.destroy(true, true);
-    if (window.swiperOverlayMini) window.swiperOverlayMini.destroy(true, true);
+    if (window.swiperOverlayMini) {
+        window.swiperOverlayMini.destroy(true, true);
+        window.swiperOverlayMini = null;
+    }
 
-    // Swiper principal
+    // ═══════════════════════════════════════════════════════
+    // 3. SWIPER PRINCIPAL
+    // ═══════════════════════════════════════════════════════
     swiperLightbox = new Swiper('.swiper-lightbox', {
         initialSlide: startIdx,
         loop: medias.length > 1,
         pagination: { el: '.pagination-lightbox', clickable: true },
         keyboard: { enabled: true },
-        touchRatio: isPC ? 1 : 2,
+        touchRatio: isPC ? 1 : 2,  // Móvil: 2 (fluido) | PC: 1
         on: {
             slideChange: function() {
                 updateLbCounter(this.realIndex);
+                
+                // PC: sincronizar miniaturas y resetear modo
                 if (isPC) {
                     window._overlayPCMode = 'contain';
                     aplicarModoOverlayPC(this.slides[this.activeIndex]);
+                    if (window.swiperOverlayMini) {
+                        window.swiperOverlayMini.slideToLoop(this.realIndex, 200);
+                        marcarMiniOverlayActiva(this.realIndex);
+                    }
                 }
-                if (window.swiperOverlayMini) {
-                    window.swiperOverlayMini.slideToLoop(this.realIndex, 200);
-                    marcarMiniOverlayActiva(this.realIndex);
+                
+                // Móvil: resetear zoom al cambiar de slide
+                if (!isPC) {
+                    this.slides.forEach((slide) => {
+                        const zImg = slide.querySelector('.lightbox-zoom-target');
+                        if (zImg) {
+                            zImg.style.transform = 'scale(1)';
+                        }
+                    });
                 }
+
+                // Videos: play/pause
                 this.slides.forEach((slide, idx) => {
                     const vid = slide.querySelector('video');
                     if (vid) {
@@ -3227,40 +3262,38 @@ function abrirLightbox(startIdx) {
         }
     });
 
-    // Swiper miniaturas abajo (SIEMPRE)
-    if (overlayMiniWrapper && overlayMiniWrapper.children.length) {
-        const miniCount = overlayMiniWrapper.children.length;
-        const loopCfg = miniCount > 3 ? { loop: true, loopedSlides: miniCount } : { loop: false };
-        
-        window.swiperOverlayMini = new Swiper('.swiper-overlay-mini', {
-            slidesPerView: 'auto',
-            spaceBetween: 8,
-            centeredSlides: true,
-            speed: 200,
-            touchRatio: 1,
-            ...loopCfg,
-        });
-
-        window.swiperOverlayMini.wrapperEl.querySelectorAll('.swiper-slide').forEach(slide => {
-            slide.addEventListener('click', () => {
-                const idx = parseInt(slide.dataset.mediaIdx);
-                if (!isNaN(idx)) swiperLightbox.slideToLoop(idx, 300);
-            });
-        });
-
-        marcarMiniOverlayActiva(startIdx);
-    }
-
-    // Flechas PC
+    // ═══════════════════════════════════════════════════════
+    // 4. PC: Miniaturas, flechas, modo contain/cover, zoom mouse
+    // ═══════════════════════════════════════════════════════
     if (isPC) {
+        if (overlayMiniWrapper && overlayMiniWrapper.children.length) {
+            const miniCount = overlayMiniWrapper.children.length;
+            const loopCfg = miniCount > 3 ? { loop: true, loopedSlides: miniCount } : { loop: false };
+            
+            window.swiperOverlayMini = new Swiper('.swiper-overlay-mini', {
+                slidesPerView: 'auto',
+                spaceBetween: 8,
+                centeredSlides: true,
+                speed: 200,
+                touchRatio: 1,
+                ...loopCfg,
+            });
+
+            window.swiperOverlayMini.wrapperEl.querySelectorAll('.swiper-slide').forEach(slide => {
+                slide.addEventListener('click', () => {
+                    const idx = parseInt(slide.dataset.mediaIdx);
+                    if (!isNaN(idx)) swiperLightbox.slideToLoop(idx, 300);
+                });
+            });
+
+            marcarMiniOverlayActiva(startIdx);
+        }
+
         const prevBtn = document.getElementById('overlay-pc-prev');
         const nextBtn = document.getElementById('overlay-pc-next');
         if (prevBtn) prevBtn.onclick = () => swiperLightbox?.slidePrev();
         if (nextBtn) nextBtn.onclick = () => swiperLightbox?.slideNext();
-    }
 
-    // PC: Click en imagen overlay para toggle contain/cover
-    if (isPC) {
         setTimeout(() => {
             wrapper.querySelectorAll('.overlay-pc-media').forEach(mediaEl => {
                 mediaEl.style.cursor = 'pointer';
@@ -3275,10 +3308,99 @@ function abrirLightbox(startIdx) {
         }, 100);
     }
 
-    // Móvil: pinch zoom nativo a imágenes
+    // ═══════════════════════════════════════════════════════
+    // 5. MÓVIL: Zoom fluido integrado (del archivo antiguo)
+    //    Pinch con 2 dedos + pan + doble tap
+    // ═══════════════════════════════════════════════════════
     if (!isPC) {
         setTimeout(() => {
-            wrapper.querySelectorAll('img').forEach(img => enablePinchZoom(img));
+            wrapper.querySelectorAll('.lightbox-img-wrapper').forEach(wrapperEl => {
+                const img = wrapperEl.querySelector('img');
+                if (!img) return;
+
+                let lbScale = 1;
+                let lbPanX = 0, lbPanY = 0;
+                let isPanning = false;
+                let isPinching = false;
+                let startX = 0, startY = 0;
+                let startPanX = 0, startPanY = 0;
+                let pinchStartDist = 0;
+                let pinchStartScale = 1;
+
+                function lbApply() {
+                    img.style.transform = `translate(${lbPanX}px, ${lbPanY}px) scale(${lbScale})`;
+                }
+
+                // Doble tap para zoom
+                let lastTap = 0;
+                img.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const now = Date.now();
+                    if (now - lastTap < 300) {
+                        if (lbScale > 1.1) {
+                            lbScale = 1; lbPanX = 0; lbPanY = 0;
+                            swiperLightbox.allowTouchMove = true;
+                        } else {
+                            lbScale = 2.5;
+                            swiperLightbox.allowTouchMove = false;
+                        }
+                        img.style.transition = 'transform 0.2s ease';
+                        lbApply();
+                        setTimeout(() => { img.style.transition = 'transform 0.05s linear'; }, 200);
+                    }
+                    lastTap = now;
+                });
+
+                wrapperEl.addEventListener('touchstart', (e) => {
+                    if (e.touches.length === 2) {
+                        isPinching = true;
+                        isPanning = false;
+                        pinchStartDist = Math.hypot(
+                            e.touches[0].clientX - e.touches[1].clientX,
+                            e.touches[0].clientY - e.touches[1].clientY
+                        );
+                        pinchStartScale = lbScale;
+                    } else if (e.touches.length === 1 && lbScale > 1.1) {
+                        isPanning = true;
+                        isPinching = false;
+                        startX = e.touches[0].clientX;
+                        startY = e.touches[0].clientY;
+                        startPanX = lbPanX;
+                        startPanY = lbPanY;
+                    }
+                }, { passive: true });
+
+                wrapperEl.addEventListener('touchmove', (e) => {
+                    if (isPinching && e.touches.length === 2) {
+                        e.preventDefault();
+                        const dist = Math.hypot(
+                            e.touches[0].clientX - e.touches[1].clientX,
+                            e.touches[0].clientY - e.touches[1].clientY
+                        );
+                        lbScale = Math.min(Math.max((dist / pinchStartDist) * pinchStartScale, 1), 5);
+                        if (lbScale > 1.1) swiperLightbox.allowTouchMove = false;
+                        else swiperLightbox.allowTouchMove = true;
+                        lbApply();
+                    } else if (isPanning && e.touches.length === 1 && lbScale > 1.1) {
+                        e.preventDefault();
+                        lbPanX = startPanX + (e.touches[0].clientX - startX);
+                        lbPanY = startPanY + (e.touches[0].clientY - startY);
+                        lbApply();
+                    }
+                }, { passive: false });
+
+                wrapperEl.addEventListener('touchend', (e) => {
+                    if (e.touches.length < 2) isPinching = false;
+                    if (e.touches.length === 0) {
+                        isPanning = false;
+                        if (lbScale < 1.15) {
+                            lbScale = 1; lbPanX = 0; lbPanY = 0;
+                            swiperLightbox.allowTouchMove = true;
+                            lbApply();
+                        }
+                    }
+                });
+            });
         }, 100);
     }
 }
