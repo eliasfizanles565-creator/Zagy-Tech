@@ -2481,6 +2481,12 @@ function abrirDetalleProducto(id) {
     if (favSec) favSec.classList.add('hidden');
     if (btnCarritoFlotante) btnCarritoFlotante.classList.add('hidden');
 
+    // OCULTAR NAV SUPERIOR EN MÓVIL/TABLET (igual que en carrito)
+    const navSup = document.querySelector('nav');
+    const sepSup = navSup?.nextElementSibling;
+    if (navSup) navSup.classList.add('max-lg:hidden');
+    if (sepSup) sepSup.classList.add('max-lg:hidden');
+
     // 🔥 ESTO ES LO QUE FALTABA: LIMPIAR CUALQUIER TRANSFORM BASURA
     detalleSection.classList.remove('hidden');
     detalleSection.style.removeProperty('transform');
@@ -3070,13 +3076,13 @@ function cerrarDetalleProducto() {
     const navCat = document.getElementById('nav-categorias');
     const btnMas = document.getElementById('btn-mas');
     const navSup = document.querySelector('nav');
-    const sepNav = navCat?.nextElementSibling;
+    const sepSup = navSup?.nextElementSibling;
 
     if (grid) grid.classList.remove('hidden');
     if (navCat) navCat.classList.remove('hidden');
     if (btnMas) btnMas.classList.remove('hidden');
     if (navSup) navSup.classList.remove('max-lg:hidden');
-    if (sepNav) sepNav.classList.remove('hidden');
+    if (sepSup) sepSup.classList.remove('max-lg:hidden');
 
     categoriaActual = 'todos';
     showingAll = false;
