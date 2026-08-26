@@ -1097,7 +1097,8 @@
         </div>
 
         <!-- LAYOUT PRINCIPAL: en lg se divide en 2 columnas -->
-        <div class="w-[95vw] mx-auto  flex flex-col gap-y-10
+        <div class="w-full mx-auto  flex flex-col gap-y-10
+        sm:w-[95vw]
         lg:flex-row lg:gap-10 lg:max-w-7xl">
             
             <!-- COLUMNA IZQUIERDA: GALERÍA -->
@@ -1115,8 +1116,11 @@
 
                     <!-- Imagen principal -->
                     <div class="flex-1 relative">
-                        <div id="zoom-container" class="relative w-full h-[320px] sm:h-[420px] lg:h-[420px] xl:h-[500px] bg-white dark:bg-stone-950 rounded-2xl overflow-hidden cursor-zoom-in">
-                            <img id="img-principal" src="" alt="" class="w-full h-full object-contain transition-transform duration-200 ease-out">
+                        <div id="zoom-container" class="relative sm:h-[420px] lg:h-[420px] xl:h-[500px] bg-white dark:bg-stone-950 rounded-none overflow-hidden cursor-zoom-in
+                        max-sm:size-[100vw]
+                        sm:rounded-2xl">
+                            <img id="img-principal" src="" alt="" class="w-full h-full object-cover transition-transform duration-200 ease-out
+                            sm:object-contain">
                             <!-- Badge video -->
                             <div id="badge-video-principal" class="hidden absolute top-3 right-3 bg-stone-950/80 text-white px-2.5 py-1 rounded-lg text-[11px] font-bold backdrop-blur-sm flex items-center gap-1">
                                 <i class="ri-play-circle-fill text-temu"></i> VIDEO
@@ -1148,7 +1152,7 @@
                 </div>
 
                 <!-- Envío resumen (verde Temu) - SOLO mobile/tablet -->
-                <div id="envio-marquee" class="p-2.5 mt-3 mb-10 overflow-hidden w-full absolute left-0 bg-verdeTemu/5 dark:bg-verdeTemu/10 rounded-xl border border-verdeTemu/10
+                <div id="envio-marquee" class="p-2.5 mt-3 mb-10 overflow-hidden w-full absolute left-0 bg-verdeTemu/5 dark:bg-verdeTemu/10 border border-verdeTemu/10
                 sm:p-3
                 lg:hidden">
                     <div id="envio-track" class="flex gap-4 whitespace-nowrap cursor-grab active:cursor-grabbing select-none px-4">
@@ -1177,7 +1181,10 @@
             </div>
 
             <!-- COLUMNA DERECHA: INFO DEL PRODUCTO -->
-            <div class="w-full lg:w-[42%] xl:w-1/2 mt-5 lg:mt-0 flex flex-col">
+            <div class="w-full px-[2.5vw] flex flex-col
+            sm:px-0 
+            lg:w-[42%] lg:mt-0
+            xl:w-1/2 mt-5">
                 
                 <!-- Descripción larga (solo desktop) -->
                 <p id="detalle-descripcion-larga" class="font-Inter text-sm text-stone-600 dark:text-stone-300 leading-relaxed mb-3"></p>

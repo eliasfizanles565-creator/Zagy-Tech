@@ -2626,6 +2626,13 @@ function renderizarMiniaturas(medias) {
         navigation: { prevEl: '#mini-h-prev', nextEl: '#mini-h-next' },
     });
 
+    // Forzar recálculo inmediato
+    requestAnimationFrame(() => {
+        [swiperMiniVLeft, swiperMiniVRight, swiperMiniH].forEach(s => {
+            if (s) { s.update(); s.updateSize(); s.updateSlides(); }
+        });
+    });
+
     // Click handlers
     const addClick = (swiperInstance) => {
         if (!swiperInstance) return;
@@ -2668,7 +2675,7 @@ function cambiarImagenPrincipal(medias, idx) {
         v.load();
         v.remove();
     });
-    container.querySelectorAll('#video-play-overlay').forEach(o => o.remove());
+    container.querySelectorAll('#video-play-overlay, .btn-video-fullscreen').forEach(o => o.remove());
     imgPrincipal.style.display = 'block';
     imgPrincipal.style.opacity = '1';
 
@@ -2721,8 +2728,19 @@ function cambiarImagenPrincipal(medias, idx) {
         setTimeout(() => playOverlay.style.opacity = '1', 10);
     });
 
+    // 🔥 BOTÓN FULLSCREEN (esquina inferior derecha)
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'btn-video-fullscreen absolute bottom-3 right-3 z-20 size-10 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-200';
+        fullscreenBtn.innerHTML = '<i class="ri-fullscreen-line text-white text-xl"></i>';
+        fullscreenBtn.title = 'Pantalla completa';
+        fullscreenBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            abrirLightbox(idx);
+        });
+
     container.appendChild(video);
     container.appendChild(playOverlay);
+    container.appendChild(fullscreenBtn);  // ← AÑADIR ESTA LÍNEA
     
     if (badgeVideo) badgeVideo.classList.remove('hidden');
     } else {
@@ -2816,7 +2834,7 @@ function initZoom() {
 
     // Click → lightbox (ignorar si fue en video o overlay de play)
     newContainer.addEventListener('click', (e) => {
-        if (e.target.closest('video') || e.target.closest('#video-play-overlay')) return;
+        if (e.target.closest('video') || e.target.closest('#video-play-overlay') || e.target.closest('.btn-video-fullscreen')) return;
         const idx = parseInt(newImg.dataset.mediaIdx || 0);
         abrirLightbox(idx);
     });
@@ -2827,12 +2845,10 @@ function abrirLightbox(startIdx) {
     const medias = window._detalleMedias || [];
     if (!medias.length) return;
     
-    // 🔥 PAUSAR Y LIMPIAR TODOS los videos del detalle principal
+    // Pausar videos del detalle
     document.querySelectorAll('#zoom-container video').forEach(v => {
         v.pause();
         v.currentTime = 0;
-        v.removeAttribute('src');
-        v.load();
     });
 
     const lightbox = document.getElementById('lightbox-detalle');
@@ -2840,20 +2856,24 @@ function abrirLightbox(startIdx) {
     if (!lightbox || !wrapper) return;
 
     wrapper.innerHTML = '';
-    medias.forEach(media => {
+    medias.forEach((media, idx) => {
         const slide = document.createElement('div');
-        slide.className = 'swiper-slide';
+        slide.className = 'swiper-slide flex items-center justify-center';
         if (media.tipo === 'video') {
-            // 🔥 SIN autoplay. Solo se reproduce si el slide está activo.
             slide.innerHTML = `<video src="${media.src}" controls playsinline class="max-h-[85vh] max-w-[90vw] rounded-lg"></video>`;
         } else {
-            slide.innerHTML = `<img src="${media.src}" class="max-h-[85vh] max-w-[90vw] object-contain rounded-lg lightbox-img" alt="">`;
+            slide.innerHTML = `<img src="${media.src}" class="max-h-[85vh] max-w-[90vw] object-contain rounded-lg lightbox-zoom-target" alt="">`;
         }
         wrapper.appendChild(slide);
     });
 
     document.body.style.overflow = 'hidden';
     lightbox.classList.remove('hidden');
+
+    // 🔥 FULLSCREEN REAL
+    if (lightbox.requestFullscreen) {
+        lightbox.requestFullscreen().catch(() => {});
+    }
 
     if (swiperLightbox) swiperLightbox.destroy(true, true);
     swiperLightbox = new Swiper('.swiper-lightbox', {
@@ -2863,43 +2883,41 @@ function abrirLightbox(startIdx) {
         keyboard: { enabled: true },
     });
 
-    // 🔥 REPRODUCIR SOLO EL VIDEO DEL SLIDE ACTIVO, los demás pausados
+    // Solo reproducir video activo
     swiperLightbox.on('slideChange', () => {
         swiperLightbox.slides.forEach((slide, idx) => {
             const vid = slide.querySelector('video');
             if (vid) {
-                if (idx === swiperLightbox.activeIndex) {
-                    vid.play().catch(() => {});
-                } else {
-                    vid.pause();
-                    vid.currentTime = 0;
-                }
+                if (idx === swiperLightbox.activeIndex) vid.play().catch(() => {});
+                else { vid.pause(); vid.currentTime = 0; }
             }
         });
     });
-    // Trigger inicial
     const activeSlide = swiperLightbox.slides[swiperLightbox.activeIndex];
     const activeVid = activeSlide?.querySelector('video');
     if (activeVid) activeVid.play().catch(() => {});
 
-    // 🔥 ACTIVAR PINCH ZOOM en las imágenes del lightbox
-    wrapper.querySelectorAll('img.lightbox-img').forEach(img => enablePinchZoom(img));
+    // 🔥 ZOOM CON PINCH/WHEEL EN LIGHTBOX
+    setTimeout(() => {
+        wrapper.querySelectorAll('img.lightbox-zoom-target').forEach(img => initRobustZoom(img));
+    }, 100);
 }
 
 function cerrarLightbox() {
     const lightbox = document.getElementById('lightbox-detalle');
     if (!lightbox) return;
+    
+    // Salir de fullscreen primero
+    if (document.fullscreenElement && document.exitFullscreen) {
+        document.exitFullscreen().catch(() => {});
+    }
+    
     lightbox.classList.add('hidden');
     document.body.style.overflow = '';
     if (swiperLightbox) {
         swiperLightbox.slides.forEach(slide => {
             const vid = slide.querySelector('video');
-            if (vid) {
-                vid.pause();
-                vid.currentTime = 0;
-                vid.removeAttribute('src');
-                vid.load();
-            }
+            if (vid) { vid.pause(); vid.currentTime = 0; vid.removeAttribute('src'); vid.load(); }
         });
         swiperLightbox.destroy(true, true);
         swiperLightbox = null;
@@ -2959,6 +2977,14 @@ function enablePinchZoom(img) {
 document.getElementById('lightbox-close')?.addEventListener('click', cerrarLightbox);
 document.getElementById('lightbox-detalle')?.addEventListener('click', (e) => {
     if (e.target.id === 'lightbox-detalle') cerrarLightbox();
+});
+
+// Si el usuario sale del fullscreen con ESC, cerrar lightbox
+document.addEventListener('fullscreenchange', () => {
+    const lightbox = document.getElementById('lightbox-detalle');
+    if (!document.fullscreenElement && lightbox && !lightbox.classList.contains('hidden')) {
+        cerrarLightbox();
+    }
 });
 
 // ─── ACCORDIONS (delegación global, 100% funcional) ───
@@ -3351,3 +3377,145 @@ function initMarqueeEnvio() {
 
     rafId = requestAnimationFrame(animate);
 }
+
+////////////////////////////
+function initRobustZoom(img) {
+    let scale = 1;
+    let panX = 0, panY = 0;
+    let isPanning = false;
+    let startX = 0, startY = 0;
+    let startPanX = 0, startPanY = 0;
+    let initialPinchDistance = 0;
+    let initialScale = 1;
+    let isPinching = false;
+
+    const container = img.parentElement;
+    container.style.overflow = 'hidden';
+    img.style.transition = 'none';
+    img.style.willChange = 'transform';
+
+    function apply() {
+        img.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+    }
+
+    // === PC: Wheel zoom centrado en cursor ===
+    container.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const rect = container.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+        const factor = e.deltaY < 0 ? 1.15 : 0.85;
+        const newScale = Math.min(Math.max(scale * factor, 1), 5);
+
+        // Zoom hacia el cursor
+        if (newScale !== scale) {
+            panX = mouseX - (mouseX - panX) * (newScale / scale);
+            panY = mouseY - (mouseY - panY) * (newScale / scale);
+            scale = newScale;
+            apply();
+        }
+    }, { passive: false });
+
+    // === PC: Click-drag para pan ===
+    container.addEventListener('mousedown', (e) => {
+        if (scale <= 1) return;
+        isPanning = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        startPanX = panX;
+        startPanY = panY;
+        img.style.cursor = 'grabbing';
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (!isPanning) return;
+        panX = startPanX + (e.clientX - startX);
+        panY = startPanY + (e.clientY - startY);
+        apply();
+    });
+
+    window.addEventListener('mouseup', () => {
+        isPanning = false;
+        img.style.cursor = scale > 1 ? 'grab' : 'default';
+    });
+
+    // === Mobile: Pinch zoom + pan ===
+    container.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 2) {
+            isPinching = true;
+            initialPinchDistance = Math.hypot(
+                e.touches[0].clientX - e.touches[1].clientX,
+                e.touches[0].clientY - e.touches[1].clientY
+            );
+            initialScale = scale;
+        } else if (e.touches.length === 1 && scale > 1) {
+            isPanning = true;
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+            startPanX = panX;
+            startPanY = panY;
+        }
+    }, { passive: true });
+
+    container.addEventListener('touchmove', (e) => {
+        if (isPinching && e.touches.length === 2) {
+            e.preventDefault();
+            const dist = Math.hypot(
+                e.touches[0].clientX - e.touches[1].clientX,
+                e.touches[0].clientY - e.touches[1].clientY
+            );
+            scale = Math.min(Math.max((dist / initialPinchDistance) * initialScale, 1), 5);
+            apply();
+        } else if (isPanning && e.touches.length === 1 && scale > 1) {
+            e.preventDefault();
+            panX = startPanX + (e.touches[0].clientX - startX);
+            panY = startPanY + (e.touches[0].clientY - startY);
+            apply();
+        }
+    }, { passive: false });
+
+    container.addEventListener('touchend', () => {
+        isPinching = false;
+        isPanning = false;
+        if (scale < 1.05) {
+            scale = 1; panX = 0; panY = 0; apply();
+        }
+    });
+
+    // Doble tap para reset
+    let lastTap = 0;
+    container.addEventListener('touchend', () => {
+        const now = Date.now();
+        if (now - lastTap < 300) {
+            scale = 1; panX = 0; panY = 0; apply();
+        }
+        lastTap = now;
+    });
+}
+
+/////////////////////////////
+// Navegar imágenes del detalle con flechas del teclado
+document.addEventListener('keydown', (e) => {
+    const detalle = document.getElementById('producto-detalle');
+    if (!detalle || detalle.classList.contains('hidden')) return;
+    
+    // No interferir si el lightbox está abierto (Swiper maneja su propio teclado)
+    const lightbox = document.getElementById('lightbox-detalle');
+    if (lightbox && !lightbox.classList.contains('hidden')) return;
+
+    const medias = window._detalleMedias || [];
+    if (!medias.length) return;
+    
+    const currentIdx = parseInt(document.getElementById('img-principal')?.dataset.mediaIdx || 0);
+    let newIdx = currentIdx;
+
+    if (e.key === 'ArrowRight') {
+        newIdx = (currentIdx + 1) % medias.length;
+    } else if (e.key === 'ArrowLeft') {
+        newIdx = (currentIdx - 1 + medias.length) % medias.length;
+    } else {
+        return;
+    }
+
+    cambiarImagenPrincipal(medias, newIdx);
+});

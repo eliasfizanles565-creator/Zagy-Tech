@@ -767,3 +767,10 @@
 .card-relacionada:hover img {
     transform: scale(1.05);
 }
+
+/* Swiper miniaturas: slides sin espacios fantasmas */
+.swiper-mini-h .swiper-wrapper,
+.swiper-mini-v-left .swiper-wrapper,
+.swiper-mini-v-right .swiper-wrapper {
+    align-items: flex-start;
+}
