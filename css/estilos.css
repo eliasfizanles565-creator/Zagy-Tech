@@ -2694,7 +2694,6 @@
 .swiper-slide-thumb-active {
   opacity: 1 !important;
   border-color: #FB7701 !important;
-  box-shadow: 0 0 0 3px rgba(251, 119, 1, 0.2) !important;
 }
 .mini-video-overlay {
   position: absolute;
@@ -2905,6 +2904,9 @@
 }
 .lightbox-img-wrapper.zoom-activo img {
   cursor: zoom-out;
+}
+.swiper-mini-h .swiper-pagination {
+  display: none !important;
 }
 @property --tw-translate-x {
   syntax: "*";

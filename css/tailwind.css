@@ -608,7 +608,7 @@
 .swiper-slide-thumb-active {
     opacity: 1 !important;
     border-color: #FB7701 !important;
-    box-shadow: 0 0 0 3px rgba(251, 119, 1, 0.2) !important;
+    /* box-shadow: 0 0 0 3px rgba(251, 119, 1, 0.2) !important; */
 }
 
 /* Overlay play en miniaturas video */
@@ -849,4 +849,9 @@
 }
 .lightbox-img-wrapper.zoom-activo img {
     cursor: zoom-out;
+}
+
+/* Ocultar cualquier paginación residual en miniaturas horizontales */
+.swiper-mini-h .swiper-pagination {
+    display: none !important;
 }

@@ -2655,6 +2655,7 @@ function renderizarMiniaturas(medias) {
         touchRatio: 1,              // ← CAMBIO: era 1.5, ahora 1 (no se "pasa" tanto)
         resistance: true,
         resistanceRatio: 0.5,       // ← NUEVO: frena el arrastre antes de ver fondo
+        pagination: false, 
         navigation: {
             prevEl: '#mini-h-prev',
             nextEl: '#mini-h-next'
@@ -2690,6 +2691,7 @@ function marcarMiniaturaActiva(idxActivo) {
         slide.style.opacity = '0.5';
         slide.style.transform = 'scale(1)';
         slide.style.borderColor = 'transparent';
+        slide.style.boxShadow = 'none';   // ← asegúrate de que esté
     });
 
     // Activar todos los que coincidan (incluye clones del loop)
@@ -2949,32 +2951,62 @@ function initZoomAndSwipe() {
         img.style.cursor = scale > 1.05 ? 'grab' : 'default';
     };
 
-    // --- Doble tap / doble click ---
-    let lastTap = 0;
+    
+    let lightboxOpened = false;
+
+    // --- PC: 1 click abre overlay | Móvil: ignoramos click, todo por touch ---
     const onClick = (e) => {
         if (e.target.closest('video') || e.target.closest('#video-play-overlay') || e.target.closest('.btn-video-fullscreen')) return;
+        if (lightboxOpened) return;
+        if (window.innerWidth < 1024) return; // Móvil: todo por touch, no por click
         
-        const now = Date.now();
-        const isPC = window.innerWidth >= 1024;
+        const idx = parseInt(img.dataset.mediaIdx || 0);
+        abrirLightbox(idx);
+    };
+
+    // --- Mobile: Touch (single tap, doble tap zoom, pinch, pan, swipe) ---
+let touchCount = 0;
+let touchTimer = null;
+
+const onTouchStart = (e) => {
+    if (e.target.closest('video') || e.target.closest('#video-play-overlay') || e.target.closest('.btn-video-fullscreen')) return;
+
+    if (e.touches.length === 2) {
+        isPinching = true;
+        isDragging = false;
+        isSwiping = false;
+        touchCount = 0;
+        clearTimeout(touchTimer);
+        initialPinchDistance = Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY
+        );
+        initialScale = scale;
+    } else if (e.touches.length === 1) {
+        touchCount++;
         
-        if (isPC) {
-            // PC: 1 click = overlay, nada de doble tap
-            clearTimeout(window._lightboxTimer);
-            const idx = parseInt(img.dataset.mediaIdx || 0);
-            abrirLightbox(idx);
-            return;
-        }
-        
-        // Móvil: mantener doble tap zoom
-        if (now - lastTap < 300) {
-            e.preventDefault();
-            clearTimeout(window._lightboxTimer);
+        if (touchCount === 1) {
+            touchTimer = setTimeout(() => {
+                if (touchCount === 1 && !isSwiping && scale <= 1.05) {
+                    lightboxOpened = true;
+                    const idx = parseInt(img.dataset.mediaIdx || 0);
+                    abrirLightbox(idx);
+                    setTimeout(() => lightboxOpened = false, 500);
+                }
+                touchCount = 0;
+            }, 300);
+        } else if (touchCount === 2) {
+            clearTimeout(touchTimer);
+            touchCount = 0;
+            e.preventDefault(); // ← evita que se dispare el click fantasma después
+            
             if (scale > 1.05) {
                 resetZoom();
             } else {
+                const touch = e.touches[0];
                 const rect = container.getBoundingClientRect();
-                const clickX = e.clientX - rect.left;
-                const clickY = e.clientY - rect.top;
+                const clickX = touch.clientX - rect.left;
+                const clickY = touch.clientY - rect.top;
                 scale = 2.5;
                 panX = (rect.width/2 - clickX) * (scale - 1);
                 panY = (rect.height/2 - clickY) * (scale - 1);
@@ -2982,96 +3014,85 @@ function initZoomAndSwipe() {
                 applyTransform();
                 setTimeout(() => { img.style.transition = 'none'; }, 250);
             }
-        } else {
-            window._lightboxTimer = setTimeout(() => {
-                const idx = parseInt(img.dataset.mediaIdx || 0);
-                abrirLightbox(idx);
-            }, 300);
         }
-        lastTap = now;
-    };
 
-    // --- Mobile: Touch (pinch + pan + swipe) ---
-    const onTouchStart = (e) => {
-        if (e.touches.length === 2) {
-            isPinching = true;
+        if (scale > 1.05) {
+            isDragging = true;
+            isSwiping = false;
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+            startPanX = panX;
+            startPanY = panY;
+        } else {
+            isSwiping = true;
             isDragging = false;
-            isSwiping = false;
-            initialPinchDistance = Math.hypot(
-                e.touches[0].clientX - e.touches[1].clientX,
-                e.touches[0].clientY - e.touches[1].clientY
-            );
-            initialScale = scale;
-        } else if (e.touches.length === 1) {
-            if (scale > 1.05) {
-                isDragging = true;
-                isSwiping = false;
-                startX = e.touches[0].clientX;
-                startY = e.touches[0].clientY;
-                startPanX = panX;
-                startPanY = panY;
-            } else {
-                isSwiping = true;
-                isDragging = false;
-                touchStartX = e.touches[0].clientX;
-                touchStartY = e.touches[0].clientY;
-                touchStartTime = Date.now();
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+            touchStartTime = Date.now();
+        }
+    }
+};
+
+const onTouchMove = (e) => {
+    if (isPinching && e.touches.length === 2) {
+        e.preventDefault();
+        const dist = Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY
+        );
+        scale = Math.min(Math.max((dist / initialPinchDistance) * initialScale, 1), 5);
+        img.style.transition = 'none';
+        applyTransform();
+    } else if (isDragging && e.touches.length === 1 && scale > 1.05) {
+        e.preventDefault();
+        panX = startPanX + (e.touches[0].clientX - startX);
+        panY = startPanY + (e.touches[0].clientY - startY);
+        img.style.transition = 'none';
+        applyTransform();
+    } else if (isSwiping && e.touches.length === 1 && scale <= 1.05) {
+        const dy = Math.abs(e.touches[0].clientY - touchStartY);
+        const dx = Math.abs(e.touches[0].clientX - touchStartX);
+        if (dy > dx * 1.2) isSwiping = false;
+        // Si mueve el dedo más de 10px, cancela el single tap (no abre lightbox al soltar)
+        if ((dx > 10 || dy > 10) && touchCount === 1) {
+            touchCount = 0;
+            clearTimeout(touchTimer);
+        }
+    }
+};
+
+const onTouchEnd = (e) => {
+    if (e.touches.length < 2) isPinching = false;
+    if (e.touches.length === 0) {
+        if (isDragging) {
+            isDragging = false;
+            if (scale < 1.05) resetZoom();
+        }
+        if (isSwiping && scale <= 1.05) {
+            const dx = e.changedTouches[0].clientX - touchStartX;
+            const dt = Date.now() - touchStartTime;
+            const threshold = container.offsetWidth * 0.12;
+            if (Math.abs(dx) > threshold && dt < 500) {
+                touchCount = 0;
+                clearTimeout(touchTimer);
+                const medias = window._detalleMedias || [];
+                const currentIdx = parseInt(img.dataset.mediaIdx || 0);
+                const newIdx = dx < 0 
+                    ? (currentIdx + 1) % medias.length 
+                    : (currentIdx - 1 + medias.length) % medias.length;
+                cambiarImagenPrincipal(medias, newIdx);
             }
         }
-    };
-    const onTouchMove = (e) => {
-        if (isPinching && e.touches.length === 2) {
-            e.preventDefault();
-            const dist = Math.hypot(
-                e.touches[0].clientX - e.touches[1].clientX,
-                e.touches[0].clientY - e.touches[1].clientY
-            );
-            scale = Math.min(Math.max((dist / initialPinchDistance) * initialScale, 1), 5);
-            img.style.transition = 'none';
-            applyTransform();
-        } else if (isDragging && e.touches.length === 1 && scale > 1.05) {
-            e.preventDefault();
-            panX = startPanX + (e.touches[0].clientX - startX);
-            panY = startPanY + (e.touches[0].clientY - startY);
-            img.style.transition = 'none';
-            applyTransform();
-        } else if (isSwiping && e.touches.length === 1 && scale <= 1.05) {
-            const dy = Math.abs(e.touches[0].clientY - touchStartY);
-            const dx = Math.abs(e.touches[0].clientX - touchStartX);
-            if (dy > dx * 1.2) isSwiping = false;
-        }
-    };
-    const onTouchEnd = (e) => {
-        if (e.touches.length < 2) isPinching = false;
-        if (e.touches.length === 0) {
-            if (isDragging) {
-                isDragging = false;
-                if (scale < 1.05) resetZoom();
-            }
-            if (isSwiping && scale <= 1.05) {
-                const dx = e.changedTouches[0].clientX - touchStartX;
-                const dt = Date.now() - touchStartTime;
-                const threshold = container.offsetWidth * 0.12;
-                if (Math.abs(dx) > threshold && dt < 500) {
-                    const medias = window._detalleMedias || [];
-                    const currentIdx = parseInt(img.dataset.mediaIdx || 0);
-                    const newIdx = dx < 0 
-                        ? (currentIdx + 1) % medias.length 
-                        : (currentIdx - 1 + medias.length) % medias.length;
-                    cambiarImagenPrincipal(medias, newIdx);
-                }
-            }
-            isSwiping = false;
-        }
-    };
+        isSwiping = false;
+    }
+};
 
     // Registrar todo
     container.addEventListener('mousemove', onMouseMoveHover);
     container.addEventListener('mouseleave', onMouseLeaveHover);
     // Wheel zoom SOLO si NO es PC (en PC usamos el overlay, no wheel zoom)
-    if (window.innerWidth < 1024) {
-        container.addEventListener('wheel', onWheel, { passive: false });
-    }
+    container.addEventListener('wheel', onWheel, { passive: false });
+
     container.addEventListener('mousedown', onMouseDown);
     window.addEventListener('mousemove', onWindowMouseMove);
     window.addEventListener('mouseup', onWindowMouseUp);
@@ -3082,16 +3103,16 @@ function initZoomAndSwipe() {
 
     // Guardar función de limpieza para la próxima vez
     window._zoomHandlers.cleanup = () => {
-        container.removeEventListener('mousemove', onMouseMoveHover);
-        container.removeEventListener('mouseleave', onMouseLeaveHover);
-        container.removeEventListener('wheel', onWheel);
-        container.removeEventListener('mousedown', onMouseDown);
-        window.removeEventListener('mousemove', onWindowMouseMove);
-        window.removeEventListener('mouseup', onWindowMouseUp);
-        container.removeEventListener('click', onClick);
-        container.removeEventListener('touchstart', onTouchStart);
-        container.removeEventListener('touchmove', onTouchMove);
-        container.removeEventListener('touchend', onTouchEnd);
+    container.removeEventListener('mousemove', onMouseMoveHover);
+    container.removeEventListener('mouseleave', onMouseLeaveHover);
+    container.removeEventListener('wheel', onWheel);
+    container.removeEventListener('mousedown', onMouseDown);
+    window.removeEventListener('mousemove', onWindowMouseMove);
+    window.removeEventListener('mouseup', onWindowMouseUp);
+    container.removeEventListener('click', onClick);
+    container.removeEventListener('touchstart', onTouchStart);
+    container.removeEventListener('touchmove', onTouchMove);
+    container.removeEventListener('touchend', onTouchEnd);
     };
 }
 
@@ -3269,7 +3290,7 @@ function marcarMiniOverlayActiva(idxActivo) {
         if (idx === idxActivo) {
             slide.style.opacity = '1';
             slide.style.borderColor = '#FB7701';
-            slide.style.transform = 'scale(1.08)';
+            // slide.style.transform = 'scale(1.08)';
         } else {
             slide.style.opacity = '0.5';
             slide.style.borderColor = 'transparent';
