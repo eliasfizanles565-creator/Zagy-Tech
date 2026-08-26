@@ -775,13 +775,7 @@
     align-items: flex-start;
 }
 
-/* ================================================== */
-/* LUPA MAGNIFIER (PC) */
-/* ================================================== */
-.lupa-magnifier {
-    box-shadow: 0 0 0 2px rgba(255,255,255,0.9), 0 8px 32px rgba(0,0,0,0.4);
-    background-color: #fff;
-}
+
 
 /* ================================================== */
 /* CONTADORES */
@@ -802,3 +796,5 @@
 #zoom-container.zoom-activo img {
     cursor: zoom-out;
 }
+
+

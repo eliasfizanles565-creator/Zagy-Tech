@@ -2576,77 +2576,95 @@ function renderizarMiniaturas(medias) {
     wrapRight.innerHTML = '';
     wrapH.innerHTML = '';
 
+    // ─── Crear slides ───
     medias.forEach((media, idx) => {
         const isVideo = media.tipo === 'video';
-        const slide = document.createElement('div');
-        slide.className = 'swiper-slide';
-        slide.dataset.mediaIdx = idx;
+        const html = isVideo
+            ? `<div class="swiper-slide" data-media-idx="${idx}" style="width:72px;height:72px;flex-shrink:0;border-radius:0.5rem;overflow:hidden;cursor:pointer;position:relative;background:#e7e5e4;">
+                 <video src="${media.src}" preload="metadata" muted playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+                 <div class="mini-video-overlay" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.3);pointer-events:none;">
+                   <i class="ri-play-fill" style="color:white;font-size:20px;"></i>
+                 </div>
+               </div>`
+            : `<div class="swiper-slide" data-media-idx="${idx}" style="width:72px;height:72px;flex-shrink:0;border-radius:0.5rem;overflow:hidden;cursor:pointer;position:relative;background:#e7e5e4;">
+                 <img src="${media.src}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+               </div>`;
 
-        if (isVideo) {
-            slide.innerHTML = `
-                <video src="${media.src}" preload="metadata" muted playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
-                <div class="mini-video-overlay"><i class="ri-play-fill"></i></div>
-            `;
-        } else {
-            slide.innerHTML = `<img src="${media.src}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">`;
-        }
+        // Horizontal: TODAS las medias
+        wrapH.insertAdjacentHTML('beforeend', html);
 
-        if (idx % 2 === 0) wrapLeft.appendChild(slide.cloneNode(true));
-        else wrapRight.appendChild(slide.cloneNode(true));
-        wrapH.appendChild(slide);
+        // Verticales: pares izquierda, impares derecha
+        if (idx % 2 === 0) wrapLeft.insertAdjacentHTML('beforeend', html);
+        else               wrapRight.insertAdjacentHTML('beforeend', html);
     });
 
-    if (swiperMiniVLeft) swiperMiniVLeft.destroy(true, true);
-    if (swiperMiniVRight) swiperMiniVRight.destroy(true, true);
-    if (swiperMiniH) swiperMiniH.destroy(true, true);
+    // ─── Destruir anteriores ───
+    [swiperMiniVLeft, swiperMiniVRight, swiperMiniH].forEach(s => {
+        if (s) { s.destroy(true, true); }
+    });
+    swiperMiniVLeft = swiperMiniVRight = swiperMiniH = null;
 
-    // ===== VERTICAL IZQUIERDA (loop fluido, sin freeMode) =====
+    // Helper: config de loop segura
+    const loopCfg = (slideCount) => slideCount > 3
+        ? { loop: true, loopedSlides: slideCount }
+        : { loop: false };
+
+    // ─── VERTICAL IZQUIERDA (solo pares) ───
+    const leftCount = wrapLeft.children.length;
     swiperMiniVLeft = new Swiper('.swiper-mini-v-left', {
         direction: 'vertical',
         slidesPerView: 'auto',
+        // centeredSlides: true,   
         spaceBetween: 8,
-        loop: true,
-        loopAdditionalSlides: 10,
-        speed: 300,
-        touchRatio: 1.5,
+        speed: 250,
         mousewheel: true,
+        loop: true,
+        loopedSlides: leftCount,
+        resistance: true,
+        resistanceRatio: 0.5,
     });
 
-    // ===== VERTICAL DERECHA (loop fluido, sin freeMode) =====
+    // ─── VERTICAL DERECHA (solo impares) ───
+    const rightCount = wrapRight.children.length;
     swiperMiniVRight = new Swiper('.swiper-mini-v-right', {
         direction: 'vertical',
         slidesPerView: 'auto',
+        // centeredSlides: true,  
         spaceBetween: 8,
-        loop: true,
-        loopAdditionalSlides: 10,
-        speed: 300,
-        touchRatio: 1.5,
+        speed: 250,
         mousewheel: true,
+        loop: true,
+        loopedSlides: rightCount,
+        resistance: true,
+        resistanceRatio: 0.5,
+        
+        
+        
     });
 
-    // ===== HORIZONTAL (loop fluido + centrado, sin freeMode) =====
+     // ─── HORIZONTAL (todas) ───
+    const hCount = wrapH.children.length;
     swiperMiniH = new Swiper('.swiper-mini-h', {
         slidesPerView: 'auto',
         spaceBetween: 8,
-        loop: true,
-        loopAdditionalSlides: 10,
-        centeredSlides: true,
         speed: 300,
-        touchRatio: 2,
-        longSwipes: true,
-        longSwipesRatio: 0.1,
-        navigation: { prevEl: '#mini-h-prev', nextEl: '#mini-h-next' },
+        centeredSlides: true,
+        loop: true,
+        loopedSlides: hCount,
+        loopAdditionalSlides: 4,    // ← NUEVO: clones extra que tapen el hueco
+        touchRatio: 1,              // ← CAMBIO: era 1.5, ahora 1 (no se "pasa" tanto)
+        resistance: true,
+        resistanceRatio: 0.5,       // ← NUEVO: frena el arrastre antes de ver fondo
+        navigation: {
+            prevEl: '#mini-h-prev',
+            nextEl: '#mini-h-next'
+        },
     });
 
-    requestAnimationFrame(() => {
-        [swiperMiniVLeft, swiperMiniVRight, swiperMiniH].forEach(s => {
-            if (s) { s.update(); s.updateSize(); }
-        });
-    });
-
-    const addClick = (swiperInstance) => {
-        if (!swiperInstance) return;
-        swiperInstance.slides.forEach(slide => {
+    // ─── Click en miniaturas (después de init para atrapar clones del loop) ───
+    const bindClicks = (swiper) => {
+        if (!swiper) return;
+        swiper.wrapperEl.querySelectorAll('.swiper-slide[data-media-idx]').forEach(slide => {
             slide.addEventListener('click', () => {
                 const idx = parseInt(slide.dataset.mediaIdx);
                 if (!isNaN(idx)) {
@@ -2656,16 +2674,32 @@ function renderizarMiniaturas(medias) {
             });
         });
     };
-    addClick(swiperMiniH);
-    addClick(swiperMiniVLeft);
-    addClick(swiperMiniVRight);
+    bindClicks(swiperMiniH);
+    bindClicks(swiperMiniVLeft);
+    bindClicks(swiperMiniVRight);
 }
 
 function marcarMiniaturaActiva(idxActivo) {
-    document.querySelectorAll('.swiper-mini-h .swiper-slide, .swiper-mini-v-left .swiper-slide, .swiper-mini-v-right .swiper-slide').forEach(slide => {
-        const idx = parseInt(slide.dataset.mediaIdx);
-        if (idx === idxActivo) slide.classList.add('swiper-slide-thumb-active');
-        else slide.classList.remove('swiper-slide-thumb-active');
+    const todos = document.querySelectorAll(
+        '.swiper-mini-h .swiper-slide, .swiper-mini-v-left .swiper-slide, .swiper-mini-v-right .swiper-slide'
+    );
+
+    // Reset
+    todos.forEach(slide => {
+        slide.classList.remove('swiper-slide-thumb-active');
+        slide.style.opacity = '0.5';
+        slide.style.transform = 'scale(1)';
+        slide.style.borderColor = 'transparent';
+    });
+
+    // Activar todos los que coincidan (incluye clones del loop)
+    todos.forEach(slide => {
+        if (parseInt(slide.dataset.mediaIdx) === idxActivo) {
+            slide.classList.add('swiper-slide-thumb-active');
+            slide.style.opacity = '1';
+            // slide.style.transform = 'scale(1.08)';
+            slide.style.borderColor = '#FB7701';
+        }
     });
 }
 
@@ -2678,67 +2712,62 @@ function cambiarImagenPrincipal(medias, idx) {
     const media = medias[idx];
     if (!media) return;
 
-    // 🔥 LIMPIAR TODO: video anterior + overlay + reset imagen
+    // Limpieza de video anterior
     container.querySelectorAll('video').forEach(v => {
-        v.pause();
-        v.removeAttribute('src');
-        v.load();
-        v.remove();
+        v.pause(); v.removeAttribute('src'); v.load(); v.remove();
     });
     container.querySelectorAll('#video-play-overlay, .btn-video-fullscreen').forEach(o => o.remove());
     imgPrincipal.style.display = 'block';
     imgPrincipal.style.opacity = '1';
 
     if (media.tipo === 'video') {
-    imgPrincipal.style.display = 'none';
-    
-    const video = document.createElement('video');
-    video.src = media.src;
-    video.poster = medias.find(m => m.tipo === 'imagen')?.src || '';
-    video.playsInline = true;
-    video.setAttribute('playsinline', '');
-    video.setAttribute('webkit-playsinline', '');
-    video.preload = 'metadata';
-    video.className = 'w-full h-full object-contain';
-    video.style.borderRadius = '1rem';
-    video.loop = false;
-    video.muted = false;
-    
-    const playOverlay = document.createElement('div');
-    playOverlay.id = 'video-play-overlay';
-    playOverlay.className = 'absolute inset-0 flex items-center justify-center bg-black/30 cursor-pointer z-10 transition-opacity duration-300';
-    playOverlay.innerHTML = `
-        <div class="size-16 bg-white/90 rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-transform">
-            <i class="ri-play-fill text-4xl text-temu ml-1"></i>
-        </div>
-    `;
-    
-    playOverlay.addEventListener('click', (e) => {
-        e.stopPropagation();
-        video.play();
-    });
+        imgPrincipal.style.display = 'none';
+        // ... (tu código de video se mantiene igual) ...
+        const video = document.createElement('video');
+        video.src = media.src;
+        video.poster = medias.find(m => m.tipo === 'imagen')?.src || '';
+        video.playsInline = true;
+        video.setAttribute('playsinline', '');
+        video.setAttribute('webkit-playsinline', '');
+        video.preload = 'metadata';
+        video.className = 'w-full h-full object-contain';
+        video.style.borderRadius = '1rem';
+        video.loop = false;
+        video.muted = false;
+        
+        const playOverlay = document.createElement('div');
+        playOverlay.id = 'video-play-overlay';
+        playOverlay.className = 'absolute inset-0 flex items-center justify-center bg-black/30 cursor-pointer z-10 transition-opacity duration-300';
+        playOverlay.innerHTML = `
+            <div class="size-16 bg-white/90 rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-transform">
+                <i class="ri-play-fill text-4xl text-temu ml-1"></i>
+            </div>
+        `;
+        
+        playOverlay.addEventListener('click', (e) => {
+            e.stopPropagation();
+            video.play();
+        });
 
-    // Click directo en el video: toggle play/pause, NO abrir lightbox
-    video.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (video.paused) video.play();
-        else video.pause();
-    });
-    
-    video.addEventListener('play', () => {
-        playOverlay.style.opacity = '0';
-        setTimeout(() => playOverlay.style.display = 'none', 300);
-    });
-    video.addEventListener('pause', () => {
-        playOverlay.style.display = 'flex';
-        setTimeout(() => playOverlay.style.opacity = '1', 10);
-    });
-    video.addEventListener('ended', () => {
-        playOverlay.style.display = 'flex';
-        setTimeout(() => playOverlay.style.opacity = '1', 10);
-    });
+        video.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (video.paused) video.play();
+            else video.pause();
+        });
+        
+        video.addEventListener('play', () => {
+            playOverlay.style.opacity = '0';
+            setTimeout(() => playOverlay.style.display = 'none', 300);
+        });
+        video.addEventListener('pause', () => {
+            playOverlay.style.display = 'flex';
+            setTimeout(() => playOverlay.style.opacity = '1', 10);
+        });
+        video.addEventListener('ended', () => {
+            playOverlay.style.display = 'flex';
+            setTimeout(() => playOverlay.style.opacity = '1', 10);
+        });
 
-    // 🔥 BOTÓN FULLSCREEN (esquina inferior derecha)
         const fullscreenBtn = document.createElement('button');
         fullscreenBtn.className = 'btn-video-fullscreen absolute bottom-3 right-3 z-20 size-10 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-200';
         fullscreenBtn.innerHTML = '<i class="ri-fullscreen-line text-white text-xl"></i>';
@@ -2748,28 +2777,40 @@ function cambiarImagenPrincipal(medias, idx) {
             abrirLightbox(idx);
         });
 
-    container.appendChild(video);
-    container.appendChild(playOverlay);
-    container.appendChild(fullscreenBtn);  // ← AÑADIR ESTA LÍNEA
-    
-    if (badgeVideo) badgeVideo.classList.remove('hidden');
+        container.appendChild(video);
+        container.appendChild(playOverlay);
+        container.appendChild(fullscreenBtn);
+        
+        if (badgeVideo) badgeVideo.classList.remove('hidden');
     } else {
         imgPrincipal.src = media.src;
         imgPrincipal.style.display = 'block';
         if (badgeVideo) badgeVideo.classList.add('hidden');
     }
+    
     imgPrincipal.dataset.mediaIdx = idx;
+
     marcarMiniaturaActiva(idx);
 
-        // Sincronizar miniaturas: centrar la activa en todos los swipers
-    if (swiperMiniH && swiperMiniH.slides.length) {
-        swiperMiniH.slideToLoop(idx, 250, false);
+    // ─── Sincronizar swipers ───
+    // Horizontal: índice global directo
+    if (swiperMiniH) {
+        if (swiperMiniH.params.loop) swiperMiniH.slideToLoop(idx, 300, false);
+        else swiperMiniH.slideTo(idx, 300, false);
     }
-    if (swiperMiniVLeft && swiperMiniVLeft.slides.length) {
-        swiperMiniVLeft.slideToLoop(idx, 250, false);
+
+    // Vertical izquierda: solo almacena pares → índice local = idx/2
+    if (swiperMiniVLeft && idx % 2 === 0) {
+        const local = idx / 2;
+        if (swiperMiniVLeft.params.loop) swiperMiniVLeft.slideToLoop(local, 300, false);
+        else swiperMiniVLeft.slideTo(local, 300, false);
     }
-    if (swiperMiniVRight && swiperMiniVRight.slides.length) {
-        swiperMiniVRight.slideToLoop(idx, 250, false);
+
+    // Vertical derecha: solo almacena impares → índice local = (idx-1)/2
+    if (swiperMiniVRight && idx % 2 !== 0) {
+        const local = (idx - 1) / 2;
+        if (swiperMiniVRight.params.loop) swiperMiniVRight.slideToLoop(local, 300, false);
+        else swiperMiniVRight.slideTo(local, 300, false);
     }
 
     window.updateDetalleCounter?.();
@@ -3693,7 +3734,6 @@ document.addEventListener('keydown', (e) => {
     const detalle = document.getElementById('producto-detalle');
     if (!detalle || detalle.classList.contains('hidden')) return;
     
-    // No interferir si el lightbox está abierto (Swiper maneja su propio teclado)
     const lightbox = document.getElementById('lightbox-detalle');
     if (lightbox && !lightbox.classList.contains('hidden')) return;
 
@@ -3703,10 +3743,12 @@ document.addEventListener('keydown', (e) => {
     const currentIdx = parseInt(document.getElementById('img-principal')?.dataset.mediaIdx || 0);
     let newIdx = currentIdx;
 
-    if (e.key === 'ArrowRight') {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
         newIdx = (currentIdx + 1) % medias.length;
-    } else if (e.key === 'ArrowLeft') {
+        e.preventDefault(); // ← evita que la página haga scroll
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
         newIdx = (currentIdx - 1 + medias.length) % medias.length;
+        e.preventDefault(); // ← evita que la página haga scroll
     } else {
         return;
     }
