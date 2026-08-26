@@ -2600,32 +2600,55 @@ function renderizarMiniaturas(medias) {
     });
 
     // Destruir previos
-        if (swiperMiniVLeft) swiperMiniVLeft.destroy(true, true);
+    if (swiperMiniVLeft) swiperMiniVLeft.destroy(true, true);
     if (swiperMiniVRight) swiperMiniVRight.destroy(true, true);
     if (swiperMiniH) swiperMiniH.destroy(true, true);
 
-    // Crear nuevos — SIN loop problemático, freeMode suave
+    // ===== SWIPER VERTICAL IZQUIERDA (loop infinito + freeMode) =====
     swiperMiniVLeft = new Swiper('.swiper-mini-v-left', {
         direction: 'vertical',
         slidesPerView: 'auto',
         spaceBetween: 8,
         loop: true,
-        loopAdditionalSlides: 4,
+        loopAdditionalSlides: 8,
+        freeMode: true,
+        freeModeMomentum: true,
+        freeModeMomentumRatio: 0.8,
+        freeModeMomentumVelocityRatio: 0.8,
         mousewheel: true,
+        speed: 250,
     });
+
+    // ===== SWIPER VERTICAL DERECHA (loop infinito + freeMode) =====
     swiperMiniVRight = new Swiper('.swiper-mini-v-right', {
         direction: 'vertical',
         slidesPerView: 'auto',
         spaceBetween: 8,
         loop: true,
-        loopAdditionalSlides: 4,
+        loopAdditionalSlides: 8,
+        freeMode: true,
+        freeModeMomentum: true,
+        freeModeMomentumRatio: 0.8,
+        freeModeMomentumVelocityRatio: 0.8,
         mousewheel: true,
+        speed: 250,
     });
+
+    // ===== SWIPER HORIZONTAL (centrado + loop + super fluido) =====
     swiperMiniH = new Swiper('.swiper-mini-h', {
         slidesPerView: 'auto',
         spaceBetween: 8,
         loop: true,
-        loopAdditionalSlides: 4,
+        loopAdditionalSlides: 8,
+        centeredSlides: true,               // ← La activa siempre en el medio
+        centeredSlidesBounds: true,
+        freeMode: true,                     // ← Movimiento libre, no a saltos
+        freeModeMomentum: true,
+        freeModeMomentumRatio: 1.2,         // ← Más inercia al soltar
+        freeModeMomentumVelocityRatio: 1.2, // ← Más velocidad con poco roce
+        freeModeMinimumVelocity: 0.02,
+        touchRatio: 2.5,                    // ← MUCHO más sensible al dedo
+        speed: 300,
         navigation: { prevEl: '#mini-h-prev', nextEl: '#mini-h-next' },
     });
 
@@ -2635,7 +2658,7 @@ function renderizarMiniaturas(medias) {
         });
     });
 
-    // Click handlers
+    // Click handlers para todas las miniaturas
     const addClick = (swiperInstance) => {
         if (!swiperInstance) return;
         swiperInstance.slides.forEach(slide => {
@@ -2752,6 +2775,18 @@ function cambiarImagenPrincipal(medias, idx) {
     }
     imgPrincipal.dataset.mediaIdx = idx;
     marcarMiniaturaActiva(idx);
+
+        // Sincronizar miniaturas: centrar la activa en todos los swipers
+    if (swiperMiniH && swiperMiniH.slides.length) {
+        swiperMiniH.slideToLoop(idx, 250, false);
+    }
+    if (swiperMiniVLeft && swiperMiniVLeft.slides.length) {
+        swiperMiniVLeft.slideToLoop(idx, 250, false);
+    }
+    if (swiperMiniVRight && swiperMiniVRight.slides.length) {
+        swiperMiniVRight.slideToLoop(idx, 250, false);
+    }
+
     window.updateDetalleCounter?.();
 }
 
@@ -2787,6 +2822,7 @@ function generarThumbnailVideo(videoSrc, callback) {
 // ============================================================
 // ZOOM + SWIPE + LUPA + CONTADOR (imagen principal detalle)
 // ============================================================
+// ─── ZOOM + SWIPE + LUPA + CONTADOR (imagen principal detalle) ───
 function initZoomAndSwipe() {
     const container = document.getElementById('zoom-container');
     const img = document.getElementById('img-principal');
@@ -2796,8 +2832,23 @@ function initZoomAndSwipe() {
     let scale = 1;
     let panX = 0, panY = 0;
     let isDragging = false;
+    let isPinching = false;
     let startX, startY, startPanX, startPanY;
-    let isZoomed = false;
+    let initialPinchDistance = 0;
+    let initialScale = 1;
+    let touchStartX = 0, touchStartY = 0, touchStartTime = 0;
+    let isSwiping = false;
+
+    function applyTransform() {
+        img.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+    }
+
+    function resetZoom() {
+        scale = 1; panX = 0; panY = 0;
+        img.style.transition = 'transform 0.25s ease';
+        applyTransform();
+        setTimeout(() => { img.style.transition = 'none'; }, 250);
+    }
 
     // --- ACTUALIZAR CONTADOR ---
     function updateCounter() {
@@ -2808,9 +2859,9 @@ function initZoomAndSwipe() {
     updateCounter();
     window.updateDetalleCounter = updateCounter;
 
-   // --- ZOOM HOVER NORMAL (PC) ---
+    // --- PC: HOVER ZOOM (solo cuando NO está zoomed por click/wheel) ---
     container.addEventListener('mousemove', (e) => {
-        if (window.innerWidth < 1024 || isZoomed) return;
+        if (window.innerWidth < 1024 || scale > 1.05) return;
         const rect = container.getBoundingClientRect();
         const x = ((e.clientX - rect.left) / rect.width) * 100;
         const y = ((e.clientY - rect.top) / rect.height) * 100;
@@ -2819,53 +2870,39 @@ function initZoomAndSwipe() {
         img.style.transform = 'scale(2.5)';
     });
     container.addEventListener('mouseleave', () => {
-        if (!isZoomed) {
+        if (scale <= 1.05) {
             container.classList.remove('zoom-activo');
             img.style.transform = 'scale(1)';
+            img.style.transformOrigin = 'center center';
         }
     });
 
-    // --- DOBLE TAP / DOBLE CLICK PARA ZOOM ---
-    let lastTap = 0;
-    container.addEventListener('click', (e) => {
-    if (e.target.closest('video') || e.target.closest('#video-play-overlay') || e.target.closest('.btn-video-fullscreen')) return;
-    const now = Date.now();
-    
-    if (now - lastTap < 300) {
-        // ─── DOBLE CLICK → zoom local (como lo tenías) ───
+    // --- PC: WHEEL ZOOM (libre, centrado en el cursor) ---
+    container.addEventListener('wheel', (e) => {
+        if (window.innerWidth < 1024) return;
         e.preventDefault();
-        clearTimeout(window._lightboxTimer); // cancelar apertura de lightbox
-        if (isZoomed) {
-            scale = 1; panX = 0; panY = 0; isZoomed = false;
-            img.style.transition = 'transform 0.25s ease';
-            img.style.transform = 'translate(0,0) scale(1)';
-            img.style.cursor = 'default';
-        } else {
-            const rect = container.getBoundingClientRect();
-            const clickX = e.clientX - rect.left;
-            const clickY = e.clientY - rect.top;
-            scale = 2.5;
-            panX = (rect.width/2 - clickX) * (scale - 1);
-            panY = (rect.height/2 - clickY) * (scale - 1);
-            isZoomed = true;
-            img.style.transition = 'transform 0.25s ease';
-            img.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
-            img.style.cursor = 'grab';
+        const rect = container.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+        const factor = e.deltaY < 0 ? 1.12 : 0.88;
+        const newScale = Math.min(Math.max(scale * factor, 1), 5);
+        if (newScale !== scale) {
+            // Zoom hacia el cursor, no al centro
+            panX = mouseX - (mouseX - panX) * (newScale / scale);
+            panY = mouseY - (mouseY - panY) * (newScale / scale);
+            scale = newScale;
+            img.style.transition = 'none';
+            applyTransform();
         }
-        setTimeout(() => { img.style.transition = 'none'; }, 250);
-    } else {
-        // ─── CLICK SIMPLE → abrir lightbox a los 300ms ───
-        window._lightboxTimer = setTimeout(() => {
-            const idx = parseInt(img.dataset.mediaIdx || 0);
-            abrirLightbox(idx);
-        }, 300);
-    }
-    lastTap = now;
-});
+        if (scale <= 1.05) {
+            container.classList.remove('zoom-activo');
+            img.style.transformOrigin = 'center center';
+        }
+    }, { passive: false });
 
-    // --- PAN CON MOUSE (solo cuando zoomed) ---
+    // --- PC: PAN CON MOUSE (cuando está zoomed) ---
     container.addEventListener('mousedown', (e) => {
-        if (!isZoomed) return;
+        if (scale <= 1.05) return;
         isDragging = true;
         startX = e.clientX; startY = e.clientY;
         startPanX = panX; startPanY = panY;
@@ -2875,66 +2912,127 @@ function initZoomAndSwipe() {
         if (!isDragging) return;
         panX = startPanX + (e.clientX - startX);
         panY = startPanY + (e.clientY - startY);
-        img.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+        img.style.transition = 'none';
+        applyTransform();
     });
     window.addEventListener('mouseup', () => {
         isDragging = false;
-        if (isZoomed) img.style.cursor = 'grab';
+        img.style.cursor = scale > 1.05 ? 'grab' : 'default';
     });
 
-    // --- SWIPE PARA CAMBIAR IMAGEN (touch, solo si NO zoomed) ---
-    let touchStartX = 0, touchStartY = 0, touchStartTime = 0, isSwiping = false;
-
-    container.addEventListener('touchstart', (e) => {
-        if (e.touches.length === 1) {
-            touchStartX = e.touches[0].clientX;
-            touchStartY = e.touches[0].clientY;
-            touchStartTime = Date.now();
-            isSwiping = !isZoomed;
-        }
-    }, { passive: true });
-
-    container.addEventListener('touchmove', (e) => {
-        if (!isSwiping || isZoomed || e.touches.length !== 1) return;
-        const dy = Math.abs(e.touches[0].clientY - touchStartY);
-        const dx = Math.abs(e.touches[0].clientX - touchStartX);
-        if (dy > dx * 1.2) isSwiping = false; // scroll vertical cancela swipe
-    }, { passive: true });
-
-    container.addEventListener('touchend', (e) => {
-        if (!isSwiping || isZoomed) return;
-        const dx = e.changedTouches[0].clientX - touchStartX;
-        const dt = Date.now() - touchStartTime;
-        const threshold = container.offsetWidth * 0.12;
-        if (Math.abs(dx) > threshold && dt < 500) {
-            const medias = window._detalleMedias || [];
-            const currentIdx = parseInt(img.dataset.mediaIdx || 0);
-            const newIdx = dx < 0 
-                ? (currentIdx + 1) % medias.length 
-                : (currentIdx - 1 + medias.length) % medias.length;
-            cambiarImagenPrincipal(medias, newIdx);
-        }
-        isSwiping = false;
-    });
-
-    // --- PAN EN MOBILE (cuando zoomed) ---
-    container.addEventListener('touchstart', (e) => {
-        if (isZoomed && e.touches.length === 1) {
-            isDragging = true;
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-            startPanX = panX; startPanY = panY;
-        }
-    }, { passive: true });
-    container.addEventListener('touchmove', (e) => {
-        if (isDragging && isZoomed && e.touches.length === 1) {
+    // --- DOBLE TAP / DOBLE CLICK PARA ZOOM ---
+    let lastTap = 0;
+    container.addEventListener('click', (e) => {
+        if (e.target.closest('video') || e.target.closest('#video-play-overlay') || e.target.closest('.btn-video-fullscreen')) return;
+        const now = Date.now();
+        if (now - lastTap < 300) {
             e.preventDefault();
+            clearTimeout(window._lightboxTimer);
+            if (scale > 1.05) {
+                resetZoom();
+            } else {
+                const rect = container.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                const clickY = e.clientY - rect.top;
+                scale = 2.5;
+                panX = (rect.width/2 - clickX) * (scale - 1);
+                panY = (rect.height/2 - clickY) * (scale - 1);
+                img.style.transition = 'transform 0.25s ease';
+                applyTransform();
+                setTimeout(() => { img.style.transition = 'none'; }, 250);
+            }
+        } else {
+            window._lightboxTimer = setTimeout(() => {
+                const idx = parseInt(img.dataset.mediaIdx || 0);
+                abrirLightbox(idx);
+            }, 300);
+        }
+        lastTap = now;
+    });
+
+    // ============================================================
+    // MOBILE: PINCH-TO-ZOOM LIBRE + PAN EXACTO AL DEDO
+    // ============================================================
+    container.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 2) {
+            // MODO PINCH (2 dedos)
+            isPinching = true;
+            isDragging = false;
+            isSwiping = false;
+            initialPinchDistance = Math.hypot(
+                e.touches[0].clientX - e.touches[1].clientX,
+                e.touches[0].clientY - e.touches[1].clientY
+            );
+            initialScale = scale;
+        } else if (e.touches.length === 1) {
+            if (scale > 1.05) {
+                // MODO PAN (1 dedo, ya zoomed)
+                isDragging = true;
+                isSwiping = false;
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+                startPanX = panX;
+                startPanY = panY;
+            } else {
+                // MODO SWIPE (1 dedo, sin zoom → cambiar imagen)
+                isSwiping = true;
+                isDragging = false;
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+                touchStartTime = Date.now();
+            }
+        }
+    }, { passive: true });
+
+    container.addEventListener('touchmove', (e) => {
+        if (isPinching && e.touches.length === 2) {
+            e.preventDefault();
+            const dist = Math.hypot(
+                e.touches[0].clientX - e.touches[1].clientX,
+                e.touches[0].clientY - e.touches[1].clientY
+            );
+            // Escala libre, sin saltos, sigue exacto la distancia entre dedos
+            scale = Math.min(Math.max((dist / initialPinchDistance) * initialScale, 1), 5);
+            img.style.transition = 'none';
+            applyTransform();
+        } else if (isDragging && e.touches.length === 1 && scale > 1.05) {
+            e.preventDefault();
+            // Pan exacto: la imagen se mueve lo mismo que el dedo
             panX = startPanX + (e.touches[0].clientX - startX);
             panY = startPanY + (e.touches[0].clientY - startY);
-            img.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+            img.style.transition = 'none';
+            applyTransform();
+        } else if (isSwiping && e.touches.length === 1 && scale <= 1.05) {
+            const dy = Math.abs(e.touches[0].clientY - touchStartY);
+            const dx = Math.abs(e.touches[0].clientX - touchStartX);
+            if (dy > dx * 1.2) isSwiping = false; // scroll vertical cancela swipe
         }
     }, { passive: false });
-    container.addEventListener('touchend', () => { isDragging = false; });
+
+    container.addEventListener('touchend', (e) => {
+        if (e.touches.length < 2) isPinching = false;
+        if (e.touches.length === 0) {
+            if (isDragging) {
+                isDragging = false;
+                // Si soltó y el zoom quedó muy pequeño, resetear
+                if (scale < 1.05) resetZoom();
+            }
+            if (isSwiping && scale <= 1.05) {
+                const dx = e.changedTouches[0].clientX - touchStartX;
+                const dt = Date.now() - touchStartTime;
+                const threshold = container.offsetWidth * 0.12;
+                if (Math.abs(dx) > threshold && dt < 500) {
+                    const medias = window._detalleMedias || [];
+                    const currentIdx = parseInt(img.dataset.mediaIdx || 0);
+                    const newIdx = dx < 0 
+                        ? (currentIdx + 1) % medias.length 
+                        : (currentIdx - 1 + medias.length) % medias.length;
+                    cambiarImagenPrincipal(medias, newIdx);
+                }
+            }
+            isSwiping = false;
+        }
+    });
 }
 
 // ─── LIGHTBOX ───
@@ -2942,7 +3040,6 @@ function abrirLightbox(startIdx) {
     const medias = window._detalleMedias || [];
     if (!medias.length) return;
     
-    // Pausar videos del detalle
     document.querySelectorAll('#zoom-container video').forEach(v => {
         v.pause(); v.currentTime = 0;
     });
@@ -2952,7 +3049,6 @@ function abrirLightbox(startIdx) {
     const contadorLb = document.getElementById('lightbox-contador');
     if (!lightbox || !wrapper) return;
 
-    // Actualizar contador
     function updateLbCounter(idx) {
         if (contadorLb) {
             contadorLb.textContent = `${idx + 1}/${medias.length}`;
@@ -2964,15 +3060,14 @@ function abrirLightbox(startIdx) {
     medias.forEach((media, idx) => {
         const slide = document.createElement('div');
         slide.className = 'swiper-slide flex items-center justify-center overflow-hidden';
-        slide.style.touchAction = 'pan-y'; // permitir swipe horizontal de swiper
+        slide.style.touchAction = 'pan-y';
         
         if (media.tipo === 'video') {
             slide.innerHTML = `<video src="${media.src}" controls playsinline class="max-h-[85vh] max-w-[90vw] rounded-lg"></video>`;
         } else {
-            // 🔥 Imagen con zoom simple por doble-tap
             slide.innerHTML = `
                 <div class="lightbox-img-wrapper relative flex items-center justify-center w-full h-full overflow-hidden">
-                    <img src="${media.src}" class="max-h-[85vh] max-w-[90vw] object-contain rounded-lg lightbox-zoom-target transition-transform duration-200" alt="">
+                    <img src="${media.src}" class="max-h-[85vh] max-w-[90vw] object-contain rounded-lg lightbox-zoom-target transition-transform duration-75" alt="">
                 </div>
             `;
         }
@@ -2983,7 +3078,6 @@ function abrirLightbox(startIdx) {
     lightbox.classList.remove('hidden');
     updateLbCounter(startIdx);
 
-    // Fullscreen nativo (esperar a que Swiper renderice primero)
     requestAnimationFrame(() => {
         if (lightbox.requestFullscreen) {
             lightbox.requestFullscreen().catch(err => {
@@ -2998,17 +3092,16 @@ function abrirLightbox(startIdx) {
         loop: medias.length > 1,
         pagination: { el: '.pagination-lightbox', clickable: true },
         keyboard: { enabled: true },
+        touchRatio: 2,
         on: {
             slideChange: function() {
                 updateLbCounter(this.activeIndex);
-                // Pausar todos los videos, reproducir solo el activo
                 this.slides.forEach((slide, idx) => {
                     const vid = slide.querySelector('video');
                     if (vid) {
                         if (idx === this.activeIndex) vid.play().catch(() => {});
                         else { vid.pause(); vid.currentTime = 0; }
                     }
-                    // Reset zoom de imagen al cambiar slide
                     const zImg = slide.querySelector('.lightbox-zoom-target');
                     if (zImg) {
                         zImg.style.transform = 'scale(1)';
@@ -3019,95 +3112,96 @@ function abrirLightbox(startIdx) {
         }
     });
 
-    // 🔥 ZOOM EN LIGHTBOX: doble-tap para toggle 2x, pan cuando zoomed
+    // ===== ZOOM FLUIDO EN LIGHTBOX =====
     setTimeout(() => {
-    wrapper.querySelectorAll('.lightbox-img-wrapper').forEach(wrapperEl => {
-        const img = wrapperEl.querySelector('img');
-        if (!img) return;
+        wrapper.querySelectorAll('.lightbox-img-wrapper').forEach(wrapperEl => {
+            const img = wrapperEl.querySelector('img');
+            if (!img) return;
 
-        let zoomed = false;
-        let scale = 1;
-        let panX = 0, panY = 0;
-        let isPanning = false;
-        let startX = 0, startY = 0;
-        let pinchStartDist = 0;
-        let pinchStartScale = 1;
+            let lbScale = 1;
+            let lbPanX = 0, lbPanY = 0;
+            let isPanning = false;
+            let isPinching = false;
+            let startX = 0, startY = 0;
+            let startPanX = 0, startPanY = 0;
+            let pinchStartDist = 0;
+            let pinchStartScale = 1;
 
-        function applyTransform() {
-            img.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
-            img.style.cursor = zoomed ? 'grab' : 'default';
-        }
-
-        // ─── DOBLE-TAP para toggle zoom ───
-        let lastTap = 0;
-        img.addEventListener('click', (e) => {
-            e.stopPropagation(); // evitar que swiper cambie de slide
-            const now = Date.now();
-            if (now - lastTap < 300) {
-                zoomed = !zoomed;
-                if (!zoomed) { scale = 1; panX = 0; panY = 0; }
-                else { scale = 2; }
-                applyTransform();
+            function lbApply() {
+                img.style.transform = `translate(${lbPanX}px, ${lbPanY}px) scale(${lbScale})`;
             }
-            lastTap = now;
+
+            // Doble-tap para toggle zoom
+            let lastTap = 0;
+            img.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const now = Date.now();
+                if (now - lastTap < 300) {
+                    if (lbScale > 1.1) {
+                        lbScale = 1; lbPanX = 0; lbPanY = 0;
+                        swiperLightbox.allowTouchMove = true; // reactivar swipe
+                    } else {
+                        lbScale = 2.5;
+                        swiperLightbox.allowTouchMove = false; // bloquear swipe mientras zoom
+                    }
+                    img.style.transition = 'transform 0.2s ease';
+                    lbApply();
+                    setTimeout(() => { img.style.transition = 'transform 0.05s linear'; }, 200);
+                }
+                lastTap = now;
+            });
+
+            // Pinch-to-zoom libre
+            wrapperEl.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 2) {
+                    isPinching = true;
+                    isPanning = false;
+                    pinchStartDist = Math.hypot(
+                        e.touches[0].clientX - e.touches[1].clientX,
+                        e.touches[0].clientY - e.touches[1].clientY
+                    );
+                    pinchStartScale = lbScale;
+                } else if (e.touches.length === 1 && lbScale > 1.1) {
+                    isPanning = true;
+                    isPinching = false;
+                    startX = e.touches[0].clientX;
+                    startY = e.touches[0].clientY;
+                    startPanX = lbPanX;
+                    startPanY = lbPanY;
+                }
+            }, { passive: true });
+
+            wrapperEl.addEventListener('touchmove', (e) => {
+                if (isPinching && e.touches.length === 2) {
+                    e.preventDefault();
+                    const dist = Math.hypot(
+                        e.touches[0].clientX - e.touches[1].clientX,
+                        e.touches[0].clientY - e.touches[1].clientY
+                    );
+                    lbScale = Math.min(Math.max((dist / pinchStartDist) * pinchStartScale, 1), 5);
+                    if (lbScale > 1.1) swiperLightbox.allowTouchMove = false;
+                    else swiperLightbox.allowTouchMove = true;
+                    lbApply();
+                } else if (isPanning && e.touches.length === 1 && lbScale > 1.1) {
+                    e.preventDefault();
+                    lbPanX = startPanX + (e.touches[0].clientX - startX);
+                    lbPanY = startPanY + (e.touches[0].clientY - startY);
+                    lbApply();
+                }
+            }, { passive: false });
+
+            wrapperEl.addEventListener('touchend', (e) => {
+                if (e.touches.length < 2) isPinching = false;
+                if (e.touches.length === 0) {
+                    isPanning = false;
+                    if (lbScale < 1.15) {
+                        lbScale = 1; lbPanX = 0; lbPanY = 0;
+                        swiperLightbox.allowTouchMove = true;
+                        lbApply();
+                    }
+                }
+            });
         });
-
-        // ─── PAN con MOUSE (PC) ───
-        wrapperEl.addEventListener('mousedown', (e) => {
-            if (!zoomed) return;
-            isPanning = true;
-            startX = e.clientX - panX;
-            startY = e.clientY - panY;
-            img.style.cursor = 'grabbing';
-        });
-        wrapperEl.addEventListener('mousemove', (e) => {
-            if (!isPanning || !zoomed) return;
-            panX = e.clientX - startX;
-            panY = e.clientY - startY;
-            applyTransform();
-        });
-        wrapperEl.addEventListener('mouseup', () => { isPanning = false; if (zoomed) img.style.cursor = 'grab'; });
-        wrapperEl.addEventListener('mouseleave', () => { isPanning = false; });
-
-        // ─── PAN con 1 DEDO (mobile) ───
-        wrapperEl.addEventListener('touchstart', (e) => {
-            if (!zoomed || e.touches.length !== 1) return;
-            isPanning = true;
-            startX = e.touches[0].clientX - panX;
-            startY = e.touches[0].clientY - panY;
-        }, { passive: true });
-        wrapperEl.addEventListener('touchmove', (e) => {
-            if (!isPanning || !zoomed || e.touches.length !== 1) return;
-            e.preventDefault();
-            panX = e.touches[0].clientX - startX;
-            panY = e.touches[0].clientY - startY;
-            applyTransform();
-        }, { passive: false });
-        wrapperEl.addEventListener('touchend', () => { isPanning = false; });
-
-        // ─── PINCH-TO-ZOOM con 2 DEDOS (mobile) ───
-        wrapperEl.addEventListener('touchstart', (e) => {
-            if (e.touches.length === 2) {
-                pinchStartDist = Math.hypot(
-                    e.touches[0].clientX - e.touches[1].clientX,
-                    e.touches[0].clientY - e.touches[1].clientY
-                );
-                pinchStartScale = scale;
-            }
-        }, { passive: true });
-
-        wrapperEl.addEventListener('touchmove', (e) => {
-            if (e.touches.length !== 2) return;
-            e.preventDefault();
-            const dist = Math.hypot(
-                e.touches[0].clientX - e.touches[1].clientX,
-                e.touches[0].clientY - e.touches[1].clientY
-            );
-            scale = Math.min(Math.max((dist / pinchStartDist) * pinchStartScale, 1), 4);
-            zoomed = scale > 1.1;
-            applyTransform();
-        }, { passive: false });
-    });
     }, 100);
 }
 
@@ -3589,119 +3683,7 @@ function initMarqueeEnvio() {
 }
 
 ////////////////////////////
-function initRobustZoom(img) {
-    let scale = 1;
-    let panX = 0, panY = 0;
-    let isPanning = false;
-    let startX = 0, startY = 0;
-    let startPanX = 0, startPanY = 0;
-    let initialPinchDistance = 0;
-    let initialScale = 1;
-    let isPinching = false;
 
-    const container = img.parentElement;
-    container.style.overflow = 'hidden';
-    img.style.transition = 'none';
-    img.style.willChange = 'transform';
-
-    function apply() {
-        img.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
-    }
-
-    // === PC: Wheel zoom centrado en cursor ===
-    container.addEventListener('wheel', (e) => {
-        e.preventDefault();
-        const rect = container.getBoundingClientRect();
-        const mouseX = e.clientX - rect.left;
-        const mouseY = e.clientY - rect.top;
-        const factor = e.deltaY < 0 ? 1.15 : 0.85;
-        const newScale = Math.min(Math.max(scale * factor, 1), 5);
-
-        // Zoom hacia el cursor
-        if (newScale !== scale) {
-            panX = mouseX - (mouseX - panX) * (newScale / scale);
-            panY = mouseY - (mouseY - panY) * (newScale / scale);
-            scale = newScale;
-            apply();
-        }
-    }, { passive: false });
-
-    // === PC: Click-drag para pan ===
-    container.addEventListener('mousedown', (e) => {
-        if (scale <= 1) return;
-        isPanning = true;
-        startX = e.clientX;
-        startY = e.clientY;
-        startPanX = panX;
-        startPanY = panY;
-        img.style.cursor = 'grabbing';
-    });
-
-    window.addEventListener('mousemove', (e) => {
-        if (!isPanning) return;
-        panX = startPanX + (e.clientX - startX);
-        panY = startPanY + (e.clientY - startY);
-        apply();
-    });
-
-    window.addEventListener('mouseup', () => {
-        isPanning = false;
-        img.style.cursor = scale > 1 ? 'grab' : 'default';
-    });
-
-    // === Mobile: Pinch zoom + pan ===
-    container.addEventListener('touchstart', (e) => {
-        if (e.touches.length === 2) {
-            isPinching = true;
-            initialPinchDistance = Math.hypot(
-                e.touches[0].clientX - e.touches[1].clientX,
-                e.touches[0].clientY - e.touches[1].clientY
-            );
-            initialScale = scale;
-        } else if (e.touches.length === 1 && scale > 1) {
-            isPanning = true;
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-            startPanX = panX;
-            startPanY = panY;
-        }
-    }, { passive: true });
-
-    container.addEventListener('touchmove', (e) => {
-        if (isPinching && e.touches.length === 2) {
-            e.preventDefault();
-            const dist = Math.hypot(
-                e.touches[0].clientX - e.touches[1].clientX,
-                e.touches[0].clientY - e.touches[1].clientY
-            );
-            scale = Math.min(Math.max((dist / initialPinchDistance) * initialScale, 1), 5);
-            apply();
-        } else if (isPanning && e.touches.length === 1 && scale > 1) {
-            e.preventDefault();
-            panX = startPanX + (e.touches[0].clientX - startX);
-            panY = startPanY + (e.touches[0].clientY - startY);
-            apply();
-        }
-    }, { passive: false });
-
-    container.addEventListener('touchend', () => {
-        isPinching = false;
-        isPanning = false;
-        if (scale < 1.05) {
-            scale = 1; panX = 0; panY = 0; apply();
-        }
-    });
-
-    // Doble tap para reset
-    let lastTap = 0;
-    container.addEventListener('touchend', () => {
-        const now = Date.now();
-        if (now - lastTap < 300) {
-            scale = 1; panX = 0; panY = 0; apply();
-        }
-        lastTap = now;
-    });
-}
 
 /////////////////////////////
 // Navegar imágenes del detalle con flechas del teclado
