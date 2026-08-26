@@ -2661,12 +2661,18 @@ function cambiarImagenPrincipal(medias, idx) {
     const media = medias[idx];
     if (!media) return;
 
-    // Limpiar container (por si hay video anterior)
-    const oldVideo = container.querySelector('video');
-    if (oldVideo) { oldVideo.pause(); oldVideo.remove(); }
+    // 🔥 LIMPIAR TODO: video anterior + overlay + reset imagen
+    container.querySelectorAll('video').forEach(v => {
+        v.pause();
+        v.removeAttribute('src');
+        v.load();
+        v.remove();
+    });
+    container.querySelectorAll('#video-play-overlay').forEach(o => o.remove());
     imgPrincipal.style.display = 'block';
+    imgPrincipal.style.opacity = '1';
 
-     if (media.tipo === 'video') {
+    if (media.tipo === 'video') {
     imgPrincipal.style.display = 'none';
     
     const video = document.createElement('video');
