@@ -613,8 +613,12 @@ document.addEventListener('click', (e) => {
         precio: parseFloat(btnCircular.dataset.precio),
         imagen: btnCircular.dataset.imagen
     };
+    // 🔥 SI VIENE UNA VARIANTE DESDE FAVORITOS, LA PASAMOS AL CARRITO
+    if (btnCircular.dataset.variante) {
+        try { producto.variante = JSON.parse(btnCircular.dataset.variante); } catch(e) {}
+    }
     agregarAlCarrito(producto);
-    animarFlyToCart(btnCircular, producto.imagen);   // ← ESTA ES LA NUEVA
+    animarFlyToCart(btnCircular, producto.imagen);
 });
 
 function agregarAlCarrito(producto) {
@@ -748,7 +752,21 @@ function cambiarCantidad(cartId, delta) {
 let favoritos = [];
 
 function toggleFavorito(producto) {
-    const index = favoritos.findIndex(f => f.id === producto.id);
+    let index;
+    if (producto.variante) {
+        // Detalle con estilo alternativo o card de favoritos con variante
+        index = favoritos.findIndex(f => 
+            f.id === producto.id && 
+            f.variante?.valor === producto.variante.valor
+        );
+    } else if (producto.esBase) {
+        // Detalle con estilo base o card de favoritos base
+        index = favoritos.findIndex(f => f.id === producto.id && !f.variante);
+    } else {
+        // Grid: buscar por id (cualquiera, comportamiento anterior de "uno por uno")
+        index = favoritos.findIndex(f => f.id === producto.id);
+    }
+    
     if (index !== -1) { 
         favoritos.splice(index, 1); 
     }
@@ -760,29 +778,24 @@ function toggleFavorito(producto) {
                 return el ? el.className : '';
             };
             
-            // Copiamos TODAS las clases de cada pieza
             producto.clsProducto      = getCls('.cardProducto');
             producto.clsProductoInner = getCls('.cardProductoInner');
             producto.clsInfo          = getCls('.cardInfo');
             producto.clsInfoInner     = getCls('.cardInfoInner');
             producto.clsBtnFav        = getCls('.btn-favorito');
-            producto.clsBtnPrecio     = getCls('div.btn-precio');   // el div del precio
+            producto.clsBtnPrecio     = getCls('div.btn-precio');
             producto.clsBtnCarrito    = getCls('.btn-agregar-carrito');
 
-            // Guardar las clases exactas del <i> dentro del botón carrito
             const carritoIcon = card.querySelector('.btn-agregar-carrito i');
             producto.clsCarritoIcon = carritoIcon ? carritoIcon.className : '';
 
-            // Guardar las clases exactas de la imagen del producto
             const imgProducto = card.querySelector('.cardProductoInner img');
             producto.clsImgProducto = imgProducto ? imgProducto.className : '';
             
-            // Dots = el button.btn-precio (siempre es <button> en tu HTML)
             const dotsBtn = card.querySelector('button.btn-precio');
             producto.clsBtnDots = dotsBtn ? dotsBtn.className : '';
             producto.dotsHTML   = dotsBtn ? dotsBtn.innerHTML : '';
             
-            // Textos (título y subtítulo)
             const infoInner = card.querySelector('.cardInfoInner');
             if (infoInner) {
                 const ps = infoInner.querySelectorAll('p');
@@ -842,10 +855,10 @@ function renderizarFavoritos() {
 
     favoritos.forEach(item => {
         const cardHTML = `
-        <article class="w-[172px] h-[254px] relative sm:w-[234px] sm:h-[381px]" data-id="${item.id}" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}">
+        <article class="w-[172px] h-[254px] relative sm:w-[234px] sm:h-[381px]" data-id="${item.id}" data-titulo="${item.titulo}" data-subtitulo="${item.variante ? item.variante.tipo + ': ' + item.variante.valor : item.subtitulo}" data-imagen="${item.imagenVariante || item.imagen}" ${item.variante ? `data-variante='${JSON.stringify(item.variante)}'` : ''}>
             <div class="${item.clsProducto || 'absolute inset-0 bg-stone-950 dark:bg-temu cardProducto'}"></div>
             <div class="${item.clsProductoInner || 'w-[172px] h-52.5 bg-white dark:bg-stone-900 cardProductoInner absolute inset-0 overflow-hidden border border-stone-950 dark:border-temu sm:w-[234px] sm:h-78.75'}">
-                <img src="${item.imagen}" alt="" class="${item.clsImgProducto || 'w-full h-full object-contain object-[50%_70%] sm:object-[50%_60%]'}">
+                <img src="${item.imagenVariante || item.imagen}" alt="" class="${item.clsImgProducto || 'w-full h-full object-cover object-[50%_70%] sm:object-[50%_60%]'}">
             </div>
             <button class="${item.clsBtnFav || 'btn-favorito absolute top-1.5 right-1.5 z-20 size-6 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2'} activo">
                 <i class="ri-heart-fill text-sm text-stone-950 dark:text-white/20 transition-colors duration-200 sm:text-lg"></i>
@@ -854,13 +867,13 @@ function renderizarFavoritos() {
                 <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ ${parseFloat(item.precio).toFixed(2)}</p>
             </div>
             <button class="${item.clsBtnCarrito || 'btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]'}"
-                data-id="${item.id}" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}" data-precio="${item.precio}" data-imagen="${item.imagen}">
+            data-id="${item.id}" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}" data-precio="${item.precio}" data-imagen="${item.imagenVariante || item.imagen}" ${item.variante ? `data-variante='${JSON.stringify(item.variante)}'` : ''}>
                 <i class="${item.clsCarritoIcon || 'ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]'}"></i>
             </button>
             <div class="${item.clsInfo || 'absolute bg-stone-950 dark:bg-temu bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15'}"></div>
             <div class="${item.clsInfoInner || 'w-[172px] h-10 absolute bottom-0 bg-puro dark:bg-stone-900 dark:text-temu cardInfoInner flex flex-col justify-center border border-stone-950 dark:border-temu sm:w-[234px] sm:h-15'}">
                 <p class="${item.clsTitle || 'font-Inter text-xs font-extrabold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25'}">${item.titulo}</p>
-                <p class="${item.clsSubtitle || 'font-Inter text-xs font-extrabold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5'}">${item.subtitulo}</p>
+                <p class="${item.clsSubtitle || 'font-Inter text-xs font-extrabold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5'}">${item.variante ? item.variante.tipo + ': ' + item.variante.valor : item.subtitulo}</p>
             </div>
             ${item.clsBtnDots ? `<button class="${item.clsBtnDots}">${item.dotsHTML || ''}</button>` : ''}
         </article>`;
@@ -882,6 +895,16 @@ document.addEventListener('click', (e) => {
             precio: parseFloat(card.dataset.precio),
             imagen: card.dataset.imagen
         };
+        const varianteAttr = card.getAttribute('data-variante');
+        const esCardFavoritosBase = card.closest('#favoritos-grid') && !varianteAttr;
+        
+        if (varianteAttr) {
+            try { producto.variante = JSON.parse(varianteAttr); } catch(e) {}
+        } else if (esCardFavoritosBase) {
+            producto.esBase = true;
+        }
+        // Si es grid sin variante: no poner nada, toggleFavorito busca por id (como antes)
+        
         toggleFavorito(producto);
     }
 });
@@ -939,6 +962,11 @@ function gestionarVista(vista) {
         if (btnMas) btnMas.classList.add('hidden');
         if (carritoSection) carritoSection.classList.add('hidden');
         if (btnCarritoFlotante) btnCarritoFlotante.classList.add('hidden');
+          // OCULTAR NAV SUPERIOR EN MÓVIL/TABLET
+        const navSup = document.querySelector('nav');
+        const sepSup = navSup?.nextElementSibling;
+        if (navSup) navSup.classList.add('max-lg:hidden');
+        if (sepSup) sepSup.classList.add('max-lg:hidden');
         if (favoritosSection) favoritosSection.classList.remove('hidden');
         if (separadorNav) separadorNav.classList.add('hidden');
         renderizarFavoritos();
@@ -946,6 +974,12 @@ function gestionarVista(vista) {
         if (navSuperior) navSuperior.classList.add('max-lg:hidden');
         if (separadorSuperior) separadorSuperior.classList.add('max-lg:hidden');
     } else {
+        // Cerrar detalle si está abierto al volver a tienda
+        const detalleSection = document.getElementById('producto-detalle');
+        if (detalleSection && !detalleSection.classList.contains('hidden')) {
+            detalleSection.classList.add('hidden');
+        }
+        
         heros.forEach(hero => {
             hero.style.display = '';
             hero.style.visibility = '';
@@ -956,11 +990,19 @@ function gestionarVista(vista) {
         if (btnMas) btnMas.classList.remove('hidden');
         if (carritoSection) carritoSection.classList.add('hidden');
         if (btnCarritoFlotante) btnCarritoFlotante.classList.add('hidden');
+
+        // OCULTAR NAV SUPERIOR EN MÓVIL/TABLET AL ENTRAR AL DETALLE
+        const navSup = document.querySelector('nav');
+        const sepSup = navSup?.nextElementSibling;
+        if (navSup) navSup.classList.add('max-lg:hidden');
+        if (sepSup) sepSup.classList.add('max-lg:hidden');
+
+    // 🔥 ESTO ES LO QUE FALTABA: LIMPIAR CUALQUIER TRANSFORM BASURA
         if (favoritosSection) favoritosSection.classList.add('hidden');
         if (separadorNav) separadorNav.classList.remove('hidden');
         // Mostrar nav superior completo en movil/tablet
-        // if (navSuperior) navSuperior.classList.remove('max-lg:hidden');
-        // if (separadorSuperior) separadorSuperior.classList.remove('max-lg:hidden');
+        if (navSuperior) navSuperior.classList.remove('max-lg:hidden');
+        if (separadorSuperior) separadorSuperior.classList.remove('max-lg:hidden');
     }
 }
 
@@ -1003,20 +1045,23 @@ let activeKey = 'inicio';
 
 function activateNav(key) {
 
-     // Cerrar detalle si está abierto
-    const detalleSection = document.getElementById('producto-detalle');
-    if (detalleSection && !detalleSection.classList.contains('hidden')) {
-        detalleSection.classList.add('hidden');
-        const grid = document.getElementById('product-grid');
-        const navCat = document.getElementById('nav-categorias');
-        const btnMas = document.getElementById('btn-mas');
-        const navSup = document.querySelector('nav');
-        const sepNav = navCat?.nextElementSibling;
-        if (grid) grid.classList.remove('hidden');
-        if (navCat) navCat.classList.remove('hidden');
-        if (btnMas) btnMas.classList.remove('hidden');
-        if (navSup) navSup.classList.remove('max-lg:hidden');
-        if (sepNav) sepNav.classList.remove('hidden');
+    // Cerrar detalle SOLO si vamos a Inicio, Carrito o Favoritos
+    // (NO si abrimos Usuario o Categorías, que son paneles flotantes encima)
+    if (key !== 'usuario' && key !== 'categorias') {
+        const detalleSection = document.getElementById('producto-detalle');
+        if (detalleSection && !detalleSection.classList.contains('hidden')) {
+            detalleSection.classList.add('hidden');
+            const grid = document.getElementById('product-grid');
+            const navCat = document.getElementById('nav-categorias');
+            const btnMas = document.getElementById('btn-mas');
+            const navSup = document.querySelector('nav');
+            const sepNav = navCat?.nextElementSibling;
+            if (grid) grid.classList.remove('hidden');
+            if (navCat) navCat.classList.remove('hidden');
+            if (btnMas) btnMas.classList.remove('hidden');
+            if (navSup) navSup.classList.remove('max-lg:hidden');
+            if (sepNav) sepNav.classList.remove('hidden');
+        }
     }
     // ... resto de tu activateNav ...
 
@@ -2876,6 +2921,7 @@ function renderizarEstilos(producto) {
             document.getElementById('detalle-estilo-nombre').textContent = est.nombre;
             const imgPrincipal = document.getElementById('img-principal');
             if (imgPrincipal) imgPrincipal.src = est.imagen;
+            sincronizarFavoritoDetalle(); // 🔥 ACTUALIZAR CORAZÓN AL CAMBIAR ESTILO
         });
 
         container.appendChild(btn);
@@ -2938,7 +2984,16 @@ function sincronizarFavoritoDetalle() {
     const icono = btn?.querySelector('i');
     if (!btn || !productoActualId) return;
 
-    const esFav = favoritos.some(f => f.id === productoActualId);
+    const producto = getProducto(productoActualId);
+    const esEstiloBase = estiloSeleccionado && producto && estiloSeleccionado.nombre === producto.estilo;
+    
+    // 🔥 Si es base → buscar favorito SIN variante. Si es alternativo → buscar CON esa variante
+    const esFav = esEstiloBase
+        ? favoritos.some(f => f.id === productoActualId && !f.variante)
+        : favoritos.some(f => 
+            f.id === productoActualId && 
+            f.variante?.valor === (estiloSeleccionado?.color || estiloSeleccionado?.nombre)
+        );
     if (esFav) {
         btn.classList.add('activo');
         icono.classList.remove('ri-heart-line', 'text-stone-950', 'dark:text-white');
@@ -2953,13 +3008,35 @@ function sincronizarFavoritoDetalle() {
 document.getElementById('detalle-btn-favorito')?.addEventListener('click', () => {
     const producto = getProducto(productoActualId);
     if (!producto) return;
-    toggleFavorito({
+    
+    const tipo = producto.tipoVariante || 'estilo';
+    const labelMap = { estilo: 'Estilo', color: 'Color', talla: 'Talla' };
+    const label = labelMap[tipo] || 'Estilo';
+    
+    const esEstiloBase = estiloSeleccionado && producto && estiloSeleccionado.nombre === producto.estilo;
+    
+    const productoFav = {
         id: producto.id,
         titulo: producto.titulo,
         subtitulo: producto.subtitulo,
         precio: producto.precio,
-        imagen: producto.imagenes?.[0] || '',
-    });
+        // 🔥 IMAGEN DEL ESTILO SELECCIONADO (incluso para el base)
+        imagen: estiloSeleccionado?.imagen || producto.imagenes?.[0] || '',
+    };
+    
+    if (esEstiloBase) {
+        // Base: marcarlo para que toggleFavorito busque exacto y no confunda con variantes
+        productoFav.esBase = true;
+    } else if (estiloSeleccionado) {
+        // Variante alternativa
+        productoFav.imagenVariante = estiloSeleccionado.imagen;
+        productoFav.variante = {
+            tipo: label,
+            valor: estiloSeleccionado.color || estiloSeleccionado.nombre
+        };
+    }
+    
+    toggleFavorito(productoFav);
     sincronizarFavoritoDetalle();
 });
 
