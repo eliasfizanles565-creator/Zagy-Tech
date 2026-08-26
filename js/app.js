@@ -2591,64 +2591,50 @@ function renderizarMiniaturas(medias) {
             slide.innerHTML = `<img src="${media.src}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">`;
         }
 
-        // Distribución: pares izq, impares der
         if (idx % 2 === 0) wrapLeft.appendChild(slide.cloneNode(true));
         else wrapRight.appendChild(slide.cloneNode(true));
-
-        // Horizontal: todos
         wrapH.appendChild(slide);
     });
 
-    // Destruir previos
     if (swiperMiniVLeft) swiperMiniVLeft.destroy(true, true);
     if (swiperMiniVRight) swiperMiniVRight.destroy(true, true);
     if (swiperMiniH) swiperMiniH.destroy(true, true);
 
-    // ===== SWIPER VERTICAL IZQUIERDA (loop infinito + freeMode) =====
+    // ===== VERTICAL IZQUIERDA (loop fluido, sin freeMode) =====
     swiperMiniVLeft = new Swiper('.swiper-mini-v-left', {
         direction: 'vertical',
         slidesPerView: 'auto',
         spaceBetween: 8,
         loop: true,
-        loopAdditionalSlides: 8,
-        freeMode: true,
-        freeModeMomentum: true,
-        freeModeMomentumRatio: 0.8,
-        freeModeMomentumVelocityRatio: 0.8,
+        loopAdditionalSlides: 10,
+        speed: 300,
+        touchRatio: 1.5,
         mousewheel: true,
-        speed: 250,
     });
 
-    // ===== SWIPER VERTICAL DERECHA (loop infinito + freeMode) =====
+    // ===== VERTICAL DERECHA (loop fluido, sin freeMode) =====
     swiperMiniVRight = new Swiper('.swiper-mini-v-right', {
         direction: 'vertical',
         slidesPerView: 'auto',
         spaceBetween: 8,
         loop: true,
-        loopAdditionalSlides: 8,
-        freeMode: true,
-        freeModeMomentum: true,
-        freeModeMomentumRatio: 0.8,
-        freeModeMomentumVelocityRatio: 0.8,
+        loopAdditionalSlides: 10,
+        speed: 300,
+        touchRatio: 1.5,
         mousewheel: true,
-        speed: 250,
     });
 
-    // ===== SWIPER HORIZONTAL (centrado + loop + super fluido) =====
+    // ===== HORIZONTAL (loop fluido + centrado, sin freeMode) =====
     swiperMiniH = new Swiper('.swiper-mini-h', {
         slidesPerView: 'auto',
         spaceBetween: 8,
         loop: true,
-        loopAdditionalSlides: 8,
-        centeredSlides: true,               // ← La activa siempre en el medio
-        centeredSlidesBounds: true,
-        freeMode: true,                     // ← Movimiento libre, no a saltos
-        freeModeMomentum: true,
-        freeModeMomentumRatio: 1.2,         // ← Más inercia al soltar
-        freeModeMomentumVelocityRatio: 1.2, // ← Más velocidad con poco roce
-        freeModeMinimumVelocity: 0.02,
-        touchRatio: 2.5,                    // ← MUCHO más sensible al dedo
+        loopAdditionalSlides: 10,
+        centeredSlides: true,
         speed: 300,
+        touchRatio: 2,
+        longSwipes: true,
+        longSwipesRatio: 0.1,
         navigation: { prevEl: '#mini-h-prev', nextEl: '#mini-h-next' },
     });
 
@@ -2658,7 +2644,6 @@ function renderizarMiniaturas(medias) {
         });
     });
 
-    // Click handlers para todas las miniaturas
     const addClick = (swiperInstance) => {
         if (!swiperInstance) return;
         swiperInstance.slides.forEach(slide => {
@@ -2820,14 +2805,19 @@ function generarThumbnailVideo(videoSrc, callback) {
 
 // ─── ZOOM ───
 // ============================================================
-// ZOOM + SWIPE + LUPA + CONTADOR (imagen principal detalle)
-// ============================================================
-// ─── ZOOM + SWIPE + LUPA + CONTADOR (imagen principal detalle) ───
+// ─── ZOOM + SWIPE + CONTADOR (imagen principal detalle) ───
+window._zoomHandlers = window._zoomHandlers || {};
+
 function initZoomAndSwipe() {
     const container = document.getElementById('zoom-container');
     const img = document.getElementById('img-principal');
     const contador = document.getElementById('contador-principal');
     if (!container || !img) return;
+
+    // 🔥 LIMPIAR LISTENERS ANTERIORES (evita acumulación)
+    if (window._zoomHandlers.cleanup) {
+        window._zoomHandlers.cleanup();
+    }
 
     let scale = 1;
     let panX = 0, panY = 0;
@@ -2850,7 +2840,6 @@ function initZoomAndSwipe() {
         setTimeout(() => { img.style.transition = 'none'; }, 250);
     }
 
-    // --- ACTUALIZAR CONTADOR ---
     function updateCounter() {
         const idx = parseInt(img.dataset.mediaIdx || 0) + 1;
         const total = window._detalleMedias?.length || 1;
@@ -2859,8 +2848,8 @@ function initZoomAndSwipe() {
     updateCounter();
     window.updateDetalleCounter = updateCounter;
 
-    // --- PC: HOVER ZOOM (solo cuando NO está zoomed por click/wheel) ---
-    container.addEventListener('mousemove', (e) => {
+    // --- PC: Hover zoom ---
+    const onMouseMoveHover = (e) => {
         if (window.innerWidth < 1024 || scale > 1.05) return;
         const rect = container.getBoundingClientRect();
         const x = ((e.clientX - rect.left) / rect.width) * 100;
@@ -2868,17 +2857,17 @@ function initZoomAndSwipe() {
         img.style.transformOrigin = `${x}% ${y}%`;
         container.classList.add('zoom-activo');
         img.style.transform = 'scale(2.5)';
-    });
-    container.addEventListener('mouseleave', () => {
+    };
+    const onMouseLeaveHover = () => {
         if (scale <= 1.05) {
             container.classList.remove('zoom-activo');
             img.style.transform = 'scale(1)';
             img.style.transformOrigin = 'center center';
         }
-    });
+    };
 
-    // --- PC: WHEEL ZOOM (libre, centrado en el cursor) ---
-    container.addEventListener('wheel', (e) => {
+    // --- PC: Wheel zoom libre ---
+    const onWheel = (e) => {
         if (window.innerWidth < 1024) return;
         e.preventDefault();
         const rect = container.getBoundingClientRect();
@@ -2887,7 +2876,6 @@ function initZoomAndSwipe() {
         const factor = e.deltaY < 0 ? 1.12 : 0.88;
         const newScale = Math.min(Math.max(scale * factor, 1), 5);
         if (newScale !== scale) {
-            // Zoom hacia el cursor, no al centro
             panX = mouseX - (mouseX - panX) * (newScale / scale);
             panY = mouseY - (mouseY - panY) * (newScale / scale);
             scale = newScale;
@@ -2898,31 +2886,31 @@ function initZoomAndSwipe() {
             container.classList.remove('zoom-activo');
             img.style.transformOrigin = 'center center';
         }
-    }, { passive: false });
+    };
 
-    // --- PC: PAN CON MOUSE (cuando está zoomed) ---
-    container.addEventListener('mousedown', (e) => {
+    // --- PC: Pan con mouse ---
+    const onMouseDown = (e) => {
         if (scale <= 1.05) return;
         isDragging = true;
         startX = e.clientX; startY = e.clientY;
         startPanX = panX; startPanY = panY;
         img.style.cursor = 'grabbing';
-    });
-    window.addEventListener('mousemove', (e) => {
+    };
+    const onWindowMouseMove = (e) => {
         if (!isDragging) return;
         panX = startPanX + (e.clientX - startX);
         panY = startPanY + (e.clientY - startY);
         img.style.transition = 'none';
         applyTransform();
-    });
-    window.addEventListener('mouseup', () => {
+    };
+    const onWindowMouseUp = () => {
         isDragging = false;
         img.style.cursor = scale > 1.05 ? 'grab' : 'default';
-    });
+    };
 
-    // --- DOBLE TAP / DOBLE CLICK PARA ZOOM ---
+    // --- Doble tap / doble click ---
     let lastTap = 0;
-    container.addEventListener('click', (e) => {
+    const onClick = (e) => {
         if (e.target.closest('video') || e.target.closest('#video-play-overlay') || e.target.closest('.btn-video-fullscreen')) return;
         const now = Date.now();
         if (now - lastTap < 300) {
@@ -2948,14 +2936,11 @@ function initZoomAndSwipe() {
             }, 300);
         }
         lastTap = now;
-    });
+    };
 
-    // ============================================================
-    // MOBILE: PINCH-TO-ZOOM LIBRE + PAN EXACTO AL DEDO
-    // ============================================================
-    container.addEventListener('touchstart', (e) => {
+    // --- Mobile: Touch (pinch + pan + swipe) ---
+    const onTouchStart = (e) => {
         if (e.touches.length === 2) {
-            // MODO PINCH (2 dedos)
             isPinching = true;
             isDragging = false;
             isSwiping = false;
@@ -2966,7 +2951,6 @@ function initZoomAndSwipe() {
             initialScale = scale;
         } else if (e.touches.length === 1) {
             if (scale > 1.05) {
-                // MODO PAN (1 dedo, ya zoomed)
                 isDragging = true;
                 isSwiping = false;
                 startX = e.touches[0].clientX;
@@ -2974,7 +2958,6 @@ function initZoomAndSwipe() {
                 startPanX = panX;
                 startPanY = panY;
             } else {
-                // MODO SWIPE (1 dedo, sin zoom → cambiar imagen)
                 isSwiping = true;
                 isDragging = false;
                 touchStartX = e.touches[0].clientX;
@@ -2982,22 +2965,19 @@ function initZoomAndSwipe() {
                 touchStartTime = Date.now();
             }
         }
-    }, { passive: true });
-
-    container.addEventListener('touchmove', (e) => {
+    };
+    const onTouchMove = (e) => {
         if (isPinching && e.touches.length === 2) {
             e.preventDefault();
             const dist = Math.hypot(
                 e.touches[0].clientX - e.touches[1].clientX,
                 e.touches[0].clientY - e.touches[1].clientY
             );
-            // Escala libre, sin saltos, sigue exacto la distancia entre dedos
             scale = Math.min(Math.max((dist / initialPinchDistance) * initialScale, 1), 5);
             img.style.transition = 'none';
             applyTransform();
         } else if (isDragging && e.touches.length === 1 && scale > 1.05) {
             e.preventDefault();
-            // Pan exacto: la imagen se mueve lo mismo que el dedo
             panX = startPanX + (e.touches[0].clientX - startX);
             panY = startPanY + (e.touches[0].clientY - startY);
             img.style.transition = 'none';
@@ -3005,16 +2985,14 @@ function initZoomAndSwipe() {
         } else if (isSwiping && e.touches.length === 1 && scale <= 1.05) {
             const dy = Math.abs(e.touches[0].clientY - touchStartY);
             const dx = Math.abs(e.touches[0].clientX - touchStartX);
-            if (dy > dx * 1.2) isSwiping = false; // scroll vertical cancela swipe
+            if (dy > dx * 1.2) isSwiping = false;
         }
-    }, { passive: false });
-
-    container.addEventListener('touchend', (e) => {
+    };
+    const onTouchEnd = (e) => {
         if (e.touches.length < 2) isPinching = false;
         if (e.touches.length === 0) {
             if (isDragging) {
                 isDragging = false;
-                // Si soltó y el zoom quedó muy pequeño, resetear
                 if (scale < 1.05) resetZoom();
             }
             if (isSwiping && scale <= 1.05) {
@@ -3032,7 +3010,33 @@ function initZoomAndSwipe() {
             }
             isSwiping = false;
         }
-    });
+    };
+
+    // Registrar todo
+    container.addEventListener('mousemove', onMouseMoveHover);
+    container.addEventListener('mouseleave', onMouseLeaveHover);
+    container.addEventListener('wheel', onWheel, { passive: false });
+    container.addEventListener('mousedown', onMouseDown);
+    window.addEventListener('mousemove', onWindowMouseMove);
+    window.addEventListener('mouseup', onWindowMouseUp);
+    container.addEventListener('click', onClick);
+    container.addEventListener('touchstart', onTouchStart, { passive: true });
+    container.addEventListener('touchmove', onTouchMove, { passive: false });
+    container.addEventListener('touchend', onTouchEnd);
+
+    // Guardar función de limpieza para la próxima vez
+    window._zoomHandlers.cleanup = () => {
+        container.removeEventListener('mousemove', onMouseMoveHover);
+        container.removeEventListener('mouseleave', onMouseLeaveHover);
+        container.removeEventListener('wheel', onWheel);
+        container.removeEventListener('mousedown', onMouseDown);
+        window.removeEventListener('mousemove', onWindowMouseMove);
+        window.removeEventListener('mouseup', onWindowMouseUp);
+        container.removeEventListener('click', onClick);
+        container.removeEventListener('touchstart', onTouchStart);
+        container.removeEventListener('touchmove', onTouchMove);
+        container.removeEventListener('touchend', onTouchEnd);
+    };
 }
 
 // ─── LIGHTBOX ───
@@ -3095,7 +3099,7 @@ function abrirLightbox(startIdx) {
         touchRatio: 2,
         on: {
             slideChange: function() {
-                updateLbCounter(this.activeIndex);
+                updateLbCounter(this.realIndex); // <-- FIX: realIndex en vez de activeIndex
                 this.slides.forEach((slide, idx) => {
                     const vid = slide.querySelector('video');
                     if (vid) {
@@ -3112,7 +3116,7 @@ function abrirLightbox(startIdx) {
         }
     });
 
-    // ===== ZOOM FLUIDO EN LIGHTBOX =====
+    // ZOOM FLUIDO EN LIGHTBOX
     setTimeout(() => {
         wrapper.querySelectorAll('.lightbox-img-wrapper').forEach(wrapperEl => {
             const img = wrapperEl.querySelector('img');
@@ -3131,7 +3135,6 @@ function abrirLightbox(startIdx) {
                 img.style.transform = `translate(${lbPanX}px, ${lbPanY}px) scale(${lbScale})`;
             }
 
-            // Doble-tap para toggle zoom
             let lastTap = 0;
             img.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -3139,10 +3142,10 @@ function abrirLightbox(startIdx) {
                 if (now - lastTap < 300) {
                     if (lbScale > 1.1) {
                         lbScale = 1; lbPanX = 0; lbPanY = 0;
-                        swiperLightbox.allowTouchMove = true; // reactivar swipe
+                        swiperLightbox.allowTouchMove = true;
                     } else {
                         lbScale = 2.5;
-                        swiperLightbox.allowTouchMove = false; // bloquear swipe mientras zoom
+                        swiperLightbox.allowTouchMove = false;
                     }
                     img.style.transition = 'transform 0.2s ease';
                     lbApply();
@@ -3151,7 +3154,6 @@ function abrirLightbox(startIdx) {
                 lastTap = now;
             });
 
-            // Pinch-to-zoom libre
             wrapperEl.addEventListener('touchstart', (e) => {
                 if (e.touches.length === 2) {
                     isPinching = true;

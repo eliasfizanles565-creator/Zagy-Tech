@@ -1240,16 +1240,47 @@
                     <div id="detalle-estilos-container" class="flex flex-wrap gap-2.5"></div>
                 </div>
 
+                <!-- Contador -->
+                    <div class="flex items-center mt-3 w-30 h-11 px-1 rounded-xl border-2 border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900 shrink-0
+                    sm:h-12 
+                    lg:hidden">
+                        <button id="detalle-cantidad-menos" class="w-9 sm:w-10 h-full flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-temu transition-colors cursor-pointer text-lg font-bold select-none">
+                            -
+                        </button>
+                        <span id="detalle-cantidad-valor" class="w-7 sm:w-8 text-center font-Inter font-bold text-stone-950 dark:text-white text-sm">
+                            1
+                        </span>
+                        <button id="detalle-cantidad-mas" class="w-9 sm:w-10 h-full flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-temu transition-colors cursor-pointer text-lg font-bold select-none">
+                            +
+                        </button>
+                    </div>
+
             
 
                 <!-- Cantidad + Agregar + Favorito -->
                 <div class="flex gap-2.5 sm:gap-3 mt-5
                 max-lg:w-[95vw] max-lg:z-20 max-lg:fixed max-lg:bottom-20 max-lg:left-1/2 max-lg:-translate-x-1/2">
                     <!-- Contador -->
-                    <div class="flex items-center h-11 sm:h-12 px-1 rounded-xl border-2 border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900 shrink-0">
-                        <button id="detalle-cantidad-menos" class="w-9 sm:w-10 h-full flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-temu transition-colors cursor-pointer text-lg font-bold select-none">-</button>
-                        <span id="detalle-cantidad-valor" class="w-7 sm:w-8 text-center font-Inter font-bold text-stone-950 dark:text-white text-sm">1</span>
-                        <button id="detalle-cantidad-mas" class="w-9 sm:w-10 h-full flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-temu transition-colors cursor-pointer text-lg font-bold select-none">+</button>
+                    <div class="flex items-center h-11 px-1 rounded-xl border-2 border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900 shrink-0
+                    sm:h-12 
+                    max-lg:hidden">
+                        <button id="detalle-cantidad-menos" class="w-9 sm:w-10 h-full flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-temu transition-colors cursor-pointer text-lg font-bold select-none">
+                            -
+                        </button>
+                        <span id="detalle-cantidad-valor" class="w-7 sm:w-8 text-center font-Inter font-bold text-stone-950 dark:text-white text-sm">
+                            1
+                        </span>
+                        <button id="detalle-cantidad-mas" class="w-9 sm:w-10 h-full flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-temu transition-colors cursor-pointer text-lg font-bold select-none">
+                            +
+                        </button>
+                    </div>
+
+                    <!-- PRECIO -->
+                    <div class="flex items-center h-11 px-1 rounded-xl border-2 border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900 shrink-0
+                    sm:h-12 
+                    lg:hidden
+                    ">
+                        <p class="font-Russo">s/ 000.00</p>
                     </div>
 
                     <!-- Agregar (hover naranja, sin btn-epico) -->

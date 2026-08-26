@@ -1688,6 +1688,9 @@
     .max-lg\:bottom-20 {
       bottom: calc(var(--spacing) * 20);
     }
+    .max-lg\:bottom-50 {
+      bottom: calc(var(--spacing) * 50);
+    }
     .max-lg\:left-1\/2 {
       left: calc(1 / 2 * 100%);
     }
@@ -1768,6 +1771,9 @@
     }
     .sm\:block {
       display: block;
+    }
+    .sm\:hidden {
+      display: none;
     }
     .sm\:inline {
       display: inline;
