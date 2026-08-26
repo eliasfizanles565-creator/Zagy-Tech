@@ -1125,6 +1125,11 @@
                             <div id="badge-video-principal" class="hidden absolute top-3 right-3 bg-stone-950/80 text-white px-2.5 py-1 rounded-lg text-[11px] font-bold backdrop-blur-sm flex items-center gap-1">
                                 <i class="ri-play-circle-fill text-temu"></i> VIDEO
                             </div>
+
+                            <!-- CONTADOR IMAGEN PRINCIPAL -->
+                            <div id="contador-principal" class="absolute bottom-3 right-3 z-20 bg-black/50 text-white text-[11px] font-bold px-2.5 py-1 rounded-full backdrop-blur-sm pointer-events-none select-none">
+                                1/1
+                            </div>
                         </div>
                     </div>
 
@@ -1364,9 +1369,15 @@
 
     <!-- LIGHTBOX -->
     <div id="lightbox-detalle" class="hidden fixed inset-0 z-[100] bg-black/95 flex flex-col items-center justify-center">
+        <!-- CONTADOR LIGHTBOX (arriba centro, estilo Temu) -->
+        <div id="lightbox-contador" class="absolute top-4 left-1/2 -translate-x-1/2 z-20 bg-black/60 text-white text-sm font-bold px-3 py-1 rounded-full backdrop-blur-sm pointer-events-none select-none hidden">
+            1/1
+        </div>
+
         <button id="lightbox-close" class="absolute top-3 right-3 sm:top-4 sm:right-4 text-white text-3xl z-10 cursor-pointer hover:text-temu transition-colors">
             <i class="ri-close-line"></i>
         </button>
+
         <div class="swiper swiper-lightbox w-full h-full">
             <div class="swiper-wrapper" id="lightbox-wrapper"></div>
         </div>

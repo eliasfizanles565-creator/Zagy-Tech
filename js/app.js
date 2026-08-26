@@ -2557,7 +2557,7 @@ function abrirDetalleProducto(id) {
 
     renderizarMiniaturas(medias);
     cambiarImagenPrincipal(medias, 0);
-    initZoom();
+    initZoomAndSwipe();
     sincronizarFavoritoDetalle();
     renderizarEstilos(producto);
     renderizarCollage(producto, medias);
@@ -2600,36 +2600,38 @@ function renderizarMiniaturas(medias) {
     });
 
     // Destruir previos
-    if (swiperMiniVLeft) swiperMiniVLeft.destroy(true, true);
+        if (swiperMiniVLeft) swiperMiniVLeft.destroy(true, true);
     if (swiperMiniVRight) swiperMiniVRight.destroy(true, true);
     if (swiperMiniH) swiperMiniH.destroy(true, true);
 
-    // Crear nuevos
+    // Crear nuevos — SIN loop problemático, freeMode suave
     swiperMiniVLeft = new Swiper('.swiper-mini-v-left', {
         direction: 'vertical',
         slidesPerView: 'auto',
         spaceBetween: 8,
-        loop: medias.length > 4,
+        loop: true,
+        loopAdditionalSlides: 4,
         mousewheel: true,
     });
     swiperMiniVRight = new Swiper('.swiper-mini-v-right', {
         direction: 'vertical',
         slidesPerView: 'auto',
         spaceBetween: 8,
-        loop: medias.length > 4,
+        loop: true,
+        loopAdditionalSlides: 4,
         mousewheel: true,
     });
     swiperMiniH = new Swiper('.swiper-mini-h', {
         slidesPerView: 'auto',
         spaceBetween: 8,
-        loop: medias.length > 4,
+        loop: true,
+        loopAdditionalSlides: 4,
         navigation: { prevEl: '#mini-h-prev', nextEl: '#mini-h-next' },
     });
 
-    // Forzar recálculo inmediato
     requestAnimationFrame(() => {
         [swiperMiniVLeft, swiperMiniVRight, swiperMiniH].forEach(s => {
-            if (s) { s.update(); s.updateSize(); s.updateSlides(); }
+            if (s) { s.update(); s.updateSize(); }
         });
     });
 
@@ -2750,6 +2752,7 @@ function cambiarImagenPrincipal(medias, idx) {
     }
     imgPrincipal.dataset.mediaIdx = idx;
     marcarMiniaturaActiva(idx);
+    window.updateDetalleCounter?.();
 }
 
 // Genera thumbnail de video de forma asíncrona
@@ -2781,63 +2784,151 @@ function generarThumbnailVideo(videoSrc, callback) {
 }
 
 // ─── ZOOM ───
-function initZoom() {
+// ============================================================
+// ZOOM + SWIPE + LUPA + CONTADOR (imagen principal detalle)
+// ============================================================
+function initZoomAndSwipe() {
     const container = document.getElementById('zoom-container');
     const img = document.getElementById('img-principal');
+    const contador = document.getElementById('contador-principal');
     if (!container || !img) return;
 
-    // Limpiar listeners previos reemplazando el nodo
-    const newContainer = container.cloneNode(true);
-    container.parentNode.replaceChild(newContainer, container);
-    const newImg = newContainer.querySelector('#img-principal');
+    let scale = 1;
+    let panX = 0, panY = 0;
+    let isDragging = false;
+    let startX, startY, startPanX, startPanY;
+    let isZoomed = false;
 
-    // Mouse
-    newContainer.addEventListener('mousemove', (e) => {
-        const rect = newContainer.getBoundingClientRect();
+    // --- ACTUALIZAR CONTADOR ---
+    function updateCounter() {
+        const idx = parseInt(img.dataset.mediaIdx || 0) + 1;
+        const total = window._detalleMedias?.length || 1;
+        if (contador) contador.textContent = `${idx}/${total}`;
+    }
+    updateCounter();
+    window.updateDetalleCounter = updateCounter;
+
+   // --- ZOOM HOVER NORMAL (PC) ---
+    container.addEventListener('mousemove', (e) => {
+        if (window.innerWidth < 1024 || isZoomed) return;
+        const rect = container.getBoundingClientRect();
         const x = ((e.clientX - rect.left) / rect.width) * 100;
         const y = ((e.clientY - rect.top) / rect.height) * 100;
-        newImg.style.transformOrigin = `${x}% ${y}%`;
-        newContainer.classList.add('zoom-activo');
-        newImg.style.transform = 'scale(2.5)';
+        img.style.transformOrigin = `${x}% ${y}%`;
+        container.classList.add('zoom-activo');
+        img.style.transform = 'scale(2.5)';
     });
-    newContainer.addEventListener('mouseleave', () => {
-        newContainer.classList.remove('zoom-activo');
-        newImg.style.transform = 'scale(1)';
+    container.addEventListener('mouseleave', () => {
+        if (!isZoomed) {
+            container.classList.remove('zoom-activo');
+            img.style.transform = 'scale(1)';
+        }
     });
 
-    // Touch hold
-    let touchTimer = null;
-    newContainer.addEventListener('touchstart', (e) => {
-        touchTimer = setTimeout(() => {
-            const touch = e.touches[0];
-            const rect = newContainer.getBoundingClientRect();
-            const x = ((touch.clientX - rect.left) / rect.width) * 100;
-            const y = ((touch.clientY - rect.top) / rect.height) * 100;
-            newImg.style.transformOrigin = `${x}% ${y}%`;
-            newContainer.classList.add('zoom-activo');
-            newImg.style.transform = 'scale(2.5)';
-        }, 350);
-    }, { passive: true });
-    newContainer.addEventListener('touchend', () => {
-        clearTimeout(touchTimer);
-        newContainer.classList.remove('zoom-activo');
-        newImg.style.transform = 'scale(1)';
-    });
-    newContainer.addEventListener('touchmove', (e) => {
-        if (!newContainer.classList.contains('zoom-activo')) return;
-        const touch = e.touches[0];
-        const rect = newContainer.getBoundingClientRect();
-        const x = ((touch.clientX - rect.left) / rect.width) * 100;
-        const y = ((touch.clientY - rect.top) / rect.height) * 100;
-        newImg.style.transformOrigin = `${x}% ${y}%`;
-    }, { passive: true });
-
-    // Click → lightbox (ignorar si fue en video o overlay de play)
-    newContainer.addEventListener('click', (e) => {
+    // --- DOBLE TAP / DOBLE CLICK PARA ZOOM ---
+    let lastTap = 0;
+    container.addEventListener('click', (e) => {
         if (e.target.closest('video') || e.target.closest('#video-play-overlay') || e.target.closest('.btn-video-fullscreen')) return;
-        const idx = parseInt(newImg.dataset.mediaIdx || 0);
-        abrirLightbox(idx);
+        const now = Date.now();
+        if (now - lastTap < 300) {
+            e.preventDefault();
+            if (isZoomed) {
+                scale = 1; panX = 0; panY = 0; isZoomed = false;
+                img.style.transition = 'transform 0.25s ease';
+                img.style.transform = 'translate(0,0) scale(1)';
+                img.style.cursor = 'default';
+                lupa.classList.add('hidden');
+            } else {
+                const rect = container.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                const clickY = e.clientY - rect.top;
+                scale = 2.5;
+                // Zoom centrado en donde hizo click
+                panX = (rect.width/2 - clickX) * (scale - 1);
+                panY = (rect.height/2 - clickY) * (scale - 1);
+                isZoomed = true;
+                img.style.transition = 'transform 0.25s ease';
+                img.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+                img.style.cursor = 'grab';
+                lupa.classList.add('hidden');
+            }
+            setTimeout(() => { img.style.transition = 'none'; }, 250);
+        }
+        lastTap = now;
     });
+
+    // --- PAN CON MOUSE (solo cuando zoomed) ---
+    container.addEventListener('mousedown', (e) => {
+        if (!isZoomed) return;
+        isDragging = true;
+        startX = e.clientX; startY = e.clientY;
+        startPanX = panX; startPanY = panY;
+        img.style.cursor = 'grabbing';
+    });
+    window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        panX = startPanX + (e.clientX - startX);
+        panY = startPanY + (e.clientY - startY);
+        img.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+    });
+    window.addEventListener('mouseup', () => {
+        isDragging = false;
+        if (isZoomed) img.style.cursor = 'grab';
+    });
+
+    // --- SWIPE PARA CAMBIAR IMAGEN (touch, solo si NO zoomed) ---
+    let touchStartX = 0, touchStartY = 0, touchStartTime = 0, isSwiping = false;
+
+    container.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+            touchStartTime = Date.now();
+            isSwiping = !isZoomed;
+        }
+    }, { passive: true });
+
+    container.addEventListener('touchmove', (e) => {
+        if (!isSwiping || isZoomed || e.touches.length !== 1) return;
+        const dy = Math.abs(e.touches[0].clientY - touchStartY);
+        const dx = Math.abs(e.touches[0].clientX - touchStartX);
+        if (dy > dx * 1.2) isSwiping = false; // scroll vertical cancela swipe
+    }, { passive: true });
+
+    container.addEventListener('touchend', (e) => {
+        if (!isSwiping || isZoomed) return;
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dt = Date.now() - touchStartTime;
+        const threshold = container.offsetWidth * 0.12;
+        if (Math.abs(dx) > threshold && dt < 500) {
+            const medias = window._detalleMedias || [];
+            const currentIdx = parseInt(img.dataset.mediaIdx || 0);
+            const newIdx = dx < 0 
+                ? (currentIdx + 1) % medias.length 
+                : (currentIdx - 1 + medias.length) % medias.length;
+            cambiarImagenPrincipal(medias, newIdx);
+        }
+        isSwiping = false;
+    });
+
+    // --- PAN EN MOBILE (cuando zoomed) ---
+    container.addEventListener('touchstart', (e) => {
+        if (isZoomed && e.touches.length === 1) {
+            isDragging = true;
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+            startPanX = panX; startPanY = panY;
+        }
+    }, { passive: true });
+    container.addEventListener('touchmove', (e) => {
+        if (isDragging && isZoomed && e.touches.length === 1) {
+            e.preventDefault();
+            panX = startPanX + (e.touches[0].clientX - startX);
+            panY = startPanY + (e.touches[0].clientY - startY);
+            img.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+        }
+    }, { passive: false });
+    container.addEventListener('touchend', () => { isDragging = false; });
 }
 
 // ─── LIGHTBOX ───
@@ -2847,33 +2938,53 @@ function abrirLightbox(startIdx) {
     
     // Pausar videos del detalle
     document.querySelectorAll('#zoom-container video').forEach(v => {
-        v.pause();
-        v.currentTime = 0;
+        v.pause(); v.currentTime = 0;
     });
 
     const lightbox = document.getElementById('lightbox-detalle');
     const wrapper = document.getElementById('lightbox-wrapper');
+    const contadorLb = document.getElementById('lightbox-contador');
     if (!lightbox || !wrapper) return;
+
+    // Actualizar contador
+    function updateLbCounter(idx) {
+        if (contadorLb) {
+            contadorLb.textContent = `${idx + 1}/${medias.length}`;
+            contadorLb.classList.remove('hidden');
+        }
+    }
 
     wrapper.innerHTML = '';
     medias.forEach((media, idx) => {
         const slide = document.createElement('div');
-        slide.className = 'swiper-slide flex items-center justify-center';
+        slide.className = 'swiper-slide flex items-center justify-center overflow-hidden';
+        slide.style.touchAction = 'pan-y'; // permitir swipe horizontal de swiper
+        
         if (media.tipo === 'video') {
             slide.innerHTML = `<video src="${media.src}" controls playsinline class="max-h-[85vh] max-w-[90vw] rounded-lg"></video>`;
         } else {
-            slide.innerHTML = `<img src="${media.src}" class="max-h-[85vh] max-w-[90vw] object-contain rounded-lg lightbox-zoom-target" alt="">`;
+            // 🔥 Imagen con zoom simple por doble-tap
+            slide.innerHTML = `
+                <div class="lightbox-img-wrapper relative flex items-center justify-center w-full h-full overflow-hidden">
+                    <img src="${media.src}" class="max-h-[85vh] max-w-[90vw] object-contain rounded-lg lightbox-zoom-target transition-transform duration-200" alt="">
+                </div>
+            `;
         }
         wrapper.appendChild(slide);
     });
 
     document.body.style.overflow = 'hidden';
     lightbox.classList.remove('hidden');
+    updateLbCounter(startIdx);
 
-    // 🔥 FULLSCREEN REAL
-    if (lightbox.requestFullscreen) {
-        lightbox.requestFullscreen().catch(() => {});
-    }
+    // Fullscreen nativo (esperar a que Swiper renderice primero)
+    requestAnimationFrame(() => {
+        if (lightbox.requestFullscreen) {
+            lightbox.requestFullscreen().catch(err => {
+                console.log('Fullscreen no disponible:', err.message);
+            });
+        }
+    });
 
     if (swiperLightbox) swiperLightbox.destroy(true, true);
     swiperLightbox = new Swiper('.swiper-lightbox', {
@@ -2881,39 +2992,108 @@ function abrirLightbox(startIdx) {
         loop: medias.length > 1,
         pagination: { el: '.pagination-lightbox', clickable: true },
         keyboard: { enabled: true },
-    });
-
-    // Solo reproducir video activo
-    swiperLightbox.on('slideChange', () => {
-        swiperLightbox.slides.forEach((slide, idx) => {
-            const vid = slide.querySelector('video');
-            if (vid) {
-                if (idx === swiperLightbox.activeIndex) vid.play().catch(() => {});
-                else { vid.pause(); vid.currentTime = 0; }
+        on: {
+            slideChange: function() {
+                updateLbCounter(this.activeIndex);
+                // Pausar todos los videos, reproducir solo el activo
+                this.slides.forEach((slide, idx) => {
+                    const vid = slide.querySelector('video');
+                    if (vid) {
+                        if (idx === this.activeIndex) vid.play().catch(() => {});
+                        else { vid.pause(); vid.currentTime = 0; }
+                    }
+                    // Reset zoom de imagen al cambiar slide
+                    const zImg = slide.querySelector('.lightbox-zoom-target');
+                    if (zImg) {
+                        zImg.style.transform = 'scale(1)';
+                        zImg.dataset.zoomed = 'false';
+                    }
+                });
             }
-        });
+        }
     });
-    const activeSlide = swiperLightbox.slides[swiperLightbox.activeIndex];
-    const activeVid = activeSlide?.querySelector('video');
-    if (activeVid) activeVid.play().catch(() => {});
 
-    // 🔥 ZOOM CON PINCH/WHEEL EN LIGHTBOX
+    // 🔥 ZOOM EN LIGHTBOX: doble-tap para toggle 2x, pan cuando zoomed
     setTimeout(() => {
-        wrapper.querySelectorAll('img.lightbox-zoom-target').forEach(img => initRobustZoom(img));
+        wrapper.querySelectorAll('.lightbox-img-wrapper').forEach(wrapperEl => {
+            const img = wrapperEl.querySelector('img');
+            if (!img) return;
+            
+            let zoomed = false;
+            let panX = 0, panY = 0, startX, startY, isPanning = false;
+
+            img.addEventListener('dblclick', () => {
+                zoomed = !zoomed;
+                img.dataset.zoomed = zoomed ? 'true' : 'false';
+                if (zoomed) {
+                    img.style.transform = 'scale(2)';
+                    img.style.cursor = 'grab';
+                } else {
+                    panX = 0; panY = 0;
+                    img.style.transform = 'scale(1) translate(0,0)';
+                    img.style.cursor = 'default';
+                }
+            });
+
+            // Pan cuando zoomed
+            wrapperEl.addEventListener('touchstart', (e) => {
+                if (!zoomed || e.touches.length !== 1) return;
+                isPanning = true;
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+                img.style.cursor = 'grabbing';
+            }, { passive: true });
+
+            wrapperEl.addEventListener('touchmove', (e) => {
+                if (!isPanning || !zoomed) return;
+                e.preventDefault();
+                panX += (e.touches[0].clientX - startX) * 0.5;
+                panY += (e.touches[0].clientY - startY) * 0.5;
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+                img.style.transform = `scale(2) translate(${panX}px, ${panY}px)`;
+            }, { passive: false });
+
+            wrapperEl.addEventListener('touchend', () => {
+                isPanning = false;
+                if (zoomed) img.style.cursor = 'grab';
+            });
+
+            // Mouse pan en PC cuando zoomed
+            wrapperEl.addEventListener('mousedown', (e) => {
+                if (!zoomed) return;
+                isPanning = true;
+                startX = e.clientX; startY = e.clientY;
+                img.style.cursor = 'grabbing';
+            });
+            window.addEventListener('mousemove', (e) => {
+                if (!isPanning || !zoomed) return;
+                panX += e.clientX - startX;
+                panY += e.clientY - startY;
+                startX = e.clientX; startY = e.clientY;
+                img.style.transform = `scale(2) translate(${panX}px, ${panY}px)`;
+            });
+            window.addEventListener('mouseup', () => {
+                isPanning = false;
+                if (zoomed) img.style.cursor = 'grab';
+            });
+        });
     }, 100);
 }
 
 function cerrarLightbox() {
     const lightbox = document.getElementById('lightbox-detalle');
+    const contadorLb = document.getElementById('lightbox-contador');
     if (!lightbox) return;
     
-    // Salir de fullscreen primero
     if (document.fullscreenElement && document.exitFullscreen) {
         document.exitFullscreen().catch(() => {});
     }
     
     lightbox.classList.add('hidden');
+    if (contadorLb) contadorLb.classList.add('hidden');
     document.body.style.overflow = '';
+    
     if (swiperLightbox) {
         swiperLightbox.slides.forEach(slide => {
             const vid = slide.querySelector('video');
@@ -3518,4 +3698,12 @@ document.addEventListener('keydown', (e) => {
     }
 
     cambiarImagenPrincipal(medias, newIdx);
+});
+
+///// ======== FULL SCREEN CHANGE =========
+document.addEventListener('fullscreenchange', () => {
+    const lightbox = document.getElementById('lightbox-detalle');
+    if (!document.fullscreenElement && lightbox && !lightbox.classList.contains('hidden')) {
+        cerrarLightbox();
+    }
 });
