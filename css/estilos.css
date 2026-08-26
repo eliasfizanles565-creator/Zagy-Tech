@@ -2887,11 +2887,10 @@
 .swiper-overlay-mini .swiper-slide-active-custom {
   opacity: 1 !important;
   border-color: #FB7701 !important;
-  transform: scale(1.08) !important;
 }
 #overlay-pc-prev:hover, #overlay-pc-next:hover {
   background: rgba(255,255,255,0.25) !important;
-  transform: translateY(-50%) scale(1.1) !important;
+  transform: scale(1.1) !important;
 }
 .overlay-pc-media {
   transition: transform 0.3s ease;
