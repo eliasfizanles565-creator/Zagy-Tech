@@ -2700,6 +2700,13 @@ function cambiarImagenPrincipal(medias, idx) {
         e.stopPropagation();
         video.play();
     });
+
+    // Click directo en el video: toggle play/pause, NO abrir lightbox
+    video.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (video.paused) video.play();
+        else video.pause();
+    });
     
     video.addEventListener('play', () => {
         playOverlay.style.opacity = '0';
@@ -2807,8 +2814,9 @@ function initZoom() {
         newImg.style.transformOrigin = `${x}% ${y}%`;
     }, { passive: true });
 
-    // Click → lightbox
-    newContainer.addEventListener('click', () => {
+    // Click → lightbox (ignorar si fue en video o overlay de play)
+    newContainer.addEventListener('click', (e) => {
+        if (e.target.closest('video') || e.target.closest('#video-play-overlay')) return;
         const idx = parseInt(newImg.dataset.mediaIdx || 0);
         abrirLightbox(idx);
     });
@@ -2819,10 +2827,12 @@ function abrirLightbox(startIdx) {
     const medias = window._detalleMedias || [];
     if (!medias.length) return;
     
-    // 🔥 PAUSAR TODOS LOS VIDEOS DEL DETALLE PRIMERO
+    // 🔥 PAUSAR Y LIMPIAR TODOS los videos del detalle principal
     document.querySelectorAll('#zoom-container video').forEach(v => {
         v.pause();
         v.currentTime = 0;
+        v.removeAttribute('src');
+        v.load();
     });
 
     const lightbox = document.getElementById('lightbox-detalle');
@@ -2834,9 +2844,10 @@ function abrirLightbox(startIdx) {
         const slide = document.createElement('div');
         slide.className = 'swiper-slide';
         if (media.tipo === 'video') {
-            slide.innerHTML = `<video src="${media.src}" controls autoplay playsinline class="max-h-[85vh] max-w-[90vw] rounded-lg"></video>`;
+            // 🔥 SIN autoplay. Solo se reproduce si el slide está activo.
+            slide.innerHTML = `<video src="${media.src}" controls playsinline class="max-h-[85vh] max-w-[90vw] rounded-lg"></video>`;
         } else {
-            slide.innerHTML = `<img src="${media.src}" class="max-h-[85vh] max-w-[90vw] object-contain rounded-lg" alt="">`;
+            slide.innerHTML = `<img src="${media.src}" class="max-h-[85vh] max-w-[90vw] object-contain rounded-lg lightbox-img" alt="">`;
         }
         wrapper.appendChild(slide);
     });
@@ -2851,6 +2862,28 @@ function abrirLightbox(startIdx) {
         pagination: { el: '.pagination-lightbox', clickable: true },
         keyboard: { enabled: true },
     });
+
+    // 🔥 REPRODUCIR SOLO EL VIDEO DEL SLIDE ACTIVO, los demás pausados
+    swiperLightbox.on('slideChange', () => {
+        swiperLightbox.slides.forEach((slide, idx) => {
+            const vid = slide.querySelector('video');
+            if (vid) {
+                if (idx === swiperLightbox.activeIndex) {
+                    vid.play().catch(() => {});
+                } else {
+                    vid.pause();
+                    vid.currentTime = 0;
+                }
+            }
+        });
+    });
+    // Trigger inicial
+    const activeSlide = swiperLightbox.slides[swiperLightbox.activeIndex];
+    const activeVid = activeSlide?.querySelector('video');
+    if (activeVid) activeVid.play().catch(() => {});
+
+    // 🔥 ACTIVAR PINCH ZOOM en las imágenes del lightbox
+    wrapper.querySelectorAll('img.lightbox-img').forEach(img => enablePinchZoom(img));
 }
 
 function cerrarLightbox() {
@@ -2861,10 +2894,67 @@ function cerrarLightbox() {
     if (swiperLightbox) {
         swiperLightbox.slides.forEach(slide => {
             const vid = slide.querySelector('video');
-            if (vid) { vid.pause(); vid.currentTime = 0; }
+            if (vid) {
+                vid.pause();
+                vid.currentTime = 0;
+                vid.removeAttribute('src');
+                vid.load();
+            }
         });
+        swiperLightbox.destroy(true, true);
+        swiperLightbox = null;
     }
 }
+
+function enablePinchZoom(img) {
+    let scale = 1;
+    let initialDistance = 0;
+    let initialScale = 1;
+
+    img.style.transition = 'transform 0.15s ease-out';
+    img.parentElement.style.overflow = 'hidden';
+
+    img.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 2) {
+            initialDistance = Math.hypot(
+                e.touches[0].pageX - e.touches[1].pageX,
+                e.touches[0].pageY - e.touches[1].pageY
+            );
+            initialScale = scale;
+        }
+    }, { passive: true });
+
+    img.addEventListener('touchmove', (e) => {
+        if (e.touches.length === 2) {
+            e.preventDefault();
+            const distance = Math.hypot(
+                e.touches[0].pageX - e.touches[1].pageX,
+                e.touches[0].pageY - e.touches[1].pageY
+            );
+            scale = Math.min(Math.max((distance / initialDistance) * initialScale, 1), 4);
+            img.style.transform = `scale(${scale})`;
+        }
+    }, { passive: false });
+
+    img.addEventListener('touchend', (e) => {
+        if (e.touches.length < 2 && scale < 1.2) {
+            scale = 1;
+            img.style.transform = 'scale(1)';
+        }
+    });
+
+    // Doble tap para resetear zoom
+    let lastTap = 0;
+    img.addEventListener('touchend', () => {
+        const now = Date.now();
+        if (now - lastTap < 300) {
+            scale = 1;
+            img.style.transform = 'scale(1)';
+        }
+        lastTap = now;
+    });
+}
+
 
 document.getElementById('lightbox-close')?.addEventListener('click', cerrarLightbox);
 document.getElementById('lightbox-detalle')?.addEventListener('click', (e) => {
