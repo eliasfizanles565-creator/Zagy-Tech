@@ -796,5 +796,57 @@
 #zoom-container.zoom-activo img {
     cursor: zoom-out;
 }
+/* ============================================================== */
 
 
+
+/* ============================================================== */
+/* Overlay PC miniaturas */
+.swiper-overlay-mini .swiper-slide {
+    width: 68px !important;
+    height: 68px !important;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 0.5;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+    position: relative;
+    background: #e7e5e4;
+}
+.swiper-overlay-mini .swiper-slide img,
+.swiper-overlay-mini .swiper-slide video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.swiper-overlay-mini .swiper-slide-active-custom {
+    opacity: 1 !important;
+    border-color: #FB7701 !important;
+    transform: scale(1.08) !important;
+}
+
+/* Flechas overlay PC */
+#overlay-pc-prev:hover, #overlay-pc-next:hover {
+    background: rgba(255,255,255,0.25) !important;
+    transform: translateY(-50%) scale(1.1) !important;
+}
+
+/* Modos contain/cover en overlay PC */
+.overlay-pc-media {
+    transition: transform 0.3s ease;
+}
+
+/* Zoom overlay PC */
+.lightbox-img-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.lightbox-img-wrapper.zoom-activo img {
+    cursor: zoom-out;
+}
