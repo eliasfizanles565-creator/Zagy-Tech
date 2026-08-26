@@ -795,19 +795,10 @@
     letter-spacing: 0.5px;
 }
 
-/* ================================================== */
-/* FULL BLEED MOBILE (imagen principal sin bordes) */
-/* ================================================== */
-.full-bleed {
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+
+#zoom-container img {
+    cursor: zoom-in;
 }
-@media (min-width: 640px) {
-    .full-bleed {
-        width: 100%;
-        left: auto;
-        transform: none;
-    }
+#zoom-container.zoom-activo img {
+    cursor: zoom-out;
 }
