@@ -2530,8 +2530,8 @@ function abrirDetalleProducto(id) {
         badgeDesc.classList.add('hidden');
     }
 
-    const cantEl = document.getElementById('detalle-cantidad-valor');
-    if (cantEl) cantEl.textContent = '1';
+    actualizarCantidadDisplay();
+    actualizarPrecioDetalle();
 
     const accEnv = document.getElementById('accordion-envio');
     const accGar = document.getElementById('accordion-garantia');
@@ -3745,17 +3745,58 @@ function renderizarEstilos(producto) {
 }
 
 // ─── CANTIDAD +/- ───
-document.getElementById('detalle-cantidad-menos')?.addEventListener('click', () => {
-    if (cantidadDetalle > 1) {
-        cantidadDetalle--;
-        const el = document.getElementById('detalle-cantidad-valor');
-        if (el) el.textContent = cantidadDetalle;
+function actualizarCantidadDisplay() {
+    document.querySelectorAll('.detalle-cantidad-valor').forEach(el => {
+        el.textContent = cantidadDetalle;
+    });
+}
+
+function actualizarPrecioDetalle() {
+    const producto = getProducto(productoActualId);
+    if (!producto) return;
+
+    const totalActual = producto.precio * cantidadDetalle;
+    const totalStr = totalActual.toFixed(2);
+
+    // Tamaño dinámico si el número crece mucho
+    let sizeClass = 'text-lg';
+    if (totalStr.length > 7) sizeClass = 'text-sm';
+    else if (totalStr.length > 5) sizeClass = 'text-base';
+
+    // Precio actual (abajo)
+    const precioMobile = document.getElementById('detalle-precio-actual-mobile');
+    if (precioMobile) {
+        precioMobile.className = `font-Russo text-stone-950 dark:text-white whitespace-nowrap ${sizeClass} leading-none mt-0.5`;
+        precioMobile.textContent = `s/ ${totalStr}`;
     }
+
+    // Precio tachado (arriba, pequeño)
+    const tachadoMobile = document.getElementById('detalle-precio-tachado-mobile');
+    if (tachadoMobile && producto.precioOriginal && producto.descuento > 0) {
+        const totalOriginal = producto.precioOriginal * cantidadDetalle;
+        tachadoMobile.classList.remove('hidden');
+        tachadoMobile.textContent = `s/ ${totalOriginal.toFixed(2)}`;
+    } else if (tachadoMobile) {
+        tachadoMobile.classList.add('hidden');
+    }
+}
+
+document.querySelectorAll('.detalle-cantidad-menos').forEach(btn => {
+    btn.addEventListener('click', () => {
+        if (cantidadDetalle > 1) {
+            cantidadDetalle--;
+            actualizarCantidadDisplay();
+            actualizarPrecioDetalle();
+        }
+    });
 });
-document.getElementById('detalle-cantidad-mas')?.addEventListener('click', () => {
-    cantidadDetalle++;
-    const el = document.getElementById('detalle-cantidad-valor');
-    if (el) el.textContent = cantidadDetalle;
+
+document.querySelectorAll('.detalle-cantidad-mas').forEach(btn => {
+    btn.addEventListener('click', () => {
+        cantidadDetalle++;
+        actualizarCantidadDisplay();
+        actualizarPrecioDetalle();
+    });
 });
 
 // ─── AGREGAR CARRITO ───

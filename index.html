@@ -1244,13 +1244,13 @@
                     <div class="flex items-center mt-3 w-30 h-11 px-1 rounded-xl border-2 border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900 shrink-0
                     sm:h-12 
                     lg:hidden">
-                        <button id="detalle-cantidad-menos" class="w-9 sm:w-10 h-full flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-temu transition-colors cursor-pointer text-lg font-bold select-none">
+                        <button class="detalle-cantidad-menos w-9 sm:w-10 h-full flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-temu transition-colors cursor-pointer text-lg font-bold select-none">
                             -
                         </button>
-                        <span id="detalle-cantidad-valor" class="w-7 sm:w-8 text-center font-Inter font-bold text-stone-950 dark:text-white text-sm">
+                        <span class="detalle-cantidad-valor w-7 sm:w-8 text-center font-Inter font-bold text-stone-950 dark:text-white text-sm">
                             1
                         </span>
-                        <button id="detalle-cantidad-mas" class="w-9 sm:w-10 h-full flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-temu transition-colors cursor-pointer text-lg font-bold select-none">
+                        <button class="detalle-cantidad-mas w-9 sm:w-10 h-full flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-temu transition-colors cursor-pointer text-lg font-bold select-none">
                             +
                         </button>
                     </div>
@@ -1264,23 +1264,21 @@
                     <div class="flex items-center h-11 px-1 rounded-xl border-2 border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900 shrink-0
                     sm:h-12 
                     max-lg:hidden">
-                        <button id="detalle-cantidad-menos" class="w-9 sm:w-10 h-full flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-temu transition-colors cursor-pointer text-lg font-bold select-none">
+                        <button class="detalle-cantidad-menos w-9 sm:w-10 h-full flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-temu transition-colors cursor-pointer text-lg font-bold select-none">
                             -
                         </button>
-                        <span id="detalle-cantidad-valor" class="w-7 sm:w-8 text-center font-Inter font-bold text-stone-950 dark:text-white text-sm">
+                        <span class="detalle-cantidad-valor w-7 sm:w-8 text-center font-Inter font-bold text-stone-950 dark:text-white text-sm">
                             1
                         </span>
-                        <button id="detalle-cantidad-mas" class="w-9 sm:w-10 h-full flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-temu transition-colors cursor-pointer text-lg font-bold select-none">
+                        <button class="detalle-cantidad-mas w-9 sm:w-10 h-full flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-temu transition-colors cursor-pointer text-lg font-bold select-none">
                             +
                         </button>
                     </div>
 
-                    <!-- PRECIO -->
-                    <div class="flex items-center h-11 px-1 rounded-xl border-2 border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900 shrink-0
-                    sm:h-12 
-                    lg:hidden
-                    ">
-                        <p class="font-Russo">s/ 000.00</p>
+                    <!-- Precio total móvil (se actualiza con la cantidad) -->
+                    <div id="detalle-precio-mobile" class="flex flex-col items-center justify-center h-11 px-2 shrink-0 sm:h-12 lg:hidden">
+                        <span id="detalle-precio-tachado-mobile" class="hidden text-[10px] font-Russo text-stone-400 line-through leading-none"></span>
+                        <span id="detalle-precio-actual-mobile" class="font-Russo text-stone-950 dark:text-white whitespace-nowrap text-lg leading-none mt-0.5"></span>
                     </div>
 
                     <!-- Agregar (hover naranja, sin btn-epico) -->
