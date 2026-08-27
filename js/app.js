@@ -2259,7 +2259,9 @@ programaDonacion: "Programa de Donación",
 galeriaProducto: "Galería del producto",
 exploraMas: "Explora más productos",
 zoomHint: "Pasa el mouse o mantén presionado para ampliar",
-seguridadPrivacidad: "Seguridad y Privacidad",
+pagoSeguro: "Seguridad y Privacidad",
+puntualidad: "Puntualidad",
+privacidadSegura: "Privacidad segura",
 entregaGarantizada: "Entrega garantizada",
         // Agrega aquí más claves según vayas traduciendo tu web...
         
