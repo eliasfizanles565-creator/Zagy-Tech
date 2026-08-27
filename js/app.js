@@ -2638,7 +2638,7 @@ function renderizarMiniaturas(medias) {
     const leftCount = wrapLeft.children.length;
     swiperMiniVLeft = new Swiper('.swiper-mini-v-left', {
         direction: 'vertical',
-        slidesPerView: 'auto',
+        slidesPerView: '7',
         // centeredSlides: true,   
         spaceBetween: 8,
         speed: 250,
@@ -2647,13 +2647,15 @@ function renderizarMiniaturas(medias) {
         loopedSlides: leftCount,
         resistance: true,
         resistanceRatio: 0.5,
+        loopAdditionalSlides: 0,
+        touchRatio: 1,
     });
 
     // ─── VERTICAL DERECHA (solo impares) ───
     const rightCount = wrapRight.children.length;
     swiperMiniVRight = new Swiper('.swiper-mini-v-right', {
         direction: 'vertical',
-        slidesPerView: 'auto',
+        slidesPerView: '7',
         // centeredSlides: true,  
         spaceBetween: 8,
         speed: 250,
@@ -2662,6 +2664,8 @@ function renderizarMiniaturas(medias) {
         loopedSlides: rightCount,
         resistance: true,
         resistanceRatio: 0.5,
+        loopAdditionalSlides: 0,
+        touchRatio: 1,
         
         
         
@@ -2670,7 +2674,7 @@ function renderizarMiniaturas(medias) {
     // ═══ HORIZONTAL (todas las medias) ═══
     const hCount = wrapH.children.length;
     swiperMiniH = new Swiper('.swiper-mini-h', {
-        slidesPerView: 'auto',
+        slidesPerView: '10',
         spaceBetween: 8,
         speed: 300,
         centeredSlides: true,
