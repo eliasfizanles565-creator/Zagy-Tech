@@ -648,10 +648,10 @@
 }
 #lightbox-detalle .swiper-slide img,
 #lightbox-detalle .swiper-slide video {
-    max-height: 85vh;
-    max-width: 90vw;
+    max-height: 100vh;
+    max-width: 100vw;
     object-fit: contain;
-    border-radius: 8px;
+    /* border-radius: 8px; */
 }
 
 /* Accordions funcionales */

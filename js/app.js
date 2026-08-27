@@ -3268,7 +3268,7 @@ function abrirLightbox(startIdx) {
                 // MÓVIL: HTML simple del antiguo con lightbox-zoom-target
                 slide.innerHTML = `
                     <div class="lightbox-img-wrapper relative flex items-center justify-center w-full h-full overflow-hidden">
-                        <img src="${media.src}" class="max-h-[85vh] max-w-[90vw] object-contain rounded-lg lightbox-zoom-target transition-transform duration-75" alt="">
+                        <img src="${media.src}" class="max-h-[85vh] max-w-[90vw] object-contain lightbox-zoom-target transition-transform duration-75" alt="">
                     </div>
                 `;
             }
