@@ -3335,11 +3335,16 @@ function abrirLightbox(startIdx) {
             const loopCfg = miniCount > 3 ? { loop: true, loopedSlides: miniCount } : { loop: false };
             
             window.swiperOverlayMini = new Swiper('.swiper-overlay-mini', {
-                slidesPerView: 'auto',
+                slidesPerView: 14,
                 spaceBetween: 8,
                 centeredSlides: true,
-                speed: 200,
+                speed: 300,
                 touchRatio: 1,
+
+                loop: true,
+                
+                resistance: true,
+                resistanceRatio: 0.5,
                 ...loopCfg,
             });
 
