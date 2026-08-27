@@ -285,6 +285,12 @@
   .top-4 {
     top: calc(var(--spacing) * 4);
   }
+  .top-7 {
+    top: calc(var(--spacing) * 7);
+  }
+  .top-27 {
+    top: calc(var(--spacing) * 27);
+  }
   .top-full {
     top: 100%;
   }
