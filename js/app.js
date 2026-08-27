@@ -13,8 +13,12 @@
 // 5. Agrega más productos copiando la estructura y cambiando el id.
 // ======================================================
 
+
 const productosDB = [
     {
+        // =================================================
+        // =========== 01 ALBUM PANINI ================
+        // =================================================
         id: 1,
         titulo: "Álbum Tapa Dura",
         subtitulo: "PANINI - Mundial 2026",
@@ -76,6 +80,9 @@ const productosDB = [
         relacionados: [18, 4, 6, 11, 2, 3],
     },
     {
+        // =================================================
+        // =========== 18 FIGURA ALBEDO ================
+        // =================================================
         id: 18,
         titulo: "Figura de Albedo",
         subtitulo: "35x50 cm",
@@ -108,7 +115,10 @@ const productosDB = [
         videos: [
             // "assets/videos/albedo-360.mp4",
             "assets/35 FIGURA ALBEDO/17.webm",
-            
+        ],
+        // ─── CARÁTULAS DE CADA VIDEO (mismo orden que videos) ───
+        videoPosters: [
+            "assets/35 FIGURA ALBEDO/09.jpg",   // ← portada del video 17.webm
         ],
 
         tipoVariante: "color", // ← 'estilo' | 'color' | 'talla'
@@ -2576,7 +2586,11 @@ function abrirDetalleProducto(id) {
     // MEDIAS
     const medias = [];
     (producto.imagenes || []).forEach(src => medias.push({ tipo: 'imagen', src }));
-    (producto.videos || []).forEach(src => medias.push({ tipo: 'video', src }));
+    (producto.videos || []).forEach((src, i) => medias.push({ 
+        tipo: 'video', 
+        src,
+        poster: producto.videoPosters?.[i] || producto.imagenes?.[0] || ''
+    }));
 
     window._detalleMedias = medias;
 
@@ -2605,15 +2619,17 @@ function renderizarMiniaturas(medias) {
     medias.forEach((media, idx) => {
         const isVideo = media.tipo === 'video';
         const html = isVideo
-            ? `<div class="swiper-slide" data-media-idx="${idx}" style="width:72px;height:72px;flex-shrink:0;border-radius:0.5rem;overflow:hidden;cursor:pointer;position:relative;background:#e7e5e4;">
-                 <video src="${media.src}" preload="metadata" muted playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
-                 <div class="mini-video-overlay" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.3);pointer-events:none;">
-                   <i class="ri-play-fill" style="color:white;font-size:20px;"></i>
-                 </div>
-               </div>`
-            : `<div class="swiper-slide" data-media-idx="${idx}" style="width:72px;height:72px;flex-shrink:0;border-radius:0.5rem;overflow:hidden;cursor:pointer;position:relative;background:#e7e5e4;">
-                 <img src="${media.src}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
-               </div>`;
+        ? `<div class="swiper-slide" data-media-idx="${idx}" style="width:72px;height:72px;flex-shrink:0;border-radius:0.5rem;overflow:hidden;cursor:pointer;position:relative;background:transparent;border:2px solid transparent;transition:all 0.2s ease;">
+             <img src="${media.poster || ''}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+             <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;background:rgba(0,0,0,0.15);">
+               <div style="width:24px;height:24px;background:#FB7701;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,0.4);">
+                 <i class="ri-play-fill" style="color:white;font-size:12px;margin-left:1px;"></i>
+               </div>
+             </div>
+           </div>`
+        : `<div class="swiper-slide" data-media-idx="${idx}" style="width:72px;height:72px;flex-shrink:0;border-radius:0.5rem;overflow:hidden;cursor:pointer;position:relative;background:transparent;border:2px solid transparent;transition:all 0.2s ease;">
+             <img src="${media.src}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+           </div>`;
 
         // Horizontal: TODAS las medias
         wrapH.insertAdjacentHTML('beforeend', html);
@@ -2791,7 +2807,8 @@ function cambiarImagenPrincipal(medias, idx) {
         // ... (tu código de video se mantiene igual) ...
         const video = document.createElement('video');
         video.src = media.src;
-        video.poster = medias.find(m => m.tipo === 'imagen')?.src || '';
+        video.poster = media.poster || '';
+        video.style.backgroundColor = '#0c0a09';  // negro mate, o pon #ffffff o el color que quieras
         video.playsInline = true;
         video.setAttribute('playsinline', '');
         video.setAttribute('webkit-playsinline', '');
@@ -2835,7 +2852,7 @@ function cambiarImagenPrincipal(medias, idx) {
         });
 
         const fullscreenBtn = document.createElement('button');
-        fullscreenBtn.className = 'btn-video-fullscreen absolute bottom-3 right-3 z-20 size-10 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-200';
+        fullscreenBtn.className = 'btn-video-fullscreen absolute bottom-3 left-3 z-20 size-10 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-200';
         fullscreenBtn.innerHTML = '<i class="ri-fullscreen-line text-white text-xl"></i>';
         fullscreenBtn.title = 'Pantalla completa';
         fullscreenBtn.addEventListener('click', (e) => {
@@ -3033,7 +3050,7 @@ let touchCount = 0;
 let touchTimer = null;
 
 const onTouchStart = (e) => {
-    if (e.target.closest('video') || e.target.closest('#video-play-overlay') || e.target.closest('.btn-video-fullscreen')) return;
+        if (e.target.closest('.btn-video-fullscreen')) return;
 
     if (e.touches.length === 2) {
         isPinching = true;
@@ -3147,6 +3164,14 @@ const onTouchEnd = (e) => {
                 cambiarImagenPrincipal(medias, newIdx);
             }
         }
+        // Tap simple en video/overlay → play/pause
+        if (e.touches.length === 0 && touchCount === 1 && !hasDragged && !isPinching) {
+            const vid = container.querySelector('video');
+            if (vid && (e.target.closest('#video-play-overlay') || e.target.closest('#zoom-container'))) {
+                if (vid.paused) vid.play(); else vid.pause();
+            }
+        }
+
         isSwiping = false;
     }
 };
