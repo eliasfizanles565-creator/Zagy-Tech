@@ -2808,7 +2808,7 @@ function cambiarImagenPrincipal(medias, idx) {
         const video = document.createElement('video');
         video.src = media.src;
         video.poster = media.poster || '';
-        video.style.backgroundColor = '#0c0a09';  // negro mate, o pon #ffffff o el color que quieras
+        video.style.backgroundColor = 'transparent';  // negro mate #0c0a09, o pon #ffffff o el color que quieras
         video.playsInline = true;
         video.setAttribute('playsinline', '');
         video.setAttribute('webkit-playsinline', '');
