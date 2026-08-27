@@ -1763,6 +1763,18 @@
     .max-lg\:hidden {
       display: none;
     }
+    .max-lg\:size-\[70vw\] {
+      width: 70vw;
+      height: 70vw;
+    }
+    .max-lg\:size-\[75vw\] {
+      width: 75vw;
+      height: 75vw;
+    }
+    .max-lg\:size-\[80vw\] {
+      width: 80vw;
+      height: 80vw;
+    }
     .max-lg\:h-full {
       height: 100%;
     }
@@ -1889,11 +1901,17 @@
     .sm\:h-\[13\.5px\] {
       height: 13.5px;
     }
+    .sm\:h-\[80vw\] {
+      height: 80vw;
+    }
     .sm\:h-\[381px\] {
       height: 381px;
     }
     .sm\:h-\[520px\] {
       height: 520px;
+    }
+    .sm\:h-\[540px\] {
+      height: 540px;
     }
     .sm\:w-8 {
       width: calc(var(--spacing) * 8);

@@ -2676,7 +2676,7 @@ function renderizarMiniaturas(medias) {
         centeredSlides: true,
         loop: true,
         loopedSlides: hCount,
-        loopAdditionalSlides: 4,
+        loopAdditionalSlides: 0,
         touchRatio: 1,
         resistance: true,
         resistanceRatio: 0.5,
