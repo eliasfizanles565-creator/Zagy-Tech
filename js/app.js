@@ -2642,7 +2642,7 @@ function renderizarMiniaturas(medias) {
         
     });
 
-     // ─── HORIZONTAL (todas) ───
+    // ═══ HORIZONTAL (todas las medias) ═══
     const hCount = wrapH.children.length;
     swiperMiniH = new Swiper('.swiper-mini-h', {
         slidesPerView: 'auto',
@@ -2651,16 +2651,39 @@ function renderizarMiniaturas(medias) {
         centeredSlides: true,
         loop: true,
         loopedSlides: hCount,
-        loopAdditionalSlides: 4,    // ← NUEVO: clones extra que tapen el hueco
-        touchRatio: 1,              // ← CAMBIO: era 1.5, ahora 1 (no se "pasa" tanto)
+        loopAdditionalSlides: 4,
+        touchRatio: 1,
         resistance: true,
-        resistanceRatio: 0.5,       // ← NUEVO: frena el arrastre antes de ver fondo
-        pagination: false, 
-        navigation: {
-            prevEl: '#mini-h-prev',
-            nextEl: '#mini-h-next'
-        },
+        resistanceRatio: 0.5,
+        // ❌ SIN navigation — las flechas las controlamos nosotros
     });
+
+    // ═══ FLECHAS: cambian la imagen principal, no el swiper ═══
+    const btnPrev = document.getElementById('mini-h-prev');
+    const btnNext = document.getElementById('mini-h-next');
+
+    if (btnPrev) {
+        const cleanPrev = btnPrev.cloneNode(true);
+        btnPrev.parentNode.replaceChild(cleanPrev, btnPrev);
+        cleanPrev.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const medias = window._detalleMedias || [];
+            const currentIdx = parseInt(document.getElementById('img-principal')?.dataset.mediaIdx || 0);
+            const newIdx = (currentIdx - 1 + medias.length) % medias.length;
+            cambiarImagenPrincipal(medias, newIdx);
+        });
+    }
+    if (btnNext) {
+        const cleanNext = btnNext.cloneNode(true);
+        btnNext.parentNode.replaceChild(cleanNext, btnNext);
+        cleanNext.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const medias = window._detalleMedias || [];
+            const currentIdx = parseInt(document.getElementById('img-principal')?.dataset.mediaIdx || 0);
+            const newIdx = (currentIdx + 1) % medias.length;
+            cambiarImagenPrincipal(medias, newIdx);
+        });
+    }
 
     // ─── Click en miniaturas (después de init para atrapar clones del loop) ───
     const bindClicks = (swiper) => {
