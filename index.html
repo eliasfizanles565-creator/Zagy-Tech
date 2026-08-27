@@ -1249,7 +1249,7 @@
                 </div>
 
                 <!-- Contador -->
-                    <div class="flex items-center mt-3 w-30 h-11 px-1 rounded-xl border-2 border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900 shrink-0
+                    <div class="flex items-center mt-3 w-30 h-11 px-1 rounded-full border-2 border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900 shrink-0
                     sm:h-12 
                     lg:hidden">
                         <button class="detalle-cantidad-menos w-9 sm:w-10 h-full flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-temu transition-colors cursor-pointer text-lg font-bold select-none">
@@ -1269,7 +1269,7 @@
                 <div class="flex gap-2.5 sm:gap-3 mt-5
                 max-lg:w-[95vw] max-lg:z-20 max-lg:fixed max-lg:bottom-20 max-lg:left-1/2 max-lg:-translate-x-1/2">
                     <!-- Contador -->
-                    <div class="flex items-center h-11 px-1 rounded-xl border-2 border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900 shrink-0
+                    <div class="flex items-center h-11 px-1 rounded-full border-2 border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900 shrink-0
                     sm:h-12 
                     max-lg:hidden">
                         <button class="detalle-cantidad-menos w-9 sm:w-10 h-full flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-temu transition-colors cursor-pointer text-lg font-bold select-none">
@@ -1290,13 +1290,13 @@
                     </div>
 
                     <!-- Agregar (hover naranja, sin btn-epico) -->
-                    <button id="detalle-btn-carrito" class="flex-1 h-11 sm:h-12 bg-temu hover:bg-orange-600 active:scale-[0.97] rounded-xl flex items-center justify-center gap-2 cursor-pointer transition-all duration-200 shadow-lg shadow-temu/25">
+                    <button id="detalle-btn-carrito" class="flex-1 h-11 sm:h-12 bg-temu hover:bg-orange-600 active:scale-[0.97] rounded-full flex items-center justify-center gap-2 cursor-pointer transition-all duration-200 shadow-lg shadow-temu/25">
                         <i class="ri-shopping-cart-2-line text-white text-lg"></i>
                         <span class="font-Inter font-bold text-white text-sm" data-i18n="agregarCarrito">Agregar al Carrito</span>
                     </button>
 
                     <!-- Favorito -->
-                    <button id="detalle-btn-favorito" class="size-11 sm:size-12 rounded-xl border-2 border-stone-200 dark:border-stone-700 flex items-center justify-center transition-all duration-200 hover:border-temu hover:scale-105 cursor-pointer shrink-0 bg-white dark:bg-stone-900">
+                    <button id="detalle-btn-favorito" class="size-11 sm:size-12 rounded-full border-2 border-stone-200 dark:border-stone-700 flex items-center justify-center transition-all duration-200 hover:border-temu hover:scale-105 cursor-pointer shrink-0 bg-white dark:bg-stone-900">
                         <i class="ri-heart-line text-xl text-stone-950 dark:text-white transition-colors duration-200"></i>
                     </button>
                 </div>
@@ -1335,23 +1335,39 @@
                             <div class="px-4 pb-3.5 pt-1">
                                 <div class="grid grid-cols-2 gap-x-3 gap-y-2 mb-3">
                                     <div class="flex items-center gap-1.5">
-                                        <i class="ri-checkbox-circle-fill text-verdeTemu text-sm"></i>
-                                        <p class="font-Inter text-xs text-stone-600 dark:text-stone-400" data-i18n="pagoSeguro">Pagos seguros</p>
+                                        <i class="ri-checkbox-circle-fill text-verdeTemu dark:text-verdeTemu2 text-sm"></i>
+                                        <p class="font-Inter text-xs text-stone-600 dark:text-stone-200" data-i18n="pagoSeguro">Pagos seguros</p>
                                     </div>
                                     <div class="flex items-center gap-1.5">
-                                        <i class="ri-checkbox-circle-fill text-verdeTemu text-sm"></i>
-                                        <p class="font-Inter text-xs text-stone-600 dark:text-stone-400" data-i18n="puntualidad">Puntualidad</p>
+                                        <i class="ri-checkbox-circle-fill text-verdeTemu dark:text-verdeTemu2 text-sm"></i>
+                                        <p class="font-Inter text-xs text-stone-600 dark:text-stone-200" data-i18n="puntualidad">Puntualidad</p>
                                     </div>
                                     <div class="flex items-center gap-1.5">
-                                        <i class="ri-checkbox-circle-fill text-verdeTemu text-sm"></i>
-                                        <p class="font-Inter text-xs text-stone-600 dark:text-stone-400" data-i18n="privacidadSegura">Privacidad segura</p>
+                                        <i class="ri-checkbox-circle-fill text-verdeTemu dark:text-verdeTemu2 text-sm"></i>
+                                        <p class="font-Inter text-xs text-stone-600 dark:text-stone-200" data-i18n="privacidadSegura">Privacidad segura</p>
                                     </div>
                                     <div class="flex items-center gap-1.5">
-                                        <i class="ri-checkbox-circle-fill text-verdeTemu text-sm"></i>
-                                        <p class="font-Inter text-xs text-stone-600 dark:text-stone-400" data-i18n="entregaGarantizada">Entrega garantizada</p>
+                                        <i class="ri-checkbox-circle-fill text-verdeTemu dark:text-verdeTemu2 text-sm"></i>
+                                        <p class="font-Inter text-xs text-stone-600 dark:text-stone-200" data-i18n="entregaGarantizada">Entrega garantizada</p>
                                     </div>
                                 </div>
                                 <p id="accordion-garantia" class="font-Inter text-xs text-stone-600 dark:text-stone-400 whitespace-pre-line leading-relaxed pt-2 border-t border-stone-100 dark:border-stone-800"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Donación -->
+                    <div class="accordion-item border border-stone-200 dark:border-stone-800 rounded-xl overflow-hidden">
+                        <button class="accordion-header w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-stone-900 cursor-pointer hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors">
+                            <div class="flex items-center gap-2">
+                                <i class="ri-hand-heart-fill text-verdeTemu dark:text-verdeTemu2 text-lg"></i>
+                                <span class="font-Inter font-semibold text-sm text-verdeTemu dark:text-verdeTemu2" data-i18n="programaDonacion">Programa de Donación para los niños</span>
+                            </div>
+                            <i class="ri-arrow-down-s-line text-stone-400 transition-transform duration-300 accordion-icon"></i>
+                        </button>
+                        <div class="accordion-content bg-white dark:bg-stone-900 overflow-hidden" style="max-height:0px; transition: max-height 0.35s ease;">
+                            <div class="px-4 pb-3.5 pt-1">
+                                <p id="accordion-donacion" class="font-Inter text-xs text-stone-600 dark:text-stone-400 leading-relaxed"></p>
                             </div>
                         </div>
                     </div>
@@ -1360,8 +1376,8 @@
                     <div class="accordion-item border border-stone-200 dark:border-stone-800 rounded-xl overflow-hidden">
                         <button class="accordion-header w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-stone-900 cursor-pointer hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors">
                             <div class="flex items-center gap-2">
-                                <i class="ri-file-list-3-line text-verdeTemu text-lg"></i>
-                                <span class="font-Inter font-semibold text-sm text-stone-950 dark:text-white" data-i18n="detallesProducto">Detalles del producto</span>
+                                <i class="ri-file-list-3-fill text-verdeTemu dark:text-verdeTemu2 text-lg"></i>
+                                <span class="font-Inter font-semibold text-sm text-verdeTemu dark:text-verdeTemu2" data-i18n="detallesProducto">Detalles del producto</span>
                             </div>
                             <i class="ri-arrow-down-s-line text-stone-400 transition-transform duration-300 accordion-icon"></i>
                         </button>
@@ -1372,21 +1388,7 @@
                         </div>
                     </div>
 
-                    <!-- Donación -->
-                    <div class="accordion-item border border-stone-200 dark:border-stone-800 rounded-xl overflow-hidden">
-                        <button class="accordion-header w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-stone-900 cursor-pointer hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors">
-                            <div class="flex items-center gap-2">
-                                <i class="ri-heart-3-line text-verdeTemu text-lg"></i>
-                                <span class="font-Inter font-semibold text-sm text-stone-950 dark:text-white" data-i18n="programaDonacion">Programa de Donación para los niños</span>
-                            </div>
-                            <i class="ri-arrow-down-s-line text-stone-400 transition-transform duration-300 accordion-icon"></i>
-                        </button>
-                        <div class="accordion-content bg-white dark:bg-stone-900 overflow-hidden" style="max-height:0px; transition: max-height 0.35s ease;">
-                            <div class="px-4 pb-3.5 pt-1">
-                                <p id="accordion-donacion" class="font-Inter text-xs text-stone-600 dark:text-stone-400 leading-relaxed"></p>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>

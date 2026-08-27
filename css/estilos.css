@@ -2301,6 +2301,13 @@
     --tw-gradient-via-stops: var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-via) var(--tw-gradient-via-position), var(--tw-gradient-to) var(--tw-gradient-to-position);
     --tw-gradient-stops: var(--tw-gradient-via-stops);
   }
+  .dark\:font-semibold:where(.dark, .dark *) {
+    --tw-font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-weight-semibold);
+  }
+  .dark\:text-stone-200:where(.dark, .dark *) {
+    color: var(--color-stone-200);
+  }
   .dark\:text-stone-300:where(.dark, .dark *) {
     color: var(--color-stone-300);
   }
