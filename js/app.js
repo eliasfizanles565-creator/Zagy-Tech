@@ -3167,19 +3167,18 @@ const onTouchEnd = (e) => {
             }
         }
         
-        // TAP SIMPLE → abrir lightbox (ahora en touchend, no en timer)
-        if (isTap && !isPinching && scale <= 1.05) {
-            lightboxOpened = true;
-            const idx = parseInt(img.dataset.mediaIdx || 0);
-            abrirLightbox(idx);
-            setTimeout(() => lightboxOpened = false, 500);
-        }
-
-        // Tap en video/overlay → play/pause
+         // TAP SIMPLE: video → play/pause | imagen → lightbox
         if (isTap && !isPinching) {
             const vid = container.querySelector('video');
-            if (vid && (e.target.closest('#video-play-overlay') || e.target.closest('#zoom-container'))) {
-                if (vid.paused) vid.play(); else vid.pause();
+            if (vid) {
+                // Hay video en el contenedor → SOLO reproduce/pausa, NUNCA lightbox
+                vid.paused ? vid.play() : vid.pause();
+            } else {
+                // Es imagen → abre lightbox
+                lightboxOpened = true;
+                const idx = parseInt(img.dataset.mediaIdx || 0);
+                abrirLightbox(idx);
+                setTimeout(() => lightboxOpened = false, 500);
             }
         }
 
