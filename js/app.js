@@ -3734,6 +3734,11 @@ function renderizarEstilos(producto) {
             const imgPrincipal = document.getElementById('img-principal');
             if (imgPrincipal) imgPrincipal.src = est.imagen;
             sincronizarFavoritoDetalle(); // 🔥 ACTUALIZAR CORAZÓN AL CAMBIAR ESTILO
+
+            // 🔥 AGREGAR ESTAS 3 LÍNEAS AQUÍ:
+            cantidadDetalle = 1;
+            actualizarCantidadDisplay();
+            actualizarPrecioDetalle();
         });
 
         container.appendChild(btn);
