@@ -2638,7 +2638,7 @@ function renderizarMiniaturas(medias) {
     const leftCount = wrapLeft.children.length;
     swiperMiniVLeft = new Swiper('.swiper-mini-v-left', {
         direction: 'vertical',
-        slidesPerView: 6,           // móvil por defecto
+        slidesPerView: 7,           // móvil por defecto
         spaceBetween: 8,
         speed: 300,
         mousewheel: true,
@@ -2649,7 +2649,7 @@ function renderizarMiniaturas(medias) {
         touchRatio: 1,
         breakpoints: {
             // Tablet (640px+)
-            640: { slidesPerView: 6 },
+            640: { slidesPerView: 7 },
             // PC (1024px+)
             1024: { slidesPerView: 6 },
             // Desktop grande (1280px+)
@@ -2661,7 +2661,7 @@ function renderizarMiniaturas(medias) {
     const rightCount = wrapRight.children.length;
     swiperMiniVRight = new Swiper('.swiper-mini-v-right', {
         direction: 'vertical',
-        slidesPerView: 6,
+        slidesPerView: 7,
         spaceBetween: 8,
         speed: 300,
         mousewheel: true,
@@ -2671,7 +2671,7 @@ function renderizarMiniaturas(medias) {
         resistanceRatio: 0.5,
         touchRatio: 1,
         breakpoints: {
-            640: { slidesPerView: 6 },
+            640: { slidesPerView: 7 },
             1024: { slidesPerView: 6 },
             1280: { slidesPerView: 6 }
         }
@@ -2680,7 +2680,7 @@ function renderizarMiniaturas(medias) {
     // ═══ HORIZONTAL (todas las medias) ═══
     const hCount = wrapH.children.length;
     swiperMiniH = new Swiper('.swiper-mini-h', {
-        slidesPerView: 5,           // móvil: 4 miniaturas
+        slidesPerView: 4,           // móvil: 4 miniaturas
         spaceBetween: 8,
         speed: 300,
         centeredSlides: true,
@@ -2691,7 +2691,7 @@ function renderizarMiniaturas(medias) {
         resistanceRatio: 0.5,
         breakpoints: {
             // Tablet
-            640: { slidesPerView: 9 },
+            640: { slidesPerView: 8 },
             // PC
             1024: { slidesPerView: 7 },
             // Desktop grande
