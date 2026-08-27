@@ -285,6 +285,9 @@
   .top-4 {
     top: calc(var(--spacing) * 4);
   }
+  .top-5 {
+    top: calc(var(--spacing) * 5);
+  }
   .top-7 {
     top: calc(var(--spacing) * 7);
   }
@@ -1803,6 +1806,9 @@
     }
     .sm\:top-7 {
       top: calc(var(--spacing) * 7);
+    }
+    .sm\:top-15 {
+      top: calc(var(--spacing) * 15);
     }
     .sm\:right-1\.5 {
       right: calc(var(--spacing) * 1.5);
