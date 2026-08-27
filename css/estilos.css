@@ -2063,6 +2063,10 @@
       font-size: var(--text-lg);
       line-height: var(--tw-leading, var(--text-lg--line-height));
     }
+    .sm\:text-sm {
+      font-size: var(--text-sm);
+      line-height: var(--tw-leading, var(--text-sm--line-height));
+    }
     .sm\:text-xl {
       font-size: var(--text-xl);
       line-height: var(--tw-leading, var(--text-xl--line-height));
