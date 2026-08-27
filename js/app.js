@@ -2817,10 +2817,11 @@ function cambiarImagenPrincipal(medias, idx) {
         video.style.borderRadius = '1rem';
         video.loop = false;
         video.muted = false;
+        video.style.pointerEvents = 'none';
         
         const playOverlay = document.createElement('div');
         playOverlay.id = 'video-play-overlay';
-        playOverlay.className = 'absolute inset-0 flex items-center justify-center bg-black/30 cursor-pointer z-10 transition-opacity duration-300';
+        playOverlay.className = 'absolute inset-0 flex items-center justify-center bg-transparent cursor-pointer z-10 transition-opacity duration-300';
         playOverlay.innerHTML = `
             <div class="size-16 bg-white/90 rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-transform">
                 <i class="ri-play-fill text-4xl text-temu ml-1"></i>
@@ -2952,6 +2953,8 @@ function initZoomAndSwipe() {
     let initialScale = 1;
     let touchStartX = 0, touchStartY = 0, touchStartTime = 0;
     let isSwiping = false;
+    let isTap = true;
+    let hasDragged = false;
 
     function applyTransform() {
         img.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
@@ -3065,15 +3068,11 @@ const onTouchStart = (e) => {
         initialScale = scale;
     } else if (e.touches.length === 1) {
         touchCount++;
+        isTap = true;
+        hasDragged = false;
         
         if (touchCount === 1) {
             touchTimer = setTimeout(() => {
-                if (touchCount === 1 && !isSwiping && scale <= 1.05) {
-                    lightboxOpened = true;
-                    const idx = parseInt(img.dataset.mediaIdx || 0);
-                    abrirLightbox(idx);
-                    setTimeout(() => lightboxOpened = false, 500);
-                }
                 touchCount = 0;
             }, 300);
         } else if (touchCount === 2) {
@@ -3135,7 +3134,9 @@ const onTouchMove = (e) => {
         const dx = Math.abs(e.touches[0].clientX - touchStartX);
         if (dy > dx * 1.2) isSwiping = false;
         // Si mueve el dedo más de 10px, cancela el single tap (no abre lightbox al soltar)
-        if ((dx > 10 || dy > 10) && touchCount === 1) {
+        if ((dx > 40 || dy > 40) && touchCount === 1) {
+            isTap = false;
+            hasDragged = true;
             touchCount = 0;
             clearTimeout(touchTimer);
         }
@@ -3144,6 +3145,7 @@ const onTouchMove = (e) => {
 
 const onTouchEnd = (e) => {
     if (e.touches.length < 2) isPinching = false;
+
     if (e.touches.length === 0) {
         if (isDragging) {
             isDragging = false;
@@ -3164,8 +3166,17 @@ const onTouchEnd = (e) => {
                 cambiarImagenPrincipal(medias, newIdx);
             }
         }
-        // Tap simple en video/overlay → play/pause
-        if (e.touches.length === 0 && touchCount === 1 && !hasDragged && !isPinching) {
+        
+        // TAP SIMPLE → abrir lightbox (ahora en touchend, no en timer)
+        if (isTap && !isPinching && scale <= 1.05) {
+            lightboxOpened = true;
+            const idx = parseInt(img.dataset.mediaIdx || 0);
+            abrirLightbox(idx);
+            setTimeout(() => lightboxOpened = false, 500);
+        }
+
+        // Tap en video/overlay → play/pause
+        if (isTap && !isPinching) {
             const vid = container.querySelector('video');
             if (vid && (e.target.closest('#video-play-overlay') || e.target.closest('#zoom-container'))) {
                 if (vid.paused) vid.play(); else vid.pause();
@@ -3173,6 +3184,7 @@ const onTouchEnd = (e) => {
         }
 
         isSwiping = false;
+        isTap = true;
     }
 };
 
