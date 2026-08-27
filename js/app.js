@@ -90,7 +90,7 @@ const productosDB = [
         precioOriginal: 77.91,
         descuento: 33,
         disponible: 7,
-        marca: "BANDAI",
+        marca: "Marca: BANDAI",
         estilo: "Albedo",
         categoria: "figuras",
         imagenes: [

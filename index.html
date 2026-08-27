@@ -1118,8 +1118,7 @@
                     <!-- Imagen principal -->
                     <div class="flex-1 relative">
                         <div id="zoom-container" class="relative sm:h-[540px] lg:h-[420px] xl:h-[500px] bg-white dark:bg-stone-950 rounded-none overflow-hidden cursor-zoom-in
-                        max-sm:size-[100vw]
-                        sm:rounded-2xl">
+                        max-sm:size-[100vw]">
                             <img id="img-principal" src="" alt="" class="w-full h-full object-cover transition-transform duration-200 ease-out
                             sm:object-contain">
                             <!-- Badge video -->
@@ -1164,7 +1163,7 @@
                     <div id="envio-track" class="flex gap-4 whitespace-nowrap cursor-grab active:cursor-grabbing select-none px-4">
                         <span class="flex items-center gap-1.5 text-xs font-Inter font-semibold text-verdeTemu dark:text-verdeTemu2 shrink-0">
                             <i class="ri-check-double-line"></i>
-                            <span data-i18n="envioGratisTren">Envío gratis en Estaciones del Tren</span>
+                            <span data-i18n="envioGratisTren">Envío gratis en las Estaciones del Tren</span>
                         </span>
                         <span class="text-stone-300 text-xs shrink-0">|</span>
                         <span class="flex items-center gap-1.5 text-xs font-Inter text-stone-600 dark:text-stone-400 shrink-0">
@@ -1202,25 +1201,29 @@
 
                 <!-- Marca -->
                 <div class="mb-2">
-                    <span id="detalle-marca" class="inline-block px-3 py-1 bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 text-[11px] font-bold rounded-lg tracking-wide"></span>
+                    <span id="detalle-marca" class="inline-block px-3 py-1 bg-marcaTemu dark:bg-marcaTemu text-[11px] font-bold rounded-xs tracking-wide"></span>
                 </div>
 
                 <!-- Título -->
-                <h1 id="detalle-titulo" class="font-Inter font-bold text-xl sm:text-2xl text-stone-950 dark:text-white leading-tight"></h1>
+                <h1 id="detalle-titulo" class="font-Inter font-bold text-xl sm:text-2xl text-temu dark:text-temu leading-tight"></h1>
                 <p id="detalle-subtitulo" class="font-Inter text-sm text-stone-500 dark:text-stone-400 mt-0.5"></p>
 
                 <!-- Precio -->
                 <div class="flex items-end gap-2 sm:gap-3 mt-3 flex-wrap">
-                    <div class="flex items-baseline gap-1">
-                        <span class="text-sm font-Russo text-stone-950 dark:text-white">s/</span>
-                        <span id="detalle-precio" class="text-3xl font-Russo text-stone-950 dark:text-white"></span>
+                    <div class="flex items-baseline gap-1 text-temu dark:text-temu">
+                        <span class="text-sm font-Russo">
+                            s/
+                        </span>
+                        <span id="detalle-precio" class="text-3xl font-Russo"></span>
                     </div>
-                    <div id="detalle-precio-tachado" class="hidden flex items-baseline gap-1">
+
+                    <div id="detalle-precio-tachado" class="hidden flex items-baseline gap-1 ">
                         <span class="text-sm font-Russo text-stone-400 line-through">s/</span>
-                        <span id="detalle-precio-original" class="text-lg font-Russo text-stone-400 line-through"></span>
+                        <span id="detalle-precio-original" class="text-lg font-Russo text-stone-400 line-through decoration-2 decoration-temu"></span>
                     </div>
-                    <span id="detalle-descuento" class="hidden px-2 py-0.5 bg-temu text-white text-[11px] font-bold rounded-md"></span>
-                    <span id="detalle-disponible" class="px-2 py-0.5 bg-verdeTemu/10 text-verdeTemu dark:text-verdeTemu2 text-[11px] font-bold rounded-md"></span>
+                    
+                    <span id="detalle-descuento" class="hidden px-2 py-0.5 bg-temu text-white text-[11px] font-bold rounded-md mb-1.5"></span>
+                    <span id="detalle-disponible" class="px-2 py-0.5 bg-verdeTemu/10 text-verdeTemu dark:text-verdeTemu2 text-[11px] font-bold rounded-md mb-1.5"></span>
                 </div>
 
                 <!-- Envío resumen (verde Temu) -->
@@ -1228,7 +1231,7 @@
                 max-lg:hidden">
                     <span class="flex items-center gap-1.5 text-xs font-Inter font-semibold text-verdeTemu dark:text-verdeTemu2">
                         <i class="ri-check-double-line"></i>
-                        <span data-i18n="envioGratisTren">Envío gratis en Estaciones del Tren</span>
+                        <span data-i18n="envioGratisTren">Envío gratis en las Estaciones del Tren</span>
                     </span>
                     <span class="hidden sm:inline text-stone-300 text-xs">|</span>
                     <span class="flex items-center gap-1.5 text-xs font-Inter text-stone-600 dark:text-stone-400">
@@ -1327,23 +1330,24 @@
                             </div>
                             <i class="ri-arrow-down-s-line text-stone-400 transition-transform duration-300 accordion-icon"></i>
                         </button>
+
                         <div class="accordion-content bg-white dark:bg-stone-900 overflow-hidden" style="max-height:0px; transition: max-height 0.35s ease;">
                             <div class="px-4 pb-3.5 pt-1">
                                 <div class="grid grid-cols-2 gap-x-3 gap-y-2 mb-3">
-                                    <div class="flex items-start gap-1.5">
-                                        <i class="ri-checkbox-circle-fill text-verdeTemu text-sm mt-0.5"></i>
+                                    <div class="flex items-center gap-1.5">
+                                        <i class="ri-checkbox-circle-fill text-verdeTemu text-sm"></i>
                                         <p class="font-Inter text-xs text-stone-600 dark:text-stone-400" data-i18n="pagoSeguro">Pagos seguros</p>
                                     </div>
-                                    <div class="flex items-start gap-1.5">
-                                        <i class="ri-checkbox-circle-fill text-verdeTemu text-sm mt-0.5"></i>
+                                    <div class="flex items-center gap-1.5">
+                                        <i class="ri-checkbox-circle-fill text-verdeTemu text-sm"></i>
                                         <p class="font-Inter text-xs text-stone-600 dark:text-stone-400" data-i18n="pagaRecibir">Paga cuando recibas</p>
                                     </div>
-                                    <div class="flex items-start gap-1.5">
-                                        <i class="ri-checkbox-circle-fill text-verdeTemu text-sm mt-0.5"></i>
+                                    <div class="flex items-center gap-1.5">
+                                        <i class="ri-checkbox-circle-fill text-verdeTemu text-sm"></i>
                                         <p class="font-Inter text-xs text-stone-600 dark:text-stone-400" data-i18n="privacidadSegura">Privacidad segura</p>
                                     </div>
-                                    <div class="flex items-start gap-1.5">
-                                        <i class="ri-checkbox-circle-fill text-verdeTemu text-sm mt-0.5"></i>
+                                    <div class="flex items-center gap-1.5">
+                                        <i class="ri-checkbox-circle-fill text-verdeTemu text-sm"></i>
                                         <p class="font-Inter text-xs text-stone-600 dark:text-stone-400" data-i18n="entregaRapida">Entrega coordinada</p>
                                     </div>
                                 </div>
