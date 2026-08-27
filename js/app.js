@@ -2814,7 +2814,7 @@ function cambiarImagenPrincipal(medias, idx) {
         video.setAttribute('webkit-playsinline', '');
         video.preload = 'metadata';
         video.className = 'w-full h-full object-contain';
-        video.style.borderRadius = '1rem';
+        // video.style.borderRadius = '1rem';
         video.loop = false;
         video.muted = false;
         video.style.pointerEvents = 'none';
