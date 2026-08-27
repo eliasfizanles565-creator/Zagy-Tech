@@ -414,17 +414,22 @@ function sincronizarBadgesCantidad() {
     document.querySelectorAll('.btn-agregar-carrito').forEach(btn => {
         const id = parseInt(btn.dataset.id);
         if (isNaN(id)) return;
-        const item = carritoDeCompras.find(i => i.id === id);
+        
+        // 🔥 SUMA TODAS LAS VARIANTES DEL MISMO PRODUCTO
+        const totalCantidad = carritoDeCompras
+            .filter(i => i.id === id)
+            .reduce((sum, i) => sum + i.cantidad, 0);
+        
         let badge = btn.querySelector('.cantidad-badge');
 
-        if (item && item.cantidad > 0) {
+        if (totalCantidad > 0) {
             if (!badge) {
                 badge = document.createElement('span');
                 badge.className = 'cantidad-badge';
                 badge.style.cssText = 'position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;background:#FB7701;color:white;font-size:10px;font-weight:bold;border-radius:9999px;display:flex;align-items:center;justify-content:center;padding:0 4px;z-index:30;pointer-events:none;box-shadow:0 2px 6px rgba(251,119,1,0.4);';
                 btn.appendChild(badge);
             }
-            badge.textContent = item.cantidad;
+            badge.textContent = totalCantidad;
             badge.style.display = 'flex';
         } else if (badge) {
             badge.style.display = 'none';
@@ -904,6 +909,9 @@ function renderizarFavoritos() {
         </article>`;
     
         grid.insertAdjacentHTML('beforeend', cardHTML);
+
+         // 🔥 PINTAR BADGES EN LAS CARDS RECIÉN CREADAS
+        sincronizarBadgesCantidad();
     });
 }
 
@@ -1540,19 +1548,16 @@ const buscadorInput = document.querySelector('#buscador');
 if (buscadorInput) {
     buscadorInput.addEventListener('input', e => {
         const val = e.target.value;
-        const detalle = document.getElementById('producto-detalle');
-        const enDetalle = detalle && !detalle.classList.contains('hidden');
         
+        // 🔥 SOLO mostrar sugerencias, NUNCA filtrar/ocultar cards automáticamente
         if (val.trim().length > 0) {
             mostrarSugerencias(val);
-            if (!enDetalle) filtrarProductosGlobal(val);
         } else {
             document.getElementById('sugerencias-dropdown').classList.add('hidden');
         }
         
-        if (val.trim() === '') {
-            eliminarCategoriaBusqueda(true);
-        }
+        // 🔥 Si borra todo, solo cerrar dropdown. SIN efecto en la vista actual.
+        // (No llamamos eliminarCategoriaBusqueda aquí)
     });
     
     buscadorInput.addEventListener('keydown', e => {
@@ -2482,7 +2487,7 @@ function getProducto(id) {
 }
 
 // ─── ABRIR DETALLE ───
-function abrirDetalleProducto(id) {
+function abrirDetalleProducto(id, fromPopstate = false) {
     const msg = document.getElementById('search-results-msg');
     if (msg) msg.classList.add('hidden');
     
@@ -2493,6 +2498,20 @@ function abrirDetalleProducto(id) {
     cantidadDetalle = 1;
     estiloSeleccionado = null;
 
+    // 🔥 GUARDAR VISTA ACTUAL ANTES DE OCULTAR TODO
+    const enCarrito = !document.getElementById('carrito-section').classList.contains('hidden');
+    const enFavoritos = !document.getElementById('favoritos-section').classList.contains('hidden');
+    
+    let vistaActual = { vista: 'tienda', categoria: categoriaActual, showingAll: showingAll };
+    if (enCarrito) vistaActual = { vista: 'carrito' };
+    else if (enFavoritos) vistaActual = { vista: 'favoritos' };
+    
+    window._vistaAnterior = vistaActual;
+
+    // Push state al historial (nueva "página" sin recargar)
+    if (!fromPopstate) {
+        history.pushState({ detalleId: id, vistaAnterior: vistaActual }, '', '#producto-' + id);
+    }
     const detalleSection = document.getElementById('producto-detalle');
     if (!detalleSection) return;
 
@@ -3957,10 +3976,12 @@ document.getElementById('detalle-btn-carrito')?.addEventListener('click', (e) =>
     const producto = getProducto(productoActualId);
     if (!producto) return;
 
-    // Determinar label según tipoVariante
     const tipo = producto.tipoVariante || 'estilo';
     const labelMap = { estilo: 'Estilo', color: 'Color', talla: 'Talla' };
     const label = labelMap[tipo] || 'Estilo';
+
+    // 🔥 SI ES EL ESTILO BASE, NO ENVIAR VARIANTE (suma con la card original del grid)
+    const esEstiloBase = estiloSeleccionado && estiloSeleccionado.nombre === producto.estilo;
 
     const itemBase = {
         id: producto.id,
@@ -3968,10 +3989,10 @@ document.getElementById('detalle-btn-carrito')?.addEventListener('click', (e) =>
         subtitulo: producto.subtitulo,
         precio: producto.precio,
         imagen: estiloSeleccionado?.imagen || producto.imagenes?.[0] || '',
-        variante: estiloSeleccionado ? {
-            tipo: label,           // "Color"
-            valor: estiloSeleccionado.color || estiloSeleccionado.nombre // "Negro"
-        } : null
+        variante: esEstiloBase ? null : {
+            tipo: label,
+            valor: estiloSeleccionado.color || estiloSeleccionado.nombre
+        }
     };
 
     for (let i = 0; i < cantidadDetalle; i++) {
@@ -4047,11 +4068,10 @@ document.getElementById('detalle-btn-favorito')?.addEventListener('click', () =>
 });
 
 // ─── VOLVER ───
-function cerrarDetalleProducto() {
+function cerrarDetalleProducto(updateHistory = true) {
     const detalle = document.getElementById('producto-detalle');
     if (detalle) {
         detalle.classList.add('hidden');
-        // 🔥 LIMPIAR TODA LA BASURA INLINE
         detalle.style.removeProperty('transform');
         detalle.style.removeProperty('opacity');
         detalle.style.removeProperty('transition');
@@ -4071,25 +4091,38 @@ function cerrarDetalleProducto() {
         imgPrincipal.src = '';
     }
 
-    // Restaurar tienda
-    const grid = document.getElementById('product-grid');
-    const navCat = document.getElementById('nav-categorias');
-    const btnMas = document.getElementById('btn-mas');
-    const navSup = document.querySelector('nav');
-    const sepSup = navSup?.nextElementSibling;
+    // 🔥 RESTAURAR LA VISTA ANTERIOR (no siempre a "todos")
+    if (window._vistaAnterior) {
+        const v = window._vistaAnterior;
+        if (v.vista === 'carrito') {
+            gestionarVista('carrito');
+        } else if (v.vista === 'favoritos') {
+            gestionarVista('favoritos');
+        } else {
+            gestionarVista('tienda');
+            categoriaActual = v.categoria || 'todos';
+            showingAll = v.showingAll || false;
+            showHero(categoriaActual);
+            const btnCat = document.querySelector(`[data-categoria="${categoriaActual}"]`);
+            if (btnCat) setActiveCategory(btnCat);
+            if (typeof updateDisplayRef === 'function') updateDisplayRef();
+        }
+        window._vistaAnterior = null;
+    } else {
+        // Fallback si no hay nada guardado
+        gestionarVista('tienda');
+        categoriaActual = 'todos';
+        showingAll = false;
+        showHero('todos');
+        const btnTodos = document.querySelector('[data-categoria="todos"]');
+        if (btnTodos) setActiveCategory(btnTodos);
+        if (typeof updateDisplayRef === 'function') updateDisplayRef();
+    }
 
-    if (grid) grid.classList.remove('hidden');
-    if (navCat) navCat.classList.remove('hidden');
-    if (btnMas) btnMas.classList.remove('hidden');
-    if (navSup) navSup.classList.remove('max-lg:hidden');
-    if (sepSup) sepSup.classList.remove('max-lg:hidden');
-
-    categoriaActual = 'todos';
-    showingAll = false;
-    const btnTodos = document.querySelector('[data-categoria="todos"]');
-    if (btnTodos) setActiveCategory(btnTodos);
-    showHero('todos');
-    if (typeof updateDisplayRef === 'function') updateDisplayRef();
+    // Retroceder en el historial nativo (solo si no vino de popstate)
+    if (updateHistory) {
+        history.back();
+    }
 }
 
 document.getElementById('btn-volver-detalle')?.addEventListener('click', cerrarDetalleProducto);
@@ -4153,17 +4186,26 @@ function renderizarRelacionados(ids) {
 
 // ─── CLICK EN CUALQUIER CARD PARA ABRIR DETALLE ───
 document.addEventListener('click', (e) => {
-    // 🔥 LÍNEAS NUEVAS: Si estamos haciendo swipe en el carrito, NO abrir detalle
+    // Si estamos haciendo swipe en el carrito, NO abrir detalle
     if (window._isSwiping) return;
     if (e.target.closest('.swipe-wrapper')) return;
 
-    
-    // Detectar card en grid, favoritos, carrito o hero
+    // Detectar card
     const card = e.target.closest('#product-grid article[data-id], #favoritos-grid article[data-id], #contenedor-items-carrito article[data-id], .swiper-slide[data-id]');
     if (!card) return;
 
-    // Ignorar clicks en botones internos
-    if (e.target.closest('.btn-agregar-carrito') || e.target.closest('.btn-favorito') || e.target.closest('.btn-favorito-hero') || e.target.closest('.btn-epico')) return;
+    // ❌ IGNORAR clicks en botones de acción
+    if (e.target.closest('.btn-agregar-carrito') || 
+        e.target.closest('.btn-favorito') || 
+        e.target.closest('.btn-favorito-hero') || 
+        e.target.closest('.btn-epico') ||
+        e.target.closest('.btn-precio')) return;
+
+    // ✅ SOLO permitir si el click fue en la IMAGEN o en el TEXTO
+    const clickEnImagen = e.target.closest('.cardProductoInner img');
+    const clickEnTexto  = e.target.closest('.cardInfoInner p');
+
+    if (!clickEnImagen && !clickEnTexto) return;
 
     const id = parseInt(card.dataset.id);
     if (!isNaN(id)) abrirDetalleProducto(id);
@@ -4292,5 +4334,41 @@ document.addEventListener('fullscreenchange', () => {
     const lightbox = document.getElementById('lightbox-detalle');
     if (!document.fullscreenElement && lightbox && !lightbox.classList.contains('hidden')) {
         cerrarLightbox();
+    }
+});
+
+
+// ======================================================
+// NAVEGACIÓN NATIVA (History API)
+// ======================================================
+
+// Escuchar el botón ATRÁS/ADELANTE del navegador/celular
+window.addEventListener('popstate', (e) => {
+    const detalle = document.getElementById('producto-detalle');
+    const estaAbierto = detalle && !detalle.classList.contains('hidden');
+    
+    if (estaAbierto && (!e.state || !e.state.detalleId)) {
+        // ATRÁS desde un detalle → cerrarlo sin tocar el historial de nuevo
+        cerrarDetalleProducto(false);
+    } else if (!estaAbierto && e.state?.detalleId) {
+        // ADELANTE hacia un detalle → abrirlo
+        if (e.state.vistaAnterior) window._vistaAnterior = e.state.vistaAnterior;
+        abrirDetalleProducto(e.state.detalleId, true);
+    } else if (estaAbierto && e.state?.detalleId && e.state.detalleId !== productoActualId) {
+        // Cambió de un detalle a otro (raro pero posible)
+        cerrarDetalleProducto(false);
+        if (e.state.vistaAnterior) window._vistaAnterior = e.state.vistaAnterior;
+        abrirDetalleProducto(e.state.detalleId, true);
+    }
+});
+
+// Deep linking: si al cargar la página hay #producto-123, ábrelo directo
+document.addEventListener('DOMContentLoaded', () => {
+    const hash = window.location.hash;
+    const match = hash.match(/^#producto-(\d+)$/);
+    if (match) {
+        const id = parseInt(match[1]);
+        window._vistaAnterior = { vista: 'tienda', categoria: 'todos', showingAll: false };
+        abrirDetalleProducto(id, true);
     }
 });
