@@ -2638,53 +2638,65 @@ function renderizarMiniaturas(medias) {
     const leftCount = wrapLeft.children.length;
     swiperMiniVLeft = new Swiper('.swiper-mini-v-left', {
         direction: 'vertical',
-        slidesPerView: '7',
-        // centeredSlides: true,   
+        slidesPerView: 6,           // móvil por defecto
         spaceBetween: 8,
-        speed: 250,
+        speed: 300,
         mousewheel: true,
         loop: true,
         loopedSlides: leftCount,
         resistance: true,
         resistanceRatio: 0.5,
-        loopAdditionalSlides: 0,
         touchRatio: 1,
+        breakpoints: {
+            // Tablet (640px+)
+            640: { slidesPerView: 6 },
+            // PC (1024px+)
+            1024: { slidesPerView: 6 },
+            // Desktop grande (1280px+)
+            1280: { slidesPerView: 6 }
+        }
     });
 
     // ─── VERTICAL DERECHA (solo impares) ───
     const rightCount = wrapRight.children.length;
     swiperMiniVRight = new Swiper('.swiper-mini-v-right', {
         direction: 'vertical',
-        slidesPerView: '7',
-        // centeredSlides: true,  
+        slidesPerView: 6,
         spaceBetween: 8,
-        speed: 250,
+        speed: 300,
         mousewheel: true,
         loop: true,
         loopedSlides: rightCount,
         resistance: true,
         resistanceRatio: 0.5,
-        loopAdditionalSlides: 0,
         touchRatio: 1,
-        
-        
-        
+        breakpoints: {
+            640: { slidesPerView: 6 },
+            1024: { slidesPerView: 6 },
+            1280: { slidesPerView: 6 }
+        }
     });
 
     // ═══ HORIZONTAL (todas las medias) ═══
     const hCount = wrapH.children.length;
     swiperMiniH = new Swiper('.swiper-mini-h', {
-        slidesPerView: '10',
+        slidesPerView: 5,           // móvil: 4 miniaturas
         spaceBetween: 8,
         speed: 300,
         centeredSlides: true,
         loop: true,
         loopedSlides: hCount,
-        loopAdditionalSlides: 0,
         touchRatio: 1,
         resistance: true,
         resistanceRatio: 0.5,
-        // ❌ SIN navigation — las flechas las controlamos nosotros
+        breakpoints: {
+            // Tablet
+            640: { slidesPerView: 9 },
+            // PC
+            1024: { slidesPerView: 7 },
+            // Desktop grande
+            1280: { slidesPerView: 7 }
+        }
     });
 
     // ═══ FLECHAS: cambian la imagen principal, no el swiper ═══
