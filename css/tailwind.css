@@ -855,3 +855,20 @@
 .swiper-mini-h .swiper-pagination {
     display: none !important;
 }
+/* ///////////////////////////////////////////////////////////// */
+
+
+/* ///////////////////////////////////////////////////////////// */
+/* ===================================== */
+/* === TEXTO EXPANSIBLE === */
+/* ===================================== */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.expandido {
+    display: block;
+    -webkit-line-clamp: unset;
+}

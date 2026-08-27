@@ -44,6 +44,13 @@ const productosDB = [
         // Los números son los índices del array "imagenes" de arriba.
         collageOrder: [0, 2, 1, 3],
         // ─── TEXTOS LARGOS (por idioma) ───
+
+        tituloLargo: {
+            es: "Álbum oficial de la FIFA World Cup 2026 edición tapa dura. Incluye 80 páginas a full color con todos los equipos clasificados, jugadores estrella y estadísticas exclusivas. Tapa reforzada con acabado brillante. Edición coleccionista limitada con stickers holográficos incluidos.",
+            en: "Official FIFA World Cup 2026 hardcover album. Includes 80 full-color pages with all qualified teams, star players and exclusive statistics. Reinforced cover with glossy finish. Limited collector's edition with holographic stickers included.",
+            qu: "FIFA World Cup 2026 album oficial. 80 páginas color nisqan, tukuy equipokuna, star jugadorkuna. Tapa fuerte. Coleccionista edición limitada.",
+        },
+
         detalles: {
             es: "Álbum oficial de la FIFA World Cup 2026 edición tapa dura. Incluye 80 páginas a full color con todos los equipos clasificados, jugadores estrella y estadísticas exclusivas. Tapa reforzada con acabado brillante.",
             en: "Official FIFA World Cup 2026 hardcover album. Includes 80 full-color pages with all qualified teams, star players and exclusive statistics. Reinforced cover with glossy finish.",
@@ -116,6 +123,14 @@ const productosDB = [
         ///////////////
 
         collageOrder: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+
+
+        tituloLargo: {
+            es: "Figura de Anime de Albedo del anime Overlord en Pose de Batalla. Estatua de 24cm/9.45 pulgadas con accesorios. Adorno de Escritorio, Regalo Coleccionable para Fans. Material de alta calidad PVC con pintura detallada y base decorativa incluida.",
+            en: "Anime Figure of Albedo from Overlord in Battle Pose. 24cm/9.45 inches statue with accessories. Desktop Ornament, Collectible Gift for Fans. High quality PVC material with detailed paint and decorative base included.",
+            qu: "Albedo figura anime Overlord. 24cm estatua, accesorios nisqan. Wasi adorno, coleccionista regalo. PVC materia alta calidad, pintura detallada.",
+        },
+
         detalles: {
             es: "Figura de Anime de Albedo del anime Overlord en Pose de Batalla. Estatua de 24cm/9.45 pulgadas con accesorios. Adorno de Escritorio, Regalo Coleccionable para Fans.",
             en: "Anime Figure of Albedo from Overlord in Battle Pose. 24cm/9.45 inches statue with accessories. Desktop Ornament, Collectible Gift for Fans.",
@@ -2398,6 +2413,12 @@ function aplicarIdioma(lang) {
 
     renderizarCarrito();
     
+    // Si el detalle está abierto, recargar textos dinámicos
+    const detalleSection = document.getElementById('producto-detalle');
+    if (detalleSection && !detalleSection.classList.contains('hidden')) {
+        recargarTextosDetalle();
+    }
+    
     localStorage.setItem('zagy_idioma', lang);
 }
 
@@ -2515,8 +2536,12 @@ function abrirDetalleProducto(id) {
     document.getElementById('detalle-precio').textContent = (producto.precio || 0).toFixed(2);
     document.getElementById('detalle-estilo-nombre').textContent = producto.estilo || '';
 
-    const descLarga = document.getElementById('detalle-descripcion-larga');
-    if (descLarga) descLarga.textContent = (producto.detalles?.[idiomaActual] || producto.detalles?.es || '');
+    // Título largo expandible
+    const tituloLargo = document.getElementById('detalle-titulo-largo');
+    if (tituloLargo) {
+        tituloLargo.textContent = producto.tituloLargo?.[idiomaActual] || producto.tituloLargo?.es || '';
+        initTituloLargo();
+    }
 
     const precioTachado = document.getElementById('detalle-precio-tachado');
     const badgeDesc = document.getElementById('detalle-descuento');
@@ -3606,6 +3631,72 @@ function cerrarLightbox() {
         window.swiperOverlayMini.destroy(true, true);
         window.swiperOverlayMini = null;
     }
+}
+
+// ─── TÍTULO LARGO EXPANDIBLE (estilo Temu) ───
+function initTituloLargo() {
+    const p = document.getElementById('detalle-titulo-largo');
+    const btn = document.getElementById('btn-expandir-titulo');
+    if (!p || !btn) return;
+
+    // Resetear a colapsado para medir overflow
+    p.classList.add('line-clamp-2');
+    p.classList.remove('expandido');
+    btn.innerHTML = '<i class="ri-arrow-down-s-line text-lg leading-none"></i>';
+
+    // Medir si hay más de 2 líneas
+    requestAnimationFrame(() => {
+        const isOverflow = p.scrollHeight > p.clientHeight + 2;
+        if (isOverflow) {
+            btn.classList.remove('hidden');
+        } else {
+            btn.classList.add('hidden');
+        }
+    });
+
+    // Limpiar listener anterior para no acumular
+    const newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
+
+    newBtn.addEventListener('click', () => {
+        const pEl = document.getElementById('detalle-titulo-largo');
+        const estaExpandido = pEl.classList.contains('expandido');
+
+        if (estaExpandido) {
+            pEl.classList.remove('expandido');
+            pEl.classList.add('line-clamp-2');
+            newBtn.innerHTML = '<i class="ri-arrow-down-s-line text-lg leading-none"></i>';
+        } else {
+            pEl.classList.remove('line-clamp-2');
+            pEl.classList.add('expandido');
+            newBtn.innerHTML = '<i class="ri-arrow-up-s-line text-lg leading-none"></i>';
+        }
+    });
+}
+
+// ─── RECARGAR TEXTOS DEL DETALLE AL CAMBIAR IDIOMA ───
+function recargarTextosDetalle() {
+    if (!productoActualId) return;
+    const producto = getProducto(productoActualId);
+    if (!producto) return;
+
+    // Título largo
+    const tituloLargo = document.getElementById('detalle-titulo-largo');
+    if (tituloLargo) {
+        tituloLargo.textContent = producto.tituloLargo?.[idiomaActual] || producto.tituloLargo?.es || '';
+        initTituloLargo();
+    }
+
+    // Accordions
+    const accEnv = document.getElementById('accordion-envio');
+    const accGar = document.getElementById('accordion-garantia');
+    const accDet = document.getElementById('accordion-detalles');
+    const accDon = document.getElementById('accordion-donacion');
+
+    if (accEnv) accEnv.textContent = producto.envio?.[idiomaActual] || producto.envio?.es || '';
+    if (accGar) accGar.textContent = producto.garantia?.[idiomaActual] || producto.garantia?.es || '';
+    if (accDet) accDet.textContent = producto.detalles?.[idiomaActual] || producto.detalles?.es || '';
+    if (accDon) accDon.textContent = producto.donacion?.[idiomaActual] || producto.donacion?.es || '';
 }
 
 function enablePinchZoom(img) {
