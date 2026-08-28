@@ -1856,6 +1856,9 @@
         background-color: color-mix(in oklab, var(--color-black) 95%, transparent);
       }
     }
+    .max-lg\:pb-20 {
+      padding-bottom: calc(var(--spacing) * 20);
+    }
     .max-lg\:pb-30 {
       padding-bottom: calc(var(--spacing) * 30);
     }
