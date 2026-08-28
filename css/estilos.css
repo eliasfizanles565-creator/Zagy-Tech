@@ -2146,6 +2146,9 @@
   .dark\:border-t-stone-700:where(.dark, .dark *) {
     border-top-color: var(--color-stone-700);
   }
+  .dark\:bg-black:where(.dark, .dark *) {
+    background-color: var(--color-black);
+  }
   .dark\:bg-marcaTemu:where(.dark, .dark *) {
     background-color: var(--color-marcaTemu);
   }

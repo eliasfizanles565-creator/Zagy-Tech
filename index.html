@@ -2,15 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="theme-color" content="#fff">
-
-    <!-- Chrome, Firefox, Edge, Opera, Samsung Internet -->
-    <meta name="theme-color" content="#ffffff" id="meta-theme-color">
-    <!-- Safari iOS / iPadOS -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- SOLO ESTE, borra cualquier otro theme-color que tengas -->
+    <meta name="theme-color" content="#ffffff" id="theme-color-meta">
+    
+    <!-- iOS (opcional pero ayuda) -->
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <!-- Edge legacy (Windows Phone) -->
-    <meta name="msapplication-navbutton-color" content="#ffffff">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -48,7 +44,7 @@
     </script>
 <base target="_blank">
 </head>
-<body class="bg-white dark:bg-stone-950">
+<body class="bg-white dark:bg-black">
 
     <!-- BARRA INFERIOR (móvil) -->
     <div class="fixed bottom-2 left-1/2 -translate-x-1/2 z-40 w-90 lg:hidden">
@@ -114,7 +110,7 @@
             </div>
         </section>
     </nav>
-    <div class="w-full h-px bg-stone-950/10 mt-3 opacity-0"></div>
+    
 
     <!-- BOTONES CATEGORIAS -->
     <nav id="nav-categorias" class="w-[95vw] h-10 mb-2 mx-auto relative lg:max-w-7xl">
