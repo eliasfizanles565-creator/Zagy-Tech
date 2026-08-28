@@ -647,6 +647,9 @@
   .h-45 {
     height: calc(var(--spacing) * 45);
   }
+  .h-50 {
+    height: calc(var(--spacing) * 50);
+  }
   .h-52 {
     height: calc(var(--spacing) * 52);
   }
@@ -655,6 +658,12 @@
   }
   .h-70 {
     height: calc(var(--spacing) * 70);
+  }
+  .h-140 {
+    height: calc(var(--spacing) * 140);
+  }
+  .h-\[70vh\] {
+    height: 70vh;
   }
   .h-\[254px\] {
     height: 254px;
@@ -668,8 +677,41 @@
   .max-h-60 {
     max-height: calc(var(--spacing) * 60);
   }
+  .max-h-\[55vh\] {
+    max-height: 55vh;
+  }
+  .max-h-\[75vh\] {
+    max-height: 75vh;
+  }
+  .max-h-\[85dvh\] {
+    max-height: 85dvh;
+  }
   .max-h-\[85vh\] {
     max-height: 85vh;
+  }
+  .max-h-\[95vh\] {
+    max-height: 95vh;
+  }
+  .max-h-\[100dvh\] {
+    max-height: 100dvh;
+  }
+  .max-h-\[calc\(100dvh-10px\)\] {
+    max-height: calc(100dvh - 10px);
+  }
+  .max-h-\[calc\(100dvh-100px\)\] {
+    max-height: calc(100dvh - 100px);
+  }
+  .max-h-\[calc\(100dvh-200px\)\] {
+    max-height: calc(100dvh - 200px);
+  }
+  .max-h-\[calc\(100dvh-400px\)\] {
+    max-height: calc(100dvh - 400px);
+  }
+  .max-h-\[calc\(100dvh-600px\)\] {
+    max-height: calc(100dvh - 600px);
+  }
+  .max-h-full {
+    max-height: 100%;
   }
   .min-h-screen {
     min-height: 100vh;
@@ -733,6 +775,9 @@
   }
   .w-55 {
     width: calc(var(--spacing) * 55);
+  }
+  .w-60 {
+    width: calc(var(--spacing) * 60);
   }
   .w-68 {
     width: calc(var(--spacing) * 68);
@@ -1055,6 +1100,9 @@
   }
   .border-puro {
     border-color: var(--color-puro);
+  }
+  .border-red-500 {
+    border-color: var(--color-red-500);
   }
   .border-stone-100 {
     border-color: var(--color-stone-100);
@@ -1439,11 +1487,23 @@
   .pb-8 {
     padding-bottom: calc(var(--spacing) * 8);
   }
+  .pb-10 {
+    padding-bottom: calc(var(--spacing) * 10);
+  }
+  .pb-15 {
+    padding-bottom: calc(var(--spacing) * 15);
+  }
+  .pb-20 {
+    padding-bottom: calc(var(--spacing) * 20);
+  }
   .pb-22 {
     padding-bottom: calc(var(--spacing) * 22);
   }
   .pb-24 {
     padding-bottom: calc(var(--spacing) * 24);
+  }
+  .pb-44 {
+    padding-bottom: calc(var(--spacing) * 44);
   }
   .pb-px {
     padding-bottom: 1px;

@@ -3299,6 +3299,8 @@ function abrirLightbox(startIdx) {
     const overlayMiniWrapper = document.getElementById('overlay-mini-wrapper');
     const isPC = window.innerWidth >= 1024;
 
+    
+
     if (!lightbox || !wrapper) return;
 
     if (isPC) window._overlayPCMode = 'contain';
@@ -3334,9 +3336,10 @@ function abrirLightbox(startIdx) {
                 `;
             } else {
                 // MÓVIL: HTML simple del antiguo con lightbox-zoom-target
+                slide.className = 'swiper-slide flex items-center justify-center overflow-hidden pb-15';
                 slide.innerHTML = `
                     <div class="lightbox-img-wrapper relative flex items-center justify-center w-full h-full overflow-hidden">
-                        <img src="${media.src}" class="max-h-[85vh] max-w-[90vw] object-contain lightbox-zoom-target transition-transform duration-75" alt="">
+                        <img src="${media.src}" class="max-w-[90vw] max-h-full object-contain lightbox-zoom-target transition-transform duration-75" alt="">
                     </div>
                 `;
             }
@@ -3516,11 +3519,13 @@ function abrirLightbox(startIdx) {
                             lbScale = 1; lbPanX = 0; lbPanY = 0;
                             swiperLightbox.allowTouchMove = true;
                             setLightboxUIVisible(true);  // ← AQUÍ
+                            setLightboxPadding(false);
                         } else {
                             // Zoom IN → ocultar botones
                             lbScale = 2.5;
                             swiperLightbox.allowTouchMove = false;
                             setLightboxUIVisible(false); // ← AQUÍ
+                            setLightboxPadding(true);
                         }
                         img.style.transition = 'transform 0.2s ease';
                         lbApply();
@@ -3533,6 +3538,7 @@ function abrirLightbox(startIdx) {
                     if (e.touches.length === 2) {
                         isPinching = true;
                         isPanning = false;
+                        setLightboxPadding(true);
                         pinchStartDist = Math.hypot(
                             e.touches[0].clientX - e.touches[1].clientX,
                             e.touches[0].clientY - e.touches[1].clientY
@@ -3580,6 +3586,7 @@ function abrirLightbox(startIdx) {
                             lbScale = 1; lbPanX = 0; lbPanY = 0;
                             swiperLightbox.allowTouchMove = true;
                             setLightboxUIVisible(true); // ← MOSTRAR al volver a normal
+                            setLightboxPadding(false);
                             lbApply();
                         }
                     }
@@ -3747,8 +3754,20 @@ function setupOverlayPCZoom(slide, img) {
     };
 }
 
+function setLightboxPadding(zoomed) {
+    if (window.innerWidth >= 1024) return;
+    document.querySelectorAll('.swiper-lightbox .swiper-slide').forEach(slide => {
+        if (zoomed) {
+            slide.classList.remove('pb-15');
+        } else {
+            slide.classList.add('pb-15');
+        }
+    });
+}
+
 function cerrarLightbox() {
     setLightboxUIVisible(true); // ← RESET al cerrar
+    setLightboxPadding(true);
     // Ocultar botón de carrito del lightbox
     const btnCarritoLb = document.getElementById('lightbox-btn-carrito');
     if (btnCarritoLb) btnCarritoLb.classList.add('hidden');

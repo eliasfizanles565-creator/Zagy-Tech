@@ -33,7 +33,7 @@
 <body class="bg-white dark:bg-stone-950">
 
     <!-- BARRA INFERIOR (móvil) -->
-    <div class="fixed bottom-0 left-1/2 -translate-x-1/2 z-40 w-90 lg:hidden">
+    <div class="fixed bottom-2 left-1/2 -translate-x-1/2 z-40 w-90 lg:hidden">
         <div class="cardInicio2 h-15.5 w-full bg-white dark:bg-temu rounded-full absolute -top-0.5 left-0"></div>
         <div class="cardInicio h-15 w-full bg-stone-950 rounded-full relative flex items-center justify-center gap-x-6.5">
             <i class="ri-user-line text-2xl text-white dark:text-stone-400 flex flex-col items-center gap-0 leading-none pb-1.25 textUsuario cursor-pointer"><p class="text-[10px] leading-none mt-0.5 font-semibold" data-i18n="usuario">Usuario</p></i>
@@ -55,7 +55,7 @@
 
     <!-- NAV DESKTOP -->
     <nav class="w-[95vw] h-10 mx-auto relative lg:max-w-7xl">
-        <section class="size-9 absolute top-0 flex gap-8 xl:gap-12">
+        <section class="size-9 absolute top-2 flex gap-8 xl:gap-12">
             <img id="logo-zagy" src="assets/logoZagy.webp" alt="logo" class="cursor-pointer">
             <div class="flex gap-8 max-lg:hidden xl:gap-12">
                 <button class="nav-desktop group flex flex-col justify-center items-center mt-1 cursor-pointer transition-all duration-300" data-nav="usuario">
@@ -80,7 +80,7 @@
         </section>
 
         <!-- BUSCADOR -->
-        <section class="bg-white  dark:bg-stone-900 border border-stone-950 dark:border-t dark:border-b-0 dark:border-stone-950 rounded-4xl absolute right-0 top-0 h-9 w-[82dvw] sm:w-[88dvw] lg:w-157 lg:left-1/2 lg:-translate-x-[calc(50%-74px)] xl:w-187 xl:-translate-x-[calc(50%-92px)] z-90">
+        <section class="bg-white  dark:bg-stone-900 border border-stone-950 dark:border-t dark:border-b-0 dark:border-stone-950 rounded-4xl absolute right-0 top-2 h-9 w-[82dvw] sm:w-[88dvw] lg:w-157 lg:left-1/2 lg:-translate-x-[calc(50%-74px)] xl:w-187 xl:-translate-x-[calc(50%-92px)] z-90">
             <input id="buscador" class="bg-transparent dark:text-white/50 outline-none pl-4 pr-14 pt-0 text-base w-full h-full rounded-4xl" type="text" placeholder="soporte para celular">
             <button id="search-btn" type="button" class="h-7.5 w-11 rounded-3xl flex items-center justify-center absolute right-0.5 top-0.5 bg-stone-950 dark:bg-stone-950 cursor-pointer btn-epico z-120 border-none touch-manipulation">
                 <i class="ri-search-line text-lg text-white dark:text-temu pointer-events-none"></i>
@@ -89,7 +89,7 @@
         </section>
         <!-- .buscador -->
 
-        <section class="w-30 h-9 absolute top-0 flex gap-8 right-0 xl:gap-12 xl:w-33">
+        <section class="w-30 h-9 absolute top-2 flex gap-8 right-0 xl:gap-12 xl:w-33">
             <div class="flex gap-8 max-lg:hidden xl:gap-12">
                 <button id="favoritos" class="nav-desktop group flex flex-col justify-center items-center mt-1 cursor-pointer transition-all duration-300" data-nav="favoritos"><i class="ri-poker-hearts-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu"></i><p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu group-hover:border-temu" data-i18n="favoritos">Favoritos</p></button>
                 <button id="carrito-cambio" class="nav-desktop group flex flex-col justify-center items-center mt-1 cursor-pointer transition-all duration-300" data-nav="carrito"><i class="ri-shopping-cart-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu"></i><p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu group-hover:border-temu" data-i18n="carrito">Carrito</p></button>
@@ -1417,8 +1417,8 @@
         <button id="overlay-pc-next" class="hidden lg:flex absolute right-6 top-1/2 -translate-y-1/2 z-20 size-12 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full items-center justify-center cursor-pointer transition-all"><i class="ri-arrow-right-s-line text-white text-2xl"></i></button>
 
         <!-- Swiper principal -->
-        <div class="swiper swiper-lightbox w-full h-full lg:h-[70vh]  lg:max-w-5xl lg:mx-auto">
-            <div class="swiper-wrapper" id="lightbox-wrapper"></div>
+        <div class="swiper swiper-lightbox w-full h-full lg:h-[70vh] lg:max-w-5xl lg:mx-auto">
+            <div class="border swiper-wrapper" id="lightbox-wrapper"></div>
         </div>
 
 
