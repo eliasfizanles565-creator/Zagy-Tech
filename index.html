@@ -35,7 +35,7 @@
     (function() {
         const meta = document.getElementById('meta-theme-color');
         const isDark = document.documentElement.classList.contains('dark');
-        const color = isDark ? '#000000' : '#ffffff';
+        const color = isDark ? '#0c0a09' : '#ffffff';
         if (meta) meta.setAttribute('content', color);
         
         // Safari en iOS no respeta theme-color, pero sí el background del body
@@ -44,7 +44,7 @@
     </script>
 <base target="_blank">
 </head>
-<body class="bg-white dark:bg-black">
+<body class="bg-white dark:bg-stone-950">
 
     <!-- BARRA INFERIOR (móvil) -->
     <div class="fixed bottom-2 left-1/2 -translate-x-1/2 z-40 w-90 lg:hidden">
@@ -110,7 +110,7 @@
             </div>
         </section>
     </nav>
-    <div class="w-full h-px bg-black mt-3 opacity-0"></div>
+    <div class="w-full h-px bg-stone-950/10 mt-3 opacity-0"></div>
 
     <!-- BOTONES CATEGORIAS -->
     <nav id="nav-categorias" class="w-[95vw] h-10 mb-2 mx-auto relative lg:max-w-7xl">
@@ -153,7 +153,7 @@
             <i class="ri-arrow-right-s-line text-lg text-stone-600 dark:text-white/80"></i>
         </button>
     </nav>
-    <div class="w-full h-px bg-stone-black opacity-0"></div>
+    <div class="w-full h-px bg-stone-950/10 opacity-0"></div>
     <!-- ================================================================ -->
     
 
