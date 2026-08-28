@@ -3373,11 +3373,7 @@ function abrirLightbox(startIdx) {
     updateLbCounter(startIdx);
 
     // Fullscreen solo móvil
-    if (!isPC) {
-        requestAnimationFrame(() => {
-            if (lightbox.requestFullscreen) lightbox.requestFullscreen().catch(() => {});
-        });
-    }
+    
 
     // Destruir anteriores
     if (swiperLightbox) swiperLightbox.destroy(true, true);
@@ -3759,9 +3755,6 @@ function cerrarLightbox() {
     const contadorLb = document.getElementById('lightbox-contador');
     if (!lightbox) return;
     
-    if (document.fullscreenElement && document.exitFullscreen) {
-        document.exitFullscreen().catch(() => {});
-    }
     
     lightbox.classList.add('hidden');
     if (contadorLb) contadorLb.classList.add('hidden');
@@ -4432,13 +4425,7 @@ document.addEventListener('keydown', (e) => {
     cambiarImagenPrincipal(medias, newIdx);
 });
 
-///// ======== FULL SCREEN CHANGE =========
-document.addEventListener('fullscreenchange', () => {
-    const lightbox = document.getElementById('lightbox-detalle');
-    if (!document.fullscreenElement && lightbox && !lightbox.classList.contains('hidden')) {
-        cerrarLightbox();
-    }
-});
+
 
 
 // ======================================================
