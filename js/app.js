@@ -4626,3 +4626,23 @@ function setLightboxUIVisible(visible) {
     if (visible) lightbox.classList.remove('lightbox-ui-oculta');
     else lightbox.classList.add('lightbox-ui-oculta');
 }
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+// =======================================================
+// ======= PWA - GRANDES LIGAS  =======
+// =======================================================
+// Registrar Service Worker (PWA)
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js')
+      .then(reg => console.log('SW registrado:', reg.scope))
+      .catch(err => console.log('SW error:', err));
+  });
+}
