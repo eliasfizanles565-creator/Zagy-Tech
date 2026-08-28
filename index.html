@@ -4,17 +4,11 @@
     <meta charset="UTF-8">
     <!-- SOLO ESTE, borra cualquier otro theme-color que tengas -->
     <meta name="theme-color" content="#ffffff" id="theme-color-meta">
-    
-    <!-- iOS (opcional pero ayuda) -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
 
     <!-- Theme color para la barra de estado del celular -->
-    <meta name="theme-color" content="#FB7701">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ZAGY">
@@ -31,18 +25,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <base target="_blank">
     <base target="_blank">
-    <script>
-    (function() {
-        const meta = document.getElementById('meta-theme-color');
-        const isDark = document.documentElement.classList.contains('dark');
-        const color = isDark ? '#0c0a09' : '#ffffff';
-        if (meta) meta.setAttribute('content', color);
-        
-        // Safari en iOS no respeta theme-color, pero sí el background del body
-        document.body.style.backgroundColor = color;
-    })();
-    </script>
-<base target="_blank">
+    <base target="_blank">
+    
 </head>
 <body class="bg-white dark:bg-stone-950">
 
