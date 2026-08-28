@@ -2975,6 +2975,32 @@
   display: block;
   -webkit-line-clamp: unset;
 }
+.detalle-entrada {
+  animation: abrirDetalle 0.45s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes abrirDetalle {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.detalle-salida {
+  animation: cerrarDetalle 0.35s ease forwards;
+}
+@keyframes cerrarDetalle {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
 @property --tw-translate-x {
   syntax: "*";
   inherits: false;
