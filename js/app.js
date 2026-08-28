@@ -2222,10 +2222,10 @@ function aplicarModo(modo) {
     }
     localStorage.setItem('zagy_modo', modo);
 
-    // const metaTheme = document.querySelector('meta[name="theme-color"]');
-    // if (metaTheme) {
-    //     metaTheme.setAttribute('content', modo === 'dark' ? 'transparent' : '#0c0a09');
-    // }
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    if (metaTheme) {
+        metaTheme.setAttribute('content', modo === 'dark' ? '#0c0a09' : '#ffffff');
+    }
     
 }
 
