@@ -1551,7 +1551,7 @@ function crearCategoriaBusqueda(query, fromHistory = false) {
     if (grid) grid.classList.add('pb-24');  
     
     const scrollContainer = document.getElementById('categorias-scroll');
-    if (!scrollContainer) return;
+    if (!scrollContainer) returnfunction;
     
     btnCategoriaBusqueda = document.createElement('button');
     btnCategoriaBusqueda.className = 'cat-btn shrink-0 w-25 h-8 bg-stone-950 rounded-4xl flex justify-center items-center cursor-pointer snap-start';
@@ -2034,20 +2034,6 @@ function togglePanelCategorias() {
     }
 }
 
-// Click en bottom nav (móvil)
-// if (btnCategoriasMobile) {
-//     btnCategoriasMobile.addEventListener('click', (e) => {
-//         e.stopPropagation();
-//         togglePanelCategorias();
-//     });
-// }
-
-// if (btnCatMobileNaranja) {
-//     btnCatMobileNaranja.addEventListener('click', (e) => {
-//         e.stopPropagation();
-//         togglePanelCategorias();
-//     });
-// }
 
 
 
@@ -2100,22 +2086,6 @@ function togglePanelUsuario() {
         cerrarPanelUsuario();
     }
 }
-
-// Click en bottom nav móvil (texto)
-// if (btnUsuarioMobile) {
-//     btnUsuarioMobile.addEventListener('click', (e) => {
-//         e.stopPropagation();
-//         togglePanelUsuario();
-//     });
-// }
-
-// // Click en esfera naranja
-// if (btnUsuarioNaranja) {
-//     btnUsuarioNaranja.addEventListener('click', (e) => {
-//         e.stopPropagation();
-//         togglePanelUsuario();
-//     });
-// }
 
 
 // Cerrar al clickear fuera
