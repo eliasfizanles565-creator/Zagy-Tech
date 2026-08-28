@@ -4,7 +4,7 @@
   "description": "Tienda de accesorios, tecnología,  álbums, ropa y figuras",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0c0a09",
+  "background_color": "#000000",
   "theme_color": "#FB7701",
   "orientation": "portrait",
   "scope": "/",
