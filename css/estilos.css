@@ -2264,6 +2264,20 @@
     border-style: var(--tw-border-style);
     border-width: 1px;
   }
+  .dark\:border-t:where(.dark, .dark *) {
+    border-top-style: var(--tw-border-style);
+    border-top-width: 1px;
+  }
+  .dark\:border-b-0:where(.dark, .dark *) {
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: 0px;
+  }
+  .dark\:border-stone-400:where(.dark, .dark *) {
+    border-color: var(--color-stone-400);
+  }
+  .dark\:border-stone-600:where(.dark, .dark *) {
+    border-color: var(--color-stone-600);
+  }
   .dark\:border-stone-700:where(.dark, .dark *) {
     border-color: var(--color-stone-700);
   }
@@ -2273,8 +2287,35 @@
   .dark\:border-stone-900:where(.dark, .dark *) {
     border-color: var(--color-stone-900);
   }
+  .dark\:border-stone-950:where(.dark, .dark *) {
+    border-color: var(--color-stone-950);
+  }
   .dark\:border-temu:where(.dark, .dark *) {
     border-color: var(--color-temu);
+  }
+  .dark\:border-temu\/20:where(.dark, .dark *) {
+    border-color: color-mix(in srgb, #FB7701 20%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-temu) 20%, transparent);
+    }
+  }
+  .dark\:border-temu\/30:where(.dark, .dark *) {
+    border-color: color-mix(in srgb, #FB7701 30%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-temu) 30%, transparent);
+    }
+  }
+  .dark\:border-temu\/40:where(.dark, .dark *) {
+    border-color: color-mix(in srgb, #FB7701 40%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-temu) 40%, transparent);
+    }
+  }
+  .dark\:border-temu\/50:where(.dark, .dark *) {
+    border-color: color-mix(in srgb, #FB7701 50%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-temu) 50%, transparent);
+    }
   }
   .dark\:border-t-stone-700:where(.dark, .dark *) {
     border-top-color: var(--color-stone-700);
@@ -2338,6 +2379,12 @@
   }
   .dark\:text-temu:where(.dark, .dark *) {
     color: var(--color-temu);
+  }
+  .dark\:text-temu\/50:where(.dark, .dark *) {
+    color: color-mix(in srgb, #FB7701 50%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      color: color-mix(in oklab, var(--color-temu) 50%, transparent);
+    }
   }
   .dark\:text-verdeTemu2:where(.dark, .dark *) {
     color: var(--color-verdeTemu2);
