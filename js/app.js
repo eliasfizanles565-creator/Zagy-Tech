@@ -1551,7 +1551,7 @@ function crearCategoriaBusqueda(query, fromHistory = false) {
     if (grid) grid.classList.add('pb-24');  
     
     const scrollContainer = document.getElementById('categorias-scroll');
-    if (!scrollContainer) returnfunction;
+    if (!scrollContainer) return;
     
     btnCategoriaBusqueda = document.createElement('button');
     btnCategoriaBusqueda.className = 'cat-btn shrink-0 w-25 h-8 bg-stone-950 rounded-4xl flex justify-center items-center cursor-pointer snap-start';
