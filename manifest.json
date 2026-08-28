@@ -3,7 +3,7 @@
   "short_name": "ZAGY",
   "description": "Tienda de accesorios, tecnología,  álbums, ropa y figuras",
   "start_url": "/",
-  "display": "fullscreen sticky",
+  "display": "standalone",
   "background_color": "#FB7701",
   "theme_color": "#ffffff",
   "orientation": "portrait",
