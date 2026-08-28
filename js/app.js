@@ -2224,7 +2224,7 @@ function aplicarModo(modo) {
 
     const metaTheme = document.querySelector('meta[name="theme-color"]');
     if (metaTheme) {
-        metaTheme.setAttribute('content', modo === 'dark' ? 'transparent' : '#ffffff');
+        metaTheme.setAttribute('content', modo === 'dark' ? 'transparent' : '#0c0a09');
     }
     
 }
