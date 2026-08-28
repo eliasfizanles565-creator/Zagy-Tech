@@ -2035,19 +2035,19 @@ function togglePanelCategorias() {
 }
 
 // Click en bottom nav (móvil)
-if (btnCategoriasMobile) {
-    btnCategoriasMobile.addEventListener('click', (e) => {
-        e.stopPropagation();
-        togglePanelCategorias();
-    });
-}
+// if (btnCategoriasMobile) {
+//     btnCategoriasMobile.addEventListener('click', (e) => {
+//         e.stopPropagation();
+//         togglePanelCategorias();
+//     });
+// }
 
-if (btnCatMobileNaranja) {
-    btnCatMobileNaranja.addEventListener('click', (e) => {
-        e.stopPropagation();
-        togglePanelCategorias();
-    });
-}
+// if (btnCatMobileNaranja) {
+//     btnCatMobileNaranja.addEventListener('click', (e) => {
+//         e.stopPropagation();
+//         togglePanelCategorias();
+//     });
+// }
 
 
 
@@ -2102,20 +2102,20 @@ function togglePanelUsuario() {
 }
 
 // Click en bottom nav móvil (texto)
-if (btnUsuarioMobile) {
-    btnUsuarioMobile.addEventListener('click', (e) => {
-        e.stopPropagation();
-        togglePanelUsuario();
-    });
-}
+// if (btnUsuarioMobile) {
+//     btnUsuarioMobile.addEventListener('click', (e) => {
+//         e.stopPropagation();
+//         togglePanelUsuario();
+//     });
+// }
 
-// Click en esfera naranja
-if (btnUsuarioNaranja) {
-    btnUsuarioNaranja.addEventListener('click', (e) => {
-        e.stopPropagation();
-        togglePanelUsuario();
-    });
-}
+// // Click en esfera naranja
+// if (btnUsuarioNaranja) {
+//     btnUsuarioNaranja.addEventListener('click', (e) => {
+//         e.stopPropagation();
+//         togglePanelUsuario();
+//     });
+// }
 
 
 // Cerrar al clickear fuera
