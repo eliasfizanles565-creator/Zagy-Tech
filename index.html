@@ -1426,13 +1426,20 @@
             <div class="swiper-wrapper" id="lightbox-wrapper"></div>
         </div>
 
-        
 
         <!-- Miniaturas horizontales -->
         <div id="overlay-mini-container" class="hidden sm:block absolute bottom-5 left-1/2 -translate-x-1/2 w-[90%] max-w-3xl z-20">
             <div class="swiper swiper-overlay-mini overflow-hidden">
                 <div class="swiper-wrapper" id="overlay-mini-wrapper"></div>
             </div>
+        </div>
+
+        <!-- Botón fijo "Añadir al carrito" en lightbox (solo móvil/tablet) -->
+        <div id="lightbox-btn-carrito" class="hidden max-lg:flex fixed bottom-0 left-0 right-0 z-[60] p-4 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none">
+            <button id="lightbox-add-cart" class="pointer-events-auto w-full h-12 bg-temu text-white font-bold rounded-full shadow-xl shadow-black/40 active:scale-95 transition-transform flex items-center justify-center gap-2 text-sm">
+                <i class="ri-shopping-cart-2-line text-lg"></i>
+                <span id="lightbox-add-cart-text">Agregar al carrito</span>
+            </button>
         </div>
     </div>
     

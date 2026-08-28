@@ -3397,6 +3397,7 @@ function abrirLightbox(startIdx) {
         on: {
             slideChange: function() {
                 updateLbCounter(this.realIndex);
+                actualizarBotonLightboxCarrito();  // ← AGREGA ESTA LÍNEA
                 
                 // PC: sincronizar miniaturas y resetear modo
                 if (isPC) {
@@ -3576,6 +3577,13 @@ function abrirLightbox(startIdx) {
             });
         }, 100);
     }
+    // Mostrar/ocultar botón de carrito según dispositivo
+    const btnCarritoLb = document.getElementById('lightbox-btn-carrito');
+    if (btnCarritoLb) {
+        if (!isPC) btnCarritoLb.classList.remove('hidden');
+        else btnCarritoLb.classList.add('hidden');
+        actualizarBotonLightboxCarrito();
+    }
 }
 
 function marcarMiniOverlayActiva(idxActivo) {
@@ -3730,6 +3738,10 @@ function setupOverlayPCZoom(slide, img) {
 }
 
 function cerrarLightbox() {
+    // Ocultar botón de carrito del lightbox
+    const btnCarritoLb = document.getElementById('lightbox-btn-carrito');
+    if (btnCarritoLb) btnCarritoLb.classList.add('hidden');
+
     const lightbox = document.getElementById('lightbox-detalle');
     const contadorLb = document.getElementById('lightbox-contador');
     if (!lightbox) return;
@@ -4505,3 +4517,104 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 //////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////
+// ========================================
+// BTN AÑADIR AL CARRITO EN IMG PRINCIPAL
+// ========================================
+// Detecta si la imagen actual del lightbox coincide con alguna miniatura de estilo
+function getEstiloPorImagen(producto, imagenSrc) {
+    if (!producto?.estilos?.length) return null;
+    const normalize = (s) => s?.toString().replace(/^\.\//, '').replace(/^\//, '').toLowerCase().trim();
+    const imgNorm = normalize(imagenSrc);
+    return producto.estilos.find(est => normalize(est.imagen) === imgNorm) || null;
+}
+
+// Actualiza el texto del botón del lightbox según la imagen actual
+function actualizarBotonLightboxCarrito() {
+    const btnText = document.getElementById('lightbox-add-cart-text');
+    if (!btnText) return;
+    const producto = getProducto(productoActualId);
+    if (!producto) return;
+
+    const medias = window._detalleMedias || [];
+    const currentIdx = swiperLightbox?.realIndex || 0;
+    const mediaActual = medias[currentIdx];
+
+    let estiloEncontrado = null;
+    if (mediaActual && mediaActual.tipo === 'imagen') {
+        estiloEncontrado = getEstiloPorImagen(producto, mediaActual.src);
+    }
+
+    const nombreEstilo = estiloEncontrado 
+        ? estiloEncontrado.nombre 
+        : (estiloSeleccionado?.nombre || producto.estilo || 'Estándar');
+    const precioTotal = (producto.precio * cantidadDetalle).toFixed(2);
+
+    btnText.textContent = `Agregar · ${nombreEstilo} · s/ ${precioTotal}`;
+}
+//////////////////////////
+// Click en "Agregar al carrito" desde el lightbox (móvil/tablet)
+document.getElementById('lightbox-add-cart')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const producto = getProducto(productoActualId);
+    if (!producto) return;
+
+    const medias = window._detalleMedias || [];
+    const currentIdx = swiperLightbox?.realIndex || 0;
+    const mediaActual = medias[currentIdx];
+
+    // Detectar si la imagen actual coincide con algún estilo
+    let estiloParaCarrito = estiloSeleccionado;
+    if (mediaActual && mediaActual.tipo === 'imagen') {
+        const estiloCoincide = getEstiloPorImagen(producto, mediaActual.src);
+        if (estiloCoincide) {
+            estiloParaCarrito = {
+                nombre: estiloCoincide.nombre,
+                color: estiloCoincide.color || estiloCoincide.nombre,
+                imagen: estiloCoincide.imagen
+            };
+        }
+    }
+
+    // Fallback: si no hay estilo seleccionado, usar el primero/base
+    if (!estiloParaCarrito && producto.estilos?.length) {
+        estiloParaCarrito = {
+            nombre: producto.estilos[0].nombre,
+            color: producto.estilos[0].color || producto.estilos[0].nombre,
+            imagen: producto.estilos[0].imagen
+        };
+    }
+
+    const esEstiloBase = estiloParaCarrito && producto.estilo && estiloParaCarrito.nombre === producto.estilo;
+
+    const itemBase = {
+        id: producto.id,
+        titulo: producto.titulo,
+        subtitulo: producto.subtitulo,
+        precio: producto.precio,
+        imagen: estiloParaCarrito?.imagen || producto.imagenes?.[0] || '',
+        variante: esEstiloBase ? null : {
+            tipo: producto.tipoVariante === 'color' ? 'Color' : (producto.tipoVariante === 'talla' ? 'Talla' : 'Estilo'),
+            valor: estiloParaCarrito?.color || estiloParaCarrito?.nombre || 'Estándar'
+        }
+    };
+
+    // Agregar la cantidad que ya eligió en el detalle
+    for (let i = 0; i < cantidadDetalle; i++) {
+        agregarAlCarrito(itemBase);
+    }
+
+    // Fly-to-cart animado
+    animarFlyToCart(e.currentTarget, itemBase.imagen);
+
+    // Feedback visual rápido
+    const btnText = document.getElementById('lightbox-add-cart-text');
+    if (btnText) {
+        const original = btnText.textContent;
+        btnText.textContent = '¡Agregado!';
+        setTimeout(() => btnText.textContent = original, 1000);
+    }
+});
