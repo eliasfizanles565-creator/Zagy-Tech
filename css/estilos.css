@@ -1705,6 +1705,12 @@
     .max-lg\:z-20 {
       z-index: 20;
     }
+    .max-lg\:mb-10 {
+      margin-bottom: calc(var(--spacing) * 10);
+    }
+    .max-lg\:mb-20 {
+      margin-bottom: calc(var(--spacing) * 20);
+    }
     .max-lg\:flex {
       display: flex;
     }
@@ -1728,6 +1734,9 @@
       .max-lg\:bg-black\/95 {
         background-color: color-mix(in oklab, var(--color-black) 95%, transparent);
       }
+    }
+    .max-lg\:pb-30 {
+      padding-bottom: calc(var(--spacing) * 30);
     }
   }
   @media (width < 40rem) {
