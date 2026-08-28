@@ -875,3 +875,20 @@
 }
 /* ////////////////////////////////////////// */
 
+/* Ocultar UI del lightbox al hacer zoom (solo móvil/tablet) */
+@media (max-width: 1023px) {
+  .lightbox-ui-oculta #lightbox-btn-carrito,
+  .lightbox-ui-oculta #lightbox-contador,
+  .lightbox-ui-oculta #lightbox-close {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  .lightbox-ui-oculta #lightbox-btn-carrito {
+    transform: translateY(20px);
+  }
+  .lightbox-ui-oculta #lightbox-contador,
+  .lightbox-ui-oculta #lightbox-close {
+    transform: translateY(-20px);
+  }
+}

@@ -3018,6 +3018,19 @@
   display: block;
   -webkit-line-clamp: unset;
 }
+@media (max-width: 1023px) {
+  .lightbox-ui-oculta #lightbox-btn-carrito, .lightbox-ui-oculta #lightbox-contador, .lightbox-ui-oculta #lightbox-close {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  .lightbox-ui-oculta #lightbox-btn-carrito {
+    transform: translateY(20px);
+  }
+  .lightbox-ui-oculta #lightbox-contador, .lightbox-ui-oculta #lightbox-close {
+    transform: translateY(-20px);
+  }
+}
 @property --tw-translate-x {
   syntax: "*";
   inherits: false;

@@ -3369,6 +3369,7 @@ function abrirLightbox(startIdx) {
 
     document.body.style.overflow = 'hidden';
     lightbox.classList.remove('hidden');
+    setLightboxUIVisible(true); // siempre visible al abrir
     updateLbCounter(startIdx);
 
     // Fullscreen solo móvil
@@ -3396,6 +3397,7 @@ function abrirLightbox(startIdx) {
         touchRatio: isPC ? 1 : 2,  // Móvil: 2 (fluido) | PC: 1
         on: {
             slideChange: function() {
+                setLightboxUIVisible(true); // ← AGREGA ESTA LÍNEA AL INICIO
                 updateLbCounter(this.realIndex);
                 actualizarBotonLightboxCarrito();  // ← AGREGA ESTA LÍNEA
                 
@@ -3512,11 +3514,15 @@ function abrirLightbox(startIdx) {
                     const now = Date.now();
                     if (now - lastTap < 300) {
                         if (lbScale > 1.1) {
+                            // Zoom OUT → mostrar botones
                             lbScale = 1; lbPanX = 0; lbPanY = 0;
                             swiperLightbox.allowTouchMove = true;
+                            setLightboxUIVisible(true);  // ← AQUÍ
                         } else {
+                            // Zoom IN → ocultar botones
                             lbScale = 2.5;
                             swiperLightbox.allowTouchMove = false;
+                            setLightboxUIVisible(false); // ← AQUÍ
                         }
                         img.style.transition = 'transform 0.2s ease';
                         lbApply();
@@ -3552,8 +3558,13 @@ function abrirLightbox(startIdx) {
                             e.touches[0].clientY - e.touches[1].clientY
                         );
                         lbScale = Math.min(Math.max((dist / pinchStartDist) * pinchStartScale, 1), 5);
-                        if (lbScale > 1.1) swiperLightbox.allowTouchMove = false;
-                        else swiperLightbox.allowTouchMove = true;
+                        if (lbScale > 1.1) {
+                            swiperLightbox.allowTouchMove = false;
+                            setLightboxUIVisible(false); // ← OCULTAR al agrandar
+                        } else {
+                            swiperLightbox.allowTouchMove = true;
+                            setLightboxUIVisible(true);  // ← MOSTRAR si vuelve a 1
+                        }
                         lbApply();
                     } else if (isPanning && e.touches.length === 1 && lbScale > 1.1) {
                         e.preventDefault();
@@ -3570,6 +3581,7 @@ function abrirLightbox(startIdx) {
                         if (lbScale < 1.15) {
                             lbScale = 1; lbPanX = 0; lbPanY = 0;
                             swiperLightbox.allowTouchMove = true;
+                            setLightboxUIVisible(true); // ← MOSTRAR al volver a normal
                             lbApply();
                         }
                     }
@@ -3738,6 +3750,7 @@ function setupOverlayPCZoom(slide, img) {
 }
 
 function cerrarLightbox() {
+    setLightboxUIVisible(true); // ← RESET al cerrar
     // Ocultar botón de carrito del lightbox
     const btnCarritoLb = document.getElementById('lightbox-btn-carrito');
     if (btnCarritoLb) btnCarritoLb.classList.add('hidden');
@@ -4618,3 +4631,11 @@ document.getElementById('lightbox-add-cart')?.addEventListener('click', (e) => {
         setTimeout(() => btnText.textContent = original, 1000);
     }
 });
+
+//////////////////
+function setLightboxUIVisible(visible) {
+    const lightbox = document.getElementById('lightbox-detalle');
+    if (!lightbox) return;
+    if (visible) lightbox.classList.remove('lightbox-ui-oculta');
+    else lightbox.classList.add('lightbox-ui-oculta');
+}
