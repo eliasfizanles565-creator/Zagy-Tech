@@ -3428,13 +3428,7 @@ function abrirLightbox(startIdx) {
             }
         }
     });
-
-    // Fullscreen solo móvil
-    if (!isPC) {
-        requestAnimationFrame(() => {
-            if (lightbox.requestFullscreen) lightbox.requestFullscreen().catch(() => {});
-        });
-    }
+    
     
 
     // ═══════════════════════════════════════════════════════
@@ -3754,11 +3748,6 @@ function setupOverlayPCZoom(slide, img) {
 }
 
 function cerrarLightbox() {
-    // Salir de fullscreen nativo
-    if (document.fullscreenElement && document.exitFullscreen) {
-        document.exitFullscreen().catch(() => {});
-    }
-    
     setLightboxUIVisible(true); // ← RESET al cerrar
     // Ocultar botón de carrito del lightbox
     const btnCarritoLb = document.getElementById('lightbox-btn-carrito');
@@ -4659,11 +4648,3 @@ if ('serviceWorker' in navigator) {
       .catch(err => console.log('SW error:', err));
   });
 }
-
-// Si el usuario sale del fullscreen con el gesto del sistema, cerrar lightbox
-document.addEventListener('fullscreenchange', () => {
-    const lightbox = document.getElementById('lightbox-detalle');
-    if (!document.fullscreenElement && lightbox && !lightbox.classList.contains('hidden')) {
-        cerrarLightbox();
-    }
-});
