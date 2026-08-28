@@ -3339,7 +3339,7 @@ function abrirLightbox(startIdx) {
                 slide.className = 'swiper-slide flex items-center justify-center overflow-hidden pb-15';
                 slide.innerHTML = `
                     <div class="lightbox-img-wrapper relative flex items-center justify-center w-full h-full overflow-hidden">
-                        <img src="${media.src}" class="max-w-[90vw] max-h-full object-contain lightbox-zoom-target transition-transform duration-75" alt="">
+                        <img src="${media.src}" class="max-w-[100vw] max-h-full object-contain lightbox-zoom-target transition-transform duration-75" alt="">
                     </div>
                 `;
             }

@@ -818,6 +818,12 @@
   .max-w-\[90vw\] {
     max-width: 90vw;
   }
+  .max-w-\[100vw\] {
+    max-width: 100vw;
+  }
+  .max-w-full {
+    max-width: 100%;
+  }
   .min-w-0 {
     min-width: 0px;
   }
