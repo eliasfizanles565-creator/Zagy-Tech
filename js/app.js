@@ -511,6 +511,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (panelCategorias && !panelCategorias.classList.contains('hidden')) {
                 sincronizarEsferasPanel();
             }
+            
+            // 🔥 PushState para categoría
+            if (appInicializada) {
+                history.pushState(
+                    { vista: 'tienda', categoria: categoriaActual, showingAll: false },
+                    '',
+                    '#categoria-' + categoriaActual
+                );
+            }
         });
     });
 
@@ -1074,36 +1083,48 @@ const navConfig = {
     carrito: { barClass: 'cardCarrito', barBorderClass: 'cardCarrito2', sphereId: '#btnCarrito', textSelector: '.textCarrito' }
 };
 
+
+
+// ======================================================
+// NAVEGACIÓN NATIVA (History API)
+// ======================================================
+let appInicializada = false;
+
+function getCurrentState() {
+    const enCarrito = !document.getElementById('carrito-section').classList.contains('hidden');
+    const enFavoritos = !document.getElementById('favoritos-section').classList.contains('hidden');
+    const enDetalle = document.getElementById('producto-detalle') && !document.getElementById('producto-detalle').classList.contains('hidden');
+    
+    if (enDetalle && productoActualId) {
+        return { detalleId: productoActualId, vistaAnterior: window._vistaAnterior || { vista: 'tienda', categoria: 'todos', showingAll: false } };
+    }
+    if (enCarrito) return { vista: 'carrito' };
+    if (enFavoritos) return { vista: 'favoritos' };
+    return { vista: 'tienda', categoria: categoriaActual, showingAll: showingAll };
+}
+
+
+
 let activeKey = 'inicio';
 
-function activateNav(key) {
-
-    // Cerrar detalle SOLO si vamos a Inicio, Carrito o Favoritos
-    // (NO si abrimos Usuario o Categorías, que son paneles flotantes encima)
+function activateNav(key, fromHistory = false, resetCategory = true) {
+    // Cerrar detalle si vamos a una vista principal
     if (key !== 'usuario' && key !== 'categorias') {
         const detalleSection = document.getElementById('producto-detalle');
         if (detalleSection && !detalleSection.classList.contains('hidden')) {
             detalleSection.classList.add('hidden');
-            const grid = document.getElementById('product-grid');
-            const navCat = document.getElementById('nav-categorias');
-            const btnMas = document.getElementById('btn-mas');
-            const navSup = document.querySelector('nav');
-            const sepNav = navCat?.nextElementSibling;
-            if (grid) grid.classList.remove('hidden');
-            if (navCat) navCat.classList.remove('hidden');
-            if (btnMas) btnMas.classList.remove('hidden');
-            if (navSup) navSup.classList.remove('max-lg:hidden');
-            if (sepNav) sepNav.classList.remove('hidden');
+            document.querySelectorAll('#zoom-container video').forEach(v => {
+                v.pause(); v.removeAttribute('src'); v.load(); v.remove();
+            });
+            document.querySelectorAll('#zoom-container #video-play-overlay').forEach(o => o.remove());
+            const imgPrincipal = document.getElementById('img-principal');
+            if (imgPrincipal) { imgPrincipal.style.display = 'block'; imgPrincipal.src = ''; }
         }
     }
-    // ... resto de tu activateNav ...
 
-
-    //////////////////////////
     const config = navConfig[key];
     if (!config) return;
 
-    // Cierra paneles que NO sean el activo (directo por ID, sin variables globales)
     if (key !== 'usuario') {
         const pu = document.getElementById('panel-usuario');
         if (pu) pu.classList.add('hidden');
@@ -1112,8 +1133,6 @@ function activateNav(key) {
         const pc = document.getElementById('panel-categorias');
         if (pc) pc.classList.add('hidden');
     }
-
-    
 
     if (navigationBar && navigationBarBorder) {
         Object.values(navConfig).forEach(c => {
@@ -1154,27 +1173,58 @@ function activateNav(key) {
         if (activeLabel) { activeLabel.classList.remove('text-stone-950', 'border-transparent', 'dark:text-white/70'); activeLabel.classList.add('text-temu', 'border-temu'); }
     }
 
-    else if (key === 'usuario') {
-    togglePanelUsuario();
+    if (key === 'usuario') {
+        togglePanelUsuario();
     }
     else if (key === 'categorias') {
         togglePanelCategorias();
     }
-    if (key === 'carrito') { gestionarVista('carrito'); }
-    else if (key === 'favoritos') { gestionarVista('favoritos'); }
+    
+    if (key === 'carrito') { 
+        gestionarVista('carrito'); 
+    }
+    else if (key === 'favoritos') { 
+        gestionarVista('favoritos'); 
+    }
     else if (key === 'inicio') {
-        // Solo Inicio resetea y vuelve a la tienda
-        categoriaActual = 'todos';
-        showingAll = false;
-        const btnTodos = document.querySelector('[data-categoria="todos"]');
-        if (btnTodos) {
-            setActiveCategory(btnTodos);
-            btnTodos.click(); //
-        }
         gestionarVista('tienda');
+
+         // 🔥 LIMPIAR BÚSQUEDA AL VOLVER A INICIO
+        if (btnCategoriaBusqueda) {
+            eliminarCategoriaBusqueda(false);
+        }
+        // Limpiar input y cerrar dropdown
+        const inputBuscar = document.getElementById('buscador');
+        if (inputBuscar) inputBuscar.value = '';
+        const dropdown = document.getElementById('sugerencias-dropdown');
+        if (dropdown) dropdown.classList.add('hidden');
+        // Ocultar mensaje de resultados
+        const msg = document.getElementById('search-results-msg');
+        if (msg) msg.classList.add('hidden');
+
+        if (resetCategory) {
+            categoriaActual = 'todos';
+            showingAll = false;
+        }
+        const btnCat = document.querySelector(`[data-categoria="${categoriaActual}"]`);
+        if (btnCat) {
+            setActiveCategory(btnCat);
+        }
+        showHero(categoriaActual);
+        if (typeof updateDisplayRef === 'function') updateDisplayRef();
     }
 
     activeKey = key;
+
+    // 🔥 PushState solo si no vino del historial y app ya inició
+    if (!fromHistory && appInicializada && key !== 'usuario' && key !== 'categorias') {
+        const state = getCurrentState();
+        let hash = '';
+        if (key === 'carrito') hash = '#carrito';
+        else if (key === 'favoritos') hash = '#favoritos';
+        else hash = '#';
+        history.pushState(state, '', hash);
+    }
 }
 
 Object.keys(navConfig).forEach(key => {
@@ -1197,7 +1247,7 @@ document.querySelectorAll('.nav-desktop').forEach(btn => {
     });
 });
 
-activateNav('inicio');
+
 
 // ======================================================
 // BOTON EPICO UNIVERSAL + CONTADOR CARRITO (DECORATIVO)
@@ -1437,7 +1487,7 @@ function mostrarMensajeResultados(query, encontrados) {
     msg.classList.remove('hidden');
 }
 
-function crearCategoriaBusqueda(query) {
+function crearCategoriaBusqueda(query, fromHistory = false) {
 
     // >>> AGREGAR ESTO AL INICIO <<<
     // Cerrar detalle de producto si está abierto
@@ -1462,12 +1512,30 @@ function crearCategoriaBusqueda(query) {
     if (enCarrito || enFavoritos) {
         activateNav('inicio');
     }
+
+    // Push state para que el botón Atrás funcione
+    if (!fromHistory && appInicializada) {
+        history.pushState(
+            { vista: 'busqueda', query: query },
+            '',
+            '#buscar-' + encodeURIComponent(query)
+        );
+    }
     
     if (btnCategoriaBusqueda && btnCategoriaBusqueda.parentNode) {
         const encontrados = filtrarProductosGlobal(query);
         mostrarMensajeResultados(query, encontrados);
         setActiveCategory(btnCategoriaBusqueda);
         document.getElementById('sugerencias-dropdown').classList.add('hidden');
+        
+        // Asegurar que heroes sigan ocultos en resultados de búsqueda
+        document.querySelectorAll('.hero-container').forEach(h => {
+            h.classList.add('hidden');
+            h.style.display = 'none';
+        });
+        const btnMas = document.getElementById('btn-mas');
+        if (btnMas) btnMas.classList.add('hidden');
+        
         return;
     }
     
@@ -1507,9 +1575,11 @@ function eliminarCategoriaBusqueda(restaurarVista = true) {
     if (detalle && !detalle.classList.contains('hidden')) {
         // Solo limpiar input y msg, no tocar hero
         const input = document.getElementById('buscador');
-        if (input) input.value = '';
+        if (input && restaurarVista) input.value = '';
         const msg = document.getElementById('search-results-msg');
         if (msg) msg.classList.add('hidden');
+            // Limpiar input para que no quede basura
+    
         return;
     }
     
@@ -2501,15 +2571,24 @@ function abrirDetalleProducto(id, fromPopstate = false) {
     // 🔥 GUARDAR VISTA ACTUAL ANTES DE OCULTAR TODO
     const enCarrito = !document.getElementById('carrito-section').classList.contains('hidden');
     const enFavoritos = !document.getElementById('favoritos-section').classList.contains('hidden');
+    const enBusqueda = !!btnCategoriaBusqueda;
     
-    let vistaActual = { vista: 'tienda', categoria: categoriaActual, showingAll: showingAll };
-    if (enCarrito) vistaActual = { vista: 'carrito' };
-    else if (enFavoritos) vistaActual = { vista: 'favoritos' };
+    let vistaActual;
+    if (enBusqueda) {
+        const input = document.getElementById('buscador');
+        vistaActual = { vista: 'busqueda', query: input ? input.value : '' };
+    } else if (enCarrito) {
+        vistaActual = { vista: 'carrito' };
+    } else if (enFavoritos) {
+        vistaActual = { vista: 'favoritos' };
+    } else {
+        vistaActual = { vista: 'tienda', categoria: categoriaActual, showingAll: showingAll };
+    }
     
     window._vistaAnterior = vistaActual;
 
-    // Push state al historial (nueva "página" sin recargar)
-    if (!fromPopstate) {
+     // Push state al historial
+    if (!fromPopstate && appInicializada) {
         history.pushState({ detalleId: id, vistaAnterior: vistaActual }, '', '#producto-' + id);
     }
     const detalleSection = document.getElementById('producto-detalle');
@@ -4094,7 +4173,36 @@ function cerrarDetalleProducto(updateHistory = true) {
     // 🔥 RESTAURAR LA VISTA ANTERIOR (no siempre a "todos")
     if (window._vistaAnterior) {
         const v = window._vistaAnterior;
-        if (v.vista === 'carrito') {
+        if (v.vista === 'busqueda') {
+            // Restaurar tienda SIN mostrar hero (la búsqueda no usa hero)
+        const grid = document.getElementById('product-grid');
+        const navCat = document.getElementById('nav-categorias');
+        const carritoSec = document.getElementById('carrito-section');
+        const favSec = document.getElementById('favoritos-section');
+        const btnCarritoFlotante = document.getElementById('btn-carrito');
+        const separadorNav = navCat ? navCat.nextElementSibling : null;
+        const navSuperior = document.querySelector('nav');
+        const separadorSuperior = navSuperior ? navSuperior.nextElementSibling : null;
+        
+        if (grid) grid.classList.remove('hidden');
+        if (navCat) navCat.classList.remove('hidden');
+        if (carritoSec) carritoSec.classList.add('hidden');
+        if (favSec) favSec.classList.add('hidden');
+        if (btnCarritoFlotante) btnCarritoFlotante.classList.add('hidden');
+        if (separadorNav) separadorNav.classList.remove('hidden');
+        if (navSuperior) navSuperior.classList.remove('max-lg:hidden');
+        if (separadorSuperior) separadorSuperior.classList.remove('max-lg:hidden');
+        
+        // Asegurar heroes ocultos
+        document.querySelectorAll('.hero-container').forEach(h => {
+            h.classList.add('hidden');
+            h.style.display = 'none';
+        });
+        const btnMas = document.getElementById('btn-mas');
+        if (btnMas) btnMas.classList.add('hidden');
+        
+        crearCategoriaBusqueda(v.query, true);
+        } else if (v.vista === 'carrito') {
             gestionarVista('carrito');
         } else if (v.vista === 'favoritos') {
             gestionarVista('favoritos');
@@ -4339,36 +4447,89 @@ document.addEventListener('fullscreenchange', () => {
 
 
 // ======================================================
-// NAVEGACIÓN NATIVA (History API)
+// NAVEGACIÓN NATIVA (History API) — VISTAS + DETALLE
 // ======================================================
 
-// Escuchar el botón ATRÁS/ADELANTE del navegador/celular
 window.addEventListener('popstate', (e) => {
     const detalle = document.getElementById('producto-detalle');
-    const estaAbierto = detalle && !detalle.classList.contains('hidden');
+    const estaAbiertoDetalle = detalle && !detalle.classList.contains('hidden');
     
-    if (estaAbierto && (!e.state || !e.state.detalleId)) {
-        // ATRÁS desde un detalle → cerrarlo sin tocar el historial de nuevo
-        cerrarDetalleProducto(false);
-    } else if (!estaAbierto && e.state?.detalleId) {
-        // ADELANTE hacia un detalle → abrirlo
-        if (e.state.vistaAnterior) window._vistaAnterior = e.state.vistaAnterior;
-        abrirDetalleProducto(e.state.detalleId, true);
-    } else if (estaAbierto && e.state?.detalleId && e.state.detalleId !== productoActualId) {
-        // Cambió de un detalle a otro (raro pero posible)
-        cerrarDetalleProducto(false);
-        if (e.state.vistaAnterior) window._vistaAnterior = e.state.vistaAnterior;
-        abrirDetalleProducto(e.state.detalleId, true);
+    if (e.state) {
+        // 🔥 PRIORIDAD 1: Restaurar búsqueda
+        if (e.state.vista === 'busqueda') {
+            if (estaAbiertoDetalle) {
+                cerrarDetalleProducto(false); // ya restaura la búsqueda dentro
+            } else {
+                crearCategoriaBusqueda(e.state.query, true);
+            }
+            return;
+        }
+        
+        if (e.state.detalleId) {
+            if (!estaAbiertoDetalle) {
+                window._vistaAnterior = e.state.vistaAnterior || { vista: 'tienda', categoria: 'todos', showingAll: false };
+                abrirDetalleProducto(e.state.detalleId, true);
+            } else if (productoActualId !== e.state.detalleId) {
+                cerrarDetalleProducto(false);
+                window._vistaAnterior = e.state.vistaAnterior || { vista: 'tienda', categoria: 'todos', showingAll: false };
+                abrirDetalleProducto(e.state.detalleId, true);
+            }
+        } else {
+            if (estaAbiertoDetalle) {
+                cerrarDetalleProducto(false);
+            }
+            // Si no es búsqueda, limpiar cualquier búsqueda activa
+            if (btnCategoriaBusqueda) eliminarCategoriaBusqueda(false);
+            
+            if (e.state.vista === 'carrito') {
+                activateNav('carrito', true);
+            } else if (e.state.vista === 'favoritos') {
+                activateNav('favoritos', true);
+            } else {
+                categoriaActual = e.state.categoria || 'todos';
+                showingAll = e.state.showingAll || false;
+                activateNav('inicio', true, false); // ← resetCategory = false
+            }
+        }
+    } else {
+        if (estaAbiertoDetalle) cerrarDetalleProducto(false);
+        if (btnCategoriaBusqueda) eliminarCategoriaBusqueda(false);
+        activateNav('inicio', true, false);
     }
 });
 
-// Deep linking: si al cargar la página hay #producto-123, ábrelo directo
+// ======================================================
+// DEEP LINKING AL CARGAR — SIEMPRE INICIO LIMPIO
+// ======================================================
 document.addEventListener('DOMContentLoaded', () => {
-    const hash = window.location.hash;
-    const match = hash.match(/^#producto-(\d+)$/);
-    if (match) {
-        const id = parseInt(match[1]);
-        window._vistaAnterior = { vista: 'tienda', categoria: 'todos', showingAll: false };
-        abrirDetalleProducto(id, true);
+    iniciarModo();
+    iniciarIdioma();
+    
+    // 🔥 SIEMPRE empezar en inicio al recargar (F5)
+    // Limpiar cualquier búsqueda activa
+    if (btnCategoriaBusqueda) {
+        eliminarCategoriaBusqueda(false);
     }
+    const inputBuscar = document.getElementById('buscador');
+    if (inputBuscar) inputBuscar.value = '';
+    const dropdown = document.getElementById('sugerencias-dropdown');
+    if (dropdown) dropdown.classList.add('hidden');
+    const msg = document.getElementById('search-results-msg');
+    if (msg) msg.classList.add('hidden');
+    
+    // Resetear estado
+    categoriaActual = 'todos';
+    showingAll = false;
+    
+    // Reemplazar historial para que no quede basura del hash anterior
+    history.replaceState(
+        { vista: 'tienda', categoria: 'todos', showingAll: false },
+        '',
+        '#'
+    );
+    
+    // Activar inicio
+    activateNav('inicio', true);
+    
+    appInicializada = true;
 });
