@@ -308,6 +308,9 @@
   .right-3 {
     right: calc(var(--spacing) * 3);
   }
+  .right-4 {
+    right: calc(var(--spacing) * 4);
+  }
   .right-5 {
     right: calc(var(--spacing) * 5);
   }
@@ -404,9 +407,6 @@
   .z-\[100\] {
     z-index: 100;
   }
-  .col-span-1 {
-    grid-column: span 1 / span 1;
-  }
   .col-span-2 {
     grid-column: span 2 / span 2;
   }
@@ -415,9 +415,6 @@
   }
   .row-span-2 {
     grid-row: span 2 / span 2;
-  }
-  .row-span-3 {
-    grid-row: span 3 / span 3;
   }
   .row-span-4 {
     grid-row: span 4 / span 4;
@@ -779,6 +776,10 @@
   }
   .-translate-y-1\/2 {
     --tw-translate-y: calc(calc(1 / 2 * 100%) * -1);
+    translate: var(--tw-translate-x) var(--tw-translate-y);
+  }
+  .translate-y-20 {
+    --tw-translate-y: calc(var(--spacing) * 20);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
   .transform {
@@ -1558,6 +1559,12 @@
       --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-temu) 25%, transparent) var(--tw-shadow-alpha), transparent);
     }
   }
+  .shadow-temu\/30 {
+    --tw-shadow-color: color-mix(in srgb, #FB7701 30%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-temu) 30%, transparent) var(--tw-shadow-alpha), transparent);
+    }
+  }
   .ring-temu {
     --tw-ring-color: var(--color-temu);
   }
@@ -1767,11 +1774,17 @@
     .sm\:right-4 {
       right: calc(var(--spacing) * 4);
     }
+    .sm\:right-6 {
+      right: calc(var(--spacing) * 6);
+    }
     .sm\:right-\[3\.75px\] {
       right: 3.75px;
     }
     .sm\:bottom-3\.75 {
       bottom: calc(var(--spacing) * 3.75);
+    }
+    .sm\:bottom-20 {
+      bottom: calc(var(--spacing) * 20);
     }
     .sm\:bottom-\[42px\] {
       bottom: 42px;
@@ -1977,6 +1990,12 @@
   @media (width >= 64rem) {
     .lg\:top-13 {
       top: calc(var(--spacing) * 13);
+    }
+    .lg\:right-8 {
+      right: calc(var(--spacing) * 8);
+    }
+    .lg\:bottom-8 {
+      bottom: calc(var(--spacing) * 8);
     }
     .lg\:bottom-auto {
       bottom: auto;
@@ -3046,6 +3065,19 @@
   }
   .lightbox-ui-oculta #lightbox-contador, .lightbox-ui-oculta #lightbox-close {
     transform: translateY(-20px);
+  }
+}
+#btn-volver-arriba.visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+#producto-detalle:not(.hidden) ~ #btn-volver-arriba {
+  bottom: 5.5rem;
+}
+@media (min-width: 1024px) {
+  #producto-detalle:not(.hidden) ~ #btn-volver-arriba {
+    bottom: 2rem;
   }
 }
 @property --tw-translate-x {

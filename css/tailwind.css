@@ -893,5 +893,24 @@
     transform: translateY(-20px);
   }
 }
+/* ///////////////////////////////////////////////// */
 
 
+
+/* ///////////////////////////////////////////////// */
+/* ===== BOTÓN VOLVER ARRIBA ===== */
+#btn-volver-arriba.visible {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* En el detalle de producto, subir un poco más para no tapar el botón fijo de "Agregar" */
+#producto-detalle:not(.hidden) ~ #btn-volver-arriba {
+    bottom: 5.5rem; /* 88px - evita el botón "Agregar al carrito" fijo */
+}
+@media (min-width: 1024px) {
+    #producto-detalle:not(.hidden) ~ #btn-volver-arriba {
+        bottom: 2rem; /* En PC no hay botón fijo abajo */
+    }
+}

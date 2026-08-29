@@ -16,9 +16,9 @@
 
 const productosDB = [
     {
-        // =================================================
-        // =========== 01 ALBUM PANINI ================
-        // =================================================
+    // =================================================
+    // =========== 01 ALBUM PANINI ================
+    // =================================================
         id: 1,
         titulo: "Álbum Tapa Dura",
         subtitulo: "PANINI - Mundial 2026",
@@ -80,9 +80,9 @@ const productosDB = [
         relacionados: [18, 4, 6, 11, 2, 3],
     },
     {
-        // =================================================
-        // =========== 18 FIGURA ALBEDO ================
-        // =================================================
+    // =================================================
+    // =========== 18 FIGURA ALBEDO ================
+    // =================================================
         id: 18,
         titulo: "Figura de Albedo",
         subtitulo: "35x50 cm",
@@ -4668,4 +4668,38 @@ if ('serviceWorker' in navigator) {
       .then(reg => console.log('SW registrado:', reg.scope))
       .catch(err => console.log('SW error:', err));
   });
+}
+///////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+// ======================================================
+// BOTÓN VOLVER ARRIBA
+// ======================================================
+const btnVolverArriba = document.getElementById('btn-volver-arriba');
+
+function toggleBtnVolverArriba() {
+    if (!btnVolverArriba) return;
+    // Se muestra cuando scrolleas más del 80% de una pantalla
+    if (window.scrollY > window.innerHeight * 0.8) {
+        btnVolverArriba.classList.add('visible');
+    } else {
+        btnVolverArriba.classList.remove('visible');
+    }
+}
+
+if (btnVolverArriba) {
+    // Detectar scroll
+    window.addEventListener('scroll', toggleBtnVolverArriba, { passive: true });
+    
+    // Click = subir suave
+    btnVolverArriba.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    // Revisar al cargar por si hay refresh con scroll guardado
+    toggleBtnVolverArriba();
 }
