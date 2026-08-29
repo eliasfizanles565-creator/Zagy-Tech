@@ -2227,6 +2227,7 @@ function aplicarModo(modo) {
         metaTheme.setAttribute('content', modo === 'dark' ? '#0c0a09' : '#ffffff');
     }
     
+    
 }
 
 function iniciarModo() {
