@@ -3396,6 +3396,7 @@ function abrirLightbox(startIdx) {
         pagination: { el: '.pagination-lightbox', clickable: true },
         keyboard: { enabled: true },
         touchRatio: isPC ? 1 : 2,  // Móvil: 2 (fluido) | PC: 1
+        spaceBetween: isPC ? 0 : 16,   // ← En celular 16px de separación, en PC 0
         on: {
             slideChange: function() {
                 setLightboxUIVisible(true); // ← AGREGA ESTA LÍNEA AL INICIO
