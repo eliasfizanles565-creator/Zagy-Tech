@@ -30,9 +30,7 @@
 
 /* ================================================== */
 
-.mi-contenedor {
-    padding-top: env(safe-area-inset-top);
-}
+
 /* === CLIP PAHT BARRA INFERIOR === */
 .cardUsuario {
     clip-path: path("M 0,0 L 0,0 A 30,20 0,0,1 30,20 A 30,30 0,0,0 60,50 A 30,30 0,0,0 90,20 A 30,20 0,0,1 120,0 L 320,0 A 30,30 0,0,1 320,60 L 0,60 A 30,30 0,0,1 0,0 Z");
@@ -895,3 +893,5 @@
     transform: translateY(-20px);
   }
 }
+
+

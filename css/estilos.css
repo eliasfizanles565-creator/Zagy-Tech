@@ -10,6 +10,7 @@
       "Courier New", monospace;
     --color-red-500: oklch(63.7% 0.237 25.331);
     --color-orange-100: oklch(95.4% 0.038 75.164);
+    --color-orange-500: oklch(70.5% 0.213 47.604);
     --color-orange-600: oklch(64.6% 0.222 41.116);
     --color-yellow-100: oklch(97.3% 0.071 103.193);
     --color-yellow-400: oklch(85.2% 0.199 91.936);
@@ -461,6 +462,9 @@
   .mt-8 {
     margin-top: calc(var(--spacing) * 8);
   }
+  .mt-10 {
+    margin-top: calc(var(--spacing) * 10);
+  }
   .mr-2 {
     margin-right: calc(var(--spacing) * 2);
   }
@@ -622,6 +626,12 @@
   .h-70 {
     height: calc(var(--spacing) * 70);
   }
+  .h-100 {
+    height: calc(var(--spacing) * 100);
+  }
+  .h-450 {
+    height: calc(var(--spacing) * 450);
+  }
   .h-\[254px\] {
     height: 254px;
   }
@@ -639,9 +649,6 @@
   }
   .max-h-full {
     max-height: 100%;
-  }
-  .min-h-screen {
-    min-height: 100vh;
   }
   .w-6\.5 {
     width: calc(var(--spacing) * 6.5);
@@ -1095,6 +1102,9 @@
   .bg-orange-100 {
     background-color: var(--color-orange-100);
   }
+  .bg-orange-500 {
+    background-color: var(--color-orange-500);
+  }
   .bg-pink-100 {
     background-color: var(--color-pink-100);
   }
@@ -1311,9 +1321,6 @@
   .pt-2 {
     padding-top: calc(var(--spacing) * 2);
   }
-  .pt-3 {
-    padding-top: calc(var(--spacing) * 3);
-  }
   .pt-4\.5 {
     padding-top: calc(var(--spacing) * 4.5);
   }
@@ -1334,9 +1341,6 @@
   }
   .pb-1\.25 {
     padding-bottom: calc(var(--spacing) * 1.25);
-  }
-  .pb-2 {
-    padding-bottom: calc(var(--spacing) * 2);
   }
   .pb-3\.5 {
     padding-bottom: calc(var(--spacing) * 3.5);
@@ -2060,9 +2064,6 @@
       --tw-translate-x: calc(calc(50% - 74px) * -1);
       translate: var(--tw-translate-x) var(--tw-translate-y);
     }
-    .lg\:grid-cols-6 {
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-    }
     .lg\:flex-row {
       flex-direction: row;
     }
@@ -2282,9 +2283,6 @@
       background-color: var(--color-temu);
     }
   }
-}
-.mi-contenedor {
-  padding-top: env(safe-area-inset-top);
 }
 .cardUsuario {
   clip-path: path("M 0,0 L 0,0 A 30,20 0,0,1 30,20 A 30,30 0,0,0 60,50 A 30,30 0,0,0 90,20 A 30,20 0,0,1 120,0 L 320,0 A 30,30 0,0,1 320,60 L 0,60 A 30,30 0,0,1 0,0 Z");

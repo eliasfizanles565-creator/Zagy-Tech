@@ -113,8 +113,9 @@ const productosDB = [
             
         ],
         videos: [
-            // "assets/videos/albedo-360.mp4",
-            "https://res.cloudinary.com/dmeoj7xbx/video/upload/v1787964476/17_eebcv2.webm",
+            // "assets/videos/albedo-360.mp4", https://res.cloudinary.com/dmeoj7xbx/video/upload/v1787964476/17_eebcv2.webm
+            
+            "assets/35 FIGURA ALBEDO/17.webm",
         ],
         // ─── CARÁTULAS DE CADA VIDEO (mismo orden que videos) ───
         videoPosters: [
