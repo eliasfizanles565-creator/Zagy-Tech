@@ -4265,7 +4265,8 @@ function renderizarCollage(producto, medias) {
         // 'col-span-2 row-span-2',   // 5: alto 2x2
         // 'col-span-2 row-span-2',   // 6: grande 2x2
         // 'col-span-2 row-span-1',   // 7: ancho 2x1
-        'col-span-1 row-span-1',   // 0: grande 2x2
+        'col-span-1 row-span-2',   // 0: grande 2x2
+        'col-span-2 row-span-3',   // 0: grande 2x2
         
     ];
 
