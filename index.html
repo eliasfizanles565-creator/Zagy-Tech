@@ -29,6 +29,7 @@
     <base target="_blank">
     <base target="_blank">
     <base target="_blank">
+<base target="_blank">
 </head>
 <body class="bg-white dark:bg-stone-950">
 
@@ -731,7 +732,7 @@
         <article class="producto-tienda cat-ropa cat-hombre w-[172px] h-[254px] relative sm:w-[234px] sm:h-[381px]" data-id="16" data-titulo="Casaca Cortaviento" data-subtitulo="(Varios Colores)" data-precio="69.90" data-imagen="assets/33 CASACA CORTAVIENTO AZUL/01.webp">
             <div class="absolute inset-0 bg-indigo-100 dark:bg-stone-800 cardProducto"></div>
             <div class="w-[172px] h-52.5 bg-indigo-100 dark:bg-stone-800 cardProductoInner absolute inset-0 overflow-hidden sm:w-[234px] sm:h-78.5">
-                <img src="assets/33 CASACA CORTAVIENTO AZUL/01.webp" alt="" class="w-full h-full object-contain object-[50%_70%] sm:object-[50%_60%]">
+                <img src="assets/33 CASACA CORTAVIENTO AZUL/01.webp" alt="" class="w-full h-full object-contain object-[50%_70%] sm:object-[50%_60%]"> dark:bg-stone-800
             </div>
             <button class="btn-favorito absolute top-1.5 right-1.5 z-20 size-6 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2">
                 <i class="ri-heart-line text-sm text-stone-950 transition-colors duration-200 sm:text-lg"></i>
@@ -1080,20 +1081,20 @@
     <!-- ==================================== -->
     
 
-    <section id="producto-detalle" class="hidden w-full h-full bg-white dark:bg-stone-950 pb-24 lg:pb-10 lg:mt-5 flex- flex-col">
+    <section id="producto-detalle" class="hidden w-full min-h-screen bg-white dark:bg-stone-950 pb-24 lg:pb-10 lg:mt-5">
 
         <div class="bg-white dark:bg-stone-950 border-t border-stone-950/10 dark:border-stone-800 fixed bottom-0 w-full h-33 z-10
         sm:h-35
         lg:hidden"></div>
-        
+    
 
         <!-- LAYOUT PRINCIPAL: en lg se divide en 2 columnas -->
-        <div class="w-full h-full mx-auto flex flex-col gap-y-10
+        <div class="w-full mx-auto  flex flex-col gap-y-10
         sm:w-[95vw]
         lg:flex-row lg:gap-10 lg:max-w-7xl">
             
             <!-- COLUMNA IZQUIERDA: GALERÍA -->
-            <div class="w-full h-full lg:w-[58%] xl:w-1/2 shrink-0">
+            <div class="w-full lg:w-[58%] xl:w-1/2 shrink-0">
                 
                 <!-- GALERÍA: Mini-izq | Principal | Mini-der -->
                 <div class="flex gap-2 sm:gap-3">
@@ -1132,7 +1133,7 @@
                 </div>
 
                 <!-- BARRA HORIZONTAL MINIATURAS (todos los breakpoints) -->
-                <div class="mt-3 sm:mt-4 px-9 sm:px-10 relative">
+                <div class="relative mt-3 sm:mt-4 px-9 sm:px-10">
                     <button id="mini-h-prev" class="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-7 h-7 sm:w-8 sm:h-8 bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-full flex items-center justify-center shadow-sm hover:bg-stone-50 dark:hover:bg-stone-700 transition-colors cursor-pointer">
                         <i class="ri-arrow-left-s-line text-stone-600 dark:text-white text-sm sm:text-base"></i>
                     </button>
@@ -1172,22 +1173,22 @@
                         </span>
                     </div>
                 </div>
-                
+
             </div>
 
             <!-- COLUMNA DERECHA: INFO DEL PRODUCTO -->
-            <div class="w-full h-full px-[2.5vw] flex flex-col
+            <div class="w-full px-[2.5vw] flex flex-col
             sm:px-0 
             lg:w-[42%] lg:mt-0
             xl:w-1/2 mt-5">
                 
-                <!-- Título largo expandible -->
-                <div class="relative mb-3">
-                    <p id="detalle-titulo-largo" class="font-Inter text-sm text-stone-600 dark:text-stone-300 leading-relaxed pr-6 line-clamp-2 transition-all duration-300"></p>
-                    <button id="btn-expandir-titulo" class="absolute bottom-0 right-0 pt-4.5 pl-4 bg-gradient-to-l from-white via-white/80 to-transparent size-10 dark:from-stone-950 dark:via-stone-950/80 cursor-pointer text-temu hover:text-orange-600 z-10">
-                        <i class="ri-arrow-down-s-line text-lg leading-none"></i>
-                    </button>
-                </div>
+            <!-- Título largo expandible -->
+            <div class="relative mb-3">
+                <p id="detalle-titulo-largo" class="font-Inter text-sm text-stone-600 dark:text-stone-300 leading-relaxed pr-6 line-clamp-2 transition-all duration-300"></p>
+                <button id="btn-expandir-titulo" class="absolute bottom-0 right-0 pt-4.5 pl-4 bg-gradient-to-l from-white via-white/80 to-transparent size-10 dark:from-stone-950 dark:via-stone-950/80 cursor-pointer text-temu hover:text-orange-600 z-10">
+                    <i class="ri-arrow-down-s-line text-lg leading-none"></i>
+                </button>
+            </div>
 
                 <!-- Marca -->
                 <div class="mb-2">
@@ -1239,7 +1240,7 @@
                 </div>
 
                 <!-- Contador -->
-                <div class="flex items-center mt-3 w-30 h-11 px-1 rounded-full border-2 border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900 shrink-0
+                    <div class="flex items-center mt-3 w-30 h-11 px-1 rounded-full border-2 border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900 shrink-0
                     sm:h-12 
                     lg:hidden">
                         <button class="detalle-cantidad-menos w-9 sm:w-10 h-full flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-temu transition-colors cursor-pointer text-lg font-bold select-none">
@@ -1251,7 +1252,9 @@
                         <button class="detalle-cantidad-mas w-9 sm:w-10 h-full flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-temu transition-colors cursor-pointer text-lg font-bold select-none">
                             +
                         </button>
-                </div>
+                    </div>
+
+            
 
                 <!-- Cantidad + Agregar + Favorito -->
                 <div class="flex gap-2.5 sm:gap-3 mt-5
@@ -1382,7 +1385,7 @@
         </div>
 
         <!-- COLLAGE (móvil/tablet) -->
-        <div class="w-[95vw] mx-auto lg:max-w-7xl mt-8 sm:mt-10 ">
+        <div class="w-[95vw] mx-auto lg:max-w-7xl mt-8 sm:mt-10 lg:hidden">
             <h2 class="font-Inter font-bold text-base sm:text-lg text-stone-950 dark:text-white mb-3 sm:mb-4" data-i18n="galeriaProducto">Galería del producto</h2>
             <div id="collage-grid" class="grid grid-cols-4 gap-2 sm:gap-2.5"></div>
         </div>
@@ -1431,6 +1434,8 @@
     
 
 
+
+    
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="js/app.js"></script>
