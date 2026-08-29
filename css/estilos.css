@@ -401,11 +401,14 @@
   .z-120 {
     z-index: 120;
   }
+  .z-150 {
+    z-index: 150;
+  }
+  .z-200 {
+    z-index: 200;
+  }
   .z-\[60\] {
     z-index: 60;
-  }
-  .z-\[100\] {
-    z-index: 100;
   }
   .col-span-2 {
     grid-column: span 2 / span 2;
@@ -624,6 +627,9 @@
   }
   .h-70 {
     height: calc(var(--spacing) * 70);
+  }
+  .h-200 {
+    height: calc(var(--spacing) * 200);
   }
   .h-\[254px\] {
     height: 254px;
