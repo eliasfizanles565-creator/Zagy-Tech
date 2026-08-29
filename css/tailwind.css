@@ -898,29 +898,3 @@
 
 
 /* ///////////////////////////////////////////////// */
-/* ===== BOTÓN VOLVER ARRIBA ===== */
-#btn-volver-arriba.mostrar {
-    transform: translateY(0) !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-}
-
-/* En detalle móvil: subir para no tapar el botón "Agregar al carrito" fijo */
-#producto-detalle:not(.hidden) ~ #btn-volver-arriba {
-    bottom: 10.5rem !important; /* 168px, evita el botón fijo del detalle */
-}
-@media (min-width: 1024px) {
-    #producto-detalle:not(.hidden) ~ #btn-volver-arriba {
-        bottom: 2rem !important; /* En PC no hay botón fijo abajo */
-    }
-}
-
-/* En carrito: subir para no tapar "Finalizar compra" */
-#carrito-section:not(.hidden) ~ #btn-volver-arriba {
-    bottom: 9.5rem !important;
-}
-@media (min-width: 640px) {
-    #carrito-section:not(.hidden) ~ #btn-volver-arriba {
-        bottom: 10rem !important;
-    }
-}
