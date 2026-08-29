@@ -509,6 +509,8 @@ document.addEventListener('DOMContentLoaded', () => {
             showHero(categoriaActual);
             updateDisplay();
             scrollToCategory(e.currentTarget);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
             if (panelCategorias && !panelCategorias.classList.contains('hidden')) {
                 sincronizarEsferasPanel();
             }
@@ -1188,6 +1190,9 @@ function activateNav(key, fromHistory = false, resetCategory = true) {
         gestionarVista('favoritos'); 
     }
     else if (key === 'inicio') {
+        if (activeKey === 'inicio') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
         gestionarVista('tienda');
 
          // 🔥 LIMPIAR BÚSQUEDA AL VOLVER A INICIO
