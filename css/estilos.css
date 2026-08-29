@@ -630,8 +630,8 @@
   .h-100 {
     height: calc(var(--spacing) * 100);
   }
-  .h-250 {
-    height: calc(var(--spacing) * 250);
+  .h-350 {
+    height: calc(var(--spacing) * 350);
   }
   .h-450 {
     height: calc(var(--spacing) * 450);
@@ -815,6 +815,9 @@
   }
   .snap-start {
     scroll-snap-align: start;
+  }
+  .scroll-my-2 {
+    scroll-margin-block: calc(var(--spacing) * 2);
   }
   .grid-cols-1 {
     grid-template-columns: repeat(1, minmax(0, 1fr));
