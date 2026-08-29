@@ -695,6 +695,9 @@
   .h-200 {
     height: calc(var(--spacing) * 200);
   }
+  .h-215 {
+    height: calc(var(--spacing) * 215);
+  }
   .h-220 {
     height: calc(var(--spacing) * 220);
   }
@@ -1531,6 +1534,12 @@
   }
   .pt-4\.5 {
     padding-top: calc(var(--spacing) * 4.5);
+  }
+  .pt-10 {
+    padding-top: calc(var(--spacing) * 10);
+  }
+  .pt-15 {
+    padding-top: calc(var(--spacing) * 15);
   }
   .pt-\[1px\] {
     padding-top: 1px;
