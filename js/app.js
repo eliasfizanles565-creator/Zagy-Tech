@@ -4677,29 +4677,41 @@ if ('serviceWorker' in navigator) {
 
 ///////////////////////////////////////////////////////////////////////////////
 // ======================================================
-// BOTÓN VOLVER ARRIBA
+// BOTÓN VOLVER ARRIBA — FUNCIONAL
 // ======================================================
-const btnVolverArriba = document.getElementById('btn-volver-arriba');
+(function initVolverArriba() {
+    const btn = document.getElementById('btn-volver-arriba');
+    if (!btn) return;
 
-function toggleBtnVolverArriba() {
-    if (!btnVolverArriba) return;
-    // Se muestra cuando scrolleas más del 80% de una pantalla
-    if (window.scrollY > window.innerHeight * 0.8) {
-        btnVolverArriba.classList.add('visible');
-    } else {
-        btnVolverArriba.classList.remove('visible');
+    function checkScroll() {
+        // Se muestra cuando bajas más del 75% de tu pantalla
+        const umbral = window.innerHeight * 0.75;
+        if (window.scrollY > umbral) {
+            btn.classList.add('mostrar');
+        } else {
+            btn.classList.remove('mostrar');
+        }
     }
-}
 
-if (btnVolverArriba) {
-    // Detectar scroll
-    window.addEventListener('scroll', toggleBtnVolverArriba, { passive: true });
-    
-    // Click = subir suave
-    btnVolverArriba.addEventListener('click', () => {
+    // Click: subir suave
+    btn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-    
-    // Revisar al cargar por si hay refresh con scroll guardado
-    toggleBtnVolverArriba();
-}
+
+    // Scroll listener (passive para performance)
+    window.addEventListener('scroll', checkScroll, { passive: true });
+
+    // Revisar al cargar (por si hay refresh con scroll guardado)
+    checkScroll();
+
+    // Revisar cuando cambias de vista (tienda → carrito → favoritos → detalle)
+    // porque el scrollY puede cambiar al mostrar/ocultar secciones
+    const secciones = ['producto-detalle', 'carrito-section', 'favoritos-section', 'product-grid'];
+    const observer = new MutationObserver(() => {
+        setTimeout(checkScroll, 50); // pequeño delay para que el DOM se acomode
+    });
+    secciones.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el, { attributes: true, attributeFilter: ['class'] });
+    });
+})();
