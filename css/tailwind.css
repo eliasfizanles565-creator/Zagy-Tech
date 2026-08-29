@@ -898,3 +898,9 @@
 
 
 /* ///////////////////////////////////////////////// */
+/* ===== BOTÓN VOLVER ARRIBA ===== */
+#btn-volver-arriba.mostrar {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}

@@ -4661,16 +4661,98 @@ function setLightboxUIVisible(visible) {
 // =======================================================
 // ======= PWA - GRANDES LIGAS  =======
 // =======================================================
-// Registrar Service Worker (PWA)
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js')
-      .then(reg => console.log('SW registrado:', reg.scope))
-      .catch(err => console.log('SW error:', err));
-  });
-}
+// // Registrar Service Worker (PWA)
+// if ('serviceWorker' in navigator) {
+//   window.addEventListener('load', () => {
+//     navigator.serviceWorker.register('sw.js')
+//       .then(reg => console.log('SW registrado:', reg.scope))
+//       .catch(err => console.log('SW error:', err));
+//   });
+// }
 ///////////////////////////////////////////////////////////////////////////////
 
 
 
 
+
+///////////////////////////////////////////////////////////////////////////////
+// ======================================================
+// BOTÓN VOLVER ARRIBA — V3 SIN CSS CUSTOM
+// ======================================================
+(function initVolverArriba() {
+    const btn = document.getElementById('btn-volver-arriba');
+    if (!btn) return;
+
+    const CLASE_MOSTRAR = ['translate-y-0', 'opacity-100', 'pointer-events-auto'];
+    const CLASE_OCULTAR = ['translate-y-24', 'opacity-0', 'pointer-events-none'];
+
+    function mostrarBoton() {
+        btn.classList.remove(...CLASE_OCULTAR);
+        btn.classList.add(...CLASE_MOSTRAR);
+    }
+
+    function ocultarBoton() {
+        btn.classList.remove(...CLASE_MOSTRAR);
+        btn.classList.add(...CLASE_OCULTAR);
+    }
+
+    function ajustarPosicion() {
+        const detalle = document.getElementById('producto-detalle');
+        const carrito = document.getElementById('carrito-section');
+        const enDetalle = detalle && !detalle.classList.contains('hidden');
+        const enCarrito = carrito && !carrito.classList.contains('hidden');
+
+        // Limpiar posiciones
+        btn.classList.remove('bottom-20', 'bottom-44');
+
+        if (window.innerWidth >= 1024) {
+            btn.classList.add('lg:bottom-8');
+            return;
+        }
+
+        if (enDetalle || enCarrito) {
+            btn.classList.add('bottom-37'); // 11rem = 176px, evita botones fijos
+        } else {
+            btn.classList.add('bottom-20'); // 5rem = 80px, encima de bottom nav
+        }
+    }
+
+    function checkScroll() {
+        const lightbox = document.getElementById('lightbox-detalle');
+        const lightboxAbierto = lightbox && !lightbox.classList.contains('hidden');
+
+        // Si lightbox está abierto, SIEMPRE ocultar
+        if (lightboxAbierto) {
+            ocultarBoton();
+            return;
+        }
+
+        if (window.scrollY > window.innerHeight * 0.75) {
+            mostrarBoton();
+        } else {
+            ocultarBoton();
+        }
+    }
+
+    // Click: subir suave
+    btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    window.addEventListener('scroll', checkScroll, { passive: true });
+    window.addEventListener('resize', () => { ajustarPosicion(); checkScroll(); });
+
+    // Detectar cambio de vista
+    const secciones = ['producto-detalle', 'carrito-section', 'favoritos-section'];
+    const observer = new MutationObserver(() => {
+        ajustarPosicion();
+        setTimeout(checkScroll, 50);
+    });
+    secciones.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el, { attributes: true, attributeFilter: ['class'] });
+    });
+
+    ajustarPosicion();
+    checkScroll();
+})();
