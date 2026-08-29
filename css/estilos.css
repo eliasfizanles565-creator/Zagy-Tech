@@ -10,11 +10,9 @@
       "Courier New", monospace;
     --color-red-500: oklch(63.7% 0.237 25.331);
     --color-orange-100: oklch(95.4% 0.038 75.164);
-    --color-orange-500: oklch(70.5% 0.213 47.604);
     --color-orange-600: oklch(64.6% 0.222 41.116);
     --color-yellow-100: oklch(97.3% 0.071 103.193);
     --color-yellow-400: oklch(85.2% 0.199 91.936);
-    --color-green-400: oklch(79.2% 0.209 151.711);
     --color-green-700: oklch(52.7% 0.154 150.069);
     --color-blue-100: oklch(93.2% 0.032 255.585);
     --color-blue-400: oklch(70.7% 0.165 254.624);
@@ -406,6 +404,9 @@
   .z-\[100\] {
     z-index: 100;
   }
+  .col-span-1 {
+    grid-column: span 1 / span 1;
+  }
   .col-span-2 {
     grid-column: span 2 / span 2;
   }
@@ -462,9 +463,6 @@
   }
   .mt-8 {
     margin-top: calc(var(--spacing) * 8);
-  }
-  .mt-10 {
-    margin-top: calc(var(--spacing) * 10);
   }
   .mr-2 {
     margin-right: calc(var(--spacing) * 2);
@@ -626,12 +624,6 @@
   }
   .h-70 {
     height: calc(var(--spacing) * 70);
-  }
-  .h-100 {
-    height: calc(var(--spacing) * 100);
-  }
-  .h-450 {
-    height: calc(var(--spacing) * 450);
   }
   .h-\[254px\] {
     height: 254px;
@@ -1085,9 +1077,6 @@
   .bg-blue-900 {
     background-color: var(--color-blue-900);
   }
-  .bg-green-400 {
-    background-color: var(--color-green-400);
-  }
   .bg-green-700 {
     background-color: var(--color-green-700);
   }
@@ -1105,9 +1094,6 @@
   }
   .bg-orange-100 {
     background-color: var(--color-orange-100);
-  }
-  .bg-orange-500 {
-    background-color: var(--color-orange-500);
   }
   .bg-pink-100 {
     background-color: var(--color-pink-100);

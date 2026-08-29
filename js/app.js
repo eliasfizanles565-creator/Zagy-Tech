@@ -4257,14 +4257,16 @@ function renderizarCollage(producto, medias) {
 
     // Layouts rotativos usando clases Tailwind estándar
     const layouts = [
-        'col-span-2 row-span-2',   // 0: grande 2x2
-        'col-span-2 row-span-4',   // 1: alto 2x4
-        'col-span-2 row-span-1',   // 2: ancho 2x1
-        'col-span-2 row-span-2',   // 3: grande 2x2
-        'col-span-2 row-span-1',   // 4: ancho 2x1
-        'col-span-2 row-span-2',   // 5: alto 2x2
-        'col-span-2 row-span-2',   // 6: grande 2x2
-        'col-span-2 row-span-1',   // 7: ancho 2x1
+        // 'col-span-2 row-span-2',   // 0: grande 2x2
+        // 'col-span-2 row-span-4',   // 1: alto 2x4
+        // 'col-span-2 row-span-1',   // 2: ancho 2x1
+        // 'col-span-2 row-span-2',   // 3: grande 2x2
+        // 'col-span-2 row-span-1',   // 4: ancho 2x1
+        // 'col-span-2 row-span-2',   // 5: alto 2x2
+        // 'col-span-2 row-span-2',   // 6: grande 2x2
+        // 'col-span-2 row-span-1',   // 7: ancho 2x1
+        'col-span-1 row-span-1',   // 0: grande 2x2
+        
     ];
 
     orden.forEach((imgIdx, pos) => {
