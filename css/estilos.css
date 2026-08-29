@@ -485,6 +485,9 @@
   .mt-8 {
     margin-top: calc(var(--spacing) * 8);
   }
+  .mt-10 {
+    margin-top: calc(var(--spacing) * 10);
+  }
   .mr-2 {
     margin-right: calc(var(--spacing) * 2);
   }
@@ -503,6 +506,9 @@
   .mb-4 {
     margin-bottom: calc(var(--spacing) * 4);
   }
+  .mb-5 {
+    margin-bottom: calc(var(--spacing) * 5);
+  }
   .mb-6 {
     margin-bottom: calc(var(--spacing) * 6);
   }
@@ -520,6 +526,15 @@
   }
   .ml-2 {
     margin-left: calc(var(--spacing) * 2);
+  }
+  .ml-3 {
+    margin-left: calc(var(--spacing) * 3);
+  }
+  .ml-4 {
+    margin-left: calc(var(--spacing) * 4);
+  }
+  .ml-5 {
+    margin-left: calc(var(--spacing) * 5);
   }
   .line-clamp-2 {
     overflow: hidden;
@@ -641,6 +656,9 @@
   .h-16 {
     height: calc(var(--spacing) * 16);
   }
+  .h-17 {
+    height: calc(var(--spacing) * 17);
+  }
   .h-20 {
     height: calc(var(--spacing) * 20);
   }
@@ -676,6 +694,12 @@
   }
   .h-200 {
     height: calc(var(--spacing) * 200);
+  }
+  .h-220 {
+    height: calc(var(--spacing) * 220);
+  }
+  .h-250 {
+    height: calc(var(--spacing) * 250);
   }
   .h-300 {
     height: calc(var(--spacing) * 300);
@@ -969,6 +993,9 @@
   .gap-0\.5 {
     gap: calc(var(--spacing) * 0.5);
   }
+  .gap-0\.75 {
+    gap: calc(var(--spacing) * 0.75);
+  }
   .gap-1 {
     gap: var(--spacing);
   }
@@ -1087,9 +1114,16 @@
   .rounded-tl-xl {
     border-top-left-radius: var(--radius-xl);
   }
+  .rounded-r-full {
+    border-top-right-radius: calc(infinity * 1px);
+    border-bottom-right-radius: calc(infinity * 1px);
+  }
   .rounded-r-xl {
     border-top-right-radius: var(--radius-xl);
     border-bottom-right-radius: var(--radius-xl);
+  }
+  .rounded-tr-4xl {
+    border-top-right-radius: var(--radius-4xl);
   }
   .rounded-b-4xl {
     border-bottom-right-radius: var(--radius-4xl);
@@ -1100,6 +1134,12 @@
   }
   .rounded-br-xl {
     border-bottom-right-radius: var(--radius-xl);
+  }
+  .rounded-bl-4xl {
+    border-bottom-left-radius: var(--radius-4xl);
+  }
+  .rounded-bl-full {
+    border-bottom-left-radius: calc(infinity * 1px);
   }
   .rounded-bl-xl {
     border-bottom-left-radius: var(--radius-xl);
@@ -1441,6 +1481,9 @@
   .px-9 {
     padding-inline: calc(var(--spacing) * 9);
   }
+  .px-10 {
+    padding-inline: calc(var(--spacing) * 10);
+  }
   .px-\[2\.5vw\] {
     padding-inline: 2.5vw;
   }
@@ -1461,6 +1504,12 @@
   }
   .py-4 {
     padding-block: calc(var(--spacing) * 4);
+  }
+  .py-10 {
+    padding-block: calc(var(--spacing) * 10);
+  }
+  .py-20 {
+    padding-block: calc(var(--spacing) * 20);
   }
   .pt-0 {
     padding-top: 0px;
@@ -1491,6 +1540,9 @@
   }
   .pr-6 {
     padding-right: calc(var(--spacing) * 6);
+  }
+  .pr-10 {
+    padding-right: calc(var(--spacing) * 10);
   }
   .pr-14 {
     padding-right: calc(var(--spacing) * 14);
@@ -1525,6 +1577,9 @@
   .pb-15 {
     padding-bottom: calc(var(--spacing) * 15);
   }
+  .pb-20 {
+    padding-bottom: calc(var(--spacing) * 20);
+  }
   .pb-22 {
     padding-bottom: calc(var(--spacing) * 22);
   }
@@ -1549,11 +1604,23 @@
   .pl-5 {
     padding-left: calc(var(--spacing) * 5);
   }
+  .pl-8 {
+    padding-left: calc(var(--spacing) * 8);
+  }
+  .pl-9 {
+    padding-left: calc(var(--spacing) * 9);
+  }
+  .pl-9\.5 {
+    padding-left: calc(var(--spacing) * 9.5);
+  }
   .pl-10 {
     padding-left: calc(var(--spacing) * 10);
   }
   .pl-15 {
     padding-left: calc(var(--spacing) * 15);
+  }
+  .pl-20 {
+    padding-left: calc(var(--spacing) * 20);
   }
   .pl-px {
     padding-left: 1px;
@@ -1622,6 +1689,14 @@
   }
   .text-\[16px\] {
     font-size: 16px;
+  }
+  .leading-0 {
+    --tw-leading: 0px;
+    line-height: 0px;
+  }
+  .leading-1 {
+    --tw-leading: var(--spacing);
+    line-height: var(--spacing);
   }
   .leading-2 {
     --tw-leading: calc(var(--spacing) * 2);
@@ -2080,6 +2155,12 @@
     .sm\:h-78\.75 {
       height: calc(var(--spacing) * 78.75);
     }
+    .sm\:h-100 {
+      height: calc(var(--spacing) * 100);
+    }
+    .sm\:h-120 {
+      height: calc(var(--spacing) * 120);
+    }
     .sm\:h-150 {
       height: calc(var(--spacing) * 150);
     }
@@ -2254,6 +2335,9 @@
     .lg\:h-30 {
       height: calc(var(--spacing) * 30);
     }
+    .lg\:h-100 {
+      height: calc(var(--spacing) * 100);
+    }
     .lg\:h-\[70vh\] {
       height: 70vh;
     }
@@ -2337,6 +2421,9 @@
     }
     .lg\:pb-10 {
       padding-bottom: calc(var(--spacing) * 10);
+    }
+    .lg\:pl-10 {
+      padding-left: calc(var(--spacing) * 10);
     }
     .lg\:backdrop-blur-md {
       --tw-backdrop-blur: blur(var(--blur-md));
