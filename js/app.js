@@ -108,9 +108,9 @@ const productosDB = [
         qu: "Albedo Siqi"
         },
         subtitulo: {
-            es: "35x50 cm",
-            en: "35x50 cm",
-            qu: "35x50 cm"
+            es: "35x50 cm hola",
+            en: "35x50 cm hello",
+            qu: "35x50 cm siqi"
         },
         marca: {
         es: "Marca: BANDAI",
@@ -166,17 +166,17 @@ const productosDB = [
         { 
             nombre: { es: "Albedo", en: "Albedo", qu: "Albedo" }, 
             imagen: "assets/01 albedo.avif", 
-            color: { es: "Estándar", en: "Standard", qu: "Estándar" } 
+            color: { es: "Estándar", en: "Standard", qu: "Kaqlla" } 
         },
         { 
-            nombre: { es: "Albedo Dark", en: "Albedo Dark", qu: "Albedo Yanaq" }, 
+            nombre: { es: "Albedo Oscura", en: "Albedo Dark", qu: "Albedo Tutayasqa" }, 
             imagen: "assets/35 FIGURA ALBEDO/09.jpg", 
             color: { es: "Negro", en: "Black", qu: "Yanaq" } 
         },
         { 
-            nombre: { es: "Albedo Gold", en: "Albedo Gold", qu: "Albedo Oro" }, 
+            nombre: { es: "Albedo Sacerdotisa", en: "Albedo Priestess", qu: "Albedo Tayta Cura" }, 
             imagen: "assets/35 FIGURA ALBEDO/13.webp", 
-            color: { es: "Dorado", en: "Gold", qu: "Oro" } 
+            color: { es: "Púrpura", en: "Purple", qu: "Kulli" } 
         },
         ],
         ///////////////
@@ -275,6 +275,7 @@ function extractBgClass(el) {
 let categoriaActual = 'todos';
 let showingAll = false;
 let swiperTodos, swiperTecnologia, swiperHogar;
+let lightboxStatePushed = false;
 
 // ======================================================
 // LOCALSTORAGE HELPERS
@@ -726,6 +727,7 @@ function animarFlyToCart(btnOrigen, imagenUrl) {
 document.addEventListener('click', (e) => {
     const btnCircular = e.target.closest('.btn-agregar-carrito');
     if (!btnCircular) return;
+    
     const producto = {
         id: parseInt(btnCircular.dataset.id),
         titulo: btnCircular.dataset.titulo,
@@ -733,29 +735,60 @@ document.addEventListener('click', (e) => {
         precio: parseFloat(btnCircular.dataset.precio),
         imagen: btnCircular.dataset.imagen
     };
-    // 🔥 SI VIENE UNA VARIANTE DESDE FAVORITOS, LA PASAMOS AL CARRITO
+    
+    // 🔥 SOLO aceptar variantes reales (con key numérica del detalle/favoritos)
+    // Ignorar completamente variantes hardcodeadas del HTML estático
     if (btnCircular.dataset.variante) {
-        try { producto.variante = JSON.parse(btnCircular.dataset.variante); } catch(e) {}
+        try { 
+            const varParsed = JSON.parse(btnCircular.dataset.variante);
+            if (varParsed && typeof varParsed.key === 'number') {
+                producto.variante = varParsed;
+            }
+            // Si no tiene key numérica, NO se asigna variante (tratado como base)
+        } catch(e) {}
     }
+    
     agregarAlCarrito(producto);
     animarFlyToCart(btnCircular, producto.imagen);
 });
 
 function agregarAlCarrito(producto) {
-    const index = carritoDeCompras.findIndex(item => 
-        item.id === producto.id && 
-        (item.variante?.valor || '') === (producto.variante?.valor || '')
-    );
+    // ¿Es base? (sin variante, null, o sin key numérica)
+    const esBase = (v) => !v || v === null || typeof v.key !== 'number';
+    
+    const prodEsBase = esBase(producto.variante);
+    
+    const index = carritoDeCompras.findIndex(item => {
+        const itemEsBase = esBase(item.variante);
+        if (item.id !== producto.id) return false;
+        
+        // Ambos son base → mismo item
+        if (prodEsBase && itemEsBase) return true;
+        
+        // Ambos son variantes reales → comparar por key
+        if (!prodEsBase && !itemEsBase) {
+            return (item.variante?.key === producto.variante?.key);
+        }
+        
+        // Uno es base y otro no → diferentes
+        return false;
+    });
     
     if (index !== -1) {
         carritoDeCompras[index].cantidad += 1;
     } else {
-        carritoDeCompras.push({ 
+        const itemLimpio = { 
             ...producto, 
             cantidad: 1, 
             cartId: Date.now().toString(36) + Math.random().toString(36).substr(2, 5)
-        });
+        };
+        // Si es base, eliminar la propiedad variante por completo
+        if (prodEsBase) {
+            delete itemLimpio.variante;
+        }
+        carritoDeCompras.push(itemLimpio);
     }
+    
     guardarCarrito();
     renderizarCarrito();
     sincronizarBadgesCantidad();
@@ -774,29 +807,57 @@ function renderizarCarrito() {
     let precioTotalGeneral = 0;
     carritoDeCompras.forEach(item => {
         const prod = getProducto(item.id);
-        const tituloItem = prod ? tp(prod, 'titulo', item.titulo) : item.titulo;
-        const subtituloItem = prod ? tp(prod, 'subtitulo', item.subtitulo) : item.subtitulo;
+        
+        let tituloItem = item.titulo || '';
+        if (typeof tituloItem === 'object') {
+            tituloItem = tituloItem[idiomaActual] || tituloItem.es || tituloItem.en || '';
+        }
+        if (prod) tituloItem = tp(prod, 'titulo', tituloItem);
+        
+        let subtituloItem = item.subtitulo || '';
+        if (typeof subtituloItem === 'object') {
+            subtituloItem = subtituloItem[idiomaActual] || subtituloItem.es || subtituloItem.en || '';
+        }
+        if (prod) subtituloItem = tp(prod, 'subtitulo', subtituloItem);
 
         const subtotalItem = item.precio * item.cantidad;
         precioTotalGeneral += subtotalItem;
         
         const subtotalStr = subtotalItem.toFixed(2);
-// Si el número es muy largo, baja el tamaño para que no rompa la línea
-const subSizeClass = subtotalStr.length > 7 ? 'text-sm' : 'text-lg';
+        const subSizeClass = subtotalStr.length > 7 ? 'text-sm' : 'text-lg';
 
-// Reemplaza el botón de "Color: Estandar" en renderizarCarrito por:
-const varianteTexto = item.variante 
-    ? `${item.variante.tipo}: ${item.variante.valor}` 
-    : 'Color: Estándar';
+        // VARIANTE
+        let varianteTexto = '';
+        if (item.variante) {
+            let valorMostrar = item.variante.valor || '';
+            if (prod?.estilos && typeof item.variante.key === 'number' && prod.estilos[item.variante.key]) {
+                const estiloDB = prod.estilos[item.variante.key];
+                valorMostrar = tEstilo(estiloDB, 'color') || tEstilo(estiloDB);
+            } else if (typeof valorMostrar === 'object') {
+                valorMostrar = valorMostrar[idiomaActual] || valorMostrar.es || '';
+            }
+            const tipoVar = item.variante.tipo || 'Color';
+            varianteTexto = `${tipoVar}: ${valorMostrar}`;
+        } else {
+            // BASE: leer el COLOR del estilo base desde productosDB
+            const tipo = prod?.tipoVariante || 'estilo';
+            const labelMap = { estilo: 'Estilo', color: 'Color', talla: 'Talla' };
+            const label = labelMap[tipo] || 'Estilo';
+            
+            let colorBase = 'Estándar';
+            if (prod?.estilos?.length) {
+                const nombreBase = tp(prod, 'estilo');
+                const estiloBase = prod.estilos.find(est => tEstilo(est) === nombreBase) || prod.estilos[0];
+                colorBase = tEstilo(estiloBase, 'color') || tEstilo(estiloBase);
+            }
+            varianteTexto = `${label}: ${colorBase}`;
+        }
 
-const articleHTML = `
+        const articleHTML = `
     <div class="swipe-wrapper shadow-lg shadow-stone-400 dark:shadow-temu/0 relative rounded-xl" data-swipe-id="${item.cartId}">
-        <!-- Botón rojo que aparece al deslizar -->
         <div class="swipe-delete-btn absolute right-0 top-0 bottom-0 w-20 flex items-center justify-center z-0 cursor-pointer rounded-r-xl">
             <i class="ri-delete-bin-6-line text-white text-xl"></i>
         </div>
-
-        <!-- Card principal (se desliza) -->
         <article class="card-swipe relative z-10 flex gap-3 py-2 rounded-xl justify-between" data-id="${item.id}" data-titulo="${tituloItem}" data-subtitulo="${subtituloItem}">
             <article class="flex gap-3 min-w-0">
                 <div class="size-20 ml-2 rounded-lg overflow-hidden shrink-0 cursor-pointer" onclick="event.stopPropagation(); abrirDetalleProducto(${item.id})">
@@ -804,8 +865,8 @@ const articleHTML = `
                 </div>
                 <div class="flex flex-col items-start justify-center gap-1 min-w-0">
                     <div>
-                        <p class="font-Inter font-medium text-xs truncate w-full dark:text-temu">${item.titulo}</p>
-                        <p class="font-Inter font-medium text-xs truncate w-ful dark:text-temu">${item.subtitulo}</p>
+                        <p class="font-Inter font-medium text-xs truncate w-full dark:text-temu">${tituloItem}</p>
+                        <p class="font-Inter font-medium text-xs truncate w-full dark:text-temu">${subtituloItem}</p>
                     </div>
                     <button class="h-6 w-30 bg-verdeTemu3 dark:bg-stone-800 rounded-4xl flex justify-center items-center text-xs font-semibold text-white dark:text-verdeTemu2">
                         ${varianteTexto}
@@ -813,9 +874,7 @@ const articleHTML = `
                     <p class="text-xs font-bold font-MontAlternates dark:text-stone-500">s/ ${item.precio.toFixed(2)}</p>
                 </div>
             </article>
-
             <div class="flex flex-col justify-start items-end mr-2 mt-6 shrink-0">
-                <!-- s/ y número juntos, nunca se rompen, se encojen si es necesario -->
                 <p class="${subSizeClass} text-temu font-Russo pr-1 leading-3 whitespace-nowrap">s/ ${subtotalStr}</p>
                 <div class="flex justify-center items-center h-5 w-15 rounded-4xl bg-stone-950 dark:bg-stone-800 gap-2 text-white dark:text-white/70 font-semibold mt-5">
                     <button onclick="cambiarCantidad('${item.cartId}', -1)" class="bg-transparent cursor-pointer rounded-4xl size-5 flex items-center justify-center">-</button>
@@ -825,8 +884,6 @@ const articleHTML = `
                     <button onclick="cambiarCantidad('${item.cartId}', 1)" class="bg-transparent cursor-pointer rounded-4xl size-5 flex items-center justify-center">+</button>
                 </div>
             </div>
-
-            <!-- Tachito de la esquina superior derecha (click directo) -->
             <div class="btn-tachito bg-temu h-5 w-7 absolute top-0 right-0 rounded-bl-xl flex justify-center items-center text-white cursor-pointer z-20" onclick="eliminarArticulo('${item.cartId}')">
                 <i class="ri-delete-bin-6-line text-xs pl-1"></i>
             </div>
@@ -837,25 +894,17 @@ const articleHTML = `
     });
     
     const precioStr = precioTotalGeneral.toFixed(2);
-const [entero, decimal] = precioStr.split('.');
-const totalChars = precioStr.length;
+    const [entero, decimal] = precioStr.split('.');
+    const totalChars = precioStr.length;
+    let totalSizeClass = 'text-3xl';
+    let decimalSizeClass = 'text-xl';
+    if (totalChars > 9) { totalSizeClass = 'text-xl'; decimalSizeClass = 'text-base'; }
+    else if (totalChars > 7) { totalSizeClass = 'text-2xl'; decimalSizeClass = 'text-lg'; }
 
-// Si el número es muy largo, reduce el tamaño para que no rompa el layout
-let totalSizeClass = 'text-3xl';
-let decimalSizeClass = 'text-xl';
-if (totalChars > 9) {
-    totalSizeClass = 'text-xl';
-    decimalSizeClass = 'text-base';
-} else if (totalChars > 7) {
-    totalSizeClass = 'text-2xl';
-    decimalSizeClass = 'text-lg';
-}
-
-if (elementoTotal) {
-    elementoTotal.innerHTML = `<span class="font-Russo ${totalSizeClass} whitespace-nowrap">s/ ${entero}.<span class="${decimalSizeClass} font-Russo">${decimal}</span></span>`;
-}
+    if (elementoTotal) {
+        elementoTotal.innerHTML = `<span class="font-Russo ${totalSizeClass} whitespace-nowrap">s/ ${entero}.<span class="${decimalSizeClass} font-Russo">${decimal}</span></span>`;
+    }
     
-    // ¡IMPORTANTE! Inicializar el swipe después de pintar
     initSwipeDelete();
 }
 
@@ -979,11 +1028,46 @@ function renderizarFavoritos() {
 
     favoritos.forEach(item => {
         const prod = getProducto(item.id);
-        const tituloFav = prod ? tp(prod, 'titulo', item.titulo) : item.titulo;
-        const subtituloFav = prod ? tp(prod, 'subtitulo', item.subtitulo) : item.subtitulo;
+        
+        let tituloFav = item.titulo || '';
+        if (typeof tituloFav === 'object') {
+            tituloFav = tituloFav[idiomaActual] || tituloFav.es || tituloFav.en || '';
+        }
+        if (prod) tituloFav = tp(prod, 'titulo', tituloFav);
+        
+        let subtituloFav = item.subtitulo || '';
+        if (typeof subtituloFav === 'object') {
+            subtituloFav = subtituloFav[idiomaActual] || subtituloFav.es || subtituloFav.en || '';
+        }
+        if (prod) subtituloFav = tp(prod, 'subtitulo', subtituloFav);
+        
+        let textoVariante = subtituloFav;
+        if (item.variante) {
+            let valorMostrar = item.variante.valor || '';
+            if (prod?.estilos && typeof item.variante.key === 'number' && prod.estilos[item.variante.key]) {
+                const estiloDB = prod.estilos[item.variante.key];
+                valorMostrar = tEstilo(estiloDB, 'color') || tEstilo(estiloDB);
+            } else if (typeof valorMostrar === 'object') {
+                valorMostrar = valorMostrar[idiomaActual] || valorMostrar.es || '';
+            }
+            textoVariante = `${item.variante.tipo || 'Color'}: ${valorMostrar}`;
+        } else if (prod) {
+            // BASE: leer el COLOR del estilo base
+            const tipo = prod.tipoVariante || 'estilo';
+            const labelMap = { estilo: 'Estilo', color: 'Color', talla: 'Talla' };
+            const label = labelMap[tipo] || 'Estilo';
+            
+            let colorBase = 'Estándar';
+            if (prod.estilos?.length) {
+                const nombreBase = tp(prod, 'estilo');
+                const estiloBase = prod.estilos.find(est => tEstilo(est) === nombreBase) || prod.estilos[0];
+                colorBase = tEstilo(estiloBase, 'color') || tEstilo(estiloBase);
+            }
+            textoVariante = `${label}: ${colorBase}`;
+        }
 
         const cardHTML = `
-        <article class="w-[172px] h-[254px] relative sm:w-[234px] sm:h-[381px]" data-id="${item.id}" data-titulo="${tituloFav}" data-subtitulo="${item.variante ? item.variante.tipo + ': ' + item.variante.valor : subtituloFav}" data-imagen="${item.imagenVariante || item.imagen}" ${item.variante ? `data-variante='${JSON.stringify(item.variante)}'` : ''}>
+        <article class="w-[172px] h-[254px] relative sm:w-[234px] sm:h-[381px]" data-id="${item.id}" data-titulo="${tituloFav}" data-subtitulo="${subtituloFav}" data-imagen="${item.imagenVariante || item.imagen}" ${item.variante ? `data-variante='${JSON.stringify(item.variante)}'` : ''}>
             <div class="${item.clsProducto || 'absolute inset-0 bg-stone-950 dark:bg-temu cardProducto'}"></div>
             <div class="${item.clsProductoInner || 'w-[172px] h-52.5 bg-white dark:bg-stone-900 cardProductoInner absolute inset-0 overflow-hidden border border-stone-950 dark:border-temu sm:w-[234px] sm:h-78.75'}">
                 <img src="${item.imagenVariante || item.imagen}" alt="" class="${item.clsImgProducto || 'w-full h-full object-cover object-[50%_70%] sm:object-[50%_60%]'}">
@@ -995,20 +1079,18 @@ function renderizarFavoritos() {
                 <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ ${parseFloat(item.precio).toFixed(2)}</p>
             </div>
             <button class="${item.clsBtnCarrito || 'btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]'}"
-            data-id="${item.id}" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}" data-precio="${item.precio}" data-imagen="${item.imagenVariante || item.imagen}" ${item.variante ? `data-variante='${JSON.stringify(item.variante)}'` : ''}>
+            data-id="${item.id}" data-titulo="${tituloFav}" data-subtitulo="${subtituloFav}" data-precio="${item.precio}" data-imagen="${item.imagenVariante || item.imagen}" ${item.variante ? `data-variante='${JSON.stringify(item.variante)}'` : ''}>
                 <i class="${item.clsCarritoIcon || 'ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]'}"></i>
             </button>
             <div class="${item.clsInfo || 'absolute bg-stone-950 dark:bg-temu bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15'}"></div>
             <div class="${item.clsInfoInner || 'w-[172px] h-10 absolute bottom-0 bg-puro dark:bg-stone-900 dark:text-temu cardInfoInner flex flex-col justify-center border border-stone-950 dark:border-temu sm:w-[234px] sm:h-15'}">
-                <p class="${item.clsTitle || 'font-Inter text-xs font-extrabold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25'}">${item.titulo}</p>
-                <p class="${item.clsSubtitle || 'font-Inter text-xs font-extrabold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5'}">${item.variante ? item.variante.tipo + ': ' + item.variante.valor : item.subtitulo}</p>
+                <p class="${item.clsTitle || 'font-Inter text-xs font-extrabold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25'}">${tituloFav}</p>
+                <p class="${item.clsSubtitle || 'font-Inter text-xs font-extrabold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5'}">${textoVariante}</p>
             </div>
             ${item.clsBtnDots ? `<button class="${item.clsBtnDots}">${item.dotsHTML || ''}</button>` : ''}
         </article>`;
     
         grid.insertAdjacentHTML('beforeend', cardHTML);
-
-         // 🔥 PINTAR BADGES EN LAS CARDS RECIÉN CREADAS
         sincronizarBadgesCantidad();
     });
 }
@@ -2556,33 +2638,52 @@ function _t() {
     return traducciones[idiomaActual] || traducciones.es;
 }
 
+function recargarGridIdioma() {
+    const grid = document.getElementById('product-grid');
+    if (!grid) return;
+    
+    grid.querySelectorAll('article[data-id]').forEach(card => {
+        const id = parseInt(card.dataset.id);
+        const prod = getProducto(id);
+        if (!prod) return;
+        
+        const infoInner = card.querySelector('.cardInfoInner');
+        if (!infoInner) return;
+        
+        const ps = infoInner.querySelectorAll('p');
+        const tituloTraducido = tp(prod, 'titulo');
+        const subtituloTraducido = tp(prod, 'subtitulo');
+        
+        if (ps[0]) ps[0].textContent = tituloTraducido;
+        if (ps[1]) ps[1].textContent = subtituloTraducido;
+        
+        // Actualizar dataset para que la búsqueda funcione con el nuevo idioma
+        card.dataset.titulo = tituloTraducido;
+        card.dataset.subtitulo = subtituloTraducido;
+    });
+}
+
+
 function aplicarIdioma(lang) {
     idiomaActual = lang;
     const t = traducciones[lang];
     if (!t) return;
     
-    // Actualizar todos los elementos con data-i18n
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const clave = el.getAttribute('data-i18n');
         if (t[clave]) el.textContent = t[clave];
     });
 
-    // 2. AQUÍ VA EL PLACEHOLDER DEL BUSCADOR
     const inputBuscar = document.getElementById('buscador');
     if (inputBuscar && t.buscarPlaceholder) {
         inputBuscar.placeholder = t.buscarPlaceholder;
     }
 
-    
-     // ============================================
-    // ACTUALIZAR BOTONES VISUALES (ES / EN / QU)
-    // ============================================
     const botones = {
         es: document.getElementById('btn-lang-es'),
         en: document.getElementById('btn-lang-en'),
         qu: document.getElementById('btn-lang-qu')
     };
-
     Object.keys(botones).forEach(key => {
         const btn = botones[key];
         if (!btn) return;
@@ -2595,9 +2696,22 @@ function aplicarIdioma(lang) {
         }
     });
 
+    // ═══ Carrito (siempre refrescar) ═══
     renderizarCarrito();
     
-    // Si el detalle está abierto, recargar textos dinámicos
+    // ═══ Grid de productos (solo si está visible) ═══
+    const grid = document.getElementById('product-grid');
+    if (grid && !grid.classList.contains('hidden')) {
+        recargarGridIdioma();
+    }
+    
+    // ═══ Favoritos (solo si está visible) ═══
+    const favoritosSection = document.getElementById('favoritos-section');
+    if (favoritosSection && !favoritosSection.classList.contains('hidden')) {
+        renderizarFavoritos();
+    }
+    
+    // ═══ Detalle de producto (solo si está abierto) ═══
     const detalleSection = document.getElementById('producto-detalle');
     if (detalleSection && !detalleSection.classList.contains('hidden')) {
         recargarTextosDetalle();
@@ -3743,6 +3857,10 @@ function abrirLightbox(startIdx) {
         else btnCarritoLb.classList.add('hidden');
         actualizarBotonLightboxCarrito();
     }
+
+    // ═══ CAPTURAR BOTÓN ATRÁS DEL NAVEGADOR/CELULAR ═══
+    lightboxStatePushed = true;
+    history.pushState({ lightbox: true }, '', location.href);
 }
 
 function marcarMiniOverlayActiva(idxActivo) {
@@ -3908,17 +4026,16 @@ function setLightboxPadding(zoomed) {
 }
 
 function cerrarLightbox() {
-    setLightboxUIVisible(true); // ← RESET al cerrar
+    setLightboxUIVisible(true);
     setLightboxPadding(true);
-    // Ocultar botón de carrito del lightbox
     const btnCarritoLb = document.getElementById('lightbox-btn-carrito');
     if (btnCarritoLb) btnCarritoLb.classList.add('hidden');
 
     const lightbox = document.getElementById('lightbox-detalle');
     const contadorLb = document.getElementById('lightbox-contador');
-    if (!lightbox) return;
+    if (!lightbox || lightbox.classList.contains('hidden')) return;
     
-    
+    // Cerrar visualmente primero
     lightbox.classList.add('hidden');
     if (contadorLb) contadorLb.classList.add('hidden');
     document.body.style.overflow = '';
@@ -3936,6 +4053,12 @@ function cerrarLightbox() {
     if (window.swiperOverlayMini) {
         window.swiperOverlayMini.destroy(true, true);
         window.swiperOverlayMini = null;
+    }
+    
+    // Limpiar la entrada del historial si la creamos nosotros
+    if (lightboxStatePushed) {
+        lightboxStatePushed = false;
+        history.back();
     }
 }
 
@@ -3986,14 +4109,34 @@ function recargarTextosDetalle() {
     const producto = getProducto(productoActualId);
     if (!producto) return;
 
-    // Título largo
+    // ═══ Título normal ═══
+    const elTitulo = document.getElementById('detalle-titulo');
+    if (elTitulo) elTitulo.textContent = tp(producto, 'titulo');
+
+    // ═══ Subtítulo ═══
+    const elSubtitulo = document.getElementById('detalle-subtitulo');
+    if (elSubtitulo) elSubtitulo.textContent = tp(producto, 'subtitulo');
+
+    // ═══ Marca ═══
+    const elMarca = document.getElementById('detalle-marca');
+    if (elMarca) elMarca.textContent = tp(producto, 'marca');
+
+    // ═══ Estilo base (nombre del producto) ═══
+    const elEstilo = document.getElementById('detalle-estilo-nombre');
+    if (elEstilo) elEstilo.textContent = tp(producto, 'estilo');
+
+    // ═══ Disponible ═══
+    const elDisp = document.getElementById('detalle-disponible');
+    if (elDisp) elDisp.textContent = (producto.disponible || 0) + ' ' + _t().disponible;
+
+    // ═══ Título largo expandible ═══
     const tituloLargo = document.getElementById('detalle-titulo-largo');
     if (tituloLargo) {
         tituloLargo.textContent = producto.tituloLargo?.[idiomaActual] || producto.tituloLargo?.es || '';
         initTituloLargo();
     }
 
-    // Accordions
+    // ═══ Accordions ═══
     const accEnv = document.getElementById('accordion-envio');
     const accGar = document.getElementById('accordion-garantia');
     const accDet = document.getElementById('accordion-detalles');
@@ -4003,6 +4146,37 @@ function recargarTextosDetalle() {
     if (accGar) accGar.textContent = producto.garantia?.[idiomaActual] || producto.garantia?.es || '';
     if (accDet) accDet.textContent = producto.detalles?.[idiomaActual] || producto.detalles?.es || '';
     if (accDon) accDon.textContent = producto.donacion?.[idiomaActual] || producto.donacion?.es || '';
+
+    // ═══ RE-RENDERIZAR MINIATURAS DE ESTILO CON TRADUCCIÓN FRESCA ═══
+    const keyActiva = estiloSeleccionado?.key;
+    renderizarEstilos(producto);
+
+    // Restaurar selección visual y actualizar texto del estilo elegido
+    if (keyActiva !== undefined && producto.estilos?.[keyActiva]) {
+        const container = document.getElementById('detalle-estilos-container');
+        if (container) {
+            container.querySelectorAll('.estilo-btn').forEach((btn, idx) => {
+                if (parseInt(btn.dataset.key) === keyActiva) {
+                    btn.classList.add('activo');
+                } else {
+                    btn.classList.remove('activo');
+                }
+            });
+        }
+
+        const est = producto.estilos[keyActiva];
+        const nombreTraducido = tEstilo(est);
+        const colorTraducido = tEstilo(est, 'color') || nombreTraducido;
+
+        estiloSeleccionado = {
+            nombre: nombreTraducido,
+            color: colorTraducido,
+            imagen: est.imagen,
+            key: keyActiva
+        };
+
+        if (elEstilo) elEstilo.textContent = nombreTraducido;
+    }
 }
 
 function enablePinchZoom(img) {
@@ -4102,37 +4276,48 @@ function renderizarEstilos(producto) {
 
     const estilos = producto.estilos || [];
     if (!estilos.length) {
-        // Fallback: un solo estilo con imagen principal
-        estilos.push({ nombre: producto.estilo || 'Estándar', imagen: producto.imagenes?.[0] || '', color: 'Estándar' });
+        const nombreBase = tp(producto, 'estilo') || 'Estándar';
+        estilos.push({ 
+            nombre: producto.estilo || 'Estándar', 
+            imagen: producto.imagenes?.[0] || '', 
+            color: producto.estilo || 'Estándar'
+        });
     }
 
     estilos.forEach((est, idx) => {
         const btn = document.createElement('div');
+        const nombreTraducido = tEstilo(est);
+        const colorTraducido = tEstilo(est, 'color') || nombreTraducido;
+        
         btn.className = 'estilo-btn' + (idx === 0 ? ' activo' : '');
-        btn.dataset.nombre = est.nombre;
-        btn.dataset.color = est.color || est.nombre;
+        btn.dataset.nombre = nombreTraducido;
+        btn.dataset.color = colorTraducido;
         btn.dataset.imagen = est.imagen;
+        btn.dataset.key = idx;   // ← ÍNDICE INVARIANTE
 
         const isVideo = est.imagen && est.imagen.match(/\.(mp4|webm|ogg|mov)$/i);
         if (isVideo) {
             btn.innerHTML = `<video src="${est.imagen}" preload="metadata" muted playsinline style="width:100%;height:100%;object-fit:cover;"></video>`;
         } else {
-            btn.innerHTML = `<img src="${est.imagen}" alt="${est.nombre}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">`;
+            btn.innerHTML = `<img src="${est.imagen}" alt="${nombreTraducido}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">`;
         }
-        if (est.color && est.color !== est.nombre) {
-            btn.innerHTML += `<div class="estilo-label">${est.color}</div>`;
+        if (colorTraducido && colorTraducido !== nombreTraducido) {
+            btn.innerHTML += `<div class="estilo-label">${colorTraducido}</div>`;
         }
 
         btn.addEventListener('click', () => {
             container.querySelectorAll('.estilo-btn').forEach(b => b.classList.remove('activo'));
             btn.classList.add('activo');
-            estiloSeleccionado = { nombre: est.nombre, color: est.color || est.nombre, imagen: est.imagen };
-            document.getElementById('detalle-estilo-nombre').textContent = tEstilo(est);
+            estiloSeleccionado = { 
+                nombre: nombreTraducido, 
+                color: colorTraducido, 
+                imagen: est.imagen,
+                key: idx
+            };
+            document.getElementById('detalle-estilo-nombre').textContent = nombreTraducido;
             const imgPrincipal = document.getElementById('img-principal');
             if (imgPrincipal) imgPrincipal.src = est.imagen;
-            sincronizarFavoritoDetalle(); // 🔥 ACTUALIZAR CORAZÓN AL CAMBIAR ESTILO
-
-            // 🔥 AGREGAR ESTAS 3 LÍNEAS AQUÍ:
+            sincronizarFavoritoDetalle();
             cantidadDetalle = 1;
             actualizarCantidadDisplay();
             actualizarPrecioDetalle();
@@ -4142,10 +4327,13 @@ function renderizarEstilos(producto) {
     });
 
     if (estilos.length && !estiloSeleccionado) {
+        const firstName = tEstilo(estilos[0]);
+        const firstColor = tEstilo(estilos[0], 'color') || firstName;
         estiloSeleccionado = { 
-            nombre: tEstilo(estilos[0]), 
-            color: tEstilo(estilos[0], 'color') || tEstilo(estilos[0]), 
-            imagen: estilos[0].imagen 
+            nombre: firstName, 
+            color: firstColor, 
+            imagen: estilos[0].imagen,
+            key: 0
         };
     }
 }
@@ -4214,18 +4402,20 @@ document.getElementById('detalle-btn-carrito')?.addEventListener('click', (e) =>
     const labelMap = { estilo: 'Estilo', color: 'Color', talla: 'Talla' };
     const label = labelMap[tipo] || 'Estilo';
 
-    // 🔥 SI ES EL ESTILO BASE, NO ENVIAR VARIANTE (suma con la card original del grid)
-    const esEstiloBase = estiloSeleccionado && estiloSeleccionado.nombre === producto.estilo;
+    // CORREGIDO: usar tp() porque producto.estilo es {es,en,qu} directo
+    const nombreEstiloBase = tp(producto, 'estilo');
+    const esEstiloBase = estiloSeleccionado && estiloSeleccionado.nombre === nombreEstiloBase;
 
     const itemBase = {
         id: producto.id,
-        titulo: producto.titulo,
-        subtitulo: producto.subtitulo,
+        titulo: tp(producto, 'titulo'),
+        subtitulo: tp(producto, 'subtitulo'),
         precio: producto.precio,
         imagen: estiloSeleccionado?.imagen || producto.imagenes?.[0] || '',
         variante: esEstiloBase ? null : {
             tipo: label,
-            valor: estiloSeleccionado.color || estiloSeleccionado.nombre
+            valor: estiloSeleccionado?.color || estiloSeleccionado?.nombre || 'Estándar',
+            key: estiloSeleccionado?.key
         }
     };
 
@@ -4274,26 +4464,26 @@ document.getElementById('detalle-btn-favorito')?.addEventListener('click', () =>
     const labelMap = { estilo: 'Estilo', color: 'Color', talla: 'Talla' };
     const label = labelMap[tipo] || 'Estilo';
     
-    const esEstiloBase = estiloSeleccionado && producto && estiloSeleccionado.nombre === producto.estilo;
+    // CORREGIDO
+    const nombreEstiloBase = tp(producto, 'estilo');
+    const esEstiloBase = estiloSeleccionado && estiloSeleccionado.nombre === nombreEstiloBase;
     
     const productoFav = {
         id: producto.id,
-        titulo: producto.titulo,
-        subtitulo: producto.subtitulo,
+        titulo: tp(producto, 'titulo'),
+        subtitulo: tp(producto, 'subtitulo'),
         precio: producto.precio,
-        // 🔥 IMAGEN DEL ESTILO SELECCIONADO (incluso para el base)
         imagen: estiloSeleccionado?.imagen || producto.imagenes?.[0] || '',
     };
     
     if (esEstiloBase) {
-        // Base: marcarlo para que toggleFavorito busque exacto y no confunda con variantes
         productoFav.esBase = true;
     } else if (estiloSeleccionado) {
-        // Variante alternativa
         productoFav.imagenVariante = estiloSeleccionado.imagen;
         productoFav.variante = {
             tipo: label,
-            valor: estiloSeleccionado.color || estiloSeleccionado.nombre
+            valor: estiloSeleccionado.color || estiloSeleccionado.nombre,
+            key: estiloSeleccionado.key
         };
     }
     
@@ -4653,6 +4843,33 @@ document.addEventListener('keydown', (e) => {
 // ======================================================
 
 window.addEventListener('popstate', (e) => {
+    const lightbox = document.getElementById('lightbox-detalle');
+    const estaAbiertoLb = lightbox && !lightbox.classList.contains('hidden');
+    
+    // ═══ PRIORIDAD MÁXIMA: Cerrar lightbox con botón Atrás ═══
+    if (estaAbiertoLb) {
+        lightbox.classList.add('hidden');
+        document.getElementById('lightbox-contador')?.classList.add('hidden');
+        document.body.style.overflow = '';
+        
+        if (swiperLightbox) {
+            swiperLightbox.slides.forEach(slide => {
+                const vid = slide.querySelector('video');
+                if (vid) { vid.pause(); vid.currentTime = 0; vid.removeAttribute('src'); vid.load(); }
+                const img = slide.querySelector('img');
+                if (img && img._cleanupZoom) img._cleanupZoom();
+            });
+            swiperLightbox.destroy(true, true);
+            swiperLightbox = null;
+        }
+        if (window.swiperOverlayMini) {
+            window.swiperOverlayMini.destroy(true, true);
+            window.swiperOverlayMini = null;
+        }
+        lightboxStatePushed = false;
+        return; // ← Detener aquí, no tocar el detalle
+    }
+    
     const detalle = document.getElementById('producto-detalle');
     const estaAbiertoDetalle = detalle && !detalle.classList.contains('hidden');
     
@@ -4660,7 +4877,7 @@ window.addEventListener('popstate', (e) => {
         // 🔥 PRIORIDAD 1: Restaurar búsqueda
         if (e.state.vista === 'busqueda') {
             if (estaAbiertoDetalle) {
-                cerrarDetalleProducto(false); // ya restaura la búsqueda dentro
+                cerrarDetalleProducto(false);
             } else {
                 crearCategoriaBusqueda(e.state.query, true);
             }
@@ -4680,7 +4897,6 @@ window.addEventListener('popstate', (e) => {
             if (estaAbiertoDetalle) {
                 cerrarDetalleProducto(false);
             }
-            // Si no es búsqueda, limpiar cualquier búsqueda activa
             if (btnCategoriaBusqueda) eliminarCategoriaBusqueda(false);
             
             if (e.state.vista === 'carrito') {
@@ -4690,7 +4906,7 @@ window.addEventListener('popstate', (e) => {
             } else {
                 categoriaActual = e.state.categoria || 'todos';
                 showingAll = e.state.showingAll || false;
-                activateNav('inicio', true, false); // ← resetCategory = false
+                activateNav('inicio', true, false);
             }
         }
     } else {
@@ -4768,13 +4984,24 @@ function actualizarBotonLightboxCarrito() {
         estiloEncontrado = getEstiloPorImagen(producto, mediaActual.src);
     }
 
-    const nombreEstilo = estiloEncontrado 
-        ? estiloEncontrado.nombre 
-        : (estiloSeleccionado?.nombre || producto.estilo || 'Estándar');
+    let nombreMostrar = '';
+    if (estiloEncontrado) {
+        nombreMostrar = tEstilo(estiloEncontrado, 'color') || tEstilo(estiloEncontrado);
+    } else if (estiloSeleccionado) {
+        nombreMostrar = estiloSeleccionado.color || estiloSeleccionado.nombre;
+    } else {
+        // BASE: color del estilo base desde DB
+        const nombreBase = tp(producto, 'estilo');
+        const estiloBase = producto.estilos?.find(est => tEstilo(est) === nombreBase) || producto.estilos?.[0];
+        nombreMostrar = estiloBase ? (tEstilo(estiloBase, 'color') || tEstilo(estiloBase)) : 'Estándar';
+    }
+    
     const precioTotal = (producto.precio * cantidadDetalle).toFixed(2);
+    const agregarTexto = _t().agregarCarrito || 'Agregar';
 
-    btnText.textContent = `Agregar · ${nombreEstilo} · s/ ${precioTotal}`;
+    btnText.textContent = `${agregarTexto} · ${nombreMostrar} · s/ ${precioTotal}`;
 }
+
 //////////////////////////
 // Click en "Agregar al carrito" desde el lightbox (móvil/tablet)
 document.getElementById('lightbox-add-cart')?.addEventListener('click', (e) => {
@@ -4786,55 +5013,60 @@ document.getElementById('lightbox-add-cart')?.addEventListener('click', (e) => {
     const currentIdx = swiperLightbox?.realIndex || 0;
     const mediaActual = medias[currentIdx];
 
-    // Detectar si la imagen actual coincide con algún estilo
     let estiloParaCarrito = estiloSeleccionado;
     if (mediaActual && mediaActual.tipo === 'imagen') {
         const estiloCoincide = getEstiloPorImagen(producto, mediaActual.src);
         if (estiloCoincide) {
+            const idxReal = producto.estilos?.findIndex(est => 
+                est.imagen === estiloCoincide.imagen || 
+                tEstilo(est) === tEstilo(estiloCoincide)
+            ) ?? -1;
+            
             estiloParaCarrito = {
-                nombre: estiloCoincide.nombre,
-                color: estiloCoincide.color || estiloCoincide.nombre,
-                imagen: estiloCoincide.imagen
+                nombre: tEstilo(estiloCoincide),
+                color: tEstilo(estiloCoincide, 'color') || tEstilo(estiloCoincide),
+                imagen: estiloCoincide.imagen,
+                key: idxReal >= 0 ? idxReal : estiloSeleccionado?.key
             };
         }
     }
 
-    // Fallback: si no hay estilo seleccionado, usar el primero/base
     if (!estiloParaCarrito && producto.estilos?.length) {
         estiloParaCarrito = {
-            nombre: producto.estilos[0].nombre,
-            color: producto.estilos[0].color || producto.estilos[0].nombre,
-            imagen: producto.estilos[0].imagen
+            nombre: tEstilo(producto.estilos[0]),
+            color: tEstilo(producto.estilos[0], 'color') || tEstilo(producto.estilos[0]),
+            imagen: producto.estilos[0].imagen,
+            key: 0
         };
     }
 
-    const esEstiloBase = estiloParaCarrito && producto.estilo && estiloParaCarrito.nombre === producto.estilo;
+    // CORREGIDO
+    const nombreEstiloBase = tp(producto, 'estilo');
+    const esEstiloBase = estiloParaCarrito && estiloParaCarrito.nombre === nombreEstiloBase;
 
     const itemBase = {
         id: producto.id,
-        titulo: producto.titulo,
-        subtitulo: producto.subtitulo,
+        titulo: tp(producto, 'titulo'),
+        subtitulo: tp(producto, 'subtitulo'),
         precio: producto.precio,
         imagen: estiloParaCarrito?.imagen || producto.imagenes?.[0] || '',
         variante: esEstiloBase ? null : {
             tipo: producto.tipoVariante === 'color' ? 'Color' : (producto.tipoVariante === 'talla' ? 'Talla' : 'Estilo'),
-            valor: estiloParaCarrito?.color || estiloParaCarrito?.nombre || 'Estándar'
+            valor: estiloParaCarrito?.color || estiloParaCarrito?.nombre || 'Estándar',
+            key: estiloParaCarrito?.key
         }
     };
 
-    // Agregar la cantidad que ya eligió en el detalle
     for (let i = 0; i < cantidadDetalle; i++) {
         agregarAlCarrito(itemBase);
     }
 
-    // Fly-to-cart animado
     animarFlyToCart(e.currentTarget, itemBase.imagen);
 
-    // Feedback visual rápido
     const btnText = document.getElementById('lightbox-add-cart-text');
     if (btnText) {
         const original = btnText.textContent;
-        btnText.textContent = '¡Agregado!';
+        btnText.textContent = '✓';
         setTimeout(() => btnText.textContent = original, 1000);
     }
 });
