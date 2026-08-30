@@ -20,14 +20,30 @@ const productosDB = [
     // =========== 01 ALBUM PANINI ================
     // =================================================
         id: 1,
-        titulo: "Álbum Tapa Dura",
-        subtitulo: "PANINI - Mundial 2026",
+        titulo: {
+        es: "Álbum Tapa Dura",
+        en: "Hardcover Album",
+        qu: "Tapa Dura Álbum"
+        },
+        subtitulo: {
+            es: "PANINI - Mundial 2026",
+            en: "PANINI - World Cup 2026",
+            qu: "PANINI - Mundial 2026"
+        },
+        marca: {
+        es: "PANINI",
+        en: "PANINI",
+        qu: "PANINI"
+        },
+        estilo: {
+            es: "Mundial 2026",
+            en: "World Cup 2026",
+            qu: "Mundial 2026"
+        },
         precio: 45.00,
         precioOriginal: 77.91,      // null si NO hay descuento
         descuento: 33,              // % de descuento (0 si no hay)
         disponible: 7,
-        marca: "PANINI",
-        estilo: "Mundial 2026",
         categoria: "albums",
         // ─── IMÁGENES DEL PRODUCTO ───
         // Agrega aquí todas las fotos que quieras mostrar en la galería
@@ -84,14 +100,34 @@ const productosDB = [
     // =========== 18 FIGURA ALBEDO ================
     // =================================================
         id: 18,
-        titulo: "Figura de Albedo",
-        subtitulo: "35x50 cm",
+        // titulo: "Figura de Albedo",
+        // subtitulo: "35x50 cm",
+        titulo: {
+        es: "Figura de Albedo",
+        en: "Albedo Figure",
+        qu: "Albedo Siqi"
+        },
+        subtitulo: {
+            es: "35x50 cm",
+            en: "35x50 cm",
+            qu: "35x50 cm"
+        },
+        marca: {
+        es: "Marca: BANDAI",
+        en: "Brand: BANDAI",
+        qu: "Marca: BANDAI"
+        },
+        estilo: {
+            es: "Albedo",
+            en: "Albedo",
+            qu: "Albedo"
+        },
         precio: 51.87,
         precioOriginal: 77.91,
         descuento: 33,
         disponible: 7,
-        marca: "Marca: BANDAI",
-        estilo: "Albedo",
+        // marca: "Marca: BANDAI",
+        // estilo: "Albedo",
         categoria: "figuras",
         imagenes: [
             "assets/35 FIGURA ALBEDO/01.avif",
@@ -127,9 +163,21 @@ const productosDB = [
         // Onii-chan: aquí defines los diferentes colores/estilos del producto.
         // Cada uno tiene una mini imagen para el selector.
         estilos: [
-        { nombre: "Albedo", imagen: "assets/01 albedo.avif", color: "Estándar" },
-        { nombre: "Albedo Dark", imagen: "assets/35 FIGURA ALBEDO/09.jpg", color: "Negro" },
-        { nombre: "Albedo Gold", imagen: "assets/35 FIGURA ALBEDO/13.webp", color: "Dorado" },
+        { 
+            nombre: { es: "Albedo", en: "Albedo", qu: "Albedo" }, 
+            imagen: "assets/01 albedo.avif", 
+            color: { es: "Estándar", en: "Standard", qu: "Estándar" } 
+        },
+        { 
+            nombre: { es: "Albedo Dark", en: "Albedo Dark", qu: "Albedo Yanaq" }, 
+            imagen: "assets/35 FIGURA ALBEDO/09.jpg", 
+            color: { es: "Negro", en: "Black", qu: "Yanaq" } 
+        },
+        { 
+            nombre: { es: "Albedo Gold", en: "Albedo Gold", qu: "Albedo Oro" }, 
+            imagen: "assets/35 FIGURA ALBEDO/13.webp", 
+            color: { es: "Dorado", en: "Gold", qu: "Oro" } 
+        },
         ],
         ///////////////
 
@@ -170,6 +218,36 @@ const productosDB = [
     // ═══════════════════════════════════════════════════════
 ];
 
+// Helper para leer campos traducidos de un producto
+// Soporta tanto string antiguo como objeto {es, en, qu}
+function tp(producto, key, fallback = '') {
+    if (!producto) return fallback;
+    const val = producto[key];
+    if (typeof val === 'string') return val;          // ← retrocompatible
+    if (val && typeof val === 'object') {
+        return val[idiomaActual] || val.es || val.en || fallback;
+    }
+    return fallback;
+}
+
+// Helper para los estilos/variantes
+function tEstilo(estilo, key = 'nombre') {
+    if (!estilo) return '';
+    const val = estilo[key];
+    if (typeof val === 'string') return val;
+    if (val && typeof val === 'object') {
+        return val[idiomaActual] || val.es || val.en || '';
+    }
+    return '';
+}
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////
 // Helper para obtener un producto por ID
 function getProducto(id) {
     return productosDB.find(p => p.id === id) || null;
@@ -695,6 +773,10 @@ function renderizarCarrito() {
     }
     let precioTotalGeneral = 0;
     carritoDeCompras.forEach(item => {
+        const prod = getProducto(item.id);
+        const tituloItem = prod ? tp(prod, 'titulo', item.titulo) : item.titulo;
+        const subtituloItem = prod ? tp(prod, 'subtitulo', item.subtitulo) : item.subtitulo;
+
         const subtotalItem = item.precio * item.cantidad;
         precioTotalGeneral += subtotalItem;
         
@@ -715,7 +797,7 @@ const articleHTML = `
         </div>
 
         <!-- Card principal (se desliza) -->
-        <article class="card-swipe relative z-10 flex gap-3 py-2 rounded-xl justify-between" data-id="${item.id}" data-titulo="${item.titulo}" data-subtitulo="${item.subtitulo}">
+        <article class="card-swipe relative z-10 flex gap-3 py-2 rounded-xl justify-between" data-id="${item.id}" data-titulo="${tituloItem}" data-subtitulo="${subtituloItem}">
             <article class="flex gap-3 min-w-0">
                 <div class="size-20 ml-2 rounded-lg overflow-hidden shrink-0 cursor-pointer" onclick="event.stopPropagation(); abrirDetalleProducto(${item.id})">
                     <img src="${item.imagen}" alt="" class="w-full h-full object-cover pointer-events-none">
@@ -896,8 +978,12 @@ function renderizarFavoritos() {
     if (vacioMsg) vacioMsg.classList.add('hidden');
 
     favoritos.forEach(item => {
+        const prod = getProducto(item.id);
+        const tituloFav = prod ? tp(prod, 'titulo', item.titulo) : item.titulo;
+        const subtituloFav = prod ? tp(prod, 'subtitulo', item.subtitulo) : item.subtitulo;
+
         const cardHTML = `
-        <article class="w-[172px] h-[254px] relative sm:w-[234px] sm:h-[381px]" data-id="${item.id}" data-titulo="${item.titulo}" data-subtitulo="${item.variante ? item.variante.tipo + ': ' + item.variante.valor : item.subtitulo}" data-imagen="${item.imagenVariante || item.imagen}" ${item.variante ? `data-variante='${JSON.stringify(item.variante)}'` : ''}>
+        <article class="w-[172px] h-[254px] relative sm:w-[234px] sm:h-[381px]" data-id="${item.id}" data-titulo="${tituloFav}" data-subtitulo="${item.variante ? item.variante.tipo + ': ' + item.variante.valor : subtituloFav}" data-imagen="${item.imagenVariante || item.imagen}" ${item.variante ? `data-variante='${JSON.stringify(item.variante)}'` : ''}>
             <div class="${item.clsProducto || 'absolute inset-0 bg-stone-950 dark:bg-temu cardProducto'}"></div>
             <div class="${item.clsProductoInner || 'w-[172px] h-52.5 bg-white dark:bg-stone-900 cardProductoInner absolute inset-0 overflow-hidden border border-stone-950 dark:border-temu sm:w-[234px] sm:h-78.75'}">
                 <img src="${item.imagenVariante || item.imagen}" alt="" class="${item.clsImgProducto || 'w-full h-full object-cover object-[50%_70%] sm:object-[50%_60%]'}">
@@ -2348,6 +2434,7 @@ pagoSeguro: "Pagos Seguros",
 puntualidad: "Puntualidad",
 privacidadSegura: "Privacidad segura",
 entregaGarantizada: "Entrega garantizada",
+disponible:'disponible(s)',
         // Agrega aquí más claves según vayas traduciendo tu web...
         
     },
@@ -2404,6 +2491,7 @@ pagoSeguro: "Secure payments",
 pagaRecibir: "Pay on delivery",
 privacidadSegura: "Secure privacy",
 entregaRapida: "Coordinated delivery",
+disponible:'available',
         // Agrega aquí los equivalentes en inglés...
     },
     // ============================================
@@ -2457,6 +2545,7 @@ pagoSeguro: "Seguro pagokuna",
 pagaRecibir: "Chaskispay paga",
 privacidadSegura: "Seguro privacidad",
 entregaRapida: "Utqay chaski",
+disponible:'hayka',
     }
 };
 
@@ -2657,12 +2746,13 @@ function abrirDetalleProducto(id, fromPopstate = false) {
     }
 
     // --- RESTO DE LA FUNCIÓN (info, precios, etc.) ---
-    document.getElementById('detalle-titulo').textContent = producto.titulo || '';
-    document.getElementById('detalle-subtitulo').textContent = producto.subtitulo || '';
-    document.getElementById('detalle-marca').textContent = producto.marca || '';
-    document.getElementById('detalle-disponible').textContent = (producto.disponible || 0) + ' disponible(s)';
+    document.getElementById('detalle-titulo').textContent = tp(producto, 'titulo');
+    document.getElementById('detalle-subtitulo').textContent = tp(producto, 'subtitulo');
+    document.getElementById('detalle-marca').textContent = tp(producto, 'marca');
+    document.getElementById('detalle-estilo-nombre').textContent = tp(producto, 'estilo');
+    document.getElementById('detalle-disponible').textContent = (producto.disponible || 0) + ' ' + _t().disponible;
     document.getElementById('detalle-precio').textContent = (producto.precio || 0).toFixed(2);
-    document.getElementById('detalle-estilo-nombre').textContent = producto.estilo || '';
+    
 
     // Título largo expandible
     const tituloLargo = document.getElementById('detalle-titulo-largo');
@@ -4037,7 +4127,7 @@ function renderizarEstilos(producto) {
             container.querySelectorAll('.estilo-btn').forEach(b => b.classList.remove('activo'));
             btn.classList.add('activo');
             estiloSeleccionado = { nombre: est.nombre, color: est.color || est.nombre, imagen: est.imagen };
-            document.getElementById('detalle-estilo-nombre').textContent = est.nombre;
+            document.getElementById('detalle-estilo-nombre').textContent = tEstilo(est);
             const imgPrincipal = document.getElementById('img-principal');
             if (imgPrincipal) imgPrincipal.src = est.imagen;
             sincronizarFavoritoDetalle(); // 🔥 ACTUALIZAR CORAZÓN AL CAMBIAR ESTILO
@@ -4052,7 +4142,11 @@ function renderizarEstilos(producto) {
     });
 
     if (estilos.length && !estiloSeleccionado) {
-        estiloSeleccionado = { nombre: estilos[0].nombre, color: estilos[0].color || estilos[0].nombre, imagen: estilos[0].imagen };
+        estiloSeleccionado = { 
+            nombre: tEstilo(estilos[0]), 
+            color: tEstilo(estilos[0], 'color') || tEstilo(estilos[0]), 
+            imagen: estilos[0].imagen 
+        };
     }
 }
 
@@ -4361,7 +4455,7 @@ function renderizarRelacionados(ids) {
             <div class="rel-img-wrap">
                 <img src="${p.imagenes?.[0] || ''}" alt="${p.titulo || ''}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
             </div>
-            <p class="font-Inter text-xs font-semibold text-stone-950 dark:text-white truncate leading-tight mt-1">${p.titulo || ''}</p>
+            <p class="font-Inter text-xs font-semibold text-stone-950 dark:text-white truncate leading-tight mt-1">${tp(p, 'titulo')}</p>
             <p class="font-Russo text-xs text-temu mt-0.5">s/ ${(p.precio || 0).toFixed(2)}</p>
         `;
         card.addEventListener('click', () => abrirDetalleProducto(p.id));
