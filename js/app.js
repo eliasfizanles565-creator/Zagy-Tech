@@ -1032,7 +1032,7 @@ function gestionarVista(vista) {
         const detalleSection = document.getElementById('producto-detalle');
         if (footer) footer.classList.remove('hidden');
         if (footerCopy) footerCopy.classList.remove('hidden');
-        
+
         if (detalleSection && !detalleSection.classList.contains('hidden')) {
             detalleSection.classList.add('hidden');
         }
@@ -1128,6 +1128,22 @@ function activateNav(key, fromHistory = false, resetCategory = true) {
         const detalleSection = document.getElementById('producto-detalle');
         if (detalleSection && !detalleSection.classList.contains('hidden')) {
             detalleSection.classList.add('hidden');
+            if (detalleFooterObserver) {
+                detalleFooterObserver.disconnect();
+                detalleFooterObserver = null;
+            }
+            const btnFlotante = document.getElementById('detalle-btn-flotante');
+            const fondoFijo = document.getElementById('detalle-fondo-fijo');
+            if (btnFlotante) {
+                btnFlotante.style.transform = '';
+                btnFlotante.style.opacity = '';
+                btnFlotante.style.pointerEvents = '';
+            }
+            if (fondoFijo) {
+                fondoFijo.style.transform = '';
+                fondoFijo.style.opacity = '';
+            }
+
             document.querySelectorAll('#zoom-container video').forEach(v => {
                 v.pause(); v.removeAttribute('src'); v.load(); v.remove();
             });
@@ -2598,6 +2614,16 @@ function abrirDetalleProducto(id, fromPopstate = false) {
     if (favSec) favSec.classList.add('hidden');
     if (btnCarritoFlotante) btnCarritoFlotante.classList.add('hidden');
 
+    const footer = document.querySelector('footer');
+    const footerCopy = document.querySelector('footer + p');
+    if (footer) footer.classList.remove('hidden');
+    if (footerCopy) footerCopy.classList.remove('hidden');
+    const fondoFijo = document.getElementById('detalle-fondo-fijo');
+    if (fondoFijo) {
+        fondoFijo.style.transform = '';
+        fondoFijo.style.opacity = '';
+    }
+
     // OCULTAR NAV SUPERIOR EN MÓVIL/TABLET (igual que en carrito)
     const navSup = document.querySelector('nav');
     const sepSup = navSup?.nextElementSibling;
@@ -2688,6 +2714,7 @@ function abrirDetalleProducto(id, fromPopstate = false) {
     renderizarCollage(producto, medias);
     renderizarRelacionados(producto.relacionados || []);
     initMarqueeEnvio();
+    initDetalleFooterObserver();
 }
 
 // ─── MINIATURAS ───
@@ -4176,6 +4203,22 @@ document.getElementById('detalle-btn-favorito')?.addEventListener('click', () =>
 
 // ─── VOLVER ───
 function cerrarDetalleProducto(updateHistory = true) {
+    if (detalleFooterObserver) {
+        detalleFooterObserver.disconnect();
+        detalleFooterObserver = null;
+    }
+    const btnFlotante = document.getElementById('detalle-btn-flotante');
+    const fondoFijo = document.getElementById('detalle-fondo-fijo');
+    if (btnFlotante) {
+        btnFlotante.style.transform = '';
+        btnFlotante.style.opacity = '';
+        btnFlotante.style.pointerEvents = '';
+    }
+    if (fondoFijo) {
+        fondoFijo.style.transform = '';
+        fondoFijo.style.opacity = '';
+    }
+
     const detalle = document.getElementById('producto-detalle');
     if (detalle) {
         detalle.classList.add('hidden');
@@ -4434,6 +4477,43 @@ function initMarqueeEnvio() {
     rafId = requestAnimationFrame(animate);
 }
 
+let detalleFooterObserver = null;
+
+function initDetalleFooterObserver() {
+    const footer = document.querySelector('footer');
+    const btnFlotante = document.getElementById('detalle-btn-flotante');
+    const fondoFijo = document.getElementById('detalle-fondo-fijo');
+    if (!footer || !btnFlotante) return;
+    
+    if (detalleFooterObserver) {
+        detalleFooterObserver.disconnect();
+        detalleFooterObserver = null;
+    }
+    
+    detalleFooterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                btnFlotante.style.transform = 'translateY(200%)';
+                btnFlotante.style.opacity = '0';
+                btnFlotante.style.pointerEvents = 'none';
+                if (fondoFijo) {
+                    fondoFijo.style.transform = 'translateY(100%)';
+                    fondoFijo.style.opacity = '0';
+                }
+            } else {
+                btnFlotante.style.transform = '';
+                btnFlotante.style.opacity = '';
+                btnFlotante.style.pointerEvents = '';
+                if (fondoFijo) {
+                    fondoFijo.style.transform = '';
+                    fondoFijo.style.opacity = '';
+                }
+            }
+        });
+    }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
+    
+    detalleFooterObserver.observe(footer);
+}
 ////////////////////////////
 
 
