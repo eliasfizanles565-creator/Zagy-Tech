@@ -97,6 +97,347 @@ const productosDB = [
     },
     {
     // =================================================
+    // =========== 10 MANITA MASAJEADORA  ================
+    // =================================================
+        id: 10,
+
+        titulo: {
+        es: "Manita Muscular",
+        en: "Muscular Hand",
+        qu: "Aychasapa Maki"
+        },
+        subtitulo: {
+            es: "Masajeadora",
+            en: "Massager",
+            qu: "Masajeador"
+        },
+        marca: {
+        es: "Marca: Estándar",
+        en: "Brand: Standard",
+        qu: "Yupichay: Kaqlla"
+        },
+        estilo: {
+            es: "Masajeadora",
+            en: "Massager",
+            qu: "Masajeador"
+        },
+        precio: 109.90,
+        precioOriginal: 149.90,
+        descuento: 26,
+        disponible: 3,
+
+        categoria: "hogar",
+        imagenes: [
+            "assets/13 MANITA MASAJEADORA/01.webp",
+            "assets/13 MANITA MASAJEADORA/02.webp",
+            "assets/13 MANITA MASAJEADORA/03.avif",
+            "assets/13 MANITA MASAJEADORA/04.avif",
+            "assets/13 MANITA MASAJEADORA/05.avif",
+            "assets/13 MANITA MASAJEADORA/06.avif",
+            "assets/13 MANITA MASAJEADORA/07.avif",
+            "assets/13 MANITA MASAJEADORA/08.avif",
+            "assets/13 MANITA MASAJEADORA/09.avif",
+            "assets/13 MANITA MASAJEADORA/10.avif",
+            "assets/13 MANITA MASAJEADORA/11.webp",
+            "assets/13 MANITA MASAJEADORA/19.webp",
+            "assets/13 MANITA MASAJEADORA/21.webp",
+            
+            
+            
+        ],
+        videos: [
+            // "assets/videos/albedo-360.mp4", https://res.cloudinary.com/dmeoj7xbx/video/upload/v1787964476/17_eebcv2.webm
+            
+            "assets/13 MANITA MASAJEADORA/24.mp4",
+            "assets/13 MANITA MASAJEADORA/22.mp4",
+            "assets/13 MANITA MASAJEADORA/23.mp4",
+            
+        ],
+        // ─── CARÁTULAS DE CADA VIDEO (mismo orden que videos) ───
+        videoPosters: [
+
+            "assets/13 MANITA MASAJEADORA/07.avif",
+            "assets/13 MANITA MASAJEADORA/06.avif",
+            "assets/13 MANITA MASAJEADORA/10.avif",
+        ],
+
+        tipoVariante: "color", // ← 'estilo' | 'color' | 'talla'
+        // ─── ESTILOS / COLORES ───
+        // Onii-chan: aquí defines los diferentes colores/estilos del producto.
+        // Cada uno tiene una mini imagen para el selector.
+        estilos: [
+        { 
+            nombre: { es: "Masajeadora", en: "Massager", qu: "Masajeador" }, 
+            imagen: "assets/13 MANITA MASAJEADORA/01.webp",
+            color: { es: "Verde", en: "Green", qu: "Qumir" } 
+        },
+        ],
+        ///////////////
+
+        collageOrder: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+
+
+        tituloLargo: {
+            es: "Masajeador de Tejido Profundo Recargable USB, 8 Garras - Masajeador Portátil de Dedo Adecuado para Cuello, Espalda, Hombros y Piernas - Regalo Perfecto para Hombres y Mujeres, Cintura, Relajación. Masajeador de Músculo Esternocleidomastoideo, Masajeador sin varillas Portátil con Calor para Cuello.",
+            en: "USB Rechargeable Deep Tissue Massager, 8 Claws - Portable Finger Massager Suitable for Neck, Back, Shoulders, and Legs - Perfect Gift for Men and Women, Waist, Relaxation. Sternocleidomastoid Muscle Massager, Portable Rodless Massager with Heat for Neck.",
+            qu: "USB Recargable Masajeador de Tejido Profundo, 8 Garras - Masajeador de Dedo Portátil Kunkapaq, Wasanpaq, Hombrospaq, Chakipaqpas allin - Qharikunapaq Warmikunapaqpas, Cinturapaq, Relajaciónpaq Regalo Perfecto. Masajeador Muscular Esternocleidomastoide, Masajeador Portátil sin Varilla Cuellopaq Ruphayniyuq.",
+        },
+
+        detalles: {
+            es: "Masajeador de Tejido Profundo Recargable USB, 8 Garras - Masajeador Portátil de Dedo Adecuado para Cuello, Espalda, Hombros y Piernas - Regalo Perfecto para Hombres y Mujeres, Cintura, Relajación. Masajeador de Músculo Esternocleidomastoideo, Masajeador sin varillas Portátil con Calor para Cuello.\n\n<strong>Características:</strong>\n✓ Fácil de llevar.\n✓ Diseño novedoso y Ergonómico.\n✓ Controles Intuitivos.\n✓ Ayuda a aliviar el dolor muscular.\n✓ Alivia el dolor cervical y de hombros.\n✓ 2 niveles de calor.\n✓ Duración de Batería: 70min.\n✓ Cable de Carga: Si.\n✓ Tipo C: Si.",
+            en: "USB Rechargeable Deep Tissue Massager, 8 Claws - Portable Finger Massager Suitable for Neck, Back, Shoulders, and Legs - Perfect Gift for Men and Women, Waist, Relaxation. Sternocleidomastoid Muscle Massager, Portable Rodless Massager with Heat for Neck.\n\n<strong>Features:</strong>\n✓ Easy to carry.\n✓ Novel and Ergonomic Design.\n✓ Intuitive Controls.\n✓ Helps relieve muscle pain.\n✓ Relieves neck and shoulder pain.\n✓ 2 Heat Levels.\n✓ Battery Life: 70 min.\n✓ Charging Cable: Yes.\n✓ Type-C: Yes.",
+            qu: "USB Recargable Masajeador de Tejido Profundo, 8 Garras - Masajeador de Dedo Portátil Kunkapaq, Wasanpaq, Hombrospaq, Chakipaqpas allin - Qharikunapaq Warmikunapaqpas, Cinturapaq, Relajaciónpaq Regalo Perfecto. Masajeador Muscular Esternocleidomastoide, Masajeador Portátil sin Varilla con Ruphay kunkapaq.\n\n<strong>Características:</strong>\n✓ Facil apa.\n✓ Diseño Novedoso y Ergonómico.\n✓ Controles Intuitivos.\n✓ Yanapakun aycha nanayta allinyachinanpaq.\n✓ Kunka nanayta, hombro nanayta allinyachin.\n✓ 2 Niveles de calor.\n✓ Pila kawsay: 70 min.\n✓ Cable de carga: Arí.\n✓ Tipo-C: Arí.",
+        },
+        envio: {
+            es: "✓ Envío gratis en las Estaciones del Tren.\n✓ S/10 por Envío a domicilio o Provincia.",
+            en: "✓ Free shipping at Train Stations.\n✓ S/10 for Home Delivery.",
+            qu: "✓ Libre chaski Tren Estaciones.\n✓ S/10 wasi chaski.",
+        },
+        garantia: {
+            es: "✓ Pagos seguros mediante Yape, Plin, Efectivo o Transferencias.\n✓ Paga cuando recibas tu producto.\n✓ Prueba tu producto sin compromiso en un lugar público.\n✓ Coordinamos tu entrega en la brevedad posible.",
+            en: "✓ Secure payments\n✓ Pay when you receive your product\n✓ Secure privacy\n✓ We coordinate your delivery as soon as possible",
+            qu: "✓ Seguro pagokuna\n✓ Chaskispay paga\n✓ Seguro privacidad",
+        },
+        donacion: {
+            es: "Ayúdanos para poder llevarle un bonito regalo a los niños por esta Navidad.",
+            en: "Help us bring a nice gift to children this Christmas.",
+            qu: "Yanapayku wawakunaman regalo churay.",
+        },
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11],
+    },
+    {
+    // =================================================
+    // =========== 11 DISPENSADOR JABON  ================
+    // =================================================
+        id: 11,
+
+        titulo: {
+        es: "Dispensador de Jabón",
+        en: "Soap Dispenser",
+        qu: "Jabon Dispensador"
+        },
+        subtitulo: {
+            es: "Automático",
+            en: "Automatic",
+            qu: "Sapaq"
+        },
+        marca: {
+        es: "Marca: Estándar",
+        en: "Brand: Standard",
+        qu: "Yupichay: Kaqlla"
+        },
+        estilo: {
+            es: "Dispensador de Jabón",
+            en: "Soap Dispenser",
+            qu: "Jabon Dispensador"
+        },
+        precio: 109.90,
+        precioOriginal: 185.90,
+        descuento: 40,
+        disponible: 4,
+
+        categoria: "hogar",
+        imagenes: [
+            "assets/21 DISPENSADOR DE JABÓN/00.webp",
+            "assets/21 DISPENSADOR DE JABÓN/03.webp",
+            "assets/21 DISPENSADOR DE JABÓN/04.webp",
+            "assets/21 DISPENSADOR DE JABÓN/05.webp",
+            "assets/21 DISPENSADOR DE JABÓN/06.webp",
+            "assets/21 DISPENSADOR DE JABÓN/07.webp",
+            "assets/21 DISPENSADOR DE JABÓN/08.webp",
+            "assets/21 DISPENSADOR DE JABÓN/09.webp",
+            "assets/21 DISPENSADOR DE JABÓN/10.webp",
+            "assets/21 DISPENSADOR DE JABÓN/11.webp",
+            "assets/21 DISPENSADOR DE JABÓN/12.webp",
+            "assets/21 DISPENSADOR DE JABÓN/13.webp",
+            "assets/21 DISPENSADOR DE JABÓN/14.webp",
+            "assets/21 DISPENSADOR DE JABÓN/15.webp",
+            
+        ],
+        videos: [
+            // "assets/videos/albedo-360.mp4", https://res.cloudinary.com/dmeoj7xbx/video/upload/v1787964476/17_eebcv2.webm
+            
+            "assets/21 DISPENSADOR DE JABÓN/17.mp4",
+            "assets/21 DISPENSADOR DE JABÓN/18.mp4",
+            "assets/21 DISPENSADOR DE JABÓN/16.mp4",
+            "assets/21 DISPENSADOR DE JABÓN/16.5.mp4",
+            
+        ],
+        // ─── CARÁTULAS DE CADA VIDEO (mismo orden que videos) ───
+        videoPosters: [
+
+            "assets/21 DISPENSADOR DE JABÓN/10.webp",
+            "assets/21 DISPENSADOR DE JABÓN/11.webp",
+            "assets/21 DISPENSADOR DE JABÓN/09.webp",
+            "assets/21 DISPENSADOR DE JABÓN/12.webp",
+        ],
+
+        tipoVariante: "color", // ← 'estilo' | 'color' | 'talla'
+        // ─── ESTILOS / COLORES ───
+        // Onii-chan: aquí defines los diferentes colores/estilos del producto.
+        // Cada uno tiene una mini imagen para el selector.
+        estilos: [
+        { 
+            nombre: { es: "Dispensador de Jabón", en: "Soap Dispenser", qu: "Jabon Dispensador" }, 
+            imagen: "assets/21 DISPENSADOR DE JABÓN/00.webp",
+            color: { es: "Negro", en: "Black", qu: "Yana" } 
+        },
+        { 
+            nombre: { es: "Dispensador", en: "Dispenser", qu: "Dispensador" }, 
+            imagen: "assets/21 DISPENSADOR DE JABÓN/02.webp",
+            color: { es: "Blanco", en: "White", qu: "Yuraq" } 
+        },
+        ],
+        ///////////////
+
+        collageOrder: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+
+
+        tituloLargo: {
+            es: "Dispensador de jabón inteligente automático sin contacto | Dispensador de manos higiénico sin contacto | De pared, batería recargable e interfaz USB, ajustes regulables, elegante y moderno, apto para baño/cocina/hospital/escuela - Duradero",
+            en: "Automatic Smart Touchless Soap Dispenser | Hygienic Touchless Hand Dispenser | Wall Mounted, Rechargeable Battery and USB Interface, Adjustable Settings, Stylish and Modern, Suitable for Bathroom/Kitchen/Hospital/School - Durable",
+            qu: "Automático Smart Touchless Jabon Dispensador | Dispensador de Mano Sin Toctil Higiénico | Perqapi churasqa, Batería Recargable y Interfaz USB, Ajustes Ajustables, Estilo y Moderno, Baño/Cocina/Hospital/Escuelapaq allin - Duradero",
+        },
+
+        detalles: {
+            es: "Transforma tu aseo en un santuario de bienestar con un toque de pura sofisticación. Nuestro dispensador automático combina una estética impecable con la comodidad del sistema touchless. Sin manchas, sin desperdicio, solo la pureza del jabón en tus manos con un gesto elegante. Porque el verdadero lujo está en los detalles que hacen tu vida más fácil y saludable. Dale a tu baño el estilo que se merece.\n\n<strong>Características:</strong>\n✓ Material: Plástico ABS.\n✓ Batería: 2000 mAh.\n✓ Capacidad máxima: 500ml.\n✓ Peso: 400 gramos.\n✓ Protección de Humedad: IPXS.\n✓ Voltaje: 3,7 V.\n✓ Temperatura de Trabajo: 0-70.\n✓ Sensor Infrarojo: Si.\n✓ Cable de Carga: Si.\n✓ Tipo C: Si.",
+            en: "Transform your bathroom into a sanctuary of well-being with a touch of pure sophistication. Our automatic dispenser combines impeccable aesthetics with the convenience of a touchless system. No stains, no waste, just the purity of soap in your hands with an elegant gesture. Because true luxury lies in the details that make your life easier and healthier. Give your bathroom the style it deserves.\n\n<strong>Features:</strong>\n✓ Material: ABS plastic.\n✓ Battery: 2000 mAh.\n✓ Maximum capacity: 500ml.\n✓ Weight: 400 grams.\n✓ Moisture protection: IPXS.\n✓ Voltage: 3.7 V.\n✓ Working temperature: 0-70°C.\n✓ Infrared sensor: Yes.\n✓ Charging cable: Yes.\n✓ Type C: Yes.",
+            qu: "Bañoykita allin kawsaypa santuarionman tikray, chuya sofisticación nisqawan. Dispensador automático nisqaykuqa mana ima pantayniyuq estética nisqawanmi hukllawakun, mana llachpanapaq sistema nisqapa allin kayninwan. Mana manchakuna, mana usuchiy, makiykipi jabonpa chuya kayninlla huk elegante gestowan. Imaraykuchus cheqaq lujoqa kashan chay detallekunapin, chaykunan kawsayniykita aswan facilta, aswan qhali kananpaq ima. Bañoykiman quy chay estilota merecesqanman hina.\n\n<strong>Características:</strong>\n✓ Material: Plástico ABS.\n✓ Batería: 2000 mAh.\n✓ Capacidad máxima: 500ml.\n✓ Llasaq: 400 gramos.\n✓ Humedadmanta harkakuy: IPXS.\n✓ Tensión: 3.7 V.\n✓ Llamkanapaq temperatura: 0-70°C.\n✓ Sensor infrarrojo: Arí.\n✓ Cable de carga: Arí.\n✓ Tipo C: Arí.",
+        },
+        envio: {
+            es: "✓ Envío gratis en las Estaciones del Tren.\n✓ S/10 por Envío a domicilio o Provincia.",
+            en: "✓ Free shipping at Train Stations.\n✓ S/10 for Home Delivery.",
+            qu: "✓ Libre chaski Tren Estaciones.\n✓ S/10 wasi chaski.",
+        },
+        garantia: {
+            es: "✓ Pagos seguros mediante Yape, Plin, Efectivo o Transferencias.\n✓ Paga cuando recibas tu producto.\n✓ Prueba tu producto sin compromiso en un lugar público.\n✓ Coordinamos tu entrega en la brevedad posible.",
+            en: "✓ Secure payments\n✓ Pay when you receive your product\n✓ Secure privacy\n✓ We coordinate your delivery as soon as possible",
+            qu: "✓ Seguro pagokuna\n✓ Chaskispay paga\n✓ Seguro privacidad",
+        },
+        donacion: {
+            es: "Ayúdanos para poder llevarle un bonito regalo a los niños por esta Navidad.",
+            en: "Help us bring a nice gift to children this Christmas.",
+            qu: "Yanapayku wawakunaman regalo churay.",
+        },
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 10],
+    },
+    {
+    // =================================================
+    // =========== 12 PROYECTOR L018  ================
+    // =================================================
+        id: 12,
+
+        titulo: {
+        es: "Proyector MagCubic",
+        en: "MagCubic Projector",
+        qu: "Ruwana MagCubic"
+        },
+        subtitulo: {
+            es: "L018",
+            en: "L018",
+            qu: "L018"
+        },
+        marca: {
+        es: "Marca: MagCubic",
+        en: "Brand: MagCubic",
+        qu: "Yupichay: MagCubic"
+        },
+        estilo: {
+            es: "Proyector L018",
+            en: "Projector L018",
+            qu: "Ruwana L018"
+        },
+        precio: 350.00,
+        precioOriginal: 428.67,
+        descuento: 18,
+        disponible: 1,
+
+        categoria: "hogar",
+        imagenes: [
+            "assets/22 PROYECTOR L018/01.webp",
+            "assets/22 PROYECTOR L018/02.avif",
+            "assets/22 PROYECTOR L018/03.webp",
+            "assets/22 PROYECTOR L018/04.webp",
+            "assets/22 PROYECTOR L018/05.avif",
+            "assets/22 PROYECTOR L018/06.avif",
+            "assets/22 PROYECTOR L018/07.avif",
+            "assets/22 PROYECTOR L018/08.webp",
+            "assets/22 PROYECTOR L018/09.avif",
+            "assets/22 PROYECTOR L018/10.webp",
+            "assets/22 PROYECTOR L018/11.webp",
+            "assets/22 PROYECTOR L018/12.webp",
+            "assets/22 PROYECTOR L018/13.jpg",
+            "assets/22 PROYECTOR L018/14.webp",
+            "assets/22 PROYECTOR L018/15.avif",
+            "assets/22 PROYECTOR L018/16.avif",
+            "assets/22 PROYECTOR L018/17.webp",
+            "assets/22 PROYECTOR L018/18.webp",
+            "assets/22 PROYECTOR L018/19.webp",
+            
+            
+            
+            
+        ],
+        videos: [
+            // "assets/videos/albedo-360.mp4", https://res.cloudinary.com/dmeoj7xbx/video/upload/v1787964476/17_eebcv2.webm
+            
+            "assets/22 PROYECTOR L018/32.mp4",
+            "assets/22 PROYECTOR L018/33.mp4",
+            "assets/22 PROYECTOR L018/20.mp4",
+        ],
+        // ─── CARÁTULAS DE CADA VIDEO (mismo orden que videos) ───
+        videoPosters: [
+            "assets/22 PROYECTOR L018/08.webp",
+            "assets/22 PROYECTOR L018/09.avif",
+            "assets/22 PROYECTOR L018/14.webp",
+        ],
+
+        tipoVariante: "color", // ← 'estilo' | 'color' | 'talla'
+        // ─── ESTILOS / COLORES ───
+        // Onii-chan: aquí defines los diferentes colores/estilos del producto.
+        // Cada uno tiene una mini imagen para el selector.
+        estilos: [
+        { 
+            nombre: { es: "Proyector L018", en: "Projector L018", qu: "Ruwana L018" }, 
+            imagen: "assets/22 PROYECTOR L018/01.webp",
+            color: { es: "Blanco", en: "White", qu: "Yuraq" } 
+        },
+        ],
+        ///////////////
+
+        collageOrder: [2, 4, 5, 6, 7, 8, 9, 10, 11, 6, 13, 14],
+
+
+        tituloLargo: {
+            es: "Proyector Magcubic L018 Nativamente 1080P 650ANSI con 360° Portátil Desmontable, Corrección Automática de Trapecio y Enfoque, Wifi de Doble Banda",
+            en: "Magcubic L018 Projector, Native 1080P 650ANSI, 360° Portable Detachable Projector, Automatic Keystone Correction and Focus, Dual-Band WiFi",
+            qu: "Magcubic L018 Ruwana, Nativo 1080p 650 ANSI Resolución, 360° Desmontable Ruwana Portatil, Automático Keystone Corrección y Enfoque, Iskay Banda WiFi.",
+        },
+
+        detalles: {
+            es: "Deja atrás las limitaciones de una televisión fija. Con el nuevo Magcubic L018, cualquier superficie se convierte en un portal al cine de alta definición. Gracias a su diseño 360° giratorio, puedes proyectar desde el suelo hasta el techo con un solo giro. Cuenta con una resolución nativa 1080P con soporte 4K y Android 14 integrado. No es solo un proyector, es libertad visual absoluta en la palma de tu mano. Magcubic L018: Tu cine, tus reglas, en cualquier lugar.\n\n<strong>Características:</strong>\n✓ Resolución: 1080p Nativa.\n✓ Autoenfoque Instantáneo.\n✓ Ajuste de Pantalla Automático.\n✓ Evitación Inteligente de Obstáculos.\n✓ Soporte de calidad 4K.\n✓ 3 Modos de Brillo Ajustables.\n✓ Android 14.\n✓ Wifi 6 - Soporta 5G.\n✓ Bluetooth:5.4.\n✓ Brillo Ansi: 630 Lumens.\n✓ Parlante Interno Integrado.\n✓ Entrada HDMI: Si.\n✓ Entrada USB: Si.\n✓ Entrada Jack 3.5: Si.\n✓ Control por Voz Incluido: Si.\n✓ Conexión a Play Station(3,4,5): Si.",
+            en: "Leave behind the limitations of a fixed television. With the new Magcubic L018, any surface becomes a portal to high-definition cinema. Thanks to its 360° rotating design, you can project from floor to ceiling with a single turn. It features native 1080P resolution with 4K support and integrated Android 14. It's not just a projector; it's absolute visual freedom in the palm of your hand. Magcubic L018: Your cinema, your rules, anywhere.\n\n<strong>Features:</strong>\n✓ Resolution: Native 1080p.\n✓ Instant Autofocus.\n✓ Automatic Screen Adjustment.\n✓ Intelligent Obstacle Avoidance.\n✓ 4K Quality Support.\n✓ 3 Adjustable Brightness Modes.\n✓ Android 14.\n✓ Wi-Fi 6 - Supports 5G.\n✓ Bluetooth: 5.4.\n✓ ANSI Brightness: 630 Lumens.\n✓ Built-in Speaker.\n✓ HDMI Input: Yes.\n✓ USB Input: Yes.\n✓ 3.5mm Jack Input: Yes.\n✓ Voice Control Included: Yes.\n✓ PlayStation (3, 4, 5) Connection: Yes.",
+            qu: "Saqiy mana takyasqa televisionpa mana atisqankunata. Musuq Magcubic L018 nisqawanmi ima hawapas hatun definicion cineman portalman tukun. 360° muyuriq ruwayninraykum, huk kutillapi pampamanta techokama proyectayta atinki. Chayqa 1080P nativo resolución kaqwan 4K yanapakuywan chaymanta Android 14 tinkisqa kaqwan.Mana proyectorllachu; chayqa makiykiq palmanpi absoluta libertad visual nisqa. Magcubic L018: Cineyki, kamachiyniyki, maypipas.\n\n<strong>Rurakuna:</strong>\n✓ Resolución: Nativo 1080p.\n✓ Instant Autofocus.\n✓ Pantalla Kikinmanta Ajuste.\n✓ Inteligente Obstáculo Evitacion.\n✓ 4K Calidad Yanapakuy.\n✓ 3 Modos de Brillo Ajustable.\n✓ Android 14.\n✓ Wi-Fi 6 - 5G yanapakun.\n✓ Bluetooth: 5.4.\n✓ ANSI K'anchay: 630 Lúmenes.\n✓ Altavoz incorporado.\n✓ HDMI Yaykuy: Arí.\n✓ USB Yaykuy: Arí.\n✓ 3.5mm Jack Yaykuy: Arí.\n✓ Kunka kamachiy Yaykusqa: Arí.\n✓ PlayStation (3, 4, 5) T'inkisqa: Arí.",
+        },
+        envio: {
+            es: "✓ Envío gratis en las Estaciones del Tren.\n✓ S/10 por Envío a domicilio o Provincia.",
+            en: "✓ Free shipping at Train Stations.\n✓ S/10 for Home Delivery.",
+            qu: "✓ Libre chaski Tren Estaciones.\n✓ S/10 wasi chaski.",
+        },
+        garantia: {
+            es: "✓ Pagos seguros mediante Yape, Plin, Efectivo o Transferencias.\n✓ Paga cuando recibas tu producto.\n✓ Prueba tu producto sin compromiso en un lugar público.\n✓ Coordinamos tu entrega en la brevedad posible.",
+            en: "✓ Secure payments\n✓ Pay when you receive your product\n✓ Secure privacy\n✓ We coordinate your delivery as soon as possible",
+            qu: "✓ Seguro pagokuna\n✓ Chaskispay paga\n✓ Seguro privacidad",
+        },
+        donacion: {
+            es: "Ayúdanos para poder llevarle un bonito regalo a los niños por esta Navidad.",
+            en: "Help us bring a nice gift to children this Christmas.",
+            qu: "Yanapayku wawakunaman regalo churay.",
+        },
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 11, 10],
+    },
+    {
+    // =================================================
     // =========== 13 LAMPARA SOLAR  ================
     // =================================================
         id: 13,
@@ -199,7 +540,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 15, 14],
+        relacionados: [1, 18, 17, 16, 15, 14, 11, 12, 10],
     },
     {
     // =================================================
@@ -314,7 +655,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 15, 9],
+        relacionados: [1, 18, 17, 16, 15, 11, 13, 12, 10],
     },
     {
     // =================================================
@@ -415,7 +756,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 12, 9],
+        relacionados: [1, 18, 17, 16, 11, 14, 13, 12, 10],
     },
     {
     // =================================================
@@ -524,7 +865,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 11, 12, 9],
+        relacionados: [1, 18, 17, 11, 15, 14, 13, 12, 10],
     },
     {
     // =================================================
@@ -635,7 +976,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 6, 11, 12, 9],
+        relacionados: [1, 18, 11, 16, 15, 14, 13, 12, 10],
     },
     {
     // =================================================
@@ -752,7 +1093,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 17, 6, 11, 12, 9],
+        relacionados: [1, 11, 17, 16, 15, 14, 13, 12, 10],
     },
     // ═══════════════════════════════════════════════════════
     // ONII-CHAN: COPIA Y PEGA EL BLOQUE DE ARRIBA PARA AGREGAR MÁS PRODUCTOS.
@@ -1096,10 +1437,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function getLimitByScreen() {
         const width = window.innerWidth;
-        if (width >= 1280) return 25;
-        if (width >= 1024) return 24;
-        if (width >= 640) return 24;
-        return 20;
+        if (width >= 1280) return 15;
+        if (width >= 1024) return 16;
+        if (width >= 640) return 15;
+        return 16;
     }
 
     function updateDisplay() {
@@ -3109,6 +3450,8 @@ puntualidad: "Puntualidad",
 privacidadSegura: "Privacidad segura",
 entregaGarantizada: "Entrega garantizada",
 disponible:'disponible(s)',
+envioGratisTren: 'Envío gratis en las Estaciones del Tren',
+envioDomicilio: 'S/10 a domicilio o Provincia',
         // Agrega aquí más claves según vayas traduciendo tu web...
         
     },
@@ -3166,6 +3509,8 @@ pagaRecibir: "Pay on delivery",
 privacidadSegura: "Secure privacy",
 entregaRapida: "Coordinated delivery",
 disponible:'available',
+envioGratisTren: 'Free delivery to train stations',
+envioDomicilio: 'S/10 Home delivery or Province',
         // Agrega aquí los equivalentes en inglés...
     },
     // ============================================
@@ -3220,6 +3565,8 @@ pagaRecibir: "Chaskispay paga",
 privacidadSegura: "Seguro privacidad",
 entregaRapida: "Utqay chaski",
 disponible:'hayka',
+envioGratisTren: 'Trenpa kasqanman mana qullqillapaq apachiy',
+envioDomicilio: 'S/10 Wasiman apachiy utaq Provincia',
     }
 };
 
