@@ -97,6 +97,437 @@ const productosDB = [
     },
     {
     // =================================================
+    // =========== 13 LAMPARA SOLAR  ================
+    // =================================================
+        id: 13,
+
+        titulo: {
+        es: "Lámpara Led",
+        en: "Led Lamp",
+        qu: "Led Lampara"
+        },
+        subtitulo: {
+            es: "Solar",
+            en: "Solar",
+            qu: "Intimanta"
+        },
+        marca: {
+        es: "Marca: Estándar",
+        en: "Brand: Standard",
+        qu: "Yupichay: Kaqlla"
+        },
+        estilo: {
+            es: "Lámpara Solar",
+            en: "Lamp Solar",
+            qu: "Lampara Intimanta"
+        },
+        precio: 129.90,
+        precioOriginal: 169.90,
+        descuento: 23,
+        disponible: 5,
+
+        categoria: "hogar",
+        imagenes: [
+            "assets/23 LAMPARA LED SOLAR/01.webp",
+            "assets/23 LAMPARA LED SOLAR/02.avif",
+            "assets/23 LAMPARA LED SOLAR/03.avif",
+            "assets/23 LAMPARA LED SOLAR/04.avif",
+            "assets/23 LAMPARA LED SOLAR/05.avif",
+            "assets/23 LAMPARA LED SOLAR/06.avif",
+            "assets/23 LAMPARA LED SOLAR/07.avif",
+            "assets/23 LAMPARA LED SOLAR/08.avif",
+            "assets/23 LAMPARA LED SOLAR/09.avif",
+            "assets/23 LAMPARA LED SOLAR/10.avif",
+            "assets/23 LAMPARA LED SOLAR/11.webp",
+            "assets/23 LAMPARA LED SOLAR/12.webp",
+            "assets/23 LAMPARA LED SOLAR/13.webp",
+            "assets/23 LAMPARA LED SOLAR/14.webp",
+            "assets/23 LAMPARA LED SOLAR/15.webp",
+            
+            
+            
+        ],
+        videos: [
+            // "assets/videos/albedo-360.mp4", https://res.cloudinary.com/dmeoj7xbx/video/upload/v1787964476/17_eebcv2.webm
+            
+            "assets/23 LAMPARA LED SOLAR/16.mp4",
+        ],
+        // ─── CARÁTULAS DE CADA VIDEO (mismo orden que videos) ───
+        videoPosters: [
+            "assets/23 LAMPARA LED SOLAR/09.avif",
+        ],
+
+        tipoVariante: "color", // ← 'estilo' | 'color' | 'talla'
+        // ─── ESTILOS / COLORES ───
+        // Onii-chan: aquí defines los diferentes colores/estilos del producto.
+        // Cada uno tiene una mini imagen para el selector.
+        estilos: [
+        { 
+            nombre: { es: "Lámpara Solar", en: "Lamp Solar", qu: "Lampara Intimanta" }, 
+            imagen: "assets/23 LAMPARA LED SOLAR/01.webp",
+            color: { es: "Negro", en: "Black", qu: "Yana" } 
+        },
+        ],
+        ///////////////
+
+        collageOrder: [1, 3, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+
+
+        tituloLargo: {
+            es: "1 Paquete, Luz Solar Super Brillante De 504 LED, Luz De Calle Exterior, Luz De Día 3 Modos, Iluminación De Jardín Con Sensor De Movimiento Inteligente.",
+            en: "1 Pack, Super Bright 504 LED Solar Light, Outdoor Street Light, Daylight 3 Modes, Garden Lighting with Smart Motion Sensor.",
+            qu: "1 Pack, Super Bright 504 LED Inti K'anchay, Hawa Calle K'anchay, P'unchaw K'anchay 3 Modos, Huerta K'anchay Smart Motion Sensorwan.",
+        },
+
+        detalles: {
+            es: "1 Luminaria Comercial de Exterior, Luz Solar con 504 LED y Sensor de Movimiento, 3 Modos + Control Remoto, Foco LED IP65 de Alto Lúmen, Ideal para Calles, Patios, Porches, Iluminación de Paredes Exteriores y Decoración Navideña.\n\n<strong>Características:</strong>\n✓ Potencia: 252 W.\n✓ Batería 4500 mAh.\n✓ Resistencia a Polvo y Humedad IP65.\n✓ Carga Solar: Si.\n✓ Control incluido: Si",
+            en: "1 Commercial Outdoor Solar Light with 504 LEDs and Motion Sensor, 3 Modes + Remote Control, IP65 High Lumen LED Spotlight, Ideal for Streets, Patios, Porches, Exterior Wall Lighting, and Christmas Decorations.\n\n<strong>Features:</strong>\n✓ Power: 252 W.\n✓ 4500 mAh Battery.\n✓ IP65 Dust and Moisture Resistance.\n✓ Solar Charging: Yes.\n✓ Remote Control Included: Yes",
+            qu: "1 Comercial Hawa Inti K'anchay 504 LEDs kaqwan chaymanta Sensor de Movimiento kaqwan, 3 Modos + Control Remoto kaqwan, IP65 Alto Lumen LED Foco kaqwan, Callekunapaq, Patiokunapaq, Pórticokunapaq, Hawa Perqa K'anchaypaq, chaymanta Navidad Decoraciones kaqpaq allin.\n\n<strong>Rurakuna:</strong>\n✓ Atiy: 252 W.\n✓ 4500 mAh Batería.\n✓ IP65 Polvo y humedad Resistencia.\n✓ Intimanta carga: Arí.\n✓ Control remoto Incluido: Arí",
+        },
+        envio: {
+            es: "✓ Envío gratis en las Estaciones del Tren.\n✓ S/10 por Envío a domicilio o Provincia.",
+            en: "✓ Free shipping at Train Stations.\n✓ S/10 for Home Delivery.",
+            qu: "✓ Libre chaski Tren Estaciones.\n✓ S/10 wasi chaski.",
+        },
+        garantia: {
+            es: "✓ Pagos seguros mediante Yape, Plin, Efectivo o Transferencias.\n✓ Paga cuando recibas tu producto.\n✓ Prueba tu producto sin compromiso en un lugar público.\n✓ Coordinamos tu entrega en la brevedad posible.",
+            en: "✓ Secure payments\n✓ Pay when you receive your product\n✓ Secure privacy\n✓ We coordinate your delivery as soon as possible",
+            qu: "✓ Seguro pagokuna\n✓ Chaskispay paga\n✓ Seguro privacidad",
+        },
+        donacion: {
+            es: "Ayúdanos para poder llevarle un bonito regalo a los niños por esta Navidad.",
+            en: "Help us bring a nice gift to children this Christmas.",
+            qu: "Yanapayku wawakunaman regalo churay.",
+        },
+        relacionados: [1, 18, 17, 16, 15, 14],
+    },
+    {
+    // =================================================
+    // =========== 14 CASACA IMPERMEABLE  ================
+    // =================================================
+        id: 14,
+
+        titulo: {
+        es: "Casaca Impermeable",
+        en: "Waterproof jacket",
+        qu: "Chaqueta impermeable"
+        },
+        subtitulo: {
+            es: "(Varios Colores)",
+            en: "(Various Colors)",
+            qu: "(Imaymana llimp'ikuna)"
+        },
+        marca: {
+        es: "Marca: Estándar",
+        en: "Brand: Standard",
+        qu: "Yupichay: Kaqlla"
+        },
+        estilo: {
+            es: "Casaca Azul",
+            en: "Blue Coat",
+            qu: "Azul Chaleco"
+        },
+        precio: 89.90,
+        precioOriginal: 119.90,
+        descuento: 25,
+        disponible: 7,
+
+        categoria: "ropa",
+        imagenes: [
+            "assets/28 CASACA IMPERMEABLE AZUL/01.webp",
+            "assets/28 CASACA IMPERMEABLE AZUL/06.avif",
+            "assets/28 CASACA IMPERMEABLE AZUL/07.avif",
+            "assets/28 CASACA IMPERMEABLE AZUL/08.avif",
+            // "assets/28 CASACA IMPERMEABLE AZUL/05.avif",
+            "assets/28 CASACA IMPERMEABLE AZUL/02.webp",
+            "assets/28 CASACA IMPERMEABLE AZUL/03.webp",
+            "assets/28 CASACA IMPERMEABLE AZUL/04.webp",
+            "assets/28 CASACA IMPERMEABLE AZUL/09.avif",
+            "assets/28 CASACA IMPERMEABLE AZUL/10.avif",
+            
+            
+        ],
+        videos: [
+            // "assets/videos/albedo-360.mp4", https://res.cloudinary.com/dmeoj7xbx/video/upload/v1787964476/17_eebcv2.webm
+            
+            "assets/28 CASACA IMPERMEABLE AZUL/11.mp4",
+        ],
+        // ─── CARÁTULAS DE CADA VIDEO (mismo orden que videos) ───
+        videoPosters: [
+            "assets/28 CASACA IMPERMEABLE AZUL/08.avif",
+        ],
+
+        tipoVariante: "color", // ← 'estilo' | 'color' | 'talla'
+        // ─── ESTILOS / COLORES ───
+        // Onii-chan: aquí defines los diferentes colores/estilos del producto.
+        // Cada uno tiene una mini imagen para el selector.
+        estilos: [
+        { 
+            nombre: { es: "Casaca Azul", en: "Blue Jacket", qu: "Azul Chaleco" }, 
+            imagen: "assets/28 CASACA IMPERMEABLE AZUL/01.webp",
+            color: { es: "Azul", en: "Blue", qu: "Azul" } 
+        },
+        { 
+            nombre: { es: "Casaca Negra", en: "Black Jacket", qu: "Yana Chaleco" }, 
+            imagen: "assets/28 CASACA IMPERMEABLE AZUL/02.webp",
+            color: { es: "Negro", en: "Black", qu: "Yana" } 
+        },
+        { 
+            nombre: { es: "Casaca Gris", en: "Gray Jacket", qu: "Gris Chaleco" }, 
+            imagen: "assets/28 CASACA IMPERMEABLE AZUL/03.webp",
+            color: { es: "Gris", en: "Gray", qu: "Gris" } 
+        },
+        { 
+            nombre: { es: "Casaca Roja", en: "Red Jacket", qu: "Puka Punchu" }, 
+            imagen: "assets/28 CASACA IMPERMEABLE AZUL/04.webp",
+            color: { es: "Rojo", en: "Red", qu: "Puka" } 
+        },
+        ],
+        ///////////////
+
+        collageOrder: [0, 4, 5, 6, 1, 2, 3, 7, 8],
+
+
+        tituloLargo: {
+            es: "Casaca Impermeable para hombre de primavera/otoño, abrigo trench deportivo casual de moda para hombre, chaqueta juvenil de color sólido con capucha, ropa de abrigo a prueba de viento.",
+            en: "Men's Spring/Autumn Waterproof Jacket, Fashionable Casual Sports Trench Coat for Men, Solid Color Hooded Youth Jacket, Windproof Outerwear.",
+            qu: "Qharikuna Primavera/Otoño Chaqueta Impermeable, Moda Casual Deportes Trinchera Abrigo Qharikunapaq, Sólido Color Capucha Chaqueta Wayna-sipas, Wayramanta Rupa Exterior.",
+        },
+
+        detalles: {
+            es: "Diseñada para el hombre que no se detiene, esta chaqueta de entretiempo es el equilibrio perfecto entre estilo urbano y confort deportivo. Gracias a su capucha removible, tienes dos looks en uno: un abrigo deportivo para tus días activos o una chaqueta casual delgada para una salida nocturna. Ligera, estilizada y lista para enfrentar el viento de primavera u otoño. No elijas entre estilo o función, llévatelo todo.\n\n<strong>Características:</strong>\n✓ Fácil de llevar.\n✓ Abrigo Deportivo.\n✓ Chaqueta Casual.\n✓ Capucha Removible.",
+            en: "Designed for the man who never stops, this transitional jacket strikes the perfect balance between urban style and sporty comfort. Thanks to its detachable hood, you get two looks in one: a sporty coat for your active days or a lightweight casual jacket for a night out. Lightweight, stylish, and ready to face the spring or fall breeze. Don't choose between style and function—get it all.\n\n<strong>Features:</strong>\n✓ Easy to carry.\n✓ Sporty Coat.\n✓ Casual Jacket.\n✓ Removable Hood.",
+            qu: "Mana hayk’aq sayaq runapaq ruwasqa, kay chaleco transicionalqa allin equilibriota ruwan estilo urbanowan confort deportivowan. Gracias a su capucha desmontable, iskay qhawariykunata hukllapi tarinki: huk abrigo deportivo activo p’unchawniykikunapaq utaq huk llamp’u chaleco casual huk tuta lluqsiypaq. Llampu, sumaq rikchayniyuq, primavera utaq urquy wayrawan tupananpaq listo. Ama akllaychu estilomanta, ruwaymantawan —tukuy imata jap’iy.\n\n<strong>Rurakuna:</strong>\n✓ Mana sasachu apay.\n✓ Abrigo deportivo.\n✓ Chaqueta Casual.\n✓ Capucha hurqunapaq.",
+        },
+        envio: {
+            es: "✓ Envío gratis en las Estaciones del Tren.\n✓ S/10 por Envío a domicilio o Provincia.",
+            en: "✓ Free shipping at Train Stations.\n✓ S/10 for Home Delivery.",
+            qu: "✓ Libre chaski Tren Estaciones.\n✓ S/10 wasi chaski.",
+        },
+        garantia: {
+            es: "✓ Pagos seguros mediante Yape, Plin, Efectivo o Transferencias.\n✓ Paga cuando recibas tu producto.\n✓ Prueba tu producto sin compromiso en un lugar público.\n✓ Coordinamos tu entrega en la brevedad posible.",
+            en: "✓ Secure payments\n✓ Pay when you receive your product\n✓ Secure privacy\n✓ We coordinate your delivery as soon as possible",
+            qu: "✓ Seguro pagokuna\n✓ Chaskispay paga\n✓ Seguro privacidad",
+        },
+        donacion: {
+            es: "Ayúdanos para poder llevarle un bonito regalo a los niños por esta Navidad.",
+            en: "Help us bring a nice gift to children this Christmas.",
+            qu: "Yanapayku wawakunaman regalo churay.",
+        },
+        relacionados: [1, 18, 17, 16, 15, 9],
+    },
+    {
+    // =================================================
+    // =========== 15 CORREA AUTOMATICA  ================
+    // =================================================
+        id: 15,
+
+        titulo: {
+        es: "Correa de Cuero",
+        en: "Leather Strap",
+        qu: "Q’aramanta Correa"
+        },
+        subtitulo: {
+            es: "Automática",
+            en: "Automatic",
+            qu: "Kikinmanta"
+        },
+        marca: {
+        es: "Marca: Estándar",
+        en: "Brand: Standard",
+        qu: "Yupichay: Kaqlla"
+        },
+        estilo: {
+            es: "Correa de Cuero",
+            en: "Leather Strap",
+            qu: "Q’aramanta Correa"
+        },
+        precio: 39.90,
+        precioOriginal: 55.90,
+        descuento: 40,
+        disponible: 8,
+
+        categoria: "ropa",
+        imagenes: [
+            "assets/30 CORREA DE CUERO AUTOMATICA/01.webp",
+            "assets/30 CORREA DE CUERO AUTOMATICA/02.avif",
+            "assets/30 CORREA DE CUERO AUTOMATICA/03.avif",
+            "assets/30 CORREA DE CUERO AUTOMATICA/04.avif",
+            "assets/30 CORREA DE CUERO AUTOMATICA/05.avif",
+            "assets/30 CORREA DE CUERO AUTOMATICA/06.avif",
+            "assets/30 CORREA DE CUERO AUTOMATICA/07.avif",
+            "assets/30 CORREA DE CUERO AUTOMATICA/08.avif",
+            "assets/30 CORREA DE CUERO AUTOMATICA/09.avif",
+            "assets/30 CORREA DE CUERO AUTOMATICA/10.avif",
+            
+            
+        ],
+        videos: [
+            // "assets/videos/albedo-360.mp4", https://res.cloudinary.com/dmeoj7xbx/video/upload/v1787964476/17_eebcv2.webm
+            
+            // "assets/34 MOCHILA WEIXIER/15.mp4",
+        ],
+        // ─── CARÁTULAS DE CADA VIDEO (mismo orden que videos) ───
+        videoPosters: [
+            // "assets/34 MOCHILA WEIXIER/02.avif",
+        ],
+
+        tipoVariante: "color", // ← 'estilo' | 'color' | 'talla'
+        // ─── ESTILOS / COLORES ───
+        // Onii-chan: aquí defines los diferentes colores/estilos del producto.
+        // Cada uno tiene una mini imagen para el selector.
+        estilos: [
+        { 
+            nombre: { es: "Correa de Cuero", en: "Leather Strap", qu: "Q’aramanta Correa" }, 
+            imagen: "assets/30 CORREA DE CUERO AUTOMATICA/01.webp",
+            color: { es: "Negro", en: "Black", qu: "Yana" } 
+        },
+        
+        ],
+        ///////////////
+
+        collageOrder: [0, 2, 3, 4, 5, 6, 7, 8, 9],
+
+
+        tituloLargo: {
+            es: "Cinturón de cuero para hombre, juego de 1/3, nuevo modelo 2026, hebilla automática sin dientes para uso interno, adecuado para negocios y uso casual, sin cola sobrante",
+            en: "Men's Leather Belt, 1/3 Set, New 2026 Model, Automatic Toothless Buckle for Internal Use, Suitable for Business and Casual Wear, No Excess Tail.",
+            qu: "Qharikunapa qaramanta chumpi, 1/3 Set, Musuq 2026 Modelo, Automático Mana Kiruyuq Hebilla Ukhupi Usopaq, Negociopaq hinaspa Casual Desgastepaq allin, Mana Chupa Excesoyuq.",
+        },
+
+        detalles: {
+            es: "Descubre la comodidad absoluta con este cinturón de cuero genuino y sistema de hebilla automática. Olvida las restricciones de los cinturones convencionales; gracias a su mecanismo de precisión, puedes ajustarlo exactamente a tu medida con un solo deslizamiento. Un accesorio minimalista, duradero y sofisticado, diseñado para quienes valoran la funcionalidad sin sacrificar el estilo. Ajuste inteligente para tu día a día.\n\n<strong>Características:</strong>\n✓ Fácil de llevar.\n✓ Cuero Genuino.\n✓ Enganche Automático.",
+            en: "Discover absolute comfort with this genuine leather belt and automatic buckle system. Forget the restrictions of conventional belts; thanks to its precision mechanism, you can adjust it exactly to your size with a single slide. A minimalist, durable, and sophisticated accessory, designed for those who value functionality without sacrificing style. Smart fit for your everyday life.\n\n<strong>Features:</strong>\n✓ Easy to wear.\n✓ Genuine Leather.\n✓ Automatic Buckle.",
+            qu: "Descubre absoluta confort kay genuino qara cinturonwan hinaspa sistema automático de hebillaswan. Qunqay convencional cinturonkunapa harkakuyninkunata; gracias mecanismo de precisión nisqawan, huk diapositivawanlla sayayniykiman hina allinta allichayta atinki. Huk minimalista, unaypaq, chaymanta sofisticado accesorio, ruwasqa pikunachus ruwayta chaninchanku mana estilota sacrificaspa. Sapa punchaw kawsayniykipaq allin yuyayniyuq.\n\n<strong>Rurakuna:</strong>\n✓ Mana sasa churanapaq.\n✓ Chiqap Qara.\n✓ Kikinmanta Hebilla.",
+        },
+        envio: {
+            es: "✓ Envío gratis en las Estaciones del Tren.\n✓ S/10 por Envío a domicilio o Provincia.",
+            en: "✓ Free shipping at Train Stations.\n✓ S/10 for Home Delivery.",
+            qu: "✓ Libre chaski Tren Estaciones.\n✓ S/10 wasi chaski.",
+        },
+        garantia: {
+            es: "✓ Pagos seguros mediante Yape, Plin, Efectivo o Transferencias.\n✓ Paga cuando recibas tu producto.\n✓ Prueba tu producto sin compromiso en un lugar público.\n✓ Coordinamos tu entrega en la brevedad posible.",
+            en: "✓ Secure payments\n✓ Pay when you receive your product\n✓ Secure privacy\n✓ We coordinate your delivery as soon as possible",
+            qu: "✓ Seguro pagokuna\n✓ Chaskispay paga\n✓ Seguro privacidad",
+        },
+        donacion: {
+            es: "Ayúdanos para poder llevarle un bonito regalo a los niños por esta Navidad.",
+            en: "Help us bring a nice gift to children this Christmas.",
+            qu: "Yanapayku wawakunaman regalo churay.",
+        },
+        relacionados: [1, 18, 17, 16, 12, 9],
+    },
+    {
+    // =================================================
+    // =========== 16 CASACA CORTAVIENTO  ================
+    // =================================================
+        id: 16,
+
+        titulo: {
+        es: "Casaca Cortaviento",
+        en: "Windbreaker jacket",
+        qu: "Wayra hark’aq chaleco"
+        },
+        subtitulo: {
+            es: "(Varios Colores)",
+            en: "(Various Colors)",
+            qu: "(Imaymana llimp'ikuna)"
+        },
+        marca: {
+        es: "Marca: Estándar",
+        en: "Brand: Standard",
+        qu: "Yupichay: Kaqlla"
+        },
+        estilo: {
+            es: "Casaca Azul",
+            en: "Blue Coat",
+            qu: "Azul Chaleco"
+        },
+        precio: 69.90,
+        precioOriginal: 89.90,
+        descuento: 22,
+        disponible: 5,
+
+        categoria: "ropa",
+        imagenes: [
+            "assets/33 CASACA CORTAVIENTO AZUL/01.webp",
+            "assets/33 CASACA CORTAVIENTO AZUL/02.webp",
+            "assets/33 CASACA CORTAVIENTO AZUL/03.webp",
+            "assets/33 CASACA CORTAVIENTO AZUL/04.avif",
+            "assets/33 CASACA CORTAVIENTO AZUL/05.avif",
+            "assets/33 CASACA CORTAVIENTO AZUL/06.avif",
+            "assets/33 CASACA CORTAVIENTO AZUL/07.avif",
+            "assets/33 CASACA CORTAVIENTO AZUL/08.avif",
+            "assets/33 CASACA CORTAVIENTO AZUL/09.avif",
+            "assets/33 CASACA CORTAVIENTO AZUL/10.avif",
+            
+        ],
+        videos: [
+            // "assets/videos/albedo-360.mp4", https://res.cloudinary.com/dmeoj7xbx/video/upload/v1787964476/17_eebcv2.webm
+            
+            // "assets/34 MOCHILA WEIXIER/15.mp4",
+        ],
+        // ─── CARÁTULAS DE CADA VIDEO (mismo orden que videos) ───
+        videoPosters: [
+            // "assets/34 MOCHILA WEIXIER/02.avif",
+        ],
+
+        tipoVariante: "color", // ← 'estilo' | 'color' | 'talla'
+        // ─── ESTILOS / COLORES ───
+        // Onii-chan: aquí defines los diferentes colores/estilos del producto.
+        // Cada uno tiene una mini imagen para el selector.
+        estilos: [
+        { 
+            nombre: { es: "Casaca Azul", en: "Blue Jacket", qu: "Azul Chaleco" }, 
+            imagen: "assets/33 CASACA CORTAVIENTO AZUL/01.webp",
+            color: { es: "Azul", en: "Blue", qu: "Azul" } 
+        },
+        { 
+            nombre: { es: "Casaca Negra", en: "Black Jacket", qu: "Yana Chaleco" }, 
+            imagen: "assets/33 CASACA CORTAVIENTO AZUL/02.webp",
+            color: { es: "Negro", en: "Black", qu: "Yana" } 
+        },
+        { 
+            nombre: { es: "Casaca Gris", en: "Gray Jacket", qu: "Gris Chaleco" }, 
+            imagen: "assets/33 CASACA CORTAVIENTO AZUL/03.webp",
+            color: { es: "Gris", en: "Gray", qu: "Gris" } 
+        },
+        ],
+        ///////////////
+
+        collageOrder: [0, 1, 2, 4, 5, 6, 7, 8, 9, 10],
+
+
+        tituloLargo: {
+            es: "Chaqueta nueva para hombre, prenda superior deportiva de exterior casual con bolsillos con cremallera, chaqueta de trabajo ligera cortavientos con capucha. Esta chaqueta con cremallera es para hombres que disfrutan de actividades al aire libre como trotar, ciclismo, pesca, senderismo y acampada.",
+            en: "New men's jacket, casual outdoor sports top with zip pockets, lightweight windproof work jacket with hood. This zip-up jacket is for men who enjoy outdoor activities such as jogging, cycling, fishing, hiking, and camping.",
+            qu: "Musuq qharikuna chaleco, casual hawapi pukllay patamanta cremallera bolsillosniyuq, llampu wayramanta hark’aq llamk’ay chaleco capuchayuq. Kay cremallerayuq chalecoqa qharikunapaqmi, paykunaqa hawapi ruwaykunata kusikunku, imaynan phaway, bicicletapi puriy, challwakuy, senderismo, camping ima.",
+        },
+
+        detalles: {
+            es: "Diseñada para los que encuentran su libertad en la ruta, la montaña o el río. Esta chaqueta cortavientos es la aliada perfecta para tus sesiones de running, ciclismo o senderismo. Ligera como una segunda piel, pero lo suficientemente resistente para protegerte en tus acampadas más exigentes. Con bolsillos con cremallera de seguridad para que tus pertenencias lleguen tan lejos como tú. No dejes que el clima dicte tus reglas; sal ahí fuera y conquista tu próxima cima.\n\n<strong>Características:</strong>\n✓ Fácil de llevar.\n✓ Abrigo Deportivo.\n✓ Chaqueta Casual.\n✓ Capucha Removible.",
+            en: "Designed for those who find their freedom on the trail, in the mountains, or on the river. This windbreaker jacket is the perfect companion for your running, cycling, or hiking sessions. Light as a second skin, yet durable enough to protect you on your most demanding camping trips. It features secure zippered pockets so your belongings can go as far as you do. Don't let the weather dictate your rules; get out there and conquer your next summit.\n\n<strong>Features:</strong>\n✓ Easy to carry.\n✓ Sporty Coat.\n✓ Casual Jacket.\n✓ Removable Hood.",
+            qu: "Senderopi, orqokunapi otaq mayupi libre kayta tariqkunapaqmi ruwasqa. Kay wayra hark’aq chaleco allin compañero kan phaway, bicicleta utaq senderismo sesionesniykipaq. Iskay kaq qara hina k’anchariq, chaywanpas allin takyaq, aswan sasa camping puriyniykikunapi amachanaykipaq. Chayqa seguro cremallerayuq bolsillosniyuqmi, chaymi imaykipas qam hina karuman rinanpaq. Ama pacha kamachikuyniykikunata kamachinanta saqeychu; chaymanta lluqsispa qatiqnin puntaykita atipay.\n\n<strong>Rurakuna:</strong>\n✓ Mana sasachu apay.\n✓ Abrigo deportivo.\n✓ Chaqueta Casual.\n✓ Capucha hurqunapaq.",
+        },
+        envio: {
+            es: "✓ Envío gratis en las Estaciones del Tren.\n✓ S/10 por Envío a domicilio o Provincia.",
+            en: "✓ Free shipping at Train Stations.\n✓ S/10 for Home Delivery.",
+            qu: "✓ Libre chaski Tren Estaciones.\n✓ S/10 wasi chaski.",
+        },
+        garantia: {
+            es: "✓ Pagos seguros mediante Yape, Plin, Efectivo o Transferencias.\n✓ Paga cuando recibas tu producto.\n✓ Prueba tu producto sin compromiso en un lugar público.\n✓ Coordinamos tu entrega en la brevedad posible.",
+            en: "✓ Secure payments\n✓ Pay when you receive your product\n✓ Secure privacy\n✓ We coordinate your delivery as soon as possible",
+            qu: "✓ Seguro pagokuna\n✓ Chaskispay paga\n✓ Seguro privacidad",
+        },
+        donacion: {
+            es: "Ayúdanos para poder llevarle un bonito regalo a los niños por esta Navidad.",
+            en: "Help us bring a nice gift to children this Christmas.",
+            qu: "Yanapayku wawakunaman regalo churay.",
+        },
+        relacionados: [1, 18, 17, 11, 12, 9],
+    },
+    {
+    // =================================================
     // =========== 17 MOCHILA WEIXIER ================
     // =================================================
         id: 17,
@@ -113,49 +544,48 @@ const productosDB = [
             qu: "WEIXIER"
         },
         marca: {
-        es: "Marca: BANDAI",
-        en: "Brand: BANDAI",
-        qu: "Marca: BANDAI"
+        es: "Marca: WEIXIER",
+        en: "Brand: WEIXIER",
+        qu: "Yupichay: WEIXIER"
         },
         estilo: {
-            es: "Albedo",
-            en: "Albedo",
-            qu: "Albedo"
+            es: "Monarca Oscuro",
+            en: "Dark Monarch",
+            qu: "Tutayaq Kamachikuq"
         },
-        precio: 51.87,
-        precioOriginal: 77.91,
-        descuento: 33,
-        disponible: 7,
+        precio: 84.90,
+        precioOriginal: 109.90,
+        descuento: 22,
+        disponible: 2,
         // marca: "Marca: BANDAI",
         // estilo: "Albedo",
-        categoria: "figuras",
+        categoria: "moda",
         imagenes: [
-            "assets/35 FIGURA ALBEDO/01.avif",
-            "assets/35 FIGURA ALBEDO/02.avif",   // ← Onii-chan: pon tus fotos aquí
-            "assets/35 FIGURA ALBEDO/03.avif",
-            "assets/35 FIGURA ALBEDO/04.avif",
-            "assets/35 FIGURA ALBEDO/05.avif",
-            "assets/35 FIGURA ALBEDO/06.jpg",
-            "assets/35 FIGURA ALBEDO/07.avif",
-            "assets/35 FIGURA ALBEDO/08.avif",
-            "assets/35 FIGURA ALBEDO/09.jpg",
-            "assets/35 FIGURA ALBEDO/10.jpg",
-            "assets/35 FIGURA ALBEDO/11.jpg",
-            "assets/35 FIGURA ALBEDO/12.jpg",
-            "assets/35 FIGURA ALBEDO/13.webp",
-            "assets/35 FIGURA ALBEDO/14.jpg",
-            "assets/35 FIGURA ALBEDO/15.webp",
-            "assets/35 FIGURA ALBEDO/16.avif",
+            "assets/34 MOCHILA WEIXIER/01.webp",
+            "assets/34 MOCHILA WEIXIER/02.avif",
+            "assets/34 MOCHILA WEIXIER/03.avif",
+            "assets/34 MOCHILA WEIXIER/04.avif",
+            "assets/34 MOCHILA WEIXIER/05.avif",
+            "assets/34 MOCHILA WEIXIER/06.avif",
+            "assets/34 MOCHILA WEIXIER/07.avif",
+            "assets/34 MOCHILA WEIXIER/08.avif",
+            "assets/34 MOCHILA WEIXIER/09.avif",
+            "assets/34 MOCHILA WEIXIER/10.avif",
+            "assets/34 MOCHILA WEIXIER/11.avif",
+            "assets/34 MOCHILA WEIXIER/12.avif",
+            "assets/34 MOCHILA WEIXIER/13.avif",
+            "assets/34 MOCHILA WEIXIER/14.avif",
+            
             
         ],
         videos: [
             // "assets/videos/albedo-360.mp4", https://res.cloudinary.com/dmeoj7xbx/video/upload/v1787964476/17_eebcv2.webm
             
-            "assets/35 FIGURA ALBEDO/17.webm",
+            "assets/34 MOCHILA WEIXIER/15.mp4",
         ],
         // ─── CARÁTULAS DE CADA VIDEO (mismo orden que videos) ───
         videoPosters: [
-            "assets/35 FIGURA ALBEDO/09.jpg",   // ← portada del video 17.webm
+            "assets/34 MOCHILA WEIXIER/02.avif",
         ],
 
         tipoVariante: "color", // ← 'estilo' | 'color' | 'talla'
@@ -164,41 +594,36 @@ const productosDB = [
         // Cada uno tiene una mini imagen para el selector.
         estilos: [
         { 
-            nombre: { es: "Albedo", en: "Albedo", qu: "Albedo" }, 
-            imagen: "assets/01 albedo.avif", 
-            color: { es: "Estándar", en: "Standard", qu: "Kaqlla" } 
+            nombre: { es: "Monarca Oscuro", en: "Dark Monarch", qu: "Tutayaq Kamachikuq" }, 
+            imagen: "assets/34 MOCHILA WEIXIER/01.webp",
+            color: { es: "Negro", en: "Black", qu: "Tutayaq" } 
         },
         { 
-            nombre: { es: "Albedo Oscura", en: "Albedo Dark", qu: "Albedo Tutayasqa" }, 
-            imagen: "assets/35 FIGURA ALBEDO/09.jpg", 
-            color: { es: "Negro", en: "Black", qu: "Yanaq" } 
-        },
-        { 
-            nombre: { es: "Albedo Sacerdotisa", en: "Albedo Priestess", qu: "Albedo Tayta Cura" }, 
-            imagen: "assets/35 FIGURA ALBEDO/13.webp", 
-            color: { es: "Púrpura", en: "Purple", qu: "Kulli" } 
+            nombre: { es: "Monarca Blanco", en: "White Monarch", qu: "Yuraq Kamachiq" }, 
+            imagen: "assets/34 MOCHILA WEIXIER/04.5.webp", 
+            color: { es: "Blanco", en: "White", qu: "Yuraq" } 
         },
         ],
         ///////////////
 
-        collageOrder: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+        collageOrder: [1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 13, 14],
 
 
         tituloLargo: {
-            es: "Figura de Anime de Albedo del anime Overlord en Pose de Batalla. Estatua de 24cm/9.45 pulgadas con accesorios. Adorno de Escritorio, Regalo Coleccionable para Fans. Material de alta calidad PVC con pintura detallada y base decorativa incluida.",
-            en: "Anime Figure of Albedo from Overlord in Battle Pose. 24cm/9.45 inches statue with accessories. Desktop Ornament, Collectible Gift for Fans. High quality PVC material with detailed paint and decorative base included.",
-            qu: "Albedo figura anime Overlord. 24cm estatua, accesorios nisqan. Wasi adorno, coleccionista regalo. PVC materia alta calidad, pintura detallada.",
+            es: "WEIXIER Mochila Multifuncional Unisex, Bolso de Hombro Doble para Mayor Sujeción, Mochila para Viajes Cortos, Bolso para Ir al Trabajo, con Compartimento Separado para Zapatos, Gran Capacidad con Múltiples Bolsillos, Compatible con Laptop, Mochila de Moda, Bolso Multifuncional.",
+            en: "WEIXIER Unisex Multifunctional Backpack, Double Shoulder Bag for Extra Support, Short Trip Backpack, Work Bag, with Separate Shoe Compartment, Large Capacity with Multiple Pockets, Laptop Compatible, Fashionable Backpack, Multifunctional Bag.",
+            qu: "WEIXIER Unisex Multifuncional Q'ipina, Iskay Hombro Wayaqa Extra Yanapanapaq, Pisi Viaje Mochila, Llamkana Bolsa, Sapaq Zapato Compartimientoyuq, Hatun Capacidad achka Bolsillosniyuq, Laptop Compatible, Moda Q'ipina, Multifuncional Wayaqa.",
         },
 
         detalles: {
-            es: "Figura de Anime de Albedo del anime Overlord en Pose de Batalla. Estatua de 24cm/9.45 pulgadas con accesorios. Adorno de Escritorio, Regalo Coleccionable para Fans.",
-            en: "Anime Figure of Albedo from Overlord in Battle Pose. 24cm/9.45 inches statue with accessories. Desktop Ornament, Collectible Gift for Fans.",
-            qu: "Albedo figura anime Overlord. 24cm estatua, accesorios nisqan.",
+            es: "Viajar ligero no significa dejar nada fuera. Esta mochila Weixier está diseñada para optimizar cada centímetro. Su compartimento especial para calzado te permite llevar un par extra de zapatillas sin ocupar espacio en el compartimento principal de ropa y tecnología. Es la organización definitiva para viajes cortos: tus zapatillas abajo, tu laptop arriba, y tú listo para la acción.\n\n<strong>Características:</strong>\n✓ Fácil de llevar.\n✓ Compartimento para calzado.\n✓ Soporta 50 Kilos.\n✓ Material Resistente.",
+            en: "Traveling light doesn't mean leaving anything behind. This Weixier backpack is designed to optimize every inch. Its special shoe compartment lets you pack an extra pair of sneakers without taking up space in the main compartment for clothes and tech. It's the ultimate organization solution for short trips: your sneakers at the bottom, your laptop at the top, and you're ready for action.\n\n<strong>Characteristics:</strong>\n✓ Easy to carry.\n✓ Shoe compartment.\n✓ Supports 50 kilos.\n✓ Durable Material.",
+            qu: "Viaje k’anchayqa manan imatapas saqeychu. Kay Weixier mochilaqa sapa pulgadata allinta ruwananpaqmi ruwasqa kachkan. Paypa especial zapatos compartimienton permite pack huk extra par zapatillas mana espaciota hap’ispa compartimiento principalpi p’achakunapaq hinallataq tech. Chayqa qhipa organizacionpa solucionnin pisi puriykunapaq: zapatillasniyki uraypi, laptopniyki patapi, chaymanta ruwanapaq wakichisqa kanki.\n\n<strong>Kaqninkuna:</strong>\n✓ Mana sasachu apanapaq.\n✓ Zapatokuna churana.\n✓ 50 kilokunata yanapan.\n✓ Material Hark'aq.",
         },
         envio: {
-            es: "✓ Envío gratis en las Estaciones del Tren\n✓ S/10 por Envío a domicilio o Provincia",
-            en: "✓ Free shipping at Train Stations\n✓ S/10 for Home Delivery",
-            qu: "✓ Libre chaski Tren Estaciones\n✓ S/10 wasi chaski",
+            es: "✓ Envío gratis en las Estaciones del Tren.\n✓ S/10 por Envío a domicilio o Provincia.",
+            en: "✓ Free shipping at Train Stations.\n✓ S/10 for Home Delivery.",
+            qu: "✓ Libre chaski Tren Estaciones.\n✓ S/10 wasi chaski.",
         },
         garantia: {
             es: "✓ Pagos seguros mediante Yape, Plin, Efectivo o Transferencias.\n✓ Paga cuando recibas tu producto.\n✓ Prueba tu producto sin compromiso en un lugar público.\n✓ Coordinamos tu entrega en la brevedad posible.",
@@ -210,7 +635,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 4, 6, 11, 12, 9],
+        relacionados: [1, 18, 6, 11, 12, 9],
     },
     {
     // =================================================
@@ -225,14 +650,14 @@ const productosDB = [
         qu: "Albedo Siqi"
         },
         subtitulo: {
-            es: "35x50 cm hola",
-            en: "35x50 cm hello",
-            qu: "35x50 cm siqi"
+            es: "35x50 cm",
+            en: "35x50 cm",
+            qu: "35x50 cm"
         },
         marca: {
         es: "Marca: BANDAI",
         en: "Brand: BANDAI",
-        qu: "Marca: BANDAI"
+        qu: "Yupichay: BANDAI"
         },
         estilo: {
             es: "Albedo",
@@ -327,7 +752,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 4, 6, 11, 12, 9],
+        relacionados: [1, 17, 6, 11, 12, 9],
     },
     // ═══════════════════════════════════════════════════════
     // ONII-CHAN: COPIA Y PEGA EL BLOQUE DE ARRIBA PARA AGREGAR MÁS PRODUCTOS.
@@ -671,10 +1096,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function getLimitByScreen() {
         const width = window.innerWidth;
-        if (width >= 1280) return 15;
-        if (width >= 1024) return 12;
-        if (width >= 640) return 9;
-        return 8;
+        if (width >= 1280) return 25;
+        if (width >= 1024) return 24;
+        if (width >= 640) return 24;
+        return 20;
     }
 
     function updateDisplay() {
@@ -1042,27 +1467,29 @@ function cambiarCantidad(cartId, delta) {
 let favoritos = [];
 
 function toggleFavorito(producto) {
+    const pid = parseInt(producto.id, 10);
     let index;
+    
     if (producto.variante) {
-        // Comparar por key (invariante al idioma) primero; fallback a valor
+        const pKey = producto.variante.key != null ? String(producto.variante.key) : null;
         index = favoritos.findIndex(f => {
-            if (f.id !== producto.id) return false;
-            if (typeof producto.variante.key === 'number' && typeof f.variante?.key === 'number') {
-                return f.variante.key === producto.variante.key;
-            }
-            return f.variante?.valor === producto.variante.valor;
+            if (parseInt(f.id, 10) !== pid) return false;
+            if (!f.variante) return false;
+            const fKey = f.variante.key != null ? String(f.variante.key) : null;
+            if (pKey !== null && fKey !== null) return pKey === fKey;
+            return (f.variante.valor || '').toString().trim().toLowerCase() === 
+                   (producto.variante.valor || '').toString().trim().toLowerCase();
         });
     } else if (producto.esBase) {
-        index = favoritos.findIndex(f => f.id === producto.id && !f.variante);
+        index = favoritos.findIndex(f => parseInt(f.id, 10) === pid && !f.variante);
     } else {
-        // Grid general: solo puede quitar/agregar el producto BASE
-        index = favoritos.findIndex(f => f.id === producto.id && !f.variante);
+        // Grid general: solo toca el producto BASE
+        index = favoritos.findIndex(f => parseInt(f.id, 10) === pid && !f.variante);
     }
     
     if (index !== -1) { 
         favoritos.splice(index, 1); 
-    }
-    else { 
+    } else { 
         const card = document.querySelector(`article[data-id="${producto.id}"]`);
         if (card) {
             const getCls = (sel) => {
@@ -3066,7 +3493,10 @@ function abrirDetalleProducto(id, fromPopstate = false) {
     const accDon = document.getElementById('accordion-donacion');
     if (accEnv) accEnv.textContent = producto.envio?.[idiomaActual] || producto.envio?.es || '';
     if (accGar) accGar.textContent = producto.garantia?.[idiomaActual] || producto.garantia?.es || '';
-    if (accDet) accDet.textContent = producto.detalles?.[idiomaActual] || producto.detalles?.es || '';
+    if (accDet) {
+    const rawText = producto.detalles?.[idiomaActual] || producto.detalles?.es || '';
+    accDet.innerHTML = rawText.replace(/\n/g, '<br>');
+    }
     if (accDon) accDon.textContent = producto.donacion?.[idiomaActual] || producto.donacion?.es || '';
 
     document.querySelectorAll('.accordion-content').forEach(c => {
@@ -3089,8 +3519,8 @@ function abrirDetalleProducto(id, fromPopstate = false) {
     renderizarMiniaturas(medias);
     cambiarImagenPrincipal(medias, 0);
     initZoomAndSwipe();
-    sincronizarFavoritoDetalle();
     renderizarEstilos(producto);
+    sincronizarFavoritoDetalle();
     renderizarCollage(producto, medias);
     renderizarRelacionados(producto.relacionados || []);
     initMarqueeEnvio();
@@ -3684,7 +4114,7 @@ const onTouchEnd = (e) => {
     container.addEventListener('mousemove', onMouseMoveHover);
     container.addEventListener('mouseleave', onMouseLeaveHover);
     // Wheel zoom SOLO si NO es PC (en PC usamos el overlay, no wheel zoom)
-    container.addEventListener('wheel', onWheel, { passive: false });
+    // container.addEventListener('wheel', onWheel, { passive: false });
 
     container.addEventListener('mousedown', onMouseDown);
     window.addEventListener('mousemove', onWindowMouseMove);
@@ -3698,7 +4128,7 @@ const onTouchEnd = (e) => {
     window._zoomHandlers.cleanup = () => {
     container.removeEventListener('mousemove', onMouseMoveHover);
     container.removeEventListener('mouseleave', onMouseLeaveHover);
-    container.removeEventListener('wheel', onWheel);
+    // container.removeEventListener('wheel', onWheel);
     container.removeEventListener('mousedown', onMouseDown);
     window.removeEventListener('mousemove', onWindowMouseMove);
     window.removeEventListener('mouseup', onWindowMouseUp);
@@ -4314,7 +4744,12 @@ function recargarTextosDetalle() {
 
     if (accEnv) accEnv.textContent = producto.envio?.[idiomaActual] || producto.envio?.es || '';
     if (accGar) accGar.textContent = producto.garantia?.[idiomaActual] || producto.garantia?.es || '';
-    if (accDet) accDet.textContent = producto.detalles?.[idiomaActual] || producto.detalles?.es || '';
+    if (accDet) {
+    const rawText = producto.detalles?.[idiomaActual] || producto.detalles?.es || '';
+    // Convertir \n a <br> para respetar saltos de línea
+    const htmlText = rawText.replace(/\n/g, '<br>');
+    accDet.innerHTML = htmlText;
+    };
     if (accDon) accDon.textContent = producto.donacion?.[idiomaActual] || producto.donacion?.es || '';
 
     // ═══ RE-RENDERIZAR MINIATURAS DE ESTILO CON TRADUCCIÓN FRESCA ═══
@@ -4609,23 +5044,30 @@ function sincronizarFavoritoDetalle() {
 
     const producto = getProducto(productoActualId);
     const nombreEstiloBase = tp(producto, 'estilo');
-    const esEstiloBase = estiloSeleccionado && producto && estiloSeleccionado.nombre === nombreEstiloBase;
+    
+    // Si el producto no tiene estilos definidos, SIEMPRE es base
+    const tieneEstilos = producto?.estilos?.length > 0;
+    const esEstiloBase = !tieneEstilos || (estiloSeleccionado && estiloSeleccionado.nombre === nombreEstiloBase);
     
     let esFav = false;
+    const pid = productoActualId;
     
     if (esEstiloBase) {
-        esFav = favoritos.some(f => parseInt(f.id, 10) === productoActualId && !f.variante);
+        // Buscar: favorito base puro (sin variante) 
+        // O variante con key "0" (por si el estándar se guardó como variante en algún momento)
+        esFav = favoritos.some(f => {
+            if (parseInt(f.id, 10) !== pid) return false;
+            if (!f.variante) return true;
+            const fKey = f.variante.key != null ? String(f.variante.key) : null;
+            return fKey === '0';
+        });
     } else {
-        // Comparar por KEY numérico (invariante al idioma)
         const selKey = estiloSeleccionado?.key != null ? String(estiloSeleccionado.key) : null;
         esFav = favoritos.some(f => {
-            if (parseInt(f.id, 10) !== productoActualId) return false;
+            if (parseInt(f.id, 10) !== pid) return false;
             if (!f.variante) return false;
-            const favKey = f.variante.key != null ? String(f.variante.key) : null;
-            if (selKey !== null && favKey !== null) {
-                return selKey === favKey;
-            }
-            // Fallback por valor normalizado (para favoritos antiguos sin key)
+            const fKey = f.variante.key != null ? String(f.variante.key) : null;
+            if (selKey !== null && fKey !== null) return selKey === fKey;
             const selVal = (estiloSeleccionado?.color || estiloSeleccionado?.nombre || '').toString().trim().toLowerCase();
             const favVal = (f.variante.valor || '').toString().trim().toLowerCase();
             return selVal === favVal;
