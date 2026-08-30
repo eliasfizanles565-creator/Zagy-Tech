@@ -2076,7 +2076,9 @@ document.addEventListener('click', (e) => {
     if (panelCategorias.classList.contains('hidden')) return;
     
     const clickDentroPanel = panelCategorias.contains(e.target);
-    const clickEnBtnCategorias = btnCategoriasMobile?.contains(e.target) || btnCategoriasDesktop?.contains(e.target);
+    const clickEnBtnCategorias = btnCategoriasMobile?.contains(e.target) 
+        || btnCategoriasDesktop?.contains(e.target) 
+        || btnCatMobileNaranja?.contains(e.target);
     
     if (!clickDentroPanel && !clickEnBtnCategorias) {
         cerrarPanelCategorias();
@@ -2127,7 +2129,9 @@ document.addEventListener('click', (e) => {
     if (panelUsuario.classList.contains('hidden')) return;
     
     const clickDentroPanel = panelUsuario.contains(e.target);
-    const clickEnBtnUsuario = btnUsuarioMobile?.contains(e.target) || btnUsuarioDesktop?.contains(e.target) || btnUsuarioNaranja?.contains(e.target);
+    const clickEnBtnUsuario = btnUsuarioMobile?.contains(e.target) 
+        || btnUsuarioDesktop?.contains(e.target) 
+        || btnUsuarioNaranja?.contains(e.target);
     
     if (!clickDentroPanel && !clickEnBtnUsuario) {
         cerrarPanelUsuario();
