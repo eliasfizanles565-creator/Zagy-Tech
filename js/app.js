@@ -987,9 +987,15 @@ function gestionarVista(vista) {
     // Nav superior COMPLETO (logo + buscador + iconos desktop) y su separador
     const navSuperior = document.querySelector('nav');
     const separadorSuperior = navSuperior ? navSuperior.nextElementSibling : null;
+    // Footer y copyright
+    const footer = document.querySelector('footer');
+    const footerCopy = document.querySelector('footer + p');
 
     if (vista === 'carrito') {
         heros.forEach(hero => { hero.classList.add('hidden'); hero.style.display = 'none'; });
+        if (footer) footer.classList.add('hidden');
+        if (footerCopy) footerCopy.classList.add('hidden');
+
         if (productos) productos.classList.add('hidden');
         if (navCategorias) navCategorias.classList.add('hidden');
         if (btnMas) btnMas.classList.add('hidden');
@@ -1002,6 +1008,9 @@ function gestionarVista(vista) {
         if (separadorSuperior) separadorSuperior.classList.add('max-lg:hidden');
     } else if (vista === 'favoritos') {
         heros.forEach(hero => { hero.classList.add('hidden'); hero.style.display = 'none'; });
+        if (footer) footer.classList.add('hidden');
+        if (footerCopy) footerCopy.classList.add('hidden');
+
         if (productos) productos.classList.add('hidden');
         if (navCategorias) navCategorias.classList.add('hidden');
         if (btnMas) btnMas.classList.add('hidden');
@@ -1021,6 +1030,9 @@ function gestionarVista(vista) {
     } else {
         // Cerrar detalle si está abierto al volver a tienda
         const detalleSection = document.getElementById('producto-detalle');
+        if (footer) footer.classList.remove('hidden');
+        if (footerCopy) footerCopy.classList.remove('hidden');
+        
         if (detalleSection && !detalleSection.classList.contains('hidden')) {
             detalleSection.classList.add('hidden');
         }
@@ -1182,7 +1194,6 @@ function activateNav(key, fromHistory = false, resetCategory = true) {
     else if (key === 'categorias') {
         togglePanelCategorias();
     }
-    
     if (key === 'carrito') { 
         gestionarVista('carrito'); 
     }
