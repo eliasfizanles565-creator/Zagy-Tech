@@ -1982,6 +1982,8 @@ document.querySelectorAll('.cat-esfera').forEach(esfera => {
             if (typeof window.updateDisplayRef === 'function') window.updateDisplayRef();
         }
         sincronizarEsferasPanel();
+        cerrarPanelCategorias();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 });
 
