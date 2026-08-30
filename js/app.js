@@ -97,6 +97,123 @@ const productosDB = [
     },
     {
     // =================================================
+    // =========== 17 MOCHILA WEIXIER ================
+    // =================================================
+        id: 17,
+        // titulo: "Figura de Albedo",
+        // subtitulo: "35x50 cm",
+        titulo: {
+        es: "Mochila Monarch",
+        en: "Monarch Backpack",
+        qu: "Q'ipina Inka"
+        },
+        subtitulo: {
+            es: "WEIXIER",
+            en: "WEIXIER",
+            qu: "WEIXIER"
+        },
+        marca: {
+        es: "Marca: BANDAI",
+        en: "Brand: BANDAI",
+        qu: "Marca: BANDAI"
+        },
+        estilo: {
+            es: "Albedo",
+            en: "Albedo",
+            qu: "Albedo"
+        },
+        precio: 51.87,
+        precioOriginal: 77.91,
+        descuento: 33,
+        disponible: 7,
+        // marca: "Marca: BANDAI",
+        // estilo: "Albedo",
+        categoria: "figuras",
+        imagenes: [
+            "assets/35 FIGURA ALBEDO/01.avif",
+            "assets/35 FIGURA ALBEDO/02.avif",   // ← Onii-chan: pon tus fotos aquí
+            "assets/35 FIGURA ALBEDO/03.avif",
+            "assets/35 FIGURA ALBEDO/04.avif",
+            "assets/35 FIGURA ALBEDO/05.avif",
+            "assets/35 FIGURA ALBEDO/06.jpg",
+            "assets/35 FIGURA ALBEDO/07.avif",
+            "assets/35 FIGURA ALBEDO/08.avif",
+            "assets/35 FIGURA ALBEDO/09.jpg",
+            "assets/35 FIGURA ALBEDO/10.jpg",
+            "assets/35 FIGURA ALBEDO/11.jpg",
+            "assets/35 FIGURA ALBEDO/12.jpg",
+            "assets/35 FIGURA ALBEDO/13.webp",
+            "assets/35 FIGURA ALBEDO/14.jpg",
+            "assets/35 FIGURA ALBEDO/15.webp",
+            "assets/35 FIGURA ALBEDO/16.avif",
+            
+        ],
+        videos: [
+            // "assets/videos/albedo-360.mp4", https://res.cloudinary.com/dmeoj7xbx/video/upload/v1787964476/17_eebcv2.webm
+            
+            "assets/35 FIGURA ALBEDO/17.webm",
+        ],
+        // ─── CARÁTULAS DE CADA VIDEO (mismo orden que videos) ───
+        videoPosters: [
+            "assets/35 FIGURA ALBEDO/09.jpg",   // ← portada del video 17.webm
+        ],
+
+        tipoVariante: "color", // ← 'estilo' | 'color' | 'talla'
+        // ─── ESTILOS / COLORES ───
+        // Onii-chan: aquí defines los diferentes colores/estilos del producto.
+        // Cada uno tiene una mini imagen para el selector.
+        estilos: [
+        { 
+            nombre: { es: "Albedo", en: "Albedo", qu: "Albedo" }, 
+            imagen: "assets/01 albedo.avif", 
+            color: { es: "Estándar", en: "Standard", qu: "Kaqlla" } 
+        },
+        { 
+            nombre: { es: "Albedo Oscura", en: "Albedo Dark", qu: "Albedo Tutayasqa" }, 
+            imagen: "assets/35 FIGURA ALBEDO/09.jpg", 
+            color: { es: "Negro", en: "Black", qu: "Yanaq" } 
+        },
+        { 
+            nombre: { es: "Albedo Sacerdotisa", en: "Albedo Priestess", qu: "Albedo Tayta Cura" }, 
+            imagen: "assets/35 FIGURA ALBEDO/13.webp", 
+            color: { es: "Púrpura", en: "Purple", qu: "Kulli" } 
+        },
+        ],
+        ///////////////
+
+        collageOrder: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+
+
+        tituloLargo: {
+            es: "Figura de Anime de Albedo del anime Overlord en Pose de Batalla. Estatua de 24cm/9.45 pulgadas con accesorios. Adorno de Escritorio, Regalo Coleccionable para Fans. Material de alta calidad PVC con pintura detallada y base decorativa incluida.",
+            en: "Anime Figure of Albedo from Overlord in Battle Pose. 24cm/9.45 inches statue with accessories. Desktop Ornament, Collectible Gift for Fans. High quality PVC material with detailed paint and decorative base included.",
+            qu: "Albedo figura anime Overlord. 24cm estatua, accesorios nisqan. Wasi adorno, coleccionista regalo. PVC materia alta calidad, pintura detallada.",
+        },
+
+        detalles: {
+            es: "Figura de Anime de Albedo del anime Overlord en Pose de Batalla. Estatua de 24cm/9.45 pulgadas con accesorios. Adorno de Escritorio, Regalo Coleccionable para Fans.",
+            en: "Anime Figure of Albedo from Overlord in Battle Pose. 24cm/9.45 inches statue with accessories. Desktop Ornament, Collectible Gift for Fans.",
+            qu: "Albedo figura anime Overlord. 24cm estatua, accesorios nisqan.",
+        },
+        envio: {
+            es: "✓ Envío gratis en las Estaciones del Tren\n✓ S/10 por Envío a domicilio o Provincia",
+            en: "✓ Free shipping at Train Stations\n✓ S/10 for Home Delivery",
+            qu: "✓ Libre chaski Tren Estaciones\n✓ S/10 wasi chaski",
+        },
+        garantia: {
+            es: "✓ Pagos seguros mediante Yape, Plin, Efectivo o Transferencias.\n✓ Paga cuando recibas tu producto.\n✓ Prueba tu producto sin compromiso en un lugar público.\n✓ Coordinamos tu entrega en la brevedad posible.",
+            en: "✓ Secure payments\n✓ Pay when you receive your product\n✓ Secure privacy\n✓ We coordinate your delivery as soon as possible",
+            qu: "✓ Seguro pagokuna\n✓ Chaskispay paga\n✓ Seguro privacidad",
+        },
+        donacion: {
+            es: "Ayúdanos para poder llevarle un bonito regalo a los niños por esta Navidad.",
+            en: "Help us bring a nice gift to children this Christmas.",
+            qu: "Yanapayku wawakunaman regalo churay.",
+        },
+        relacionados: [1, 4, 6, 11, 12, 9],
+    },
+    {
+    // =================================================
     // =========== 18 FIGURA ALBEDO ================
     // =================================================
         id: 18,
@@ -927,17 +1044,19 @@ let favoritos = [];
 function toggleFavorito(producto) {
     let index;
     if (producto.variante) {
-        // Detalle con estilo alternativo o card de favoritos con variante
-        index = favoritos.findIndex(f => 
-            f.id === producto.id && 
-            f.variante?.valor === producto.variante.valor
-        );
+        // Comparar por key (invariante al idioma) primero; fallback a valor
+        index = favoritos.findIndex(f => {
+            if (f.id !== producto.id) return false;
+            if (typeof producto.variante.key === 'number' && typeof f.variante?.key === 'number') {
+                return f.variante.key === producto.variante.key;
+            }
+            return f.variante?.valor === producto.variante.valor;
+        });
     } else if (producto.esBase) {
-        // Detalle con estilo base o card de favoritos base
         index = favoritos.findIndex(f => f.id === producto.id && !f.variante);
     } else {
-        // Grid: buscar por id (cualquiera, comportamiento anterior de "uno por uno")
-        index = favoritos.findIndex(f => f.id === producto.id);
+        // Grid general: solo puede quitar/agregar el producto BASE
+        index = favoritos.findIndex(f => f.id === producto.id && !f.variante);
     }
     
     if (index !== -1) { 
@@ -984,26 +1103,72 @@ function toggleFavorito(producto) {
 }
 
 function sincronizarCorazones() {
-    const idsFavoritos = favoritos.map(f => f.id);
     document.querySelectorAll('.btn-favorito').forEach(btn => {
         const card = btn.closest('article');
         if (!card) return;
-        const id = parseInt(card.dataset.id);
+        const id = parseInt(card.dataset.id, 10);
         const icono = btn.querySelector('i');
-        if (idsFavoritos.includes(id)) {
+        
+        const varianteAttr = card.getAttribute('data-variante');
+        const enFavoritosGrid = !!card.closest('#favoritos-grid');
+        
+        let esFav = false;
+        
+        if (varianteAttr) {
+            try {
+                const v = JSON.parse(varianteAttr);
+                // Normalizar key a string (dataset siempre stringifica, JSON puede traer number)
+                const vKey = v.key != null ? String(v.key) : null;
+                const vVal = (v.valor || '').toString().trim().toLowerCase();
+                
+                esFav = favoritos.some(f => {
+                    if (parseInt(f.id, 10) !== id) return false;
+                    if (!f.variante) return false;
+                    
+                    const fKey = f.variante.key != null ? String(f.variante.key) : null;
+                    const fVal = (f.variante.valor || '').toString().trim().toLowerCase();
+                    
+                    // Prioridad absoluta: key numérico (invariante al idioma)
+                    if (vKey !== null && fKey !== null) {
+                        return vKey === fKey;
+                    }
+                    // Fallback: valor normalizado
+                    return vVal === fVal;
+                });
+            } catch(e) {
+                esFav = false;
+            }
+        } else if (enFavoritosGrid) {
+            // Card en favoritos sin data-variante = producto base
+            esFav = favoritos.some(f => parseInt(f.id, 10) === id && !f.variante);
+        } else {
+            // Grid general: solo mostrar activo si el producto BASE está en favoritos
+            esFav = favoritos.some(f => parseInt(f.id, 10) === id && !f.variante);
+        }
+        
+        if (esFav) {
             btn.classList.add('activo');
-            if (icono) { icono.classList.remove('ri-heart-line'); icono.classList.add('ri-heart-fill'); }
+            if (icono) {
+                icono.classList.remove('ri-heart-line', 'text-stone-950', 'dark:text-white/20');
+                icono.classList.add('ri-heart-fill', 'text-temu');
+            }
         } else {
             btn.classList.remove('activo');
-            if (icono) { icono.classList.remove('ri-heart-fill'); icono.classList.add('ri-heart-line'); }
+            if (icono) {
+                icono.classList.remove('ri-heart-fill', 'text-temu');
+                icono.classList.add('ri-heart-line', 'text-stone-950', 'dark:text-white/20');
+            }
         }
     });
+    
+    // ─── HEROES ───
     document.querySelectorAll('.btn-favorito-hero').forEach(btn => {
         const slide = btn.closest('.swiper-slide');
         if (!slide) return;
-        const id = parseInt(slide.dataset.id);
+        const id = parseInt(slide.dataset.id, 10);
         const icono = btn.querySelector('i');
-        if (idsFavoritos.includes(id)) {
+        const esFav = favoritos.some(f => parseInt(f.id, 10) === id && !f.variante);
+        if (esFav) {
             btn.classList.add('activo');
             if (icono) { icono.classList.remove('ri-heart-line'); icono.classList.add('ri-heart-fill'); }
         } else {
@@ -1073,7 +1238,7 @@ function renderizarFavoritos() {
                 <img src="${item.imagenVariante || item.imagen}" alt="" class="${item.clsImgProducto || 'w-full h-full object-cover object-[50%_70%] sm:object-[50%_60%]'}">
             </div>
             <button class="${item.clsBtnFav || 'btn-favorito absolute top-1.5 right-1.5 z-20 size-6 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2'} activo">
-                <i class="ri-heart-fill text-sm text-stone-950 dark:text-white/20 transition-colors duration-200 sm:text-lg"></i>
+                <i class="ri-heart-fill text-sm text-temu transition-colors duration-200 sm:text-lg"></i>
             </button>
             <div class="${item.clsBtnPrecio || 'w-18 h-6 absolute top-0.5 left-2.25 bg-puro dark:bg-stone-800 dark:text-temu dark:border dark:border-stone-800 rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]'}">
                 <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ ${parseFloat(item.precio).toFixed(2)}</p>
@@ -2661,8 +2826,10 @@ function recargarGridIdioma() {
         card.dataset.titulo = tituloTraducido;
         card.dataset.subtitulo = subtituloTraducido;
     });
+    
+    // 🔥 ESTO FALTABA: resincronizar corazones tras regenerar textos
+    sincronizarCorazones();
 }
-
 
 function aplicarIdioma(lang) {
     idiomaActual = lang;
@@ -2716,6 +2883,9 @@ function aplicarIdioma(lang) {
     if (detalleSection && !detalleSection.classList.contains('hidden')) {
         recargarTextosDetalle();
     }
+
+    // 🔥 RESINCRONIZAR TODO DESPUÉS DE CUALQUIER RECARGA
+    sincronizarCorazones();
     
     localStorage.setItem('zagy_idioma', lang);
 }
@@ -4177,6 +4347,8 @@ function recargarTextosDetalle() {
 
         if (elEstilo) elEstilo.textContent = nombreTraducido;
     }
+    // ═══ RE-SINCRONIZAR CORAZÓN DEL DETALLE ═══
+    sincronizarFavoritoDetalle();
 }
 
 function enablePinchZoom(img) {
@@ -4436,15 +4608,30 @@ function sincronizarFavoritoDetalle() {
     if (!btn || !productoActualId) return;
 
     const producto = getProducto(productoActualId);
-    const esEstiloBase = estiloSeleccionado && producto && estiloSeleccionado.nombre === producto.estilo;
+    const nombreEstiloBase = tp(producto, 'estilo');
+    const esEstiloBase = estiloSeleccionado && producto && estiloSeleccionado.nombre === nombreEstiloBase;
     
-    // 🔥 Si es base → buscar favorito SIN variante. Si es alternativo → buscar CON esa variante
-    const esFav = esEstiloBase
-        ? favoritos.some(f => f.id === productoActualId && !f.variante)
-        : favoritos.some(f => 
-            f.id === productoActualId && 
-            f.variante?.valor === (estiloSeleccionado?.color || estiloSeleccionado?.nombre)
-        );
+    let esFav = false;
+    
+    if (esEstiloBase) {
+        esFav = favoritos.some(f => parseInt(f.id, 10) === productoActualId && !f.variante);
+    } else {
+        // Comparar por KEY numérico (invariante al idioma)
+        const selKey = estiloSeleccionado?.key != null ? String(estiloSeleccionado.key) : null;
+        esFav = favoritos.some(f => {
+            if (parseInt(f.id, 10) !== productoActualId) return false;
+            if (!f.variante) return false;
+            const favKey = f.variante.key != null ? String(f.variante.key) : null;
+            if (selKey !== null && favKey !== null) {
+                return selKey === favKey;
+            }
+            // Fallback por valor normalizado (para favoritos antiguos sin key)
+            const selVal = (estiloSeleccionado?.color || estiloSeleccionado?.nombre || '').toString().trim().toLowerCase();
+            const favVal = (f.variante.valor || '').toString().trim().toLowerCase();
+            return selVal === favVal;
+        });
+    }
+    
     if (esFav) {
         btn.classList.add('activo');
         icono.classList.remove('ri-heart-line', 'text-stone-950', 'dark:text-white');
