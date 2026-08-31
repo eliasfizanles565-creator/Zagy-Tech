@@ -97,6 +97,122 @@ const productosDB = [
     },
     {
     // =================================================
+    // =========== 09 MASAJEADOR ALMOHADA  ================
+    // =================================================
+        id: 9,
+
+        titulo: {
+        es: "Masajeador Suave",
+        en: "Soft Massager",
+        qu: "Llamp’u Masajeador"
+        },
+        subtitulo: {
+            es: "4 Botones",
+            en: "4 Buttons",
+            qu: "4 Ñitina"
+        },
+        marca: {
+        es: "Marca: Estándar",
+        en: "Brand: Standard",
+        qu: "Yupichay: Kaqlla"
+        },
+        estilo: {
+            es: "Masajeadora",
+            en: "Massager",
+            qu: "Masajeador"
+        },
+        precio: 109.90,
+        precioOriginal: 64.90,
+        descuento: 27,
+        disponible: 3,
+
+        categoria: "hogar",
+        imagenes: [
+            "assets/12 ALMOHADA DE 4 BOTONES/01.webp",
+            "assets/12 ALMOHADA DE 4 BOTONES/02.webp",
+            "assets/12 ALMOHADA DE 4 BOTONES/03.webp",
+            "assets/12 ALMOHADA DE 4 BOTONES/04.avif",
+            "assets/12 ALMOHADA DE 4 BOTONES/05.avif",
+            "assets/12 ALMOHADA DE 4 BOTONES/06.avif",
+            "assets/12 ALMOHADA DE 4 BOTONES/07.avif",
+            "assets/12 ALMOHADA DE 4 BOTONES/08.avif",
+            "assets/12 ALMOHADA DE 4 BOTONES/09.avif",
+            "assets/12 ALMOHADA DE 4 BOTONES/10.avif",
+            "assets/12 ALMOHADA DE 4 BOTONES/11.avif",
+            "assets/12 ALMOHADA DE 4 BOTONES/12.avif",
+            "assets/12 ALMOHADA DE 4 BOTONES/13.avif",
+            "assets/12 ALMOHADA DE 4 BOTONES/14.avif",
+            
+            
+            
+            
+        ],
+        videos: [
+            // "assets/videos/albedo-360.mp4", https://res.cloudinary.com/dmeoj7xbx/video/upload/v1787964476/17_eebcv2.webm
+            
+            "assets/12 ALMOHADA DE 4 BOTONES/16.mp4",
+            "assets/12 ALMOHADA DE 4 BOTONES/15.mp4",
+            
+            
+        ],
+        // ─── CARÁTULAS DE CADA VIDEO (mismo orden que videos) ───
+        videoPosters: [
+
+            "assets/12 ALMOHADA DE 4 BOTONES/09.avif",
+            "assets/12 ALMOHADA DE 4 BOTONES/02.webp",
+        ],
+
+        tipoVariante: "color", // ← 'estilo' | 'color' | 'talla'
+        // ─── ESTILOS / COLORES ───
+        // Onii-chan: aquí defines los diferentes colores/estilos del producto.
+        // Cada uno tiene una mini imagen para el selector.
+        estilos: [
+        { 
+            nombre: { es: "Masajeadora Beige", en: "Massager Fawn", qu: "Masajeador Chunpi" }, 
+            imagen: "assets/13 MANITA MASAJEADORA/01.webp",
+            color: { es: "Beige", en: "Fawn", qu: "Chunpi" } 
+        },
+        { 
+            nombre: { es: "Masajeadora Azul", en: "Massager Blue", qu: "Masajeador Anqas" }, 
+            imagen: "assets/13 MANITA MASAJEADORA/03.webp",
+            color: { es: "Azul", en: "Blue", qu: "Anqas" } 
+        },
+        ],
+        ///////////////
+
+        collageOrder: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+
+
+        tituloLargo: {
+            es: "Almohada de Masaje Eléctrica para Cuello, Dispositivo de Masaje Shiatsu sin Cable con Calor, Herramienta Portátil Recargable Tipo-C para Relajación Cervical para Oficina, Hogar y Viajes, Regalo de Masajeador Ergonómico.",
+            en: "Electric Neck Massage Pillow, Cordless Shiatsu Massage Device with Heat, Portable Rechargeable Type-C Neck Relaxation Tool for Office, Home and Travel, Ergonomic Massager Gift.",
+            qu: "Sawna masaje de cuello eléctrico, Dispositivo de Masaje Shiatsu Inalámbrico Ruphaywan, Herramienta Recargable Recargable Tipo-C Cuello Relajación Oficinapaq, Wasipaq chaymanta Viajepaq, Masajeador Ergonómico Regalo.",
+        },
+
+        detalles: {
+            es: "Masajeador de Tejido Profundo Recargable USB, 8 Garras - Masajeador Portátil de Dedo Adecuado para Cuello, Espalda, Hombros y Piernas - Regalo Perfecto para Hombres y Mujeres, Cintura, Relajación. Masajeador de Músculo Esternocleidomastoideo, Masajeador sin varillas Portátil con Calor para Cuello.\n\n<strong>Características:</strong>\n✓ Fácil de llevar.\n✓ Diseño novedoso y Ergonómico.\n✓ Controles Intuitivos.\n✓ Ayuda a aliviar el dolor muscular.\n✓ Alivia el dolor cervical y de hombros.\n✓ 2 niveles de calor.\n✓ Duración de Batería: 70min.\n✓ Cable de Carga: Si.\n✓ Tipo C: Si.",
+            en: "USB Rechargeable Deep Tissue Massager, 8 Claws - Portable Finger Massager Suitable for Neck, Back, Shoulders, and Legs - Perfect Gift for Men and Women, Waist, Relaxation. Sternocleidomastoid Muscle Massager, Portable Rodless Massager with Heat for Neck.\n\n<strong>Features:</strong>\n✓ Easy to carry.\n✓ Novel and Ergonomic Design.\n✓ Intuitive Controls.\n✓ Helps relieve muscle pain.\n✓ Relieves neck and shoulder pain.\n✓ 2 Heat Levels.\n✓ Battery Life: 70 min.\n✓ Charging Cable: Yes.\n✓ Type-C: Yes.",
+            qu: "USB Recargable Masajeador de Tejido Profundo, 8 Garras - Masajeador de Dedo Portátil Kunkapaq, Wasanpaq, Hombrospaq, Chakipaqpas allin - Qharikunapaq Warmikunapaqpas, Cinturapaq, Relajaciónpaq Regalo Perfecto. Masajeador Muscular Esternocleidomastoide, Masajeador Portátil sin Varilla con Ruphay kunkapaq.\n\n<strong>Características:</strong>\n✓ Facil apa.\n✓ Diseño Novedoso y Ergonómico.\n✓ Controles Intuitivos.\n✓ Yanapakun aycha nanayta allinyachinanpaq.\n✓ Kunka nanayta, hombro nanayta allinyachin.\n✓ 2 Niveles de calor.\n✓ Pila kawsay: 70 min.\n✓ Cable de carga: Arí.\n✓ Tipo-C: Arí.",
+        },
+        envio: {
+            es: "✓ Envío gratis en las Estaciones del Tren.\n✓ S/10 por Envío a domicilio o Provincia.",
+            en: "✓ Free shipping at Train Stations.\n✓ S/10 for Home Delivery.",
+            qu: "✓ Libre chaski Tren Estaciones.\n✓ S/10 wasi chaski.",
+        },
+        garantia: {
+            es: "✓ Pagos seguros mediante Yape, Plin, Efectivo o Transferencias.\n✓ Paga cuando recibas tu producto.\n✓ Prueba tu producto sin compromiso en un lugar público.\n✓ Coordinamos tu entrega en la brevedad posible.",
+            en: "✓ Secure payments\n✓ Pay when you receive your product\n✓ Secure privacy\n✓ We coordinate your delivery as soon as possible",
+            qu: "✓ Seguro pagokuna\n✓ Chaskispay paga\n✓ Seguro privacidad",
+        },
+        donacion: {
+            es: "Ayúdanos para poder llevarle un bonito regalo a los niños por esta Navidad.",
+            en: "Help us bring a nice gift to children this Christmas.",
+            qu: "Yanapayku wawakunaman regalo churay.",
+        },
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11],
+    },
+    {
+    // =================================================
     // =========== 10 MANITA MASAJEADORA  ================
     // =================================================
         id: 10,
