@@ -117,12 +117,12 @@ const productosDB = [
         qu: "Yupichay: Kaqlla"
         },
         estilo: {
-            es: "Masajeadora",
-            en: "Massager",
-            qu: "Masajeador"
+            es: "Masajeadora 4 Botones",
+            en: "Massager 4 Buttons",
+            qu: "Masajeador 4 Ñitina"
         },
-        precio: 109.90,
-        precioOriginal: 64.90,
+        precio: 64.90,
+        precioOriginal: 89.90,
         descuento: 27,
         disponible: 3,
 
@@ -168,12 +168,12 @@ const productosDB = [
         // Cada uno tiene una mini imagen para el selector.
         estilos: [
         { 
-            nombre: { es: "Masajeadora Beige", en: "Massager Fawn", qu: "Masajeador Chunpi" }, 
+            nombre: { es: "Masajeadora Beige", en: "Fawn Massager", qu: "Masajeador Chunpi" }, 
             imagen: "assets/13 MANITA MASAJEADORA/01.webp",
             color: { es: "Beige", en: "Fawn", qu: "Chunpi" } 
         },
         { 
-            nombre: { es: "Masajeadora Azul", en: "Massager Blue", qu: "Masajeador Anqas" }, 
+            nombre: { es: "Masajeadora Beige", en: "Fawn Massager", qu: "Masajeador Chunpi" }, 
             imagen: "assets/13 MANITA MASAJEADORA/03.webp",
             color: { es: "Azul", en: "Blue", qu: "Anqas" } 
         },
@@ -190,9 +190,9 @@ const productosDB = [
         },
 
         detalles: {
-            es: "Masajeador de Tejido Profundo Recargable USB, 8 Garras - Masajeador Portátil de Dedo Adecuado para Cuello, Espalda, Hombros y Piernas - Regalo Perfecto para Hombres y Mujeres, Cintura, Relajación. Masajeador de Músculo Esternocleidomastoideo, Masajeador sin varillas Portátil con Calor para Cuello.\n\n<strong>Características:</strong>\n✓ Fácil de llevar.\n✓ Diseño novedoso y Ergonómico.\n✓ Controles Intuitivos.\n✓ Ayuda a aliviar el dolor muscular.\n✓ Alivia el dolor cervical y de hombros.\n✓ 2 niveles de calor.\n✓ Duración de Batería: 70min.\n✓ Cable de Carga: Si.\n✓ Tipo C: Si.",
-            en: "USB Rechargeable Deep Tissue Massager, 8 Claws - Portable Finger Massager Suitable for Neck, Back, Shoulders, and Legs - Perfect Gift for Men and Women, Waist, Relaxation. Sternocleidomastoid Muscle Massager, Portable Rodless Massager with Heat for Neck.\n\n<strong>Features:</strong>\n✓ Easy to carry.\n✓ Novel and Ergonomic Design.\n✓ Intuitive Controls.\n✓ Helps relieve muscle pain.\n✓ Relieves neck and shoulder pain.\n✓ 2 Heat Levels.\n✓ Battery Life: 70 min.\n✓ Charging Cable: Yes.\n✓ Type-C: Yes.",
-            qu: "USB Recargable Masajeador de Tejido Profundo, 8 Garras - Masajeador de Dedo Portátil Kunkapaq, Wasanpaq, Hombrospaq, Chakipaqpas allin - Qharikunapaq Warmikunapaqpas, Cinturapaq, Relajaciónpaq Regalo Perfecto. Masajeador Muscular Esternocleidomastoide, Masajeador Portátil sin Varilla con Ruphay kunkapaq.\n\n<strong>Características:</strong>\n✓ Facil apa.\n✓ Diseño Novedoso y Ergonómico.\n✓ Controles Intuitivos.\n✓ Yanapakun aycha nanayta allinyachinanpaq.\n✓ Kunka nanayta, hombro nanayta allinyachin.\n✓ 2 Niveles de calor.\n✓ Pila kawsay: 70 min.\n✓ Cable de carga: Arí.\n✓ Tipo-C: Arí.",
+            es: "La Almohada masajeadora de cuello ofrece un masaje shiatsu profundo en cualquier lugar y en cualquier momento. El control integrado le permite controlar su experiencia de masaje. Agregue calor y experimente un masaje de cuello y hombros más profundo y relajante..\n\n<strong>Características:</strong>\n✓ Fácil de llevar.\n✓ Masaje bidireccional.\n✓ Ruido silencios de alta frecuencia.\n✓ Suave y transpirable.\n✓ Ayuda a aliviar el dolor muscular.\n✓ Batería de litio recargable.\n✓ Capacidad de Batería: 2000mAH.\n✓ Potencia nominal: 3,7 W.\n✓ Tensión nominal: DC5.0V\n✓ Peso neto del producto:495 gramos.  \n✓ Cable de Carga: Si.\n✓ Tipo C: Si.",
+            en: "The neck massage pillow offers a deep shiatsu massage anywhere, anytime. The integrated control allows you to customize your massage experience. Add heat for a deeper, more relaxing neck and shoulder massage.\n\n<strong>Features:</strong>\n✓ Easy to carry.\n✓ Two-way massage.\n✓ High-frequency noise reduction.\n✓ Soft and breathable.\n✓ Helps relieve muscle pain.\n✓ Rechargeable lithium battery.\n✓ Battery capacity: 2000mAh.\n✓ Rated power: 3.7W.\n✓ Rated voltage: DC5.0V\n✓ Net weight: 495 grams.\n✓ Charging cable: Yes.\n✓ Type C: Yes.",
+            qu: "Kunka masaje almohadaqa maypipas, mayk’aqllapas ukhu shiatsu masajeta qun. Control integrado nisqa masaje experienciaykita ruwayta atikunki. Ruphayta yapay aswan ukhu, aswan samayniyuq kunka, hombro masajepaq.\n\n<strong>Rurakuna:</strong>\n✓ Mana sasachu apaykachanapaq.\n✓ Iskay ñan masaje.\n✓ Alto frecuenciawan qapariy pisiyachiy.\n✓ Llampu hinaspa samay atiy.\n✓ Aycha nanayta allinyachinanpaq yanapan.\n✓ Batería de litio recargable.\n✓ Pila capacidad: 2000mAh.\n✓ Atiy nominal: 3.7W.\n✓ Tensión nominal: DC5.0V\n✓ Llasaq neto: 495 gramos.\n✓ Cable de carga: Arí.\n✓ Tipo C: Arí.",
         },
         envio: {
             es: "✓ Envío gratis en las Estaciones del Tren.\n✓ S/10 por Envío a domicilio o Provincia.",
@@ -209,7 +209,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11],
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10],
     },
     {
     // =================================================
@@ -1096,9 +1096,108 @@ const productosDB = [
     },
     {
     // =================================================
-    // =========== 18 FIGURA ALBEDO ================
+    // =========== 18 MASAJEADOR ALMOHADA 3 BOTONES  ================
     // =================================================
-        id: 18,
+        id:18,
+
+        titulo: {
+        es: "Masajeador Suave",
+        en: "Soft Massager",
+        qu: "Llamp’u Masajeador"
+        },
+        subtitulo: {
+            es: "3 Botones",
+            en: "3 Buttons",
+            qu: "3 Ñitina"
+        },
+        marca: {
+        es: "Marca: Estándar",
+        en: "Brand: Standard",
+        qu: "Yupichay: Kaqlla"
+        },
+        estilo: {
+            es: "Masajeadora 3 Botones",
+            en: "Massager 3 Buttons",
+            qu: "Masajeador 3 Ñitina"
+        },
+        precio: 54.90,
+        precioOriginal: 79.90,
+        descuento: 31,
+        disponible: 3,
+
+        categoria: "hogar",
+        imagenes: [
+            "assets/11 ALMOHADA DE 3 BOTONES/01.webp",
+            "assets/11 ALMOHADA DE 3 BOTONES/03.avif",
+            "assets/11 ALMOHADA DE 3 BOTONES/04.avif",
+            "assets/11 ALMOHADA DE 3 BOTONES/05.avif",
+            "assets/11 ALMOHADA DE 3 BOTONES/06.avif",
+            "assets/11 ALMOHADA DE 3 BOTONES/07.avif",
+            "assets/11 ALMOHADA DE 3 BOTONES/08.avif",
+            
+        ],
+        videos: [
+            // "assets/videos/albedo-360.mp4", https://res.cloudinary.com/dmeoj7xbx/video/upload/v1787964476/17_eebcv2.webm
+            
+            "assets/11 ALMOHADA DE 3 BOTONES/09.mp4",
+            
+            
+        ],
+        // ─── CARÁTULAS DE CADA VIDEO (mismo orden que videos) ───
+        videoPosters: [
+
+            "assets/11 ALMOHADA DE 3 BOTONES/06.avif",
+        ],
+
+        tipoVariante: "color", // ← 'estilo' | 'color' | 'talla'
+        // ─── ESTILOS / COLORES ───
+        // Onii-chan: aquí defines los diferentes colores/estilos del producto.
+        // Cada uno tiene una mini imagen para el selector.
+        estilos: [
+        { 
+            nombre: { es: "Masajeadora 3 Botones", en: "Massager 3 Buttons", qu: "Masajeador 3 Ñitina" }, 
+            imagen: "assets/11 ALMOHADA DE 3 BOTONES/01.webp",
+            color: { es: "Azul", en: "Blue", qu: "Anqas" } 
+        },
+        ],
+        ///////////////
+
+        collageOrder: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+
+
+        tituloLargo: {
+            es: "Almohada de Masaje Eléctrica para Cuello, Dispositivo de Masaje Shiatsu sin Cable con Calor, Herramienta Portátil Recargable Tipo-C para Relajación Cervical para Oficina, Hogar y Viajes, Regalo de Masajeador Ergonómico.",
+            en: "Electric Neck Massage Pillow, Cordless Shiatsu Massage Device with Heat, Portable Rechargeable Type-C Neck Relaxation Tool for Office, Home and Travel, Ergonomic Massager Gift.",
+            qu: "Sawna masaje de cuello eléctrico, Dispositivo de Masaje Shiatsu Inalámbrico Ruphaywan, Herramienta Recargable Recargable Tipo-C Cuello Relajación Oficinapaq, Wasipaq chaymanta Viajepaq, Masajeador Ergonómico Regalo.",
+        },
+
+        detalles: {
+            es: "La Almohada masajeadora de cuello ofrece un masaje shiatsu profundo en cualquier lugar y en cualquier momento. El control integrado le permite controlar su experiencia de masaje. Agregue calor y experimente un masaje de cuello y hombros más profundo y relajante..\n\n<strong>Características:</strong>\n✓ Fácil de llevar.\n✓ Masaje bidireccional.\n✓ Ruido silencios de alta frecuencia.\n✓ Suave y transpirable.\n✓ Ayuda a aliviar el dolor muscular.\n✓ Batería de litio recargable.\n✓ Capacidad de Batería: 2000mAH.\n✓ Potencia nominal: 3,7 W.\n✓ Tensión nominal: DC5.0V\n✓ Peso neto del producto:495 gramos.  \n✓ Cable de Carga: Si.\n✓ Tipo C: Si.",
+            en: "The neck massage pillow offers a deep shiatsu massage anywhere, anytime. The integrated control allows you to customize your massage experience. Add heat for a deeper, more relaxing neck and shoulder massage.\n\n<strong>Features:</strong>\n✓ Easy to carry.\n✓ Two-way massage.\n✓ High-frequency noise reduction.\n✓ Soft and breathable.\n✓ Helps relieve muscle pain.\n✓ Rechargeable lithium battery.\n✓ Battery capacity: 2000mAh.\n✓ Rated power: 3.7W.\n✓ Rated voltage: DC5.0V\n✓ Net weight: 495 grams.\n✓ Charging cable: Yes.\n✓ Type C: Yes.",
+            qu: "Kunka masaje almohadaqa maypipas, mayk’aqllapas ukhu shiatsu masajeta qun. Control integrado nisqa masaje experienciaykita ruwayta atikunki. Ruphayta yapay aswan ukhu, aswan samayniyuq kunka, hombro masajepaq.\n\n<strong>Rurakuna:</strong>\n✓ Mana sasachu apaykachanapaq.\n✓ Iskay ñan masaje.\n✓ Alto frecuenciawan qapariy pisiyachiy.\n✓ Llampu hinaspa samay atiy.\n✓ Aycha nanayta allinyachinanpaq yanapan.\n✓ Batería de litio recargable.\n✓ Pila capacidad: 2000mAh.\n✓ Atiy nominal: 3.7W.\n✓ Tensión nominal: DC5.0V\n✓ Llasaq neto: 495 gramos.\n✓ Cable de carga: Arí.\n✓ Tipo C: Arí.",
+        },
+        envio: {
+            es: "✓ Envío gratis en las Estaciones del Tren.\n✓ S/10 por Envío a domicilio o Provincia.",
+            en: "✓ Free shipping at Train Stations.\n✓ S/10 for Home Delivery.",
+            qu: "✓ Libre chaski Tren Estaciones.\n✓ S/10 wasi chaski.",
+        },
+        garantia: {
+            es: "✓ Pagos seguros mediante Yape, Plin, Efectivo o Transferencias.\n✓ Paga cuando recibas tu producto.\n✓ Prueba tu producto sin compromiso en un lugar público.\n✓ Coordinamos tu entrega en la brevedad posible.",
+            en: "✓ Secure payments\n✓ Pay when you receive your product\n✓ Secure privacy\n✓ We coordinate your delivery as soon as possible",
+            qu: "✓ Seguro pagokuna\n✓ Chaskispay paga\n✓ Seguro privacidad",
+        },
+        donacion: {
+            es: "Ayúdanos para poder llevarle un bonito regalo a los niños por esta Navidad.",
+            en: "Help us bring a nice gift to children this Christmas.",
+            qu: "Yanapayku wawakunaman regalo churay.",
+        },
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9],
+    },
+    {
+    // =================================================
+    // =========== 19 FIGURA ALBEDO ================
+    // =================================================
+        id: 19,
         // titulo: "Figura de Albedo",
         // subtitulo: "35x50 cm",
         titulo: {
@@ -1127,7 +1226,7 @@ const productosDB = [
         disponible: 7,
         // marca: "Marca: BANDAI",
         // estilo: "Albedo",
-        categoria: "figuras",
+        categoria: "perfumes",
         imagenes: [
             "assets/35 FIGURA ALBEDO/01.avif",
             "assets/35 FIGURA ALBEDO/02.avif",   // ← Onii-chan: pon tus fotos aquí
@@ -1620,26 +1719,85 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-    // WhatsApp — Finalizar compra
+// WhatsApp — Finalizar compra
+// ======================================================
+// CONFIGURACIÓN PERSONALIZABLE (Onii-chan edita aquí)
+// ======================================================
+    const WHATSAPP_NUMEROS = {
+    default:       '51915112116',   // ← Todas las categorías (general)
+    perfumes:      '51933602140',   // ← Perfumes + Joyería
+    licores:       '51910517754'    // ← Solo Licores
+    };
+
+// Textos del mensaje (edita lo que quieras)
+    const TEXTO_PEDIDO = {
+    encabezado: '🛒 *Pedido ZAGY Tech*\n\n',
+    separador:  '─────────────────\n',
+    pie:        '¡Gracias por tu compra! 🙌'
+    };
+
+// ======================================================
+// FINALIZAR COMPRA → WHATSAPP (múltiples números)
+// ======================================================
     const btnFinalizar = document.querySelector('#btn-carrito button');
     if (btnFinalizar) {
         btnFinalizar.addEventListener('click', () => {
             if (carritoDeCompras.length === 0) {
-                alert('Tu carrito esta vacio');
-                return;
+            alert(idiomaActual === 'en' ? 'Your cart is empty' : 
+                    idiomaActual === 'qu' ? 'Carroykiqa ch\'usaqmi' : 
+                    'Tu carrito está vacío');
+            return;
             }
-            let mensaje = '%F0%9F%9B%92%20*Pedido%20ZAGY%20Tech*%0A%0A';
-            let total = 0;
-            carritoDeCompras.forEach(item => {
-                mensaje += `%E2%80%A2%20*${encodeURIComponent(item.titulo)}*%20${encodeURIComponent(item.subtitulo)}%0A%20%20_Cantidad:_%20${item.cantidad}%0A%20%20_Precio%20unitario:_%20s/%20${item.precio.toFixed(2)}%0A%0A`;
-                total += item.precio * item.cantidad;
+
+        // 1. Agrupar items por destinatario según categoría del producto
+        const grupos = {
+            default:  { items: [], total: 0, numero: WHATSAPP_NUMEROS.default },
+            perfumes: { items: [], total: 0, numero: WHATSAPP_NUMEROS.perfumes },
+            licores:  { items: [], total: 0, numero: WHATSAPP_NUMEROS.licores }
+        };
+
+        carritoDeCompras.forEach(item => {
+            const prod  = getProducto(item.id);
+            const cat   = prod?.categoria || '';
+
+            let destino = 'default';
+            if (cat === 'perfumes' || cat === 'joyeria') destino = 'perfumes';
+            else if (cat === 'licores')                  destino = 'licores';
+
+            grupos[destino].items.push(item);
+            grupos[destino].total += item.precio * item.cantidad;
+        });
+
+        // 2. Construir y enviar un mensaje por cada grupo con productos
+        let chatsAbiertos = 0;
+
+        Object.values(grupos).forEach(grupo => {
+            if (grupo.items.length === 0) return;
+
+            let texto = TEXTO_PEDIDO.encabezado;
+
+            grupo.items.forEach(item => {
+            texto += `• *${item.titulo}* ${item.subtitulo}\n`;
+            texto += `  _Cantidad:_ ${item.cantidad}\n`;
+            texto += `  _Precio unitario:_ s/ ${item.precio.toFixed(2)}\n\n`;
             });
-            mensaje += '%E2%94%80%E2%94%80%E2%94%80%E2%94%80%E2%94%80%E2%94%80%E2%94%80%E2%94%80%E2%94%80%E2%94%80%E2%94%80%E2%94%80%E2%94%80%E2%94%80%E2%94%80%E2%94%80%E2%94%80%0A*Total%20a%20pagar:%20s/%20${total.toFixed(2)}*%0A%0A%C2%A1Gracias%20por%20tu%20compra!%20%F0%9F%99%8C';
-            // CAMBIA ESTE NUMERO POR TU WHATSAPP REAL (codigo pais + numero, sin +)
-            const telefono = '51900556685';
-            window.open(`https://wa.me/${telefono}?text=${mensaje}`, '_blank');
+
+            texto += TEXTO_PEDIDO.separador;
+            texto += `*Total a pagar: s/ ${grupo.total.toFixed(2)}*\n\n`; // ← AHORA SÍ SUMA
+            texto += TEXTO_PEDIDO.pie;
+
+            // Codificar para URL
+            const mensajeURI = encodeURIComponent(texto);
+            window.open(`https://wa.me/${grupo.numero}?text=${mensajeURI}`, '_blank');
+            chatsAbiertos++;
+            });
+
+        if (chatsAbiertos > 1) {
+            console.log('Se abrieron', chatsAbiertos, 'chats de WhatsApp (uno por categoría).');
+            }
         });
     }
+
 });
 
 // ======================================================
