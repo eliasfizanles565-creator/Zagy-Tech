@@ -97,6 +97,346 @@ const productosDB = [
     },
     {
     // =================================================
+    // =========== 06 JBL ESSENTIAL  ================
+    // =================================================
+        id: 6,
+
+        titulo: {
+        es: "JBL Essential",
+        en: "JBL Essential",
+        qu: "JBL Kaqpuni"
+        },
+        subtitulo: {
+            es: "Original",
+            en: "Original",
+            qu: "Kikin"
+        },
+        marca: {
+        es: "Marca: JBL",
+        en: "Brand: JBL",
+        qu: "Yupichay: JBL"
+        },
+        estilo: {
+            es: "JBL Essential Azul",
+            en: "JBL Essential Blue",
+            qu: "JBL Kaqpuni Anqas"
+        },
+        precio: 84.90,
+        precioOriginal: 149.90,
+        descuento: 43,
+        disponible: 2,
+
+        categoria: "tecnologia",
+        imagenes: [
+            "assets/06 JBL ESSENTIAL/01.webp",
+            "assets/06 JBL ESSENTIAL/02.webp",
+            "assets/06 JBL ESSENTIAL/03.webp",
+            "assets/06 JBL ESSENTIAL/04.webp",
+            "assets/06 JBL ESSENTIAL/05.webp",
+            "assets/06 JBL ESSENTIAL/06.webp",
+            "assets/06 JBL ESSENTIAL/07.webp",
+            "assets/06 JBL ESSENTIAL/08.webp",
+            "assets/06 JBL ESSENTIAL/08.webp",
+            "assets/06 JBL ESSENTIAL/09.png",
+            "assets/06 JBL ESSENTIAL/10.png",
+            "assets/06 JBL ESSENTIAL/11.png",
+            "assets/06 JBL ESSENTIAL/12.png",
+            "assets/06 JBL ESSENTIAL/13.png",
+            "assets/06 JBL ESSENTIAL/14.avif",
+            "assets/06 JBL ESSENTIAL/15.avif",
+            "assets/06 JBL ESSENTIAL/16.avif",
+            "assets/06 JBL ESSENTIAL/17.avif",
+            "assets/06 JBL ESSENTIAL/18.webp",
+            "assets/06 JBL ESSENTIAL/19.webp",
+            "assets/06 JBL ESSENTIAL/20.webp",
+            "assets/06 JBL ESSENTIAL/21.png",
+            
+            
+            
+            
+        ],
+        videos: [
+            // "assets/videos/albedo-360.mp4", https://res.cloudinary.com/dmeoj7xbx/video/upload/v1787964476/17_eebcv2.webm
+            
+            "assets/06 JBL ESSENTIAL/26.mp4",
+            "assets/06 JBL ESSENTIAL/25.mp4",
+            "assets/06 JBL ESSENTIAL/24.mp4",
+            "assets/06 JBL ESSENTIAL/23.mp4",
+            "assets/06 JBL ESSENTIAL/22.mp4",
+            
+            
+        ],
+        // ─── CARÁTULAS DE CADA VIDEO (mismo orden que videos) ───
+        videoPosters: [
+
+            "assets/06 JBL ESSENTIAL/15.avif",
+            "assets/06 JBL ESSENTIAL/14.avif",
+            "assets/06 JBL ESSENTIAL/18.webp",
+            "assets/06 JBL ESSENTIAL/19.webp",
+            "assets/06 JBL ESSENTIAL/17.avif",
+        ],
+
+        tipoVariante: "color", // ← 'estilo' | 'color' | 'talla'
+        // ─── ESTILOS / COLORES ───
+        // Onii-chan: aquí defines los diferentes colores/estilos del producto.
+        // Cada uno tiene una mini imagen para el selector.
+        estilos: [
+        { 
+            nombre: { es: "JBL Essential Azul", en: "JBL Essential Blue", qu: "JBL Kaqpuni Anqas" }, 
+            imagen: "assets/06 JBL ESSENTIAL/01.webp",
+            color: { es: "Azul", en: "Blue", qu: "Anqas" } 
+        },
+        ],
+        ///////////////
+
+        collageOrder: [0, 1, 2, 3, 15, 16, 17, 18, 19, 20, 21],
+
+
+        tituloLargo: {
+            es: "Altavoz Inalámbrico Portátil Mini JBL GO ESSENTIAL, Música, Edición Juvenil Ladrillo Dorado, Exterior, Batería de Larga Duración, Múltiples Colores Geniales y Subwoofer de Regalo.",
+            en: "JBL GO ESSENTIAL Mini Portable Wireless Speaker, Music, Youth Edition Brick Gold, Outdoor, Long Battery Life, Multiple Cool Colors and Free Subwoofer.",
+            qu: "JBL GO KAQPUNI Mini Altavoz Inalámbrico Portátil, Musiku, Quri Ladrillo Wayna Edición, Hawa, Unay Batería Vida, Achka Cool Colores chaymanta Regalo Subwoofer",
+        },
+
+        detalles: {
+            es: "JBL GO Essential es un altavoz con Bluetooth portátil y ultracompacto. Reproduzca música en streaming a través de Bluetooth con una autonomía de hasta 5 horas y calidad de sonido JBL Pro original. Olas de entretenimiento con su diseño resistente al agua conforme a la norma IPX7. Disponible en 3 llamativos colores, el GO Essential es el altavoz perfecto para llevar tu música a todas partes.\n\n<strong>Características:</strong>\n✓ Fácil de llevar.\n ✓Rico sonido JBL Pro original.\n✓ Resistente al agua: IPX7.\n✓ Reproducción inalámbrica BT.\n✓ Bluetooth: 4.2.\n✓ Duración promedio: 5 horas.\n ✓ Peso: 180 gramos.\n✓ Cable de carga: Si.",
+            en: "The JBL GO Essential is an ultra-compact, portable Bluetooth speaker. Stream music via Bluetooth for up to 5 hours of battery life and enjoy original JBL Pro sound quality. Experience waves of entertainment with its IPX7 water-resistant design. Available in 3 vibrant colors, the GO Essential is the perfect speaker to take your music everywhere.\n\n<strong>Features:</strong>\n✓ Easy to carry.\n ✓ Rich, original JBL Pro sound.\n✓ Water resistant: IPX7.\n✓ Bluetooth wireless playback.\n✓ Bluetooth: 4.2.\n✓ Average battery life: 5 hours.\n ✓ Weight: 180 grams.\n✓ Charging cable: Yes.",
+            qu: "JBL GO Kaqpuni nisqaqa huk apaykachanapaq hinallataq ultra-compacto Bluetooth parlantemi. Bluetooth kaqnintakama takikunata purichiy 5 pachakama autonomía kaqwan chaymanta original JBL Pro uyariy calidad kaqwan. Olas de entretenimiento IPX7 yaku hark'aq diseñonwan. 3 llamativo colores nisqapi tarikun, GO Essential nisqa allin parlantemi takiykita maymanpas apananpaq.\n\n<strong>Rurakuna:</strong>\n✓ Mana sasachu apanapaq.\n ✓Qhapaq original JBL Pro uyariy.\n✓ Yakuman mana yaykuq: IPX7.\n✓ BT mana alambreyuq pukllay.\n✓ Bluetooth: 4.2.\n✓ Chawpi unay pacha: 5.\n ✓ Llasaq: 180 gramos.\n✓ Carga cable: Arí.",
+        },
+        envio: {
+            es: "✓ Envío gratis en las Estaciones del Tren.\n✓ S/10 por Envío a domicilio o Provincia.",
+            en: "✓ Free shipping at Train Stations.\n✓ S/10 for Home Delivery.",
+            qu: "✓ Libre chaski Tren Estaciones.\n✓ S/10 wasi chaski.",
+        },
+        garantia: {
+            es: "✓ Pagos seguros mediante Yape, Plin, Efectivo o Transferencias.\n✓ Paga cuando recibas tu producto.\n✓ Prueba tu producto sin compromiso en un lugar público.\n✓ Coordinamos tu entrega en la brevedad posible.",
+            en: "✓ Secure payments\n✓ Pay when you receive your product\n✓ Secure privacy\n✓ We coordinate your delivery as soon as possible",
+            qu: "✓ Seguro pagokuna\n✓ Chaskispay paga\n✓ Seguro privacidad",
+        },
+        donacion: {
+            es: "Ayúdanos para poder llevarle un bonito regalo a los niños por esta Navidad.",
+            en: "Help us bring a nice gift to children this Christmas.",
+            qu: "Yanapayku wawakunaman regalo churay.",
+        },
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 19],
+    },
+    {
+    // =================================================
+    // =========== 07 MINI PARLANTE G200  ================
+    // =================================================
+        id: 7,
+
+        titulo: {
+        es: "Mini Parlante",
+        en: "Mini Speaker",
+        qu: "Uchuy Rimaspa"
+        },
+        subtitulo: {
+            es: "G200",
+            en: "G200",
+            qu: "G200"
+        },
+        marca: {
+        es: "Marca: G200",
+        en: "Brand: G200",
+        qu: "Yupichay: G200"
+        },
+        estilo: {
+            es: "Mini G200 Negro",
+            en: "Mini G200 Black",
+            qu: "Uchuy G200 Yana"
+        },
+        precio: 24.90,
+        precioOriginal: 34.90,
+        descuento: 28,
+        disponible: 5,
+
+        categoria: "tecnologia",
+        imagenes: [
+            "assets/07 MINI PARLANTE G200/01.webp",
+            "assets/07 MINI PARLANTE G200/02.webp",
+            "assets/07 MINI PARLANTE G200/03.webp",
+            "assets/07 MINI PARLANTE G200/04.webp",
+            "assets/07 MINI PARLANTE G200/05.webp",
+            "assets/07 MINI PARLANTE G200/06.avif",
+            "assets/07 MINI PARLANTE G200/07.avif",
+            "assets/07 MINI PARLANTE G200/08.avif",
+            "assets/07 MINI PARLANTE G200/09.avif",
+            "assets/07 MINI PARLANTE G200/10.avif",
+            "assets/07 MINI PARLANTE G200/11.avif",
+            
+            
+        ],
+        videos: [
+            // "assets/videos/albedo-360.mp4", https://res.cloudinary.com/dmeoj7xbx/video/upload/v1787964476/17_eebcv2.webm
+            
+            "assets/07 MINI PARLANTE G200/14.mp4",
+            "assets/07 MINI PARLANTE G200/13.mp4",
+            "assets/07 MINI PARLANTE G200/12.mp4",
+            
+            
+        ],
+        // ─── CARÁTULAS DE CADA VIDEO (mismo orden que videos) ───
+        videoPosters: [
+
+            "assets/07 MINI PARLANTE G200/09.avif",
+            "assets/07 MINI PARLANTE G200/08.avif",
+            "assets/07 MINI PARLANTE G200/06.avif",
+        ],
+
+        tipoVariante: "color", // ← 'estilo' | 'color' | 'talla'
+        // ─── ESTILOS / COLORES ───
+        // Onii-chan: aquí defines los diferentes colores/estilos del producto.
+        // Cada uno tiene una mini imagen para el selector.
+        estilos: [
+        { 
+            nombre: { es: "Mini G200 Negro", en: "Mini G200 Black", qu: "Uchuy G200 Yana" }, 
+            imagen: "assets/07 MINI PARLANTE G200/01.webp",
+            color: { es: "Negro", en: "Black", qu: "Yana" } 
+        },
+        { 
+            nombre: { es: "Mini G200 Blanco", en: "Mini G200 White", qu: "Uchuy G200 Yuraq" }, 
+            imagen: "assets/07 MINI PARLANTE G200/09.5.webp",
+            color: { es: "Blanco", en: "White", qu: "Yuraq" } 
+        },
+        ],
+        ///////////////
+
+        collageOrder: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+
+
+        tituloLargo: {
+            es: "Altavoces mini de materiales duraderos, altavoces bluetooth magnéticos, portátiles, con iluminación rgb multicolor, compatibles con iphone y android, carga usb, controles por botones, ideales para casa, dormitorio, fiestas y oficina.",
+            en: "Mini speakers of durable materials, magnetic bluetooth speakers, portable, with multicolor rgb lighting, compatible with iphone and android, usb charging, button controls, ideal for home, bedroom, parties and office.",
+            qu: "Mini parlantekuna ruwasqa materiales duraderos kaqmanta, parlantes magnéticos Bluetooth kaqmanta, apaykachanapaq, achka llimp’iyuq RGB k'anchayniyuq, iPhone chaymanta Android kaqwan tupaq, USB carga, controles de botones, wasipaq, puñuna wasipaq, fiestakunapaq chaymanta oficinapaq allin.",
+        },
+
+        detalles: {
+            es: "Altavoz Inalámbrico Magnético Portátil, Mini Altavoz con Luz RGB, Audio con Refuerzo de Graves, Emparejamiento TWS, Carga Tipo C, Montaje con Ventosa, Compatible con iPhone Android, Multicolor Opcional para Oficina en Casa.\n\n<strong>Características:</strong>\n✓ Fácil de llevar.\n✓ Resistente al agua: IPX7.\n✓ Reproducción inalámbrica BT.\n✓ Bluetooth: 5.3.\n✓ Duración promedio: 4 horas.\n✓ Conexión dual: Si.\n✓ Cable de carga: Si.\n✓ Tipo C: Si.\n✓ Radio: Si.\n✓ Lector SD Card: Si.",
+            en: "Portable Magnetic Wireless Speaker, Mini Speaker with RGB Light, Audio with Bass Booster, TWS Pairing, Type C Charging, Suction Mount, Android iPhone Compatible, Optional Multicolor for Home Office.\n\n<strong>Features:</strong>\n✓ Easy to carry.\n✓ Water resistant: IPX7.\n✓ BT wireless playback.\n✓ Bluetooth: 5.3.\n✓ Average duration: 4 hours.\n✓ Dual connection: Yes.\n✓ Charging cable: Yes.\n✓ Type C: Yes.\n✓ Radio: Yes.\n✓ SD Card Reader: Yes.",
+            qu: "Altavoz mana alambreyuq magnético apaykachanapaq, Mini Altavoz RGB k'anchaywan, Audio Bass Boosterwan, TWS Parejamientowan, Tipo C Carga, Succión Montaje, Android iPhone Compatible, Opcional Multicolor Home Officepaq.\n\n<strong>Ruraykuna:</strong>\n✓ Mana sasachu apaykachanapaq.\n✓ Yaku hark'aq: IPX7.\n✓ BT mana alambreyuq pukllay.\n✓ Bluetooth: 5.3.\n✓ Chawpi pacha: 4 pacha.\n✓ Iskay tinkiynin: Arí.\n✓ Cable de carga: Arí.\n✓ Tipo C: Arí.\n✓ Radio: Arí.\n✓ Tarjeta SD Ñawinchaq: Arí.",
+        },
+        envio: {
+            es: "✓ Envío gratis en las Estaciones del Tren.\n✓ S/10 por Envío a domicilio o Provincia.",
+            en: "✓ Free shipping at Train Stations.\n✓ S/10 for Home Delivery.",
+            qu: "✓ Libre chaski Tren Estaciones.\n✓ S/10 wasi chaski.",
+        },
+        garantia: {
+            es: "✓ Pagos seguros mediante Yape, Plin, Efectivo o Transferencias.\n✓ Paga cuando recibas tu producto.\n✓ Prueba tu producto sin compromiso en un lugar público.\n✓ Coordinamos tu entrega en la brevedad posible.",
+            en: "✓ Secure payments\n✓ Pay when you receive your product\n✓ Secure privacy\n✓ We coordinate your delivery as soon as possible",
+            qu: "✓ Seguro pagokuna\n✓ Chaskispay paga\n✓ Seguro privacidad",
+        },
+        donacion: {
+            es: "Ayúdanos para poder llevarle un bonito regalo a los niños por esta Navidad.",
+            en: "Help us bring a nice gift to children this Christmas.",
+            qu: "Yanapayku wawakunaman regalo churay.",
+        },
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 19],
+    },
+    {
+    // =================================================
+    // =========== 08 MINI PARLANTE MX-G60  ================
+    // =================================================
+        id: 8,
+
+        titulo: {
+        es: "Mini Parlante",
+        en: "Mini Speaker",
+        qu: "Uchuy Rimaspa"
+        },
+        subtitulo: {
+            es: "MX-G60",
+            en: "MX-G60",
+            qu: "MX-G60"
+        },
+        marca: {
+        es: "Marca: MX-G60",
+        en: "Brand: MX-G60",
+        qu: "Yupichay: MX-G60"
+        },
+        estilo: {
+            es: "Mini MX-G60",
+            en: "Mini MX-G60",
+            qu: "Uchuy MX-G60"
+        },
+        precio: 29.90,
+        precioOriginal: 39.90,
+        descuento: 25,
+        disponible: 4,
+
+        categoria: "tecnologia",
+        imagenes: [
+            "assets/08 MINI PARLANTE MX-G60/01.webp",
+            "assets/08 MINI PARLANTE MX-G60/02.webp",
+            "assets/08 MINI PARLANTE MX-G60/03.avif",
+            "assets/08 MINI PARLANTE MX-G60/04.avif",
+            "assets/08 MINI PARLANTE MX-G60/05.avif",
+            "assets/08 MINI PARLANTE MX-G60/06.avif",
+            "assets/08 MINI PARLANTE MX-G60/07.avif",
+            "assets/08 MINI PARLANTE MX-G60/08.avif",
+            "assets/08 MINI PARLANTE MX-G60/09.avif",
+            
+            
+        ],
+        videos: [
+            // "assets/videos/albedo-360.mp4", https://res.cloudinary.com/dmeoj7xbx/video/upload/v1787964476/17_eebcv2.webm
+            
+            "assets/08 MINI PARLANTE MX-G60/10.mp4",
+            
+            
+        ],
+        // ─── CARÁTULAS DE CADA VIDEO (mismo orden que videos) ───
+        videoPosters: [
+
+            "assets/08 MINI PARLANTE MX-G60/06.avif",
+        ],
+
+        tipoVariante: "color", // ← 'estilo' | 'color' | 'talla'
+        // ─── ESTILOS / COLORES ───
+        // Onii-chan: aquí defines los diferentes colores/estilos del producto.
+        // Cada uno tiene una mini imagen para el selector.
+        estilos: [
+        { 
+            nombre: { es: "Mini MX-G60", en: "Mini MX-G60", qu: "Uchuy MX-G60" }, 
+            imagen: "assets/08 MINI PARLANTE MX-G60/01.webp",
+            color: { es: "Negro", en: "Black", qu: "Yana" } 
+        },
+        ],
+        ///////////////
+
+        collageOrder: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+
+
+        tituloLargo: {
+            es: "Altavoces mini de materiales duraderos, altavoces bluetooth magnéticos, portátiles, con iluminación rgb multicolor, compatibles con iphone y android, carga usb, controles por botones, ideales para casa, dormitorio, fiestas y oficina.",
+            en: "Mini speakers of durable materials, magnetic bluetooth speakers, portable, with multicolor rgb lighting, compatible with iphone and android, usb charging, button controls, ideal for home, bedroom, parties and office.",
+            qu: "Mini parlantekuna ruwasqa materiales duraderos kaqmanta, parlantes magnéticos Bluetooth kaqmanta, apaykachanapaq, achka llimp’iyuq RGB k'anchayniyuq, iPhone chaymanta Android kaqwan tupaq, USB carga, controles de botones, wasipaq, puñuna wasipaq, fiestakunapaq chaymanta oficinapaq allin.",
+        },
+
+        detalles: {
+            es: "Altavoz Inalámbrico Magnético Portátil, Mini Altavoz con Luz RGB, Audio con Refuerzo de Graves, Emparejamiento TWS, Carga Tipo C, Montaje con Ventosa, Compatible con iPhone Android, Multicolor Opcional para Oficina en Casa.\n\n<strong>Características:</strong>\n✓ Fácil de llevar.\n✓ Resistente al agua: IPX7.\n✓ Reproducción inalámbrica BT.\n✓ Bluetooth: 5.3.\n✓ Duración promedio: 4 horas.\n✓ Conexión dual: Si.\n✓ Cable de carga: Si.\n✓ Tipo C: Si.\n✓ Radio: Si.\n✓ Lector SD Card: Si.",
+            en: "Portable Magnetic Wireless Speaker, Mini Speaker with RGB Light, Audio with Bass Booster, TWS Pairing, Type C Charging, Suction Mount, Android iPhone Compatible, Optional Multicolor for Home Office.\n\n<strong>Features:</strong>\n✓ Easy to carry.\n✓ Water resistant: IPX7.\n✓ BT wireless playback.\n✓ Bluetooth: 5.3.\n✓ Average duration: 4 hours.\n✓ Dual connection: Yes.\n✓ Charging cable: Yes.\n✓ Type C: Yes.\n✓ Radio: Yes.\n✓ SD Card Reader: Yes.",
+            qu: "Altavoz mana alambreyuq magnético apaykachanapaq, Mini Altavoz RGB k'anchaywan, Audio Bass Boosterwan, TWS Parejamientowan, Tipo C Carga, Succión Montaje, Android iPhone Compatible, Opcional Multicolor Home Officepaq.\n\n<strong>Ruraykuna:</strong>\n✓ Mana sasachu apaykachanapaq.\n✓ Yaku hark'aq: IPX7.\n✓ BT mana alambreyuq pukllay.\n✓ Bluetooth: 5.3.\n✓ Chawpi pacha: 4 pacha.\n✓ Iskay tinkiynin: Arí.\n✓ Cable de carga: Arí.\n✓ Tipo C: Arí.\n✓ Radio: Arí.\n✓ Tarjeta SD Ñawinchaq: Arí.",
+        },
+        envio: {
+            es: "✓ Envío gratis en las Estaciones del Tren.\n✓ S/10 por Envío a domicilio o Provincia.",
+            en: "✓ Free shipping at Train Stations.\n✓ S/10 for Home Delivery.",
+            qu: "✓ Libre chaski Tren Estaciones.\n✓ S/10 wasi chaski.",
+        },
+        garantia: {
+            es: "✓ Pagos seguros mediante Yape, Plin, Efectivo o Transferencias.\n✓ Paga cuando recibas tu producto.\n✓ Prueba tu producto sin compromiso en un lugar público.\n✓ Coordinamos tu entrega en la brevedad posible.",
+            en: "✓ Secure payments\n✓ Pay when you receive your product\n✓ Secure privacy\n✓ We coordinate your delivery as soon as possible",
+            qu: "✓ Seguro pagokuna\n✓ Chaskispay paga\n✓ Seguro privacidad",
+        },
+        donacion: {
+            es: "Ayúdanos para poder llevarle un bonito regalo a los niños por esta Navidad.",
+            en: "Help us bring a nice gift to children this Christmas.",
+            qu: "Yanapayku wawakunaman regalo churay.",
+        },
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 19],
+    },
+    {
+    // =================================================
     // =========== 09 MASAJEADOR ALMOHADA  ================
     // =================================================
         id: 9,
@@ -265,8 +605,8 @@ const productosDB = [
             // "assets/videos/albedo-360.mp4", https://res.cloudinary.com/dmeoj7xbx/video/upload/v1787964476/17_eebcv2.webm
             
             "assets/13 MANITA MASAJEADORA/24.mp4",
-            "assets/13 MANITA MASAJEADORA/22.mp4",
             "assets/13 MANITA MASAJEADORA/23.mp4",
+            "assets/13 MANITA MASAJEADORA/22.mp4",
             
         ],
         // ─── CARÁTULAS DE CADA VIDEO (mismo orden que videos) ───
@@ -1125,7 +1465,7 @@ const productosDB = [
         descuento: 31,
         disponible: 3,
 
-        categoria: "hogar",
+        categoria: "licores",
         imagenes: [
             "assets/11 ALMOHADA DE 3 BOTONES/01.webp",
             "assets/11 ALMOHADA DE 3 BOTONES/03.avif",
@@ -1719,84 +2059,218 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-// WhatsApp — Finalizar compra
-// ======================================================
-// CONFIGURACIÓN PERSONALIZABLE (Onii-chan edita aquí)
-// ======================================================
+    // WhatsApp — Finalizar compra
+    // ======================================================
+    // CONFIGURACIÓN (Onii-chan edita aquí)
+    // ======================================================
     const WHATSAPP_NUMEROS = {
-    default:       '51915112116',   // ← Todas las categorías (general)
-    perfumes:      '51933602140',   // ← Perfumes + Joyería
-    licores:       '51910517754'    // ← Solo Licores
+    default:  '51900556685',
+    perfumes: '51933602140',
+    licores:  '51910517754',
     };
 
-// Textos del mensaje (edita lo que quieras)
     const TEXTO_PEDIDO = {
     encabezado: '🛒 *Pedido ZAGY Tech*\n\n',
     separador:  '─────────────────\n',
     pie:        '¡Gracias por tu compra! 🙌'
     };
 
-// ======================================================
-// FINALIZAR COMPRA → WHATSAPP (múltiples números)
-// ======================================================
+    // ======================================================
+    // DETECTAR CATEGORÍA (tu función actual)
+    // ======================================================
+    function detectarCategoriaItem(item) {
+    const prod = getProducto(item.id);
+    if (prod?.categoria) {
+        const cat = prod.categoria.toLowerCase().trim();
+        if (['perfumes','joyeria','licores'].includes(cat)) return cat;
+    }
+    // Fallback por clases del DOM
+    const el = document.querySelector(`#product-grid article[data-id="${item.id}"],
+                                        #favoritos-grid article[data-id="${item.id}"]`);
+    if (el) {
+        const cls = Array.from(el.classList).find(c => c.startsWith('cat-'));
+        if (cls) {
+        const cat = cls.replace('cat-', '');
+        if (['perfumes','joyeria','licores'].includes(cat)) return cat;
+        }
+    }
+    return 'default';
+    }
+
+    // ======================================================
+    // PANEL MODAL PARA CHATS BLOQUEADOS
+    // ======================================================
+    function mostrarPanelWhatsApp(chatsPendientes) {
+    // Si ya existe, destruirlo
+    const viejo = document.getElementById('zagy-modal-whatsapp');
+    if (viejo) viejo.remove();
+
+    const overlay = document.createElement('div');
+    overlay.id = 'zagy-modal-whatsapp';
+    overlay.style.cssText = `
+        position:fixed; inset:0; z-index:9999;
+        background:rgba(0,0,0,0.75); backdrop-filter:blur(4px);
+        display:flex; align-items:center; justify-content:center;
+        padding:16px; font-family:Inter, sans-serif;
+    `;
+
+    const card = document.createElement('div');
+    card.style.cssText = `
+        background:#fff; border-radius:20px; width:100%; max-width:380px;
+        padding:24px; box-shadow:0 20px 60px rgba(0,0,0,0.4);
+        animation:modalPop 0.25s ease-out;
+    `;
+
+    // Keyframes rápidos inline
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes modalPop{from{transform:scale(0.9);opacity:0}to{transform:scale(1);opacity:1}}
+        .zagy-wa-btn{display:block;width:100%;padding:14px 16px;border-radius:14px;
+        background:#FB7701;color:#fff;font-weight:700;text-decoration:none;
+        margin-bottom:10px;text-align:center;font-size:15px;transition:transform .15s}
+        .zagy-wa-btn:active{transform:scale(0.97)}
+        .zagy-wa-btn.secundario{background:#1f2937}
+        .zagy-close-btn{width:100%;padding:12px;border-radius:14px;border:none;
+        background:#e5e7eb;color:#374151;font-weight:700;cursor:pointer;margin-top:6px}
+    `;
+    document.head.appendChild(style);
+
+    // Título
+    const titulo = document.createElement('h3');
+    titulo.textContent = 'Enviar pedido por WhatsApp';
+    titulo.style.cssText = 'margin:0 0 6px 0;font-size:18px;font-weight:800;color:#111';
+    card.appendChild(titulo);
+
+    const sub = document.createElement('p');
+    sub.textContent = 'Tu navegador bloqueó ventanas automáticas. Toca cada botón para enviar:';
+    sub.style.cssText = 'margin:0 0 18px 0;font-size:13px;color:#6b7280;line-height:1.4';
+    card.appendChild(sub);
+
+    // Botones de chats
+    chatsPendientes.forEach(chat => {
+        const a = document.createElement('a');
+        a.href = `https://wa.me/${chat.numero}?text=${encodeURIComponent(chat.mensaje)}`;
+        a.target = '_blank';
+        a.className = 'zagy-wa-btn' + (chat.tipo === 'default' ? '' : ' secundario');
+        a.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:center;gap:8px">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+            </svg>
+            <span>${chat.label}</span>
+            <span style="opacity:.85;font-size:12px;font-weight:500">s/ ${chat.total.toFixed(2)}</span>
+        </div>
+        <div style="font-size:11px;font-weight:500;opacity:.85;margin-top:4px">${chat.numero}</div>
+        `;
+        card.appendChild(a);
+    });
+
+    // Botón cerrar
+    const cerrar = document.createElement('button');
+    cerrar.className = 'zagy-close-btn';
+    cerrar.textContent = 'Cerrar';
+    cerrar.onclick = () => overlay.remove();
+    card.appendChild(cerrar);
+
+    overlay.appendChild(card);
+    document.body.appendChild(overlay);
+
+    // Cerrar al tocar fondo
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) overlay.remove();
+    });
+    }
+
+    // ======================================================
+    // FINALIZAR COMPRA → WHATSAPP (ANTI-BLOQUEO)
+    // ======================================================
     const btnFinalizar = document.querySelector('#btn-carrito button');
     if (btnFinalizar) {
-        btnFinalizar.addEventListener('click', () => {
-            if (carritoDeCompras.length === 0) {
-            alert(idiomaActual === 'en' ? 'Your cart is empty' : 
-                    idiomaActual === 'qu' ? 'Carroykiqa ch\'usaqmi' : 
-                    'Tu carrito está vacío');
-            return;
-            }
+    btnFinalizar.addEventListener('click', () => {
+        if (carritoDeCompras.length === 0) {
+        const msg = idiomaActual === 'en' ? 'Your cart is empty' :
+                    idiomaActual === 'qu' ? 'Carroykiqa ch\'usaqmi' :
+                    'Tu carrito está vacío';
+        alert(msg);
+        return;
+        }
 
-        // 1. Agrupar items por destinatario según categoría del producto
+        // 1. Agrupar
         const grupos = {
-            default:  { items: [], total: 0, numero: WHATSAPP_NUMEROS.default },
-            perfumes: { items: [], total: 0, numero: WHATSAPP_NUMEROS.perfumes },
-            licores:  { items: [], total: 0, numero: WHATSAPP_NUMEROS.licores }
+        default:  { items: [], total: 0, numero: WHATSAPP_NUMEROS.default, label: '📦 Pedido General' },
+        perfumes: { items: [], total: 0, numero: WHATSAPP_NUMEROS.perfumes, label: '💎 Perfumes / Joyería' },
+        licores:  { items: [], total: 0, numero: WHATSAPP_NUMEROS.licores,  label: '🍷 Licores' }
         };
 
         carritoDeCompras.forEach(item => {
-            const prod  = getProducto(item.id);
-            const cat   = prod?.categoria || '';
+        const cat = detectarCategoriaItem(item);
+        let destino = 'default';
+        if (cat === 'perfumes' || cat === 'joyeria') destino = 'perfumes';
+        else if (cat === 'licores') destino = 'licores';
 
-            let destino = 'default';
-            if (cat === 'perfumes' || cat === 'joyeria') destino = 'perfumes';
-            else if (cat === 'licores')                  destino = 'licores';
-
-            grupos[destino].items.push(item);
-            grupos[destino].total += item.precio * item.cantidad;
+        grupos[destino].items.push(item);
+        grupos[destino].total += item.precio * item.cantidad;
         });
 
-        // 2. Construir y enviar un mensaje por cada grupo con productos
-        let chatsAbiertos = 0;
+        // 2. Construir objetos de chat
+        const chats = [];
+        Object.entries(grupos).forEach(([key, g]) => {
+        if (g.items.length === 0) return;
+        let mensaje = TEXTO_PEDIDO.encabezado;
+        g.items.forEach(item => {
+            mensaje += `• *${item.titulo}* ${item.subtitulo}\n`;
+            mensaje += `  _Cantidad:_ ${item.cantidad}\n`;
+            mensaje += `  _Precio unitario:_ s/ ${item.precio.toFixed(2)}\n\n`;
+        });
+        mensaje += TEXTO_PEDIDO.separador;
+        mensaje += `*Total a pagar: s/ ${g.total.toFixed(2)}*\n\n`;
+        mensaje += TEXTO_PEDIDO.pie;
 
-        Object.values(grupos).forEach(grupo => {
-            if (grupo.items.length === 0) return;
+        chats.push({
+            tipo: key,
+            numero: g.numero,
+            mensaje: mensaje,
+            total: g.total,
+            label: g.label
+        });
+        });
 
-            let texto = TEXTO_PEDIDO.encabezado;
+        if (chats.length === 0) return;
 
-            grupo.items.forEach(item => {
-            texto += `• *${item.titulo}* ${item.subtitulo}\n`;
-            texto += `  _Cantidad:_ ${item.cantidad}\n`;
-            texto += `  _Precio unitario:_ s/ ${item.precio.toFixed(2)}\n\n`;
-            });
+        // 3. ESTRATEGIA ANTI-BLOQUEO
+        const esMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        const abiertas = [];
+        const bloqueadas = [];
 
-            texto += TEXTO_PEDIDO.separador;
-            texto += `*Total a pagar: s/ ${grupo.total.toFixed(2)}*\n\n`; // ← AHORA SÍ SUMA
-            texto += TEXTO_PEDIDO.pie;
+        if (true) {
+        // MÓVIL: abrir SOLO el primero automático, el resto en modal
+        const [primera, ...resto] = chats;
+        window.open(`https://wa.me/${primera.numero}?text=${encodeURIComponent(primera.mensaje)}`, '_blank');
+        if (resto.length > 0) mostrarPanelWhatsApp(resto);
 
-            // Codificar para URL
-            const mensajeURI = encodeURIComponent(texto);
-            window.open(`https://wa.me/${grupo.numero}?text=${mensajeURI}`, '_blank');
-            chatsAbiertos++;
-            });
-
-        if (chatsAbiertos > 1) {
-            console.log('Se abrieron', chatsAbiertos, 'chats de WhatsApp (uno por categoría).');
+        } else {
+        // PC: intentar abrir TODAS en el mismo tick del click
+        chats.forEach(chat => {
+            const win = window.open(
+            `https://wa.me/${chat.numero}?text=${encodeURIComponent(chat.mensaje)}`,
+            '_blank'
+            );
+            // Si retorna null o la ventana ya está cerrada = bloqueada
+            if (win && !win.closed) {
+            abiertas.push(chat);
+            } else {
+            bloqueadas.push(chat);
             }
         });
+
+        // Si el navegador bloqueó alguna, mostrar modal con esas
+        if (bloqueadas.length > 0) {
+            mostrarPanelWhatsApp(bloqueadas);
+        }
+        }
+    });
     }
+    
 
 });
 
