@@ -26,9 +26,9 @@ const productosDB = [
         qu: "Tapa Dura Álbum"
         },
         subtitulo: {
-            es: "PANINI - Mundial 2026",
-            en: "PANINI - World Cup 2026",
-            qu: "PANINI - Mundial 2026"
+            es: "Mundial 2026",
+            en: "World Cup 2026",
+            qu: "Pacha 2026"
         },
         marca: {
         es: "PANINI",
@@ -38,7 +38,7 @@ const productosDB = [
         estilo: {
             es: "Mundial 2026",
             en: "World Cup 2026",
-            qu: "Mundial 2026"
+            qu: "Pacha 2026"
         },
         precio: 45.00,
         precioOriginal: 77.91,      // null si NO hay descuento
@@ -49,10 +49,7 @@ const productosDB = [
         // Agrega aquí todas las fotos que quieras mostrar en la galería
         imagenes: [
             "assets/06 mundial.webp",
-            "assets/06 mundial-2.webp",   // ← Onii-chan: reemplaza con tus fotos
-            "assets/06 mundial-3.webp",
-            "assets/06 mundial-4.webp",
-            // "assets/06 mundial-5.webp", // descomenta para agregar más
+            
         ],
         // ─── VIDEOS LOCALES ───
         // Agrega aquí tus archivos .mp4 o .webm
@@ -62,19 +59,19 @@ const productosDB = [
         // ─── ORDEN DEL GRID COLLAGE ───
         // Controla qué imagen va en cada posición del collage.
         // Los números son los índices del array "imagenes" de arriba.
-        collageOrder: [0, 2, 1, 3],
+        collageOrder: [0],
         // ─── TEXTOS LARGOS (por idioma) ───
 
         tituloLargo: {
             es: "Álbum oficial de la FIFA World Cup 2026 edición tapa dura. Incluye 80 páginas a full color con todos los equipos clasificados, jugadores estrella y estadísticas exclusivas. Tapa reforzada con acabado brillante. Edición coleccionista limitada con stickers holográficos incluidos.",
             en: "Official FIFA World Cup 2026 hardcover album. Includes 80 full-color pages with all qualified teams, star players and exclusive statistics. Reinforced cover with glossy finish. Limited collector's edition with holographic stickers included.",
-            qu: "FIFA World Cup 2026 album oficial. 80 páginas color nisqan, tukuy equipokuna, star jugadorkuna. Tapa fuerte. Coleccionista edición limitada.",
+            qu: "FIFA Pacha 2026 nisqap sinchi tapayuq diskun. 80 hunt'a llimp'iyuq p'anqakuna llapa allin equipokunawan, quyllur pukllaqkunawan, sapalla yupaykunawan ima. Reforzasqa tapa llimp'iyuq tukukuyniyuq. Edición coleccionista limitada nisqa pegatinas holográficas nisqawan churasqa.",
         },
 
         detalles: {
-            es: "Álbum oficial de la FIFA World Cup 2026 edición tapa dura. Incluye 80 páginas a full color con todos los equipos clasificados, jugadores estrella y estadísticas exclusivas. Tapa reforzada con acabado brillante.",
-            en: "Official FIFA World Cup 2026 hardcover album. Includes 80 full-color pages with all qualified teams, star players and exclusive statistics. Reinforced cover with glossy finish.",
-            qu: "FIFA World Cup 2026 album oficial. 80 páginas color nisqan, tukuy equipokuna, star jugadorkuna. Tapa fuerte.",
+            es: "Álbum oficial de la FIFA World Cup 2026 edición tapa dura. Incluye 80 páginas a full color con todos los equipos clasificados, jugadores estrella y estadísticas exclusivas. Tapa reforzada con acabado brillante. Edición coleccionista limitada con stickers holográficos incluidos.",
+            en: "Official FIFA World Cup 2026 hardcover album. Includes 80 full-color pages with all qualified teams, star players and exclusive statistics. Reinforced cover with glossy finish. Limited collector's edition with holographic stickers included.",
+            qu: "FIFA Pacha 2026 nisqap sinchi tapayuq diskun. 80 hunt'a llimp'iyuq p'anqakuna llapa allin equipokunawan, quyllur pukllaqkunawan, sapalla yupaykunawan ima. Reforzasqa tapa llimp'iyuq tukukuyniyuq. Edición coleccionista limitada nisqa pegatinas holográficas nisqawan churasqa.",
         },
         envio: {
             es: "✓ Envío gratis en las Estaciones del Tren\n✓ S/10 por Envío a domicilio o Provincia\nEntrega: 10 am - 9 pm",
@@ -93,7 +90,460 @@ const productosDB = [
         },
         // ─── PRODUCTOS RELACIONADOS (Explora más) ───
         // IDs de otros productos que quieres mostrar al final
-        relacionados: [18, 4, 6, 11, 2, 3],
+        relacionados: [18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2,  19],
+    },
+    {
+    // =================================================
+    // =========== 02 SOPORTE CLASICO  ================
+    // =================================================
+        id: 2,
+
+        titulo: {
+        es: "Soporte Imantado",
+        en: "Magnetic Support",
+        qu: "Yanapakuy Magnetizasqa"
+        },
+        subtitulo: {
+            es: "Clásico",
+            en: "Classic",
+            qu: "Kaqlla"
+        },
+        marca: {
+        es: "Marca: Estándar",
+        en: "Brand: Standard",
+        qu: "Yupichay: Kaqlla"
+        },
+        estilo: {
+            es: "Clásico Negro",
+            en: "Classic Black",
+            qu: "Kaqlla Yana"
+        },
+        precio: 20.90,
+        precioOriginal: 32.90,
+        descuento: 36,
+        disponible: 5,
+
+        categoria: "tecnologia",
+        imagenes: [
+            "assets/01 SOPORTE IMANTADO/01.webp",
+            "assets/01 SOPORTE IMANTADO/04.avif",
+            "assets/01 SOPORTE IMANTADO/05.avif",
+            "assets/01 SOPORTE IMANTADO/06.avif",
+            "assets/01 SOPORTE IMANTADO/07.avif",
+            "assets/01 SOPORTE IMANTADO/08.avif",
+            "assets/01 SOPORTE IMANTADO/09.avif",
+            "assets/01 SOPORTE IMANTADO/10.avif",
+            "assets/01 SOPORTE IMANTADO/11.avif",
+            "assets/01 SOPORTE IMANTADO/12.avif",
+            "assets/01 SOPORTE IMANTADO/13.avif",
+            
+            
+            
+            
+            
+        ],
+        videos: [
+            // "assets/videos/albedo-360.mp4", https://res.cloudinary.com/dmeoj7xbx/video/upload/v1787964476/17_eebcv2.webm
+            
+            "assets/01 SOPORTE IMANTADO/16.mp4",
+        ],
+        // ─── CARÁTULAS DE CADA VIDEO (mismo orden que videos) ───
+        videoPosters: [
+
+            "assets/01 SOPORTE IMANTADO/07.avif",
+        ],
+
+        tipoVariante: "color", // ← 'estilo' | 'color' | 'talla'
+        // ─── ESTILOS / COLORES ───
+        // Onii-chan: aquí defines los diferentes colores/estilos del producto.
+        // Cada uno tiene una mini imagen para el selector.
+        estilos: [
+        { 
+            nombre: { es: "Clásico Negro", en: "Classic Black", qu: "Kaqlla Yana" }, 
+            imagen:"assets/01 SOPORTE IMANTADO/01.webp",
+            color: { es: "Negro", en: "Black", qu: "Yana" } 
+        },
+        { 
+            nombre: { es: "Clásico Rosa", en: "Classic Pink", qu: "Kaqlla Panti" }, 
+            imagen:"assets/01 SOPORTE IMANTADO/03.webp",
+            color: { es: "Rosa", en: "Pink", qu: "Panti" } 
+        },
+        { 
+            nombre: { es: "Clásico Blanco", en: "Classic White", qu: "Kaqlla Yuraq" }, 
+            imagen:"assets/01 SOPORTE IMANTADO/02.webp",
+            color: { es: "Blanco", en: "White", qu: "Yuraq" } 
+        },
+        ],
+        ///////////////
+
+        collageOrder: [1, 8, 2, 3, 4, 5, 6, 7, 8],
+
+
+        tituloLargo: {
+            es: "Soporte Magnético para Teléfono - Imán Potente, Plegable, Portátil y Uso Multiusos, Adecuado para Teléfonos Apple/Android, Esencial de Cocina para Personas Perezosas, Soporte para Vehículo, Soporte para Teléfono de Coche, Regalo de Año Nuevo",
+            en: "Magnetic Phone Holder - Powerful Magnet, Foldable, Portable & Multipurpose, Suitable for Apple/Android Phones, Kitchen Essential for Lazy People, Vehicle Mount, Car Phone Holder, New Year's Gift.",
+            qu: "Magnético Teléfono Titular - Atiyniyuq Imán, Plegable, Portátil & Multiuso, Apple/Android Teléfonokunapaq allin, Cocina Esencial Qella Runakunapaq, Antawa Montaje, Carro Teléfono Titular, Musuq Wata Regalo.",
+        },
+
+        detalles: {
+            es: "Soporte Magnético para Teléfono - Imán Potente, Plegable, Portátil y Uso Multiusos, Adecuado para Teléfonos Apple/Android, Esencial de Cocina para Personas Perezosas, Soporte para Vehículo, Soporte para Teléfono de Coche, Regalo de Año Nuevo.\n\n<strong>Características:</strong>\n✓ Botón mecánico incorporado.\n ✓ Ajuste multiángulo.\n✓ Retráctil y plegable.\n✓ Potente succión al vacío.\n✓ Material ABS + PC.\n✓ Succión de doble cara.",
+            en: "Magnetic Phone Holder - Powerful Magnet, Foldable, Portable, and Multi-Purpose, Suitable for Apple/Android Phones, Kitchen Essential for Lazy People, Vehicle Mount, Car Phone Holder, New Year's Gift.\n\n<strong>Features:</strong>\n✓ Built-in mechanical button.\n ✓ Multi-angle adjustment.\n✓ Retractable and foldable.\n✓ Powerful vacuum suction.\n✓ ABS + PC material.\n✓ Double-sided suction.",
+            qu: "Magnético Teléfono Titular - Atiyniyuq Imán, Plegable, Portátil chaymanta Multiuso Uso, Apple/Android Teléfonospaq allin, Cocina Esencial Qella Runakunapaq, Antawapi Montaje, Carro Teléfono Titular, Musuq Wata Regalo.\n\n<strong>Ruraykuna:</strong>\n✓ Mecánico botón incorporado.\n ✓ Achka ángulo allichay.\n✓ Retractable chaymanta plegable.\n✓ kallpasapa vacío chupa.\n✓ ABS + PC material.\n✓ Iskay ladu chupa.",
+        },
+        envio: {
+            es: "✓ Envío gratis en las Estaciones del Tren.\n✓ S/10 por Envío a domicilio o Provincia.",
+            en: "✓ Free shipping at Train Stations.\n✓ S/10 for Home Delivery.",
+            qu: "✓ Libre chaski Tren Estaciones.\n✓ S/10 wasi chaski.",
+        },
+        garantia: {
+            es: "✓ Pagos seguros mediante Yape, Plin, Efectivo o Transferencias.\n✓ Paga cuando recibas tu producto.\n✓ Prueba tu producto sin compromiso en un lugar público.\n✓ Coordinamos tu entrega en la brevedad posible.",
+            en: "✓ Secure payments\n✓ Pay when you receive your product\n✓ Secure privacy\n✓ We coordinate your delivery as soon as possible",
+            qu: "✓ Seguro pagokuna\n✓ Chaskispay paga\n✓ Seguro privacidad",
+        },
+        donacion: {
+            es: "Ayúdanos para poder llevarle un bonito regalo a los niños por esta Navidad.",
+            en: "Help us bring a nice gift to children this Christmas.",
+            qu: "Yanapayku wawakunaman regalo churay.",
+        },
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3,  19],
+    },
+    {
+    // =================================================
+    // =========== 03 SOPORTE X68  ================
+    // =================================================
+        id: 3,
+
+        titulo: {
+        es: "Soporte Imantado",
+        en: "Magnetic Support",
+        qu: "Yanapakuy Magnetizasqa"
+        },
+        subtitulo: {
+            es: "X68",
+            en: "X68",
+            qu: "X68"
+        },
+        marca: {
+        es: "Marca: Estándar",
+        en: "Brand: Standard",
+        qu: "Yupichay: Kaqlla"
+        },
+        estilo: {
+            es: "X68 Negro",
+            en: "X68 Black",
+            qu: "X68 Yana"
+        },
+        precio: 24.90,
+        precioOriginal: 36.90,
+        descuento: 32,
+        disponible: 3,
+
+        categoria: "tecnologia",
+        imagenes: [
+            "assets/02 SOPORTE IMANTADO 360/01.webp",
+            "assets/02 SOPORTE IMANTADO 360/03.avif",
+            "assets/02 SOPORTE IMANTADO 360/04.avif",
+            "assets/02 SOPORTE IMANTADO 360/05.avif",
+            "assets/02 SOPORTE IMANTADO 360/06.webp",
+            "assets/02 SOPORTE IMANTADO 360/07.webp",
+            "assets/02 SOPORTE IMANTADO 360/08.webp",
+            "assets/02 SOPORTE IMANTADO 360/09.webp",
+            "assets/02 SOPORTE IMANTADO 360/10.avif",
+            "assets/02 SOPORTE IMANTADO 360/11.avif",
+            "assets/02 SOPORTE IMANTADO 360/12.webp",
+            "assets/02 SOPORTE IMANTADO 360/13.webp",
+            "assets/02 SOPORTE IMANTADO 360/14.webp",
+            "assets/02 SOPORTE IMANTADO 360/15.webp",
+            "assets/02 SOPORTE IMANTADO 360/16.webp",
+            "assets/02 SOPORTE IMANTADO 360/17.avif",
+            "assets/02 SOPORTE IMANTADO 360/18.avif",
+            
+            
+            
+            
+        ],
+        videos: [
+            // "assets/videos/albedo-360.mp4", https://res.cloudinary.com/dmeoj7xbx/video/upload/v1787964476/17_eebcv2.webm
+            
+            "assets/02 SOPORTE IMANTADO 360/19.mp4",
+            "assets/02 SOPORTE IMANTADO 360/21.mp4",
+            "assets/02 SOPORTE IMANTADO 360/20.mp4",
+            
+        ],
+        // ─── CARÁTULAS DE CADA VIDEO (mismo orden que videos) ───
+        videoPosters: [
+
+            "assets/02 SOPORTE IMANTADO 360/12.webp",
+            "assets/02 SOPORTE IMANTADO 360/08.webp",
+            "assets/02 SOPORTE IMANTADO 360/07.webp",
+        ],
+
+        tipoVariante: "color", // ← 'estilo' | 'color' | 'talla'
+        // ─── ESTILOS / COLORES ───
+        // Onii-chan: aquí defines los diferentes colores/estilos del producto.
+        // Cada uno tiene una mini imagen para el selector.
+        estilos: [
+        { 
+            nombre: { es: "X68 Negro", en: "X68 Black", qu: "X68 Yana" }, 
+            imagen:"assets/02 SOPORTE IMANTADO 360/01.webp",
+            color: { es: "Negro", en: "Black", qu: "Yana" } 
+        },
+        { 
+            nombre: { es: "X68 Blanco", en: "X68 White", qu: "X68 Yuraq" }, 
+            imagen:"assets/02 SOPORTE IMANTADO 360/02.webp",
+            color: { es: "Blanco", en: "White", qu: "Yuraq" } 
+        },
+        ],
+        ///////////////
+
+        collageOrder: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+
+
+        tituloLargo: {
+            es: "Nuevo soporte para teléfono magnético fuerte, giratorio 360°, plegable y extensible, ajustable en múltiples ángulos, soporte para teléfono de escritorio para transmisiones en vivo, soporte para teléfono de coche, soporte para teléfono de oficina y hogar, soporte de navegación para teléfono de coche.",
+            en: "New strong magnetic phone holder, 360° rotating, foldable and extendable, adjustable to multiple angles, desktop phone stand for live streaming, car phone stand, office and home phone stand, car phone navigation stand.",
+            qu: "Musuq sinchi magnético telefono hapiq, 360° muyuriq, doblable chaymanta mastarikuq, achka ángulokunaman allichanapaq, escritorio telefono sayaq kawsaq streaming kaqpaq, carro telefono sayaq, oficina chaymanta wasi telefono sayaq, carro telefono puriy sayaq.",
+        },
+
+        detalles: {
+            es: "Nuevo soporte para teléfono magnético fuerte, giratorio 360°, plegable y extensible, ajustable en múltiples ángulos, soporte para teléfono de escritorio para transmisiones en vivo, soporte para teléfono de coche, soporte para teléfono de oficina y hogar, soporte de navegación para teléfono de coche.\n\n<strong>Características:</strong>\n✓ Aleación de Aluminio.\n ✓Rotación 360°.\n✓ Fijación Magnética Potente.\n✓ Ventosa de Alta Adherencia.\n✓ Compatibilidad Universal.\n✓ Instalación Sencilla.",
+            en: "New Strong Magnetic Phone Holder, 360° Rotating, Foldable and Extendable, Multi-Angle Adjustable, Desktop Phone Stand for Live Streaming, Car Phone Holder, Office and Home Phone Holder, Car Navigation Phone Holder.\n\n<strong>Features:</strong>\n✓ Aluminum Alloy.\n ✓360° Rotation.\n✓ Powerful Magnetic Attachment.\n✓ High-Adhesion Suction Cup.\n✓ Universal Compatibility.\n✓ Easy Installation.",
+            qu: "Musuq Sinchi Magnético Teléfono Titular, 360° Muyuchiq, Plegable hinaspa Mast'arikuq, Achka ángulo Ajustable, Escritorio Teléfono Soporte Kawsaq Streamingpaq, Carro Teléfono Titular, Oficina chaymanta Wasi Teléfono Titular, Carro Navegación Teléfono Titular.\n\n<strong>Rurakuna:</strong>\n✓ Aleación de Aluminio.\n ✓360° Muyuy.\n Atiyniyuq Magnético Apego.\n✓ Succión de Alta Adhesión.\n✓ Tukuypaq Compatibilidad.\n✓ Facil Instalación.",
+        },
+        envio: {
+            es: "✓ Envío gratis en las Estaciones del Tren.\n✓ S/10 por Envío a domicilio o Provincia.",
+            en: "✓ Free shipping at Train Stations.\n✓ S/10 for Home Delivery.",
+            qu: "✓ Libre chaski Tren Estaciones.\n✓ S/10 wasi chaski.",
+        },
+        garantia: {
+            es: "✓ Pagos seguros mediante Yape, Plin, Efectivo o Transferencias.\n✓ Paga cuando recibas tu producto.\n✓ Prueba tu producto sin compromiso en un lugar público.\n✓ Coordinamos tu entrega en la brevedad posible.",
+            en: "✓ Secure payments\n✓ Pay when you receive your product\n✓ Secure privacy\n✓ We coordinate your delivery as soon as possible",
+            qu: "✓ Seguro pagokuna\n✓ Chaskispay paga\n✓ Seguro privacidad",
+        },
+        donacion: {
+            es: "Ayúdanos para poder llevarle un bonito regalo a los niños por esta Navidad.",
+            en: "Help us bring a nice gift to children this Christmas.",
+            qu: "Yanapayku wawakunaman regalo churay.",
+        },
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 2,  19],
+    },
+    {
+    // =================================================
+    // =========== 04 SOPORTE SUPREME 360  ================
+    // =================================================
+        id: 4,
+
+        titulo: {
+        es: "Soporte Imantado",
+        en: "Magnetic Support",
+        qu: "Yanapakuy Magnetizasqa"
+        },
+        subtitulo: {
+            es: "360° Supreme",
+            en: "360° Supreme",
+            qu: "360° Kuraq"
+        },
+        marca: {
+        es: "Marca: Estándar",
+        en: "Brand: Standard",
+        qu: "Yupichay: Kaqlla"
+        },
+        estilo: {
+            es: "360° Supreme Negro",
+            en: "360° Supreme Black",
+            qu: "360° Kuraq Yana"
+        },
+        precio: 29.90,
+        precioOriginal: 39.90,
+        descuento: 25,
+        disponible: 4,
+
+        categoria: "tecnologia",
+        imagenes: [
+            "assets/03 SOPORTE IMANTADO 360 -SUPREME/01.webp",
+            // "assets/03 SOPORTE IMANTADO 360 -SUPREME/02.webp",
+            "assets/03 SOPORTE IMANTADO 360 -SUPREME/03.5.webp",
+            "assets/03 SOPORTE IMANTADO 360 -SUPREME/03.avif",
+            "assets/03 SOPORTE IMANTADO 360 -SUPREME/04.avif",
+            "assets/03 SOPORTE IMANTADO 360 -SUPREME/05.avif",
+            "assets/03 SOPORTE IMANTADO 360 -SUPREME/06.avif",
+            "assets/03 SOPORTE IMANTADO 360 -SUPREME/07.avif",
+            "assets/03 SOPORTE IMANTADO 360 -SUPREME/08.avif",
+            "assets/03 SOPORTE IMANTADO 360 -SUPREME/09.avif",
+            "assets/03 SOPORTE IMANTADO 360 -SUPREME/10.avif",
+            "assets/03 SOPORTE IMANTADO 360 -SUPREME/11.avif",
+            "assets/03 SOPORTE IMANTADO 360 -SUPREME/12.webp",
+            "assets/03 SOPORTE IMANTADO 360 -SUPREME/13.webp",
+            
+            
+            
+        ],
+        videos: [
+            // "assets/videos/albedo-360.mp4", https://res.cloudinary.com/dmeoj7xbx/video/upload/v1787964476/17_eebcv2.webm
+            
+            "assets/03 SOPORTE IMANTADO 360 -SUPREME/16.mp4",
+            "assets/03 SOPORTE IMANTADO 360 -SUPREME/15.mp4",
+            "assets/03 SOPORTE IMANTADO 360 -SUPREME/14.mp4",
+            
+        ],
+        // ─── CARÁTULAS DE CADA VIDEO (mismo orden que videos) ───
+        videoPosters: [
+
+            "assets/03 SOPORTE IMANTADO 360 -SUPREME/09.avif",
+            "assets/03 SOPORTE IMANTADO 360 -SUPREME/07.avif",
+            "assets/03 SOPORTE IMANTADO 360 -SUPREME/08.avif",
+        ],
+
+        tipoVariante: "color", // ← 'estilo' | 'color' | 'talla'
+        // ─── ESTILOS / COLORES ───
+        // Onii-chan: aquí defines los diferentes colores/estilos del producto.
+        // Cada uno tiene una mini imagen para el selector.
+        estilos: [
+        { 
+            nombre: { es: "360° Supreme Negro", en: "360° Supreme Black", qu: "360° Kuraq Yana" }, 
+            imagen:"assets/03 SOPORTE IMANTADO 360 -SUPREME/01.webp",
+            color: { es: "Negro", en: "Black", qu: "Yana" } 
+        },
+        { 
+            nombre: { es: "360° Supreme Blanco", en: "360° Supreme White", qu: "360° Kuraq Yuraq" }, 
+            imagen:"assets/03 SOPORTE IMANTADO 360 -SUPREME/02.webp",
+            color: { es: "Blanco", en: "White", qu: "Yuraq" } 
+        },
+        ],
+        ///////////////
+
+        collageOrder: [2, 1, 13, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+
+
+        tituloLargo: {
+            es: "Nuevo soporte para teléfono magnético fuerte, giratorio 360°, plegable y extensible, ajustable en múltiples ángulos, soporte para teléfono de escritorio para transmisiones en vivo, soporte para teléfono de coche, soporte para teléfono de oficina y hogar, soporte de navegación para teléfono de coche.",
+            en: "New strong magnetic phone holder, 360° rotating, foldable and extendable, adjustable to multiple angles, desktop phone stand for live streaming, car phone stand, office and home phone stand, car phone navigation stand.",
+            qu: "Musuq sinchi magnético telefono hapiq, 360° muyuriq, doblable chaymanta mastarikuq, achka ángulokunaman allichanapaq, escritorio telefono sayaq kawsaq streaming kaqpaq, carro telefono sayaq, oficina chaymanta wasi telefono sayaq, carro telefono puriy sayaq.",
+        },
+
+        detalles: {
+            es: "Nuevo soporte para teléfono magnético fuerte, giratorio 360°, plegable y extensible, ajustable en múltiples ángulos, soporte para teléfono de escritorio para transmisiones en vivo, soporte para teléfono de coche, soporte para teléfono de oficina y hogar, soporte de navegación para teléfono de coche.\n\n<strong>Características:</strong>\n✓ Aleación de Aluminio.\n ✓Rotación 360°.\n✓ Fijación Magnética Potente.\n✓ Ventosa de Alta Adherencia.\n✓ Compatibilidad Universal.\n✓ Instalación Sencilla.",
+            en: "New Strong Magnetic Phone Holder, 360° Rotating, Foldable and Extendable, Multi-Angle Adjustable, Desktop Phone Stand for Live Streaming, Car Phone Holder, Office and Home Phone Holder, Car Navigation Phone Holder.\n\n<strong>Features:</strong>\n✓ Aluminum Alloy.\n ✓360° Rotation.\n✓ Powerful Magnetic Attachment.\n✓ High-Adhesion Suction Cup.\n✓ Universal Compatibility.\n✓ Easy Installation.",
+            qu: "Musuq Sinchi Magnético Teléfono Titular, 360° Muyuchiq, Plegable hinaspa Mast'arikuq, Achka ángulo Ajustable, Escritorio Teléfono Soporte Kawsaq Streamingpaq, Carro Teléfono Titular, Oficina chaymanta Wasi Teléfono Titular, Carro Navegación Teléfono Titular.\n\n<strong>Rurakuna:</strong>\n✓ Aleación de Aluminio.\n ✓360° Muyuy.\n Atiyniyuq Magnético Apego.\n✓ Succión de Alta Adhesión.\n✓ Tukuypaq Compatibilidad.\n✓ Facil Instalación.",
+        },
+        envio: {
+            es: "✓ Envío gratis en las Estaciones del Tren.\n✓ S/10 por Envío a domicilio o Provincia.",
+            en: "✓ Free shipping at Train Stations.\n✓ S/10 for Home Delivery.",
+            qu: "✓ Libre chaski Tren Estaciones.\n✓ S/10 wasi chaski.",
+        },
+        garantia: {
+            es: "✓ Pagos seguros mediante Yape, Plin, Efectivo o Transferencias.\n✓ Paga cuando recibas tu producto.\n✓ Prueba tu producto sin compromiso en un lugar público.\n✓ Coordinamos tu entrega en la brevedad posible.",
+            en: "✓ Secure payments\n✓ Pay when you receive your product\n✓ Secure privacy\n✓ We coordinate your delivery as soon as possible",
+            qu: "✓ Seguro pagokuna\n✓ Chaskispay paga\n✓ Seguro privacidad",
+        },
+        donacion: {
+            es: "Ayúdanos para poder llevarle un bonito regalo a los niños por esta Navidad.",
+            en: "Help us bring a nice gift to children this Christmas.",
+            qu: "Yanapayku wawakunaman regalo churay.",
+        },
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 3, 2,  19],
+    },
+    {
+    // =================================================
+    // =========== 05 ESPEJO LED  ================
+    // =================================================
+        id: 5,
+
+        titulo: {
+        es: "Espejo Led Touch",
+        en: "Led Touch Mirror",
+        qu: "Led Llachpana Rirpu"
+        },
+        subtitulo: {
+            es: "2 Botones",
+            en: "2 Buttons",
+            qu: "2 Ñitina"
+        },
+        marca: {
+        es: "Marca: Estándar",
+        en: "Brand: Standard",
+        qu: "Yupichay: Kaqlla"
+        },
+        estilo: {
+            es: "Espejo Led 2 Botones",
+            en: "Led Mirror 2 Buttons",
+            qu: "Led Rirpu 2 Ñitina"
+        },
+        precio: 39.90,
+        precioOriginal: 59.90,
+        descuento: 33,
+        disponible: 3,
+
+        categoria: "tecnologia",
+        imagenes: [
+            "assets/04 ESPEJO LED DE 2 BOTONES/01.webp",
+            "assets/04 ESPEJO LED DE 2 BOTONES/02.5.webp",
+            "assets/04 ESPEJO LED DE 2 BOTONES/02.avif",
+            "assets/04 ESPEJO LED DE 2 BOTONES/03.avif",
+            "assets/04 ESPEJO LED DE 2 BOTONES/04.avif",
+            "assets/04 ESPEJO LED DE 2 BOTONES/05.avif",
+            "assets/04 ESPEJO LED DE 2 BOTONES/06.avif",
+            "assets/04 ESPEJO LED DE 2 BOTONES/07.avif",
+            "assets/04 ESPEJO LED DE 2 BOTONES/08.avif",
+            "assets/04 ESPEJO LED DE 2 BOTONES/09.avif",
+            
+            
+        ],
+        videos: [
+            // "assets/videos/albedo-360.mp4", https://res.cloudinary.com/dmeoj7xbx/video/upload/v1787964476/17_eebcv2.webm
+            
+            "assets/04 ESPEJO LED DE 2 BOTONES/10.mp4",
+            
+        ],
+        // ─── CARÁTULAS DE CADA VIDEO (mismo orden que videos) ───
+        videoPosters: [
+
+            "assets/04 ESPEJO LED DE 2 BOTONES/07.avif",
+        ],
+
+        tipoVariante: "color", // ← 'estilo' | 'color' | 'talla'
+        // ─── ESTILOS / COLORES ───
+        // Onii-chan: aquí defines los diferentes colores/estilos del producto.
+        // Cada uno tiene una mini imagen para el selector.
+        estilos: [
+        { 
+            nombre: { es: "Espejo Led 2 Botones", en: "Led Mirror 2 Buttons", qu: "Led Rirpu 2 Ñitina" }, 
+            imagen:"assets/04 ESPEJO LED DE 2 BOTONES/01.webp",
+            color: { es: "Negro", en: "Black", qu: "Yana" } 
+        },
+        ],
+        ///////////////
+
+        collageOrder: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+
+
+        tituloLargo: {
+            es: "Espejo de tocador LED para coche de 1 pieza con luces, espejo de maquillaje para parasol recargable por USB, iluminación de 3 colores, espejo HD regulable táctil, perfecto para maquillaje, aseo, afeitado, hombres y mujeres, trayectos diarios, viajes por carretera, viajes de negocios.",
+            en: "1 Piece LED Car Vanity Mirror with Lights, USB Rechargeable Sunshade Makeup Mirror, 3 Color Lighting, Touch Dimmable HD Mirror, Perfect for Makeup, Grooming, Shaving, Men and Women, Daily Commutes, Road Trips, Business Trips.",
+            qu: "1 Pieza LED Carro Vanidad Rirpu K'anchaykunawan, USB Recargable Sunshade Maquillaje Espejo, 3 Color K'anchay, Touch Dimmable HD Espejo, Perfecto Maquillaje, Grooming, Rasura, Qharikuna Warmikuna, Sapa p'unchaw Viajes, Carreteras Viajes, Negocio Viajes.",
+        },
+
+        detalles: {
+            es: "1 Espejo de maquillaje LED para coche con botón táctil, 3 modos de iluminación, luz de relleno, adecuado para sedán, camión, SUV, maquillaje de retoque en cualquier momento y en cualquier lugar, para mantener la belleza.\n\n<strong>Características:</strong>\n✓ Ilumina tu vehículo.\n ✓Diseño deslumbrante.\n✓ Tecnología Ever Bright.\n✓ Funcionalidad Táctil.\n✓Triple potencia de luz.\n✓ Batería de larga duración.",
+            en: "1 LED Car Makeup Mirror with Touch Button, 3 Lighting Modes, Fill Light, Suitable for Sedan, Truck, SUV, Touch Up Makeup Anytime, Anywhere, to Maintain Your Beauty.\n\n<strong>Features:</strong>\n✓ Illuminates your vehicle.\n ✓ Dazzling design.\n✓ Ever Bright technology.\n✓ Touch functionality.\n✓ Triple light power.\n✓ Long battery life.",
+            qu: "1 LED Carro Maquillaje Espejo Botón Táctilwan, 3 Modos de K'anchay, Llank'achiy Llank'achiyta, Sedan, Camión, SUV, Maquillaje Touch Up Ima pachapas, Maypipas, Sumaq kayniykita waqaychanapaq.\n\n<strong>Rurakuna:</strong>\n✓ Antawaykita k'ancharichin.\n ✓ Diseño deslumbrante.\n✓ Tecnología Siempre K'anchariq.\n✓ Funcionalidad táctil.\n✓ Kimsa kuti k'anchay kallpa.\n✓ Pila unay kawsay.",
+        },
+        envio: {
+            es: "✓ Envío gratis en las Estaciones del Tren.\n✓ S/10 por Envío a domicilio o Provincia.",
+            en: "✓ Free shipping at Train Stations.\n✓ S/10 for Home Delivery.",
+            qu: "✓ Libre chaski Tren Estaciones.\n✓ S/10 wasi chaski.",
+        },
+        garantia: {
+            es: "✓ Pagos seguros mediante Yape, Plin, Efectivo o Transferencias.\n✓ Paga cuando recibas tu producto.\n✓ Prueba tu producto sin compromiso en un lugar público.\n✓ Coordinamos tu entrega en la brevedad posible.",
+            en: "✓ Secure payments\n✓ Pay when you receive your product\n✓ Secure privacy\n✓ We coordinate your delivery as soon as possible",
+            qu: "✓ Seguro pagokuna\n✓ Chaskispay paga\n✓ Seguro privacidad",
+        },
+        donacion: {
+            es: "Ayúdanos para poder llevarle un bonito regalo a los niños por esta Navidad.",
+            en: "Help us bring a nice gift to children this Christmas.",
+            qu: "Yanapayku wawakunaman regalo churay.",
+        },
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 4, 3, 2,  19],
     },
     {
     // =================================================
@@ -218,7 +668,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 19],
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 5, 4, 3, 2, 19],
     },
     {
     // =================================================
@@ -331,7 +781,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 19],
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 6, 5, 4, 3, 2, 19],
     },
     {
     // =================================================
@@ -433,7 +883,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 19],
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 7, 6, 5, 4, 3, 2, 19],
     },
     {
     // =================================================
@@ -549,7 +999,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10],
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 8, 7, 6, 5, 4, 3, 2, 19],
     },
     {
     // =================================================
@@ -659,7 +1109,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11],
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 19],
     },
     {
     // =================================================
@@ -775,7 +1225,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 10],
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 10, 9, 8, 7, 6, 5, 4, 3, 2, 19],
     },
     {
     // =================================================
@@ -890,7 +1340,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 15, 14, 13, 11, 10],
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 19],
     },
     {
     // =================================================
@@ -996,7 +1446,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 15, 14, 11, 12, 10],
+        relacionados: [1, 18, 17, 16, 15, 14, 11, 12, 10, 9, 8, 7, 6, 5, 4, 3, 2, 19],
     },
     {
     // =================================================
@@ -1111,7 +1561,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 15, 11, 13, 12, 10],
+        relacionados: [1, 18, 17, 16, 15, 11, 13, 12, 10, 9, 8, 7, 6, 5, 4, 3, 2, 19],
     },
     {
     // =================================================
@@ -1212,7 +1662,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 11, 14, 13, 12, 10],
+        relacionados: [1, 18, 17, 16, 11, 14, 13, 12, 10, 9, 8, 7, 6, 5, 4, 3, 2, 19],
     },
     {
     // =================================================
@@ -1321,7 +1771,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 11, 15, 14, 13, 12, 10],
+        relacionados: [1, 18, 17, 11, 15, 14, 13, 12, 10, 9, 8, 7, 6, 5, 4, 3, 2, 19],
     },
     {
     // =================================================
@@ -1432,7 +1882,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 11, 16, 15, 14, 13, 12, 10],
+        relacionados: [1, 18, 11, 16, 15, 14, 13, 12, 10, 9, 8, 7, 6, 5, 4, 3, 2, 19],
     },
     {
     // =================================================
@@ -1531,7 +1981,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9],
+        relacionados: [1, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 19],
     },
     {
     // =================================================
@@ -1648,7 +2098,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 11, 17, 16, 15, 14, 13, 12, 10],
+        relacionados: [1, 18, 11, 17, 16, 15, 14, 13, 12, 10, 9, 8, 7, 6, 5, 4, 3, 2],
     },
     // ═══════════════════════════════════════════════════════
     // ONII-CHAN: COPIA Y PEGA EL BLOQUE DE ARRIBA PARA AGREGAR MÁS PRODUCTOS.
