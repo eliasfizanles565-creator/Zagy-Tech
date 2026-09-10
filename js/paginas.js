@@ -77,6 +77,6 @@ if (formContacto) {
         const nombre = document.getElementById('contacto-nombre')?.value.trim() || '';
         const mensaje = document.getElementById('contacto-mensaje')?.value.trim() || '';
         const texto = `👋 *Hola Zagy Tech!*\n\n*Nombre:* ${nombre}\n\n*Mensaje:*\n${mensaje}`;
-        window.open('https://wa.me/51900556685?text=' + encodeURIComponent(texto), '_blank');
+        window.open('https://wa.me/51915112116?text=' + encodeURIComponent(texto), '_blank');
     });
 }
