@@ -69,8 +69,8 @@ const productosDB = [
             // "assets/videos/album-mundial.mp4", // ← Onii-chan: descomenta y pon tu video
             "assets/00 MUNDIAL/13.mp4",
             "assets/00 MUNDIAL/14.webm",
-            "assets/00 MUNDIAL/15.mp4",
             "assets/00 MUNDIAL/16.mp4",
+            "assets/00 MUNDIAL/15.mp4",
             "assets/00 MUNDIAL/17.mp4",
         ],
 
@@ -79,8 +79,8 @@ const productosDB = [
 
             "assets/00 MUNDIAL/11.avif",
             "assets/00 MUNDIAL/10.avif",
-            "assets/00 MUNDIAL/14.5.jpg",
             "assets/00 MUNDIAL/13.5.webp",
+            "assets/00 MUNDIAL/14.5.jpg",
             "assets/00 MUNDIAL/12.avif",
         ],
 
