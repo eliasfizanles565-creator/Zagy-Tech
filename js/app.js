@@ -48,18 +48,58 @@ const productosDB = [
         // ─── IMÁGENES DEL PRODUCTO ───
         // Agrega aquí todas las fotos que quieras mostrar en la galería
         imagenes: [
-            "assets/06 mundial.webp",
+            "assets/00 MUNDIAL/00.webp",
+            "assets/00 MUNDIAL/01.webp",
+            "assets/00 MUNDIAL/02.webp",
+            "assets/00 MUNDIAL/03.webp",
+            "assets/00 MUNDIAL/04.webp",
+            "assets/00 MUNDIAL/05.webp",
+            "assets/00 MUNDIAL/06.webp",
+            "assets/00 MUNDIAL/07.jpg",
+            "assets/00 MUNDIAL/08.webp",
+            "assets/00 MUNDIAL/09.jpg",
+            "assets/00 MUNDIAL/10.avif",
+            "assets/00 MUNDIAL/11.avif",
+            "assets/00 MUNDIAL/12.avif",
             
         ],
         // ─── VIDEOS LOCALES ───
         // Agrega aquí tus archivos .mp4 o .webm
         videos: [
             // "assets/videos/album-mundial.mp4", // ← Onii-chan: descomenta y pon tu video
+            "assets/00 MUNDIAL/13.mp4",
+            "assets/00 MUNDIAL/14.webm",
+            "assets/00 MUNDIAL/15.mp4",
+            "assets/00 MUNDIAL/16.mp4",
+            "assets/00 MUNDIAL/17.mp4",
         ],
-        // ─── ORDEN DEL GRID COLLAGE ───
-        // Controla qué imagen va en cada posición del collage.
-        // Los números son los índices del array "imagenes" de arriba.
-        collageOrder: [0],
+
+        // ─── CARÁTULAS DE CADA VIDEO (mismo orden que videos) ───
+        videoPosters: [
+
+            "assets/00 MUNDIAL/11.avif",
+            "assets/00 MUNDIAL/10.avif",
+            "assets/00 MUNDIAL/14.5.jpg",
+            "assets/00 MUNDIAL/13.5.webp",
+            "assets/00 MUNDIAL/12.avif",
+        ],
+
+        tipoVariante: "color", // ← 'estilo' | 'color' | 'talla'
+        // ─── ESTILOS / COLORES ───
+        // Onii-chan: aquí defines los diferentes colores/estilos del producto.
+        // Cada uno tiene una mini imagen para el selector.
+        estilos: [
+        { 
+            nombre: { es: "Mundial 2026", en: "World Cup 2026", qu: "Pacha 2026" }, 
+            imagen:"assets/00 MUNDIAL/00.webp",
+            color: { es: "Estándar", en: "Standard", qu: "Kaqlla" } 
+        },
+        ],
+        ///////////////
+
+        collageOrder: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+
+
         // ─── TEXTOS LARGOS (por idioma) ───
 
         tituloLargo: {
