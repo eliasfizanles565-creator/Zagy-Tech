@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff" id="theme-color-meta">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ZAGY">
+    <link rel="apple-touch-icon" href="assets/icon-192.png">
+    <title>Centro de Ayuda y FAQ | ZAGY Tech</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Russo+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/estilos.css?v=6">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet"/>
+    <style>
+        /* Fallback acordeones (por si estilos.css no los incluye) */
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+        .accordion-icon { transition: transform 0.3s ease; }
+        .accordion-icon.rotado { transform: rotate(180deg); }
+        .pagina-badge { width: fit-content; }
+    </style>
+
+</head>
+<body class="bg-white dark:bg-stone-950">
+
+
+
+    <!-- ==================== CONTENIDO DE LA PÁGINA ==================== -->
+    <main class="w-[95vw] mx-auto lg:max-w-7xl pb-30 lg:pb-14 min-h-[62vh] mt-2">
+
+        <div class=" pb-2 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-1 text-temu transition-colors">
+                <i class="ri-arrow-left-line text-xl"></i>
+                <span class="font-Inter text-sm font-semibold"></span>
+            </a>
+            <button id="btn-modo-pagina" class="size-9 rounded-full border border-temu bg-white dark:bg-stone-900 flex items-center justify-center cursor-pointer hover:border-temu transition-colors" aria-label="Cambiar tema">
+                <i class="ri-sun-fill text-lg text-temu"></i>
+            </button>
+        </div>
+
+        <h1 class="pagina-badge font-Inter font-bold text-xl mb-1 text-temu underline decoration-temu decoration-2">Centro de Ayuda</h1>
+        <p class="font-Inter text-sm text-stone-500 dark:text-stone-400 mb-5">Preguntas frecuentes sobre compras, envíos y pagos. Toca cada pregunta para ver la respuesta.</p>
+        <div class="accordion-item border border-stone-200 dark:border-stone-800 rounded-xl overflow-hidden mb-2 bg-white dark:bg-stone-900">
+            <button class="accordion-header w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-stone-900 cursor-pointer hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors">
+                <span class="font-Inter font-semibold text-sm text-stone-950 dark:text-white text-left">¿Cuánto cuesta el envío?</span>
+                <i class="ri-arrow-down-s-line text-stone-400 transition-transform duration-300 accordion-icon shrink-0 ml-3"></i>
+            </button>
+            <div class="accordion-content bg-white dark:bg-stone-900">
+                <div class="px-4 pb-3.5 pt-1">
+                    <p class="font-Inter text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed">El envío es <strong>gratis en las estaciones del tren</strong>. A domicilio o provincia el costo es de <strong>S/10</strong>.</p>
+                </div>
+            </div>
+        </div>        <div class="accordion-item border border-stone-200 dark:border-stone-800 rounded-xl overflow-hidden mb-2 bg-white dark:bg-stone-900">
+            <button class="accordion-header w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-stone-900 cursor-pointer hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors">
+                <span class="font-Inter font-semibold text-sm text-stone-950 dark:text-white text-left">¿En qué horario entregan?</span>
+                <i class="ri-arrow-down-s-line text-stone-400 transition-transform duration-300 accordion-icon shrink-0 ml-3"></i>
+            </button>
+            <div class="accordion-content bg-white dark:bg-stone-900">
+                <div class="px-4 pb-3.5 pt-1">
+                    <p class="font-Inter text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed">Entregamos todos los días de <strong>10 am a 9 pm</strong>. Coordinamos contigo el punto y la hora exacta por WhatsApp.</p>
+                </div>
+            </div>
+        </div>        <div class="accordion-item border border-stone-200 dark:border-stone-800 rounded-xl overflow-hidden mb-2 bg-white dark:bg-stone-900">
+            <button class="accordion-header w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-stone-900 cursor-pointer hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors">
+                <span class="font-Inter font-semibold text-sm text-stone-950 dark:text-white text-left">¿Cómo pago mi pedido?</span>
+                <i class="ri-arrow-down-s-line text-stone-400 transition-transform duration-300 accordion-icon shrink-0 ml-3"></i>
+            </button>
+            <div class="accordion-content bg-white dark:bg-stone-900">
+                <div class="px-4 pb-3.5 pt-1">
+                    <p class="font-Inter text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed">Aceptamos <strong>Yape, Plin, transferencias y efectivo</strong>. Lo mejor: <strong>pagas cuando recibes</strong> tu producto y puedes probarlo sin compromiso en un lugar público.</p>
+                </div>
+            </div>
+        </div>        <div class="accordion-item border border-stone-200 dark:border-stone-800 rounded-xl overflow-hidden mb-2 bg-white dark:bg-stone-900">
+            <button class="accordion-header w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-stone-900 cursor-pointer hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors">
+                <span class="font-Inter font-semibold text-sm text-stone-950 dark:text-white text-left">¿Cómo hago un pedido?</span>
+                <i class="ri-arrow-down-s-line text-stone-400 transition-transform duration-300 accordion-icon shrink-0 ml-3"></i>
+            </button>
+            <div class="accordion-content bg-white dark:bg-stone-900">
+                <div class="px-4 pb-3.5 pt-1">
+                    <p class="font-Inter text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed">Agrega productos al carrito, presiona "Finalizar compra" y tu pedido se envía automáticamente a nuestro WhatsApp. Te confirmamos disponibilidad y entrega al instante.</p>
+                </div>
+            </div>
+        </div>        <div class="accordion-item border border-stone-200 dark:border-stone-800 rounded-xl overflow-hidden mb-2 bg-white dark:bg-stone-900">
+            <button class="accordion-header w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-stone-900 cursor-pointer hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors">
+                <span class="font-Inter font-semibold text-sm text-stone-950 dark:text-white text-left">¿Puedo cambiar el color o estilo después de pedir?</span>
+                <i class="ri-arrow-down-s-line text-stone-400 transition-transform duration-300 accordion-icon shrink-0 ml-3"></i>
+            </button>
+            <div class="accordion-content bg-white dark:bg-stone-900">
+                <div class="px-4 pb-3.5 pt-1">
+                    <p class="font-Inter text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed">Sí, mientras no hayamos despachado tu pedido. Escríbenos por WhatsApp lo antes posible y lo actualizamos sin costo.</p>
+                </div>
+            </div>
+        </div>        <div class="accordion-item border border-stone-200 dark:border-stone-800 rounded-xl overflow-hidden mb-2 bg-white dark:bg-stone-900">
+            <button class="accordion-header w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-stone-900 cursor-pointer hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors">
+                <span class="font-Inter font-semibold text-sm text-stone-950 dark:text-white text-left">¿Los productos tienen garantía?</span>
+                <i class="ri-arrow-down-s-line text-stone-400 transition-transform duration-300 accordion-icon shrink-0 ml-3"></i>
+            </button>
+            <div class="accordion-content bg-white dark:bg-stone-900">
+                <div class="px-4 pb-3.5 pt-1">
+                    <p class="font-Inter text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed">Todos nuestros productos tienen <strong>48 horas de garantía</strong> contra defectos de fábrica. Revisa nuestra <a href="devolucion.html" class="text-temu font-semibold">política de devolución</a> para más detalles.</p>
+                </div>
+            </div>
+        </div>        <div class="accordion-item border border-stone-200 dark:border-stone-800 rounded-xl overflow-hidden mb-2 bg-white dark:bg-stone-900">
+            <button class="accordion-header w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-stone-900 cursor-pointer hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors">
+                <span class="font-Inter font-semibold text-sm text-stone-950 dark:text-white text-left">¿Hacen envíos a provincia?</span>
+                <i class="ri-arrow-down-s-line text-stone-400 transition-transform duration-300 accordion-icon shrink-0 ml-3"></i>
+            </button>
+            <div class="accordion-content bg-white dark:bg-stone-900">
+                <div class="px-4 pb-3.5 pt-1">
+                    <p class="font-Inter text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed">Sí, enviamos a todo el Perú por agencia de transporte (costo de S/10 + envío de la agencia según destino). El pago se coordina antes del despacho.</p>
+                </div>
+            </div>
+        </div>        <div class="accordion-item border border-stone-200 dark:border-stone-800 rounded-xl overflow-hidden mb-2 bg-white dark:bg-stone-900">
+            <button class="accordion-header w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-stone-900 cursor-pointer hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors">
+                <span class="font-Inter font-semibold text-sm text-stone-950 dark:text-white text-left">¿Cómo funciona el programa de donación?</span>
+                <i class="ri-arrow-down-s-line text-stone-400 transition-transform duration-300 accordion-icon shrink-0 ml-3"></i>
+            </button>
+            <div class="accordion-content bg-white dark:bg-stone-900">
+                <div class="px-4 pb-3.5 pt-1">
+                    <p class="font-Inter text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed">Con cada compra, una parte contribuye a regalos y alimentos para niños en Navidad. Conoce más en <a href="donaciones.html" class="text-temu font-semibold">Programa de Donación</a>.</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-stone-950 dark:border-t border-stone-600 w-full h-220 sm:h-150 lg:h-85 text-white flex justify-center">
+        <div class="w-[95vw] mx-auto lg:max-w-7xl grid justify-items-start grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-10 pl-10 pt-15 pb-20">
+            <article class="flex flex-col gap-2 justify-start items-start w-full h-30 text-[13px]">
+                <h1 class="font-bold mb-2 text-sm">Información de la Empresa</h1>
+                <a href="informacion.html" class="footer-link">Acerca de Zagy Tech</a>
+                <a href="contacto.html" class="footer-link">Contáctanos</a>
+                <a href="donaciones.html" class="footer-link">Programa de Donaciones</a>
+            </article>
+            <article class="flex flex-col gap-2 justify-start items-start w-full h-30 text-[13px]">
+                <h1 class="font-bold mb-2 text-sm">Atención al cliente</h1>
+                <a href="devolucion.html" class="footer-link">Política de devolución y reembolso</a>
+                <a href="ayuda.html" class="footer-link">Centro de ayuda y preguntas frecuentes</a>
+                <a href="propiedad.html" class="footer-link">Política de propiedad intelectual</a>
+            </article>
+            <article class="flex flex-col gap-0.5 justify-start items-start w-full h-30 text-[13px] lg:pl-10">
+                <h1 class="mb-1 text-sm font-bold">Nuestras redes</h1>
+                <a href="https://tiktok.com" target="_blank" rel="noopener" class="footer-link flex gap-3 items-center">
+                    <i class="ri-tiktok-fill text-lg"></i><span>Tik Tok</span>
+                </a>
+                <a href="https://www.facebook.com/share/1Qr3Kzy35k/" target="_blank" rel="noopener" class="footer-link flex gap-3 items-center">
+                    <i class="ri-facebook-circle-fill text-lg"></i><span>Facebook</span>
+                </a>
+                <a href="https://www.instagram.com/zagytech?igsh=bGMxM2J6enQ3cmR0" target="_blank" rel="noopener" class="footer-link flex gap-3 items-center">
+                    <i class="ri-instagram-fill text-lg"></i><span>Instagram</span>
+                </a>
+            </article>
+            <article class="flex flex-col gap-2 justify-start items-start w-full h-full text-[13px]">
+                <h1 class="font-bold mb-1 text-sm">Descarga nuestra app</h1>
+                <div class="flex gap-3 cursor-pointer items-center pl-1">
+                    <div><i class="ri-discount-percent-fill"></i></div>
+                    <p>Alertas de baja de precio</p>
+                </div>
+                <div class="flex gap-3 cursor-pointer items-center pl-1">
+                    <div><i class="ri-secure-payment-fill"></i></div>
+                    <p>Pago más rápido y seguro</p>
+                </div>
+                <div class="flex gap-3 cursor-pointer items-center mb-3 pl-1">
+                    <div><i class="ri-price-tag-3-fill"></i></div>
+                    <p>Ofertas exclusivas</p>
+                </div>
+                <a href="descargarApp.html" class="btn-playstore w-55 h-15 border-2 border-stone-600 rounded-full flex gap-5 items-center relative overflow-hidden group">
+                    <div class="size-10 rounded-full ml-5 relative z-10">
+                        <img src="assets/logoPlayStore.png" alt="logo Play Store" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex flex-col gap-0 pt-1 relative z-10">
+                        <p class="leading-3 text-stone-300 group-hover:text-white transition-colors">Descargar en </p>
+                        <p class="font-semibold text-lg group-hover:text-white transition-colors">Google Play</p>
+                    </div>
+                </a>
+            </article>
+        </div>
+    </footer>
+
+    <p class="border-t border-stone-600 text-white text-xs bg-stone-950 w-full text-center pt-5 pb-24 lg:pb-5">
+        Zagy Tech 2026 © Todos los derechos reservados
+    </p>
+
+    <script src="js/paginas.js"></script>
+</body>
+</html>
