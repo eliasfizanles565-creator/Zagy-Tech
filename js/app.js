@@ -2305,10 +2305,10 @@ const catButtons = document.querySelectorAll('.cat-btn');
 function setActiveCategory(clickedBtn) {
     catButtons.forEach(btn => {
         const text = btn.querySelector('p');
-        btn.classList.remove('bg-stone-950', 'dark:bg-temu'); btn.classList.add('bg-puro', 'dark:bg-stone-800', 'hover:bg-plomo', 'dark:hover:bg-stone-900');
+        btn.classList.remove('bg-stone-950', 'dark:bg-temuDark'); btn.classList.add('bg-puro', 'dark:bg-stone-800', 'hover:bg-plomo', 'dark:hover:bg-stone-900');
         if (text) { text.classList.remove('text-white', 'dark:text-white/90'); text.classList.add('text-stone-950', 'dark:text-white/50'); }
     });
-    clickedBtn.classList.remove('bg-puro', 'dark:bg-stone-800', 'border', 'border-stone-950', 'hover:bg-plomo', 'dark:hover:bg-stone-900' ); clickedBtn.classList.add('bg-stone-950', 'dark:bg-temu');
+    clickedBtn.classList.remove('bg-puro', 'dark:bg-stone-800', 'border', 'border-stone-950', 'hover:bg-plomo', 'dark:hover:bg-stone-900' ); clickedBtn.classList.add('bg-stone-950', 'dark:bg-temuDark');
     const activeText = clickedBtn.querySelector('p');
     if (activeText) { activeText.classList.remove('text-stone-950', 'dark:text-white/50'); activeText.classList.add('text-white', 'dark:text-white/90'); }
 }
@@ -2986,8 +2986,8 @@ function renderizarCarrito() {
                 </div>
                 <div class="flex flex-col items-start justify-center gap-1 min-w-0">
                     <div>
-                        <p class="font-Inter font-medium text-xs truncate w-full dark:text-temu">${tituloItem}</p>
-                        <p class="font-Inter font-medium text-xs truncate w-full dark:text-temu">${subtituloItem}</p>
+                        <p class="font-Inter font-medium text-xs truncate w-full dark:text-temuDark">${tituloItem}</p>
+                        <p class="font-Inter font-medium text-xs truncate w-full dark:text-temuDark">${subtituloItem}</p>
                     </div>
                     <button class="h-6 w-30 bg-verdeTemu3 dark:bg-stone-800 rounded-4xl flex justify-center items-center text-xs font-semibold text-white dark:text-verdeTemu2">
                         ${varianteTexto}
@@ -2996,7 +2996,7 @@ function renderizarCarrito() {
                 </div>
             </article>
             <div class="flex flex-col justify-start items-end mr-2 mt-6 shrink-0">
-                <p class="${subSizeClass} text-temu font-Russo pr-1 leading-3 whitespace-nowrap">s/ ${subtotalStr}</p>
+                <p class="${subSizeClass} text-temu dark:text-temuDark font-Russo pr-1 leading-3 whitespace-nowrap">s/ ${subtotalStr}</p>
                 <div class="flex justify-center items-center h-5 w-15 rounded-4xl bg-stone-950 dark:bg-stone-800 gap-2 text-white dark:text-white/70 font-semibold mt-5">
                     <button onclick="cambiarCantidad('${item.cartId}', -1)" class="bg-transparent cursor-pointer rounded-4xl size-5 flex items-center justify-center">-</button>
                     <div class="flex flex-col items-center justify-center">
@@ -3239,22 +3239,22 @@ function renderizarFavoritos() {
 
         const cardHTML = `
         <article class="w-[172px] h-[254px] relative sm:w-[234px] sm:h-[381px]" data-id="${item.id}" data-titulo="${tituloFav}" data-subtitulo="${subtituloFav}" data-imagen="${item.imagenVariante || item.imagen}" ${item.variante ? `data-variante='${JSON.stringify(item.variante)}'` : ''}>
-            <div class="${item.clsProducto || 'absolute inset-0 bg-stone-950 dark:bg-temu cardProducto'}"></div>
-            <div class="${item.clsProductoInner || 'w-[172px] h-52.5 bg-white dark:bg-stone-900 cardProductoInner absolute inset-0 overflow-hidden border border-stone-950 dark:border-temu sm:w-[234px] sm:h-78.75'}">
+            <div class="${item.clsProducto || 'absolute inset-0 bg-stone-950 dark:bg-temuDark cardProducto'}"></div>
+            <div class="${item.clsProductoInner || 'w-[172px] h-52.5 bg-white dark:bg-stone-900 cardProductoInner absolute inset-0 overflow-hidden border border-stone-950 dark:border-temuDark sm:w-[234px] sm:h-78.75'}">
                 <img src="${item.imagenVariante || item.imagen}" alt="" class="${item.clsImgProducto || 'w-full h-full object-cover object-[50%_70%] sm:object-[50%_60%]'}">
             </div>
             <button class="${item.clsBtnFav || 'btn-favorito absolute top-1.5 right-1.5 z-20 size-6 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2'} activo">
-                <i class="ri-heart-fill text-sm text-temu transition-colors duration-200 sm:text-lg"></i>
+                <i class="ri-heart-fill text-sm text-temu dark:text-temuDark transition-colors duration-200 sm:text-lg"></i>
             </button>
-            <div class="${item.clsBtnPrecio || 'w-18 h-6 absolute top-0.5 left-2.25 bg-puro dark:bg-stone-800 dark:text-temu dark:border dark:border-stone-800 rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]'}">
+            <div class="${item.clsBtnPrecio || 'w-18 h-6 absolute top-0.5 left-2.25 bg-puro dark:bg-stone-800 dark:text-temuDark dark:border dark:border-stone-800 rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]'}">
                 <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ ${parseFloat(item.precio).toFixed(2)}</p>
             </div>
             <button class="${item.clsBtnCarrito || 'btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]'}"
             data-id="${item.id}" data-titulo="${tituloFav}" data-subtitulo="${subtituloFav}" data-precio="${item.precio}" data-imagen="${item.imagenVariante || item.imagen}" ${item.variante ? `data-variante='${JSON.stringify(item.variante)}'` : ''}>
-                <i class="${item.clsCarritoIcon || 'ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]'}"></i>
+                <i class="${item.clsCarritoIcon || 'ri-shopping-cart-2-line text-white dark:text-temuDark text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]'}"></i>
             </button>
-            <div class="${item.clsInfo || 'absolute bg-stone-950 dark:bg-temu bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15'}"></div>
-            <div class="${item.clsInfoInner || 'w-[172px] h-10 absolute bottom-0 bg-puro dark:bg-stone-900 dark:text-temu cardInfoInner flex flex-col justify-center border border-stone-950 dark:border-temu sm:w-[234px] sm:h-15'}">
+            <div class="${item.clsInfo || 'absolute bg-stone-950 dark:bg-temuDark bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15'}"></div>
+            <div class="${item.clsInfoInner || 'w-[172px] h-10 absolute bottom-0 bg-puro dark:bg-stone-900 dark:text-temuDark cardInfoInner flex flex-col justify-center border border-stone-950 dark:border-temuDark sm:w-[234px] sm:h-15'}">
                 <p class="${item.clsTitle || 'font-Inter text-xs font-extrabold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25'}">${tituloFav}</p>
                 <p class="${item.clsSubtitle || 'font-Inter text-xs font-extrabold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5'}">${textoVariante}</p>
             </div>
@@ -3531,16 +3531,16 @@ function activateNav(key, fromHistory = false, resetCategory = true) {
     document.querySelectorAll('.nav-desktop').forEach(btn => {
         const icon = btn.querySelector('i');
         const label = btn.querySelector('p');
-        if (icon) { icon.classList.remove('text-temu'); icon.classList.add('text-stone-950', 'dark:text-white/70'); }
-        if (label) { label.classList.remove('text-temu', 'border-temu'); label.classList.add('text-stone-950', 'dark:text-white/70', 'border-transparent'); }
+        if (icon) { icon.classList.remove('text-temu', 'dark:text-temuDark'); icon.classList.add('text-stone-950', 'dark:text-white/70'); }
+        if (label) { label.classList.remove('text-temu', 'border-temu', 'dark:text-temuDark', 'dark:border-temuDark'); label.classList.add('text-stone-950', 'dark:text-white/70', 'border-transparent'); }
     });
 
     const activeDesktopBtn = document.querySelector(`.nav-desktop[data-nav="${key}"]`);
     if (activeDesktopBtn) {
         const activeIcon = activeDesktopBtn.querySelector('i');
         const activeLabel = activeDesktopBtn.querySelector('p');
-        if (activeIcon) { activeIcon.classList.remove('text-stone-950', 'dark:text-white/70'); activeIcon.classList.add('text-temu'); }
-        if (activeLabel) { activeLabel.classList.remove('text-stone-950', 'border-transparent', 'dark:text-white/70'); activeLabel.classList.add('text-temu', 'border-temu'); }
+        if (activeIcon) { activeIcon.classList.remove('text-stone-950', 'dark:text-white/70'); activeIcon.classList.add('text-temu', 'dark:text-temuDark'); }
+        if (activeLabel) { activeLabel.classList.remove('text-stone-950', 'border-transparent', 'dark:text-white/70'); activeLabel.classList.add('text-temu', 'border-temu' , 'dark:text-temuDark', 'dark:border-temuDark'); }
     }
 
     if (key === 'usuario') {
@@ -3781,9 +3781,9 @@ function mostrarSugerencias(query) {
 
     dropdown.innerHTML = sugerencias.map(s => `
         <div class="sugerencia-item flex items-center gap-3 px-4 py-2 border-b border-stone-100 dark:border-stone-700 last:border-0 cursor-default" data-sugerencia="${s.titulo}">
-            <img src="${s.imagen}" class="w-8 h-8 object-cover rounded-lg border border-stone-200 dark:border-temu shrink-0">
+            <img src="${s.imagen}" class="w-8 h-8 object-cover rounded-lg border border-stone-200 dark:border-temuDark shrink-0">
             <div class="flex flex-col">
-                <span class="text-sm font-semibold text-stone-950 dark:text-temu">${s.titulo}</span>
+                <span class="text-sm font-semibold text-stone-950 dark:text-temuDark">${s.titulo}</span>
                 <span class="text-xs text-stone-500">${s.subtitulo}</span>
             </div>
         </div>
@@ -7429,3 +7429,8 @@ if ('serviceWorker' in navigator) {
     ajustarPosicion();
     checkScroll();
 })();
+// ==========================================================
+
+
+// ==========================================================
+

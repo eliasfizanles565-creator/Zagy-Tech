@@ -6,6 +6,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 @theme {
     --color-temu: #FB7701;
+    --color-temuDark: #7FB5FF;
     /* --color-temu: #8ec5ff; */
     --color-porcelain: #FFFCF4;
     --color-marcaTemu: #CEDCFA;

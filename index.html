@@ -32,7 +32,7 @@
 
     <!-- BARRA INFERIOR (móvil) -->
     <div class="fixed bottom-2 left-1/2 -translate-x-1/2 z-40 w-90 lg:hidden">
-        <div class="cardInicio2 h-15.5 w-full bg-white dark:bg-temu rounded-full absolute -top-0.5 left-0"></div>
+        <div class="cardInicio2 h-15.5 w-full bg-white dark:bg-temuDark rounded-full absolute -top-0.5 left-0"></div>
         <div class="cardInicio h-15 w-full bg-stone-950 rounded-full relative flex items-center justify-center gap-x-6.5">
             <i class="ri-user-line text-2xl text-white dark:text-stone-400 flex flex-col items-center gap-0 leading-none pb-1.25 textUsuario cursor-pointer"><p class="text-[10px] leading-none mt-0.5 font-semibold" data-i18n="usuario">Usuario</p></i>
             <i class="ri-menu-search-line text-2xl text-white dark:text-stone-400 flex flex-col items-center gap-0 leading-none pb-1.25 textCategorias cursor-pointer"><p class="text-[10px] leading-none mt-0.5 font-semibold" data-i18n="categorias">Categorías</p></i>
@@ -44,11 +44,11 @@
 
     <!-- ESFERAS (móvil) -->
     <section class="lg:hidden">
-        <div id="btnUsuario" class="fixed bottom-6.25 left-1/2 -translate-x-[calc(50%+120px)] z-50 size-12 rounded-4xl bg-temu flex items-center justify-center hidden"><i class="ri-user-line text-3xl text-white"></i></div>
-        <div id="btnCategorias" class="fixed bottom-6.25 left-1/2 -translate-x-[calc(50%+64.6px)] z-50 size-12 rounded-4xl bg-temu flex items-center justify-center hidden"><i class="ri-menu-search-line text-3xl text-white"></i></div>
-        <div id="btnInicio" class="fixed bottom-6.25 left-1/2 -translate-x-1/2 z-50 size-12 rounded-4xl bg-temu flex items-center justify-center"><i class="ri-home-line text-3xl text-white pb-0.5"></i></div>
-        <div id="btnFavoritos" class="fixed bottom-6.25 left-1/2 -translate-x-[calc(50%-64.6px)] z-50 size-12 rounded-4xl bg-temu flex items-center justify-center hidden"><i class="ri-poker-hearts-line text-3xl text-white"></i></div>
-        <div id="btnCarrito" class="fixed bottom-6.25 left-1/2 -translate-x-[calc(50%-120px)] z-50 size-12 rounded-4xl bg-temu flex items-center justify-center hidden"><i class="ri-shopping-cart-line text-3xl text-white"></i></div>
+        <div id="btnUsuario" class="fixed bottom-6.25 left-1/2 -translate-x-[calc(50%+120px)] z-50 size-12 rounded-4xl bg-temu dark:bg-temuDark flex items-center justify-center hidden"><i class="ri-user-line text-3xl text-white"></i></div>
+        <div id="btnCategorias" class="fixed bottom-6.25 left-1/2 -translate-x-[calc(50%+64.6px)] z-50 size-12 rounded-4xl bg-temu dark:bg-temuDark flex items-center justify-center hidden"><i class="ri-menu-search-line text-3xl text-white"></i></div>
+        <div id="btnInicio" class="fixed bottom-6.25 left-1/2 -translate-x-1/2 z-50 size-12 rounded-4xl bg-temu dark:bg-temuDark flex items-center justify-center"><i class="ri-home-line text-3xl text-white pb-0.5"></i></div>
+        <div id="btnFavoritos" class="fixed bottom-6.25 left-1/2 -translate-x-[calc(50%-64.6px)] z-50 size-12 rounded-4xl bg-temu dark:bg-temuDark flex items-center justify-center hidden"><i class="ri-poker-hearts-line text-3xl text-white"></i></div>
+        <div id="btnCarrito" class="fixed bottom-6.25 left-1/2 -translate-x-[calc(50%-120px)] z-50 size-12 rounded-4xl bg-temu dark:bg-temuDark flex items-center justify-center hidden"><i class="ri-shopping-cart-line text-3xl text-white"></i></div>
     </section>
 
     <!-- NAV DESKTOP -->
@@ -57,20 +57,20 @@
             <img id="logo-zagy" src="assets/logoZagy.webp" alt="logo" class="cursor-pointer">
             <div class="flex gap-8 max-lg:hidden xl:gap-12">
                 <button class="nav-desktop group flex flex-col justify-center items-center mt-1 cursor-pointer transition-all duration-300" data-nav="usuario">
-                    <i class="ri-user-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu"></i>
-                    <p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu group-hover:border-temu" data-i18n="usuario">
+                    <i class="ri-user-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu dark:group-hover:text-temuDark"></i>
+                    <p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu dark:group-hover:text-temuDark group-hover:border-temu dark:group-hover:border-temuDark" data-i18n="usuario">
                         Usuario
                     </p>
                 </button>
                 <button class="nav-desktop group flex flex-col justify-center items-center mt-1 cursor-pointer transition-all duration-300" data-nav="categorias">
-                    <i class="ri-menu-search-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu"></i>
-                    <p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu group-hover:border-temu" data-i18n="categorias">
+                    <i class="ri-menu-search-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu dark:group-hover:text-temuDark"></i>
+                    <p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu dark:group-hover:text-temuDark group-hover:border-temu dark:group-hover:border-temuDark" data-i18n="categorias">
                         Categorías
                     </p>
                 </button>
                 <button class="nav-desktop group flex flex-col justify-center items-center mt-1 cursor-pointer transition-all duration-300" data-nav="inicio">
-                    <i class="ri-home-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu"></i>
-                    <p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu group-hover:border-temu" data-i18n="inicio">
+                    <i class="ri-home-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu dark:group-hover:text-temuDark"></i>
+                    <p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu dark:group-hover:text-temuDark group-hover:border-temu dark:group-hover:border-temuDark" data-i18n="inicio">
                         Inicio
                     </p>
                 </button>
@@ -81,16 +81,16 @@
         <section class="bg-white  dark:bg-stone-900 border border-stone-950 dark:border-t dark:border-b-0 dark:border-stone-950 rounded-4xl absolute right-0 top-2 h-9 w-[82dvw] sm:w-[88dvw] lg:w-157 lg:left-1/2 lg:-translate-x-[calc(50%-74px)] xl:w-187 xl:-translate-x-[calc(50%-92px)] z-90">
             <input id="buscador" class="bg-transparent dark:text-white/50 outline-none pl-4 pr-14 pt-0 text-base w-full h-full rounded-4xl" type="text" placeholder="soporte para celular">
             <button id="search-btn" type="button" class="h-7.5 w-11 rounded-3xl flex items-center justify-center absolute right-0.5 top-0.5 bg-stone-950 dark:bg-stone-950 cursor-pointer btn-epico z-120 border-none touch-manipulation">
-                <i class="ri-search-line text-lg text-white dark:text-temu pointer-events-none"></i>
+                <i class="ri-search-line text-lg text-white dark:text-temuDark pointer-events-none"></i>
             </button>
-            <div id="sugerencias-dropdown" class="absolute top-full left-0 w-full bg-white dark:bg-stone-900 border-x border-b border-stone-950 dark:border-temu rounded-b-4xl max-h-60 overflow-y-auto hidden z-100 shadow-lg"></div>
+            <div id="sugerencias-dropdown" class="absolute top-full left-0 w-full bg-white dark:bg-stone-900 border-x border-b border-stone-950 dark:border-temuDark rounded-b-4xl max-h-60 overflow-y-auto hidden z-100 shadow-lg"></div>
         </section>
         <!-- .buscador -->
 
         <section class="w-30 h-9 absolute top-2 flex gap-8 right-0 xl:gap-12 xl:w-33">
             <div class="flex gap-8 max-lg:hidden xl:gap-12">
-                <button id="favoritos" class="nav-desktop group flex flex-col justify-center items-center mt-1 cursor-pointer transition-all duration-300" data-nav="favoritos"><i class="ri-poker-hearts-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu"></i><p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu group-hover:border-temu" data-i18n="favoritos">Favoritos</p></button>
-                <button id="carrito-cambio" class="nav-desktop group flex flex-col justify-center items-center mt-1 cursor-pointer transition-all duration-300" data-nav="carrito"><i class="ri-shopping-cart-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu"></i><p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu group-hover:border-temu" data-i18n="carrito">Carrito</p></button>
+                <button id="favoritos" class="nav-desktop group flex flex-col justify-center items-center mt-1 cursor-pointer transition-all duration-300" data-nav="favoritos"><i class="ri-poker-hearts-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu dark:group-hover:text-temuDark"></i><p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu dark:group-hover:text-temuDark group-hover:border-temu dark:group-hover:border-temuDark" data-i18n="favoritos">Favoritos</p></button>
+                <button id="carrito-cambio" class="nav-desktop group flex flex-col justify-center items-center mt-1 cursor-pointer transition-all duration-300" data-nav="carrito"><i class="ri-shopping-cart-line text-xl text-stone-950 leading-none transition-colors duration-300 group-hover:text-temu dark:group-hover:text-temuDark"></i><p class="text-xs leading-none border-b-2 border-transparent transition-colors duration-300 group-hover:text-temu dark:group-hover:text-temuDark group-hover:border-temu dark:group-hover:border-temuDark" data-i18n="carrito">Carrito</p></button>
             </div>
         </section>
     </nav>
@@ -148,7 +148,7 @@
             <div class="swiper-wrapper hero-track">
 
                 <div class="swiper-slide relative w-full h-70" data-id="1" data-titulo="Álbum Tapa Dura" data-subtitulo="PANINI - 2026" data-precio="45.00" data-imagen="assets/06 mundial.webp">
-                    <div class="absolute inset-0 cardHero bg-stone-950 dark:bg-temu"></div>
+                    <div class="absolute inset-0 cardHero bg-stone-950 dark:bg-temuDark"></div>
                     <div class="absolute cardHeroInner bg-white dark:bg-stone-900 overflow-hidden inset-0">
                         <img src="assets/06 mundial.webp" class="w-full h-full object-cover object-[50%_40%]">
                     </div>
@@ -156,13 +156,13 @@
                         <i class="ri-heart-line text-lg text-stone-950 dark:text-white/20 transition-colors duration-200"></i>
                     </button>
                     <div class="absolute w-25 h-10 bg-stone-950 dark:bg-stone-800 z-10 top-3 left-5 cardPrecioHero cursor-pointer"></div>
-                    <div class="btn-precio absolute w-25 h-10 bg-puro dark:bg-stone-800 dark:text-temu z-10 top-3 left-5 cardPrecioHeroInner flex justify-center items-center cursor-pointer">
+                    <div class="btn-precio absolute w-25 h-10 bg-puro dark:bg-stone-800 dark:text-temuDark z-10 top-3 left-5 cardPrecioHeroInner flex justify-center items-center cursor-pointer">
                         <p class="font-Russo text-[16px] iconoPrecio">s/ 45.00</p>
                     </div>
                     <button class="btn-epico absolute w-15 h-10 bg-stone-950 dark:bg-stone-800 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer transition-transform duration-300">
-                        <i class="ri-shopping-cart-line text-xl text-white dark:text-temu"></i>
+                        <i class="ri-shopping-cart-line text-xl text-white dark:text-temuDark"></i>
                     </button>
-                    <div class="absolute w-55 h-12 bg-stone-950/50 dark:bg-stone-950/90 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1 text-white dark:text-temu">
+                    <div class="absolute w-55 h-12 bg-stone-950/50 dark:bg-stone-950/90 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1 text-white dark:text-temuDark">
                         <p class="font-MontAlternates font-semibold pl-5 text-[14px] leading-none">
                             Álbum Tapa Dura
                         </p>
@@ -173,21 +173,21 @@
                 </div>
 
                 <div class="swiper-slide relative w-full h-70" data-id="11" data-titulo="Dispensador de Jabón" data-subtitulo="Automático" data-precio="109.90" data-imagen="assets/21 DISPENSADOR DE JABÓN/00.webp">
-                    <div class="absolute inset-0 cardHero bg-stone-950 dark:bg-temu"></div>
+                    <div class="absolute inset-0 cardHero bg-stone-950 dark:bg-temuDark"></div>
                     <div class="absolute cardHeroInner bg-white dark:bg-stone-900 overflow-hidden inset-0"><img src="assets/21 DISPENSADOR DE JABÓN/00.webp" class="w-full h-full object-cover object-[50%_40%] sm:object-[50%_60%]"></div>
                     <button class="btn-favorito-hero absolute top-3 right-5 z-20 size-8 bg-white/80 dark:bg-stone-900 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110">
                         <i class="ri-heart-line text-lg text-stone-950 dark:text-white/20 transition-colors duration-200"></i>
                     </button>
                     <div class="absolute w-25 h-10 bg-stone-950 dark:bg-stone-800 z-10 top-3 left-5 cardPrecioHero cursor-pointer"></div>
-                    <div class="btn-precio absolute w-25 h-10 bg-puro dark:bg-stone-800 dark:text-temu z-10 top-3 left-5 cardPrecioHeroInner flex justify-center items-center cursor-pointer">
+                    <div class="btn-precio absolute w-25 h-10 bg-puro dark:bg-stone-800 dark:text-temuDark z-10 top-3 left-5 cardPrecioHeroInner flex justify-center items-center cursor-pointer">
                         <p class="font-Russo text-[16px] iconoPrecio">
                             s/ 109.90
                         </p>
                     </div>
                     <button class="btn-epico absolute w-15 h-10 bg-stone-950 dark:bg-stone-800 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer transition-transform duration-300">
-                        <i class="ri-shopping-cart-line text-xl text-white dark:text-temu"></i>
+                        <i class="ri-shopping-cart-line text-xl text-white dark:text-temuDark"></i>
                     </button>
-                    <div class="absolute w-55 h-12 bg-stone-950/50 dark:bg-stone-950/90 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1 text-white dark:text-temu">
+                    <div class="absolute w-55 h-12 bg-stone-950/50 dark:bg-stone-950/90 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1 text-white dark:text-temuDark">
                         <p class="font-MontAlternates font-semibold pl-5 text-[14px] leading-none">
                             Dispensador de Jabón
                         </p>
@@ -198,21 +198,21 @@
                 </div>
 
                 <div class="swiper-slide relative w-full h-70" data-id="4" data-titulo="Soporte Imantado" data-subtitulo="360° Supreme" data-precio="29.90" data-imagen="assets/03 SOPORTE IMANTADO 360 -SUPREME/01.webp">
-                    <div class="absolute inset-0 cardHero bg-stone-950 dark:bg-temu"></div>
+                    <div class="absolute inset-0 cardHero bg-stone-950 dark:bg-temuDark"></div>
                     <div class="absolute cardHeroInner bg-white dark:bg-stone-900 overflow-hidden inset-0"><img src="assets/03 SOPORTE IMANTADO 360 -SUPREME/01.webp" class="w-full h-full object-cover object-[50%_40%] sm:object-[50%_50%]"></div>
                     <button class="btn-favorito-hero absolute top-3 right-5 z-20 size-8 bg-white/80 dark:bg-stone-900 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110">
                         <i class="ri-heart-line text-lg text-stone-950 dark:text-white/20 transition-colors duration-200"></i>
                     </button>
                     <div class="absolute w-25 h-10 bg-stone-950 dark:bg-stone-800 z-10 top-3 left-5 cardPrecioHero cursor-pointer"></div>
-                    <div class="btn-precio absolute w-25 h-10 bg-puro dark:bg-stone-800 dark:text-temu z-10 top-3 left-5 cardPrecioHeroInner flex justify-center items-center cursor-pointer">
+                    <div class="btn-precio absolute w-25 h-10 bg-puro dark:bg-stone-800 dark:text-temuDark z-10 top-3 left-5 cardPrecioHeroInner flex justify-center items-center cursor-pointer">
                         <p class="font-Russo text-[16px] iconoPrecio">
                             s/ 29.90
                         </p>
                     </div>
                     <button class="btn-epico absolute w-15 h-10 bg-stone-950 dark:bg-stone-800 z-10 bottom-3 right-5.5 flex justify-center items-center rounded-tl-3xl rounded-br-3xl cursor-pointer transition-transform duration-300">
-                        <i class="ri-shopping-cart-line text-xl text-white dark:text-temu"></i>
+                        <i class="ri-shopping-cart-line text-xl text-white dark:text-temuDark"></i>
                     </button>
-                    <div class="absolute w-55 h-12 bg-stone-950/50 dark:bg-stone-950/90 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1 text-white dark:text-temu">
+                    <div class="absolute w-55 h-12 bg-stone-950/50 dark:bg-stone-950/90 z-10 bottom-3 left-3 flex justify-center items-start rounded-4xl flex-col gap-1 text-white dark:text-temuDark">
                         <p class="font-MontAlternates font-semibold pl-5 text-[14px] leading-none">
                             Soporte Imantado
                         </p>
@@ -321,21 +321,21 @@
 
         <!-- 01 ALBUM PANINI -->
         <article class="producto-tienda cat-albums cat-ofertas w-[172px] h-[254px] relative sm:w-[234px] sm:h-[381px]" data-id="1" data-titulo="Álbum Tapa Dura" data-subtitulo="PANINI - 2026" data-precio="45.00" data-imagen="assets/06 mundial.webp">
-            <div class="absolute inset-0 bg-stone-950 dark:bg-temu cardProducto"></div>
-            <div class="w-[172px] h-52.5 bg-white dark:bg-stone-900 cardProductoInner absolute inset-0 overflow-hidden border border-stone-950 dark:border-temu sm:w-[234px] sm:h-78.75">
+            <div class="absolute inset-0 bg-stone-950 dark:bg-temuDark cardProducto"></div>
+            <div class="w-[172px] h-52.5 bg-white dark:bg-stone-900 cardProductoInner absolute inset-0 overflow-hidden border border-stone-950 dark:border-temuDark sm:w-[234px] sm:h-78.75">
                 <img src="assets/06 mundial.webp" alt="" class="w-full h-full object-contain object-[50%_70%] sm:object-[50%_60%]">
             </div>
             <button class="btn-favorito absolute top-1.5 right-1.5 z-20 size-6 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2">
                 <i class="ri-heart-line text-sm text-stone-950 dark:text-white/20 transition-colors duration-200 sm:text-lg"></i>
             </button>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-puro dark:bg-stone-800 dark:text-temu border border-puro dark:border-stone-800 rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-puro dark:bg-stone-800 dark:text-temuDark border border-puro dark:border-stone-800 rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                 <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ 45.00</p>
             </div>
             <button class="btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]" data-id="1" data-titulo="Álbum Tapa Dura" data-subtitulo="PANINI - Mundial 2026" data-precio="45.00" data-imagen="assets/06 mundial.webp">
-                <i class="ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
+                <i class="ri-shopping-cart-2-line text-white dark:text-temuDark text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
-            <div class="absolute bg-stone-950 dark:bg-temu bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-puro dark:bg-stone-900 dark:text-temu cardInfoInner flex flex-col justify-center border border-stone-950 dark:border-temu sm:w-[234px] sm:h-15 ">
+            <div class="absolute bg-stone-950 dark:bg-temuDark bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
+            <div class="w-[172px] h-10 absolute bottom-0 bg-puro dark:bg-stone-900 dark:text-temuDark cardInfoInner flex flex-col justify-center border border-stone-950 dark:border-temuDark sm:w-[234px] sm:h-15 ">
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">
                     Álbum Tapa Dura
                 </p>
@@ -359,14 +359,14 @@
             <button class="btn-favorito absolute top-1.5 right-1.5 z-20 size-6 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2">
                 <i class="ri-heart-line text-sm text-stone-950 transition-colors duration-200 sm:text-lg"></i>
             </button>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-puro dark:bg-stone-900 dark:text-temu dark:border dark:border-stone-900 rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-puro dark:bg-stone-900 dark:text-temuDark dark:border dark:border-stone-900 rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                 <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ 20.90</p>
             </div>
             <button class="btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]" data-id="2" data-titulo="Soporte Imantado" data-subtitulo="Clásico" data-precio="20.90" data-imagen="assets/01 SOPORTE IMANTADO/01.webp">
-                <i class="ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
+                <i class="ri-shopping-cart-2-line text-white dark:text-temuDark text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
             <div class="absolute bg-puro dark:bg-stone-900 bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-puro dark:bg-stone-900 dark:text-temu border border-puro dark:border-stone-900 cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
+            <div class="w-[172px] h-10 absolute bottom-0 bg-puro dark:bg-stone-900 dark:text-temuDark border border-puro dark:border-stone-900 cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">
                     Soporte Imantado
                 </p>
@@ -390,14 +390,14 @@
             <button class="btn-favorito absolute top-1.5 right-1.5 z-20 size-6 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2">
                 <i class="ri-heart-line text-sm text-stone-950 transition-colors duration-200 sm:text-lg"></i>
             </button>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-puro dark:bg-stone-900 dark:text-temu  rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-puro dark:bg-stone-900 dark:text-temuDark  rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                 <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ 24.90</p>
             </div>
             <button class="btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]" data-id="3" data-titulo="Soporte Imantado" data-subtitulo="X68" data-precio="24.90" data-imagen="assets/02 SOPORTE IMANTADO 360/01.webp">
-                <i class="ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
+                <i class="ri-shopping-cart-2-line text-white dark:text-temuDark text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
             <div class="absolute bg-puro dark:bg-stone-900 bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-puro dark:bg-stone-900 dark:text-temu cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
+            <div class="w-[172px] h-10 absolute bottom-0 bg-puro dark:bg-stone-900 dark:text-temuDark cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">Soporte Imantado</p>
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">X68</p>
             </div>
@@ -416,14 +416,14 @@
             <button class="btn-favorito absolute top-1.5 right-1.5 z-20 size-6 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2">
                 <i class="ri-heart-line text-sm text-stone-950 transition-colors duration-200 sm:text-lg"></i>
             </button>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-puro dark:bg-stone-900 dark:text-temu rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-puro dark:bg-stone-900 dark:text-temuDark rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                 <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ 29.90</p>
             </div>
             <button class="btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]" data-id="4" data-titulo="Soporte Imantado" data-subtitulo="360° Supreme" data-precio="29.90" data-imagen="assets/03 SOPORTE IMANTADO 360 -SUPREME/01.webp">
-                <i class="ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
+                <i class="ri-shopping-cart-2-line text-white dark:text-temuDark text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
             <div class="absolute bg-puro dark:bg-stone-900 bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-puro dark:bg-stone-900 dark:text-temu cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
+            <div class="w-[172px] h-10 absolute bottom-0 bg-puro dark:bg-stone-900 dark:text-temuDark cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">Soporte Imantado</p>
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">360° Supreme</p>
             </div>
@@ -442,14 +442,14 @@
             <button class="btn-favorito absolute top-1.5 right-1.5 z-20 size-6 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2">
                 <i class="ri-heart-line text-sm text-stone-950 transition-colors duration-200 sm:text-lg"></i>
             </button>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-puro dark:bg-stone-900 dark:text-temu rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-puro dark:bg-stone-900 dark:text-temuDark rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                 <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ 39.90</p>
             </div>
             <button class="btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]" data-id="5" data-titulo="Espejo Led Touch" data-subtitulo="2 Botones" data-precio="39.90" data-imagen="assets/04 ESPEJO LED DE 2 BOTONES/01.webp">
-                <i class="ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
+                <i class="ri-shopping-cart-2-line text-white dark:text-temuDark text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
             <div class="absolute bg-puro dark:bg-stone-900 bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-puro dark:bg-stone-900 dark:text-temu cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
+            <div class="w-[172px] h-10 absolute bottom-0 bg-puro dark:bg-stone-900 dark:text-temuDark cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
                 <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">Espejo Led Touch</p>
                 <p class="font-Inter text-xs font-extrabold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">2 Botones</p>
             </div>
@@ -467,14 +467,14 @@
             <button class="btn-favorito absolute top-1.5 right-1.5 z-20 size-6 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2">
                 <i class="ri-heart-line text-sm text-stone-950 dark:text-stone-950 transition-colors duration-200 sm:text-lg"></i>
             </button>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-blue-100 dark:bg-stone-900 dark:text-temu rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-blue-100 dark:bg-stone-900 dark:text-temuDark rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                 <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ 84.90</p>
             </div>
             <button class="btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]" data-id="6" data-titulo="JBL Essential" data-subtitulo="Original" data-precio="84.90" data-imagen="assets/06 JBL ESSENTIAL/01.webp">
-                <i class="icono-carrito ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
+                <i class="icono-carrito ri-shopping-cart-2-line text-white dark:text-temuDark text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
             <div class="absolute bg-blue-100 dark:bg-stone-900 bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-blue-100 dark:bg-stone-900 dark:text-temu cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
+            <div class="w-[172px] h-10 absolute bottom-0 bg-blue-100 dark:bg-stone-900 dark:text-temuDark cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">JBL Essential</p>
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">Original</p>
             </div>
@@ -494,14 +494,14 @@
             <button class="btn-favorito absolute top-1.5 right-1.5 z-20 size-6 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2">
                 <i class="ri-heart-line text-sm text-stone-950 transition-colors duration-200 sm:text-lg"></i>
             </button>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-purple-100 dark:bg-stone-900 dark:text-temu rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-purple-100 dark:bg-stone-900 dark:text-temuDark rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                 <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ 24.90</p>
             </div>
             <button class="btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]" data-id="7" data-titulo="Mini Parlante" data-subtitulo="G200" data-precio="24.90" data-imagen="assets/07 MINI PARLANTE G200/01.webp">
-                <i class="ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
+                <i class="ri-shopping-cart-2-line text-white dark:text-temuDark text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
             <div class="absolute bg-purple-100 dark:bg-stone-900 bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-purple-100 dark:bg-stone-900 dark:text-temu cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
+            <div class="w-[172px] h-10 absolute bottom-0 bg-purple-100 dark:bg-stone-900 dark:text-temuDark cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">Mini Parlante</p>
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">G200</p>
             </div>
@@ -520,14 +520,14 @@
             <button class="btn-favorito absolute top-1.5 right-1.5 z-20 size-6 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2">
                 <i class="ri-heart-line text-sm text-stone-950 transition-colors duration-200 sm:text-lg"></i>
             </button>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-pink-100 dark:bg-stone-900 dark:text-temu rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-pink-100 dark:bg-stone-900 dark:text-temuDark rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                 <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ 29.90</p>
             </div>
             <button class="btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]" data-id="8" data-titulo="Mini Parlante" data-subtitulo="MX-G60" data-precio="29.90" data-imagen="assets/08 MINI PARLANTE MX-G60/01.webp">
-                <i class="ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
+                <i class="ri-shopping-cart-2-line text-white dark:text-temuDark text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
             <div class="absolute bg-pink-100 dark:bg-stone-900 bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-pink-100 dark:bg-stone-900 dark:text-temu cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
+            <div class="w-[172px] h-10 absolute bottom-0 bg-pink-100 dark:bg-stone-900 dark:text-temuDark cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">Mini Parlante</p>
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">MX-G60</p>
             </div>
@@ -546,14 +546,14 @@
             <button class="btn-favorito absolute top-1.5 right-1.5 z-20 size-6 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2">
                 <i class="ri-heart-line text-sm text-stone-950 transition-colors duration-200 sm:text-lg"></i>
             </button>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-orange-100 dark:bg-stone-900 dark:text-temu rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-orange-100 dark:bg-stone-900 dark:text-temuDark rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                 <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ 64.90</p>
             </div>
             <button class="btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]" data-id="9" data-titulo="Masajeador Suave" data-subtitulo="4 Botones" data-precio="64.90" data-imagen="assets/12 ALMOHADA DE 4 BOTONES/01.webp">
-                <i class="ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
+                <i class="ri-shopping-cart-2-line text-white dark:text-temuDark text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
             <div class="absolute bg-orange-100 dark:bg-stone-900 bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-orange-100 dark:bg-stone-900 dark:text-temu cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
+            <div class="w-[172px] h-10 absolute bottom-0 bg-orange-100 dark:bg-stone-900 dark:text-temuDark cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">Masajeador Suave</p>
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">4 Botones</p>
             </div>
@@ -574,14 +574,14 @@
             <button class="btn-favorito absolute top-1.5 right-1.5 z-20 size-6 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2">
                 <i class="ri-heart-line text-sm text-stone-950 transition-colors duration-200 sm:text-lg"></i>
             </button>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-manita dark:bg-stone-900 dark:text-temu rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-manita dark:bg-stone-900 dark:text-temuDark rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                 <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ 109.90</p>
             </div>
             <button class="btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]" data-id="10" data-titulo="Manita Muscular" data-subtitulo="Masajeadora" data-precio="109.90" data-imagen="assets/13 MANITA MASAJEADORA/01.webp">
-                <i class="ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
+                <i class="ri-shopping-cart-2-line text-white dark:text-temuDark text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
             <div class="absolute bg-manita dark:bg-stone-900 bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-manita dark:bg-stone-900 dark:text-temu cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
+            <div class="w-[172px] h-10 absolute bottom-0 bg-manita dark:bg-stone-900 dark:text-temuDark cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">Manita Muscular</p>
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">Masajeadora</p>
             </div>
@@ -601,14 +601,14 @@
             <button class="btn-favorito absolute top-1.5 right-1.5 z-20 size-6 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2">
                 <i class="ri-heart-line text-sm text-stone-950 transition-colors duration-200 sm:text-lg"></i>
             </button>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-jabon dark:bg-stone-900 dark:text-temu  rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-jabon dark:bg-stone-900 dark:text-temuDark  rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                 <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ 109.90</p>
             </div>
             <button class="btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]" data-id="11" data-titulo="Dispensador de Jabón" data-subtitulo="Automático" data-precio="109.90" data-imagen="assets/21 DISPENSADOR DE JABÓN/00.webp">
-                <i class="ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
+                <i class="ri-shopping-cart-2-line text-white dark:text-temuDark text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
             <div class="absolute bg-jabon dark:bg-stone-900 bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-jabon dark:bg-stone-900 dark:text-temu cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
+            <div class="w-[172px] h-10 absolute bottom-0 bg-jabon dark:bg-stone-900 dark:text-temuDark cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
                 <p class="font-Inter text-[11.5px] font-bold pl-3 w-40 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">Dispensador de Jabón</p>
                 <p class="font-Inter text-[11.5px] font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">Automático</p>
             </div>
@@ -620,21 +620,21 @@
 
         <!-- 12 PROYECTOR L018 -->
         <article class="producto-tienda cat-tecnologia cat-hogar w-[172px] h-[254px] relative sm:w-[234px] sm:h-[381px]" data-id="12" data-titulo="Proyector MagCubic" data-subtitulo="L018" data-precio="349.90" data-imagen="assets/22 PROYECTOR L018/01.webp">
-            <div class="absolute inset-0 bg-stone-950 dark:bg-temu cardProducto"></div>
-            <div class="w-[172px] h-52.5 bg-white dark:bg-stone-900 cardProductoInner absolute inset-0 overflow-hidden border border-stone-950 dark:border-temu sm:w-[234px] sm:h-78.5">
+            <div class="absolute inset-0 bg-stone-950 dark:bg-temuDark cardProducto"></div>
+            <div class="w-[172px] h-52.5 bg-white dark:bg-stone-900 cardProductoInner absolute inset-0 overflow-hidden border border-stone-950 dark:border-temuDark sm:w-[234px] sm:h-78.5">
                 <img src="assets/22 PROYECTOR L018/01.webp" alt="" class="w-full h-full object-contain object-[50%_70%] sm:object-[50%_60%]">
             </div>
             <button class="btn-favorito absolute top-1.5 right-1.5 z-20 size-6 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2">
                 <i class="ri-heart-line text-sm text-stone-950 dark:text-white/20 transition-colors duration-200 sm:text-lg"></i>
             </button>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-puro dark:bg-stone-800 border border-puro dark:border-stone-800 dark:text-temu rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-puro dark:bg-stone-800 border border-puro dark:border-stone-800 dark:text-temuDark rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                 <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ 349.90</p>
             </div>
             <button class="btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]" data-id="12" data-titulo="Proyector MagCubic" data-subtitulo="L018" data-precio="349.90" data-imagen="assets/22 PROYECTOR L018/01.webp">
-                <i class="ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
+                <i class="ri-shopping-cart-2-line text-white dark:text-temuDark text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
-            <div class="absolute bg-stone-950 dark:bg-temu bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-puro dark:bg-stone-900 cardInfoInner flex flex-col justify-center border border-stone-950 dark:border-temu dark:text-temu sm:w-[234px] sm:h-15">
+            <div class="absolute bg-stone-950 dark:bg-temuDark bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
+            <div class="w-[172px] h-10 absolute bottom-0 bg-puro dark:bg-stone-900 cardInfoInner flex flex-col justify-center border border-stone-950 dark:border-temuDark dark:text-temuDark sm:w-[234px] sm:h-15">
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">Proyector MagCubic</p>
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">L018</p>
             </div>
@@ -653,14 +653,14 @@
             <button class="btn-favorito absolute top-1.5 right-1.5 z-20 size-6 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2">
                 <i class="ri-heart-line text-sm text-stone-950 transition-colors duration-200 sm:text-lg"></i>
             </button>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-yellow-100 dark:bg-stone-900 dark:text-temu rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-yellow-100 dark:bg-stone-900 dark:text-temuDark rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                 <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ 129.90</p>
             </div>
             <button class="btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]" data-id="13" data-titulo="Lámpara Led" data-subtitulo="Solar" data-precio="129.90" data-imagen="assets/23 LAMPARA LED SOLAR/01.webp">
-                <i class="ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
+                <i class="ri-shopping-cart-2-line text-white dark:text-temuDark text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
             <div class="absolute bg-yellow-100 dark:bg-stone-900 bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-yellow-100 dark:bg-stone-900 dark:text-temu cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
+            <div class="w-[172px] h-10 absolute bottom-0 bg-yellow-100 dark:bg-stone-900 dark:text-temuDark cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">Lámpara Led</p>
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">Solar</p>
             </div>
@@ -679,14 +679,14 @@
             <button class="btn-favorito absolute top-1.5 right-1.5 z-20 size-6 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2">
                 <i class="ri-heart-line text-sm text-stone-950 transition-colors duration-200 sm:text-lg"></i>
             </button>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-indigo-100 dark:bg-stone-900 dark:text-temu rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-indigo-100 dark:bg-stone-900 dark:text-temuDark rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                 <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ 89.90</p>
             </div>
             <button class="btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]" data-id="14" data-titulo="Casaca Impermeable" data-subtitulo="(Varios Colores)" data-precio="89.90" data-imagen="assets/28 CASACA IMPERMEABLE AZUL/01.webp">
-                <i class="ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
+                <i class="ri-shopping-cart-2-line text-white dark:text-temuDark text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
             <div class="absolute bg-indigo-100 dark:bg-stone-900 bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-indigo-100 dark:bg-stone-900 dark:text-temu cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
+            <div class="w-[172px] h-10 absolute bottom-0 bg-indigo-100 dark:bg-stone-900 dark:text-temuDark cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
                 <p class="font-Inter text-[11.5px] font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">Casaca Impermeable</p>
                 <p class="font-Inter text-[11.5px] font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">(Varios Colores)</p>
             </div>
@@ -708,14 +708,14 @@
             <button class="btn-favorito absolute top-1.5 right-1.5 z-20 size-6 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2">
                 <i class="ri-heart-line text-sm text-stone-950 transition-colors duration-200 sm:text-lg"></i>
             </button>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-plomo dark:bg-stone-900 dark:text-temu rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-plomo dark:bg-stone-900 dark:text-temuDark rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                 <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ 39.90</p>
             </div>
             <button class="btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]" data-id="15" data-titulo="Correa de Cuero" data-subtitulo="Automática" data-precio="39.90" data-imagen="assets/30 CORREA DE CUERO AUTOMATICA/01.webp">
-                <i class="ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
+                <i class="ri-shopping-cart-2-line text-white dark:text-temuDark text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
             <div class="absolute bg-plomo dark:bg-stone-900 bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-plomo dark:bg-stone-900 dark:text-temu cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
+            <div class="w-[172px] h-10 absolute bottom-0 bg-plomo dark:bg-stone-900 dark:text-temuDark cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">Correa de Cuero</p>
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">Automática</p>
             </div>
@@ -734,14 +734,14 @@
             <button class="btn-favorito absolute top-1.5 right-1.5 z-20 size-6 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2">
                 <i class="ri-heart-line text-sm text-stone-950 transition-colors duration-200 sm:text-lg"></i>
             </button>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-indigo-100 dark:bg-stone-900 dark:text-temu rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-indigo-100 dark:bg-stone-900 dark:text-temuDark rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                 <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ 69.90</p>
             </div>
             <button class="btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]" data-id="16" data-titulo="Casaca Cortaviento" data-subtitulo="(Varios Colores)" data-precio="69.90" data-imagen="assets/33 CASACA CORTAVIENTO AZUL/01.webp">
-                <i class="ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
+                <i class="ri-shopping-cart-2-line text-white dark:text-temuDark text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
             <div class="absolute bg-indigo-100 dark:bg-stone-900 bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-indigo-100 dark:bg-stone-900 dark:text-temu cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
+            <div class="w-[172px] h-10 absolute bottom-0 bg-indigo-100 dark:bg-stone-900 dark:text-temuDark cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">Casaca Cortaviento</p>
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">(Varios Colores)</p>
             </div>
@@ -762,14 +762,14 @@
             <button class="btn-favorito absolute top-1.5 right-1.5 z-20 size-6 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2">
                 <i class="ri-heart-line text-sm text-stone-950 transition-colors duration-200 sm:text-lg"></i>
             </button>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-plomo dark:bg-stone-900 dark:text-temu rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-plomo dark:bg-stone-900 dark:text-temuDark rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                 <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ 84.90</p>
             </div>
             <button class="btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]" data-id="17" data-titulo="Mochila Monarch" data-subtitulo="WEIXIER" data-precio="84.90" data-imagen="assets/34 MOCHILA WEIXIER/01.webp">
-                <i class="ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
+                <i class="ri-shopping-cart-2-line text-white dark:text-temuDark text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
             <div class="absolute bg-plomo dark:bg-stone-900 bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-plomo dark:bg-stone-900 dark:text-temu cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
+            <div class="w-[172px] h-10 absolute bottom-0 bg-plomo dark:bg-stone-900 dark:text-temuDark cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">Mochila Monarch</p>
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">WEIXIER</p>
             </div>
@@ -788,14 +788,14 @@
             <button class="btn-favorito absolute top-1.5 right-1.5 z-20 size-6 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2">
                 <i class="ri-heart-line text-sm text-stone-950 transition-colors duration-200 sm:text-lg"></i>
             </button>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-blue-100 dark:bg-stone-900 dark:text-temu rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-blue-100 dark:bg-stone-900 dark:text-temuDark rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                 <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ 54.90</p>
             </div>
             <button class="btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]" data-id="18" data-titulo="Masajeador Suave" data-subtitulo="3 Botones" data-precio="54.90" data-imagen="assets/11 ALMOHADA DE 3 BOTONES/01.webp">
-                <i class="ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
+                <i class="ri-shopping-cart-2-line text-white dark:text-temuDark text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
             <div class="absolute bg-blue-100 dark:bg-stone-900 bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-blue-100 dark:bg-stone-900 dark:text-temu cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
+            <div class="w-[172px] h-10 absolute bottom-0 bg-blue-100 dark:bg-stone-900 dark:text-temuDark cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">Masajeador Suave</p>
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">3 Botones</p>
             </div>
@@ -816,14 +816,14 @@
             <button class="btn-favorito absolute top-1.5 right-1.5 z-20 size-6 rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 sm:size-9 sm:top-2 sm:right-2">
                 <i class="ri-heart-line text-sm text-stone-950 transition-colors duration-200 sm:text-lg"></i>
             </button>
-            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-albedo dark:bg-stone-900 dark:text-temu rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
+            <div class="w-18 h-6 absolute top-0.5 left-2.25 bg-albedo dark:bg-stone-900 dark:text-temuDark rounded-br-xl rounded-tl-xl flex items-center justify-center cursor-pointer btn-precio sm:w-27 sm:h-9 sm:top-0.75 sm:left-[13.5px] sm:rounded-br-[18px] sm:rounded-tl-[18px]">
                 <p class="font-Russo text-xs pt-0.25 sm:text-base">s/ 51.87</p>
             </div>
             <button class="btn-agregar-carrito size-7 bg-stone-950 dark:bg-stone-800 absolute right-[2.5px] bottom-[28px] rounded-4xl z-10 flex justify-center items-center cursor-pointer transition-transform duration-300 btn-epico sm:size-10.5 sm:right-[3.75px] sm:bottom-[42px]" data-id="19" data-titulo="Figura de Albedo" data-subtitulo="35x50 cm" data-precio="51.87" data-imagen="assets/01 albedo.avif">
-                <i class="ri-shopping-cart-2-line text-white dark:text-temu text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
+                <i class="ri-shopping-cart-2-line text-white dark:text-temuDark text-[13px] pb-px pl-px sm:text-[19.5px] sm:pl-[0.5px] sm:pb-[1.5px]"></i>
             </button>
             <div class="absolute bg-albedo dark:bg-stone-900 bottom-0 cardInfo w-[172px] h-10 sm:w-[234px] sm:h-15"></div>
-            <div class="w-[172px] h-10 absolute bottom-0 bg-albedo dark:bg-stone-900 dark:text-temu cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
+            <div class="w-[172px] h-10 absolute bottom-0 bg-albedo dark:bg-stone-900 dark:text-temuDark cardInfoInner flex flex-col justify-center sm:w-[234px] sm:h-15">
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:leading-none sm:pl-4.5 sm:pt-0.25">Figura de Albedo</p>
                 <p class="font-Inter text-xs font-bold pl-3 w-34 cursor-default sm:w-51 sm:text-base sm:mt-0.5 sm:pl-4.5">35x50 cm</p>
             </div>
@@ -842,7 +842,7 @@
     <!-- ================================================================ -->
     <!-- BOTON VER MAS -->
     <div id="btn-mas" class="w-full flex justify-center my-20">
-        <button id="btn-ver-mas" data-i18n="verMas" class="bg-temu text-white font-Russo px-6 py-3 rounded-4xl cursor-pointer hover:bg-temu-90 transition-colors duration-300">
+        <button id="btn-ver-mas" data-i18n="verMas" class="bg-temu dark:bg-temuDark text-white font-Russo px-6 py-3 rounded-4xl cursor-pointer hover:bg-temu-90 dark:hover:bg-temuDark-90 transition-colors duration-300">
             Ver más</button>
     </div>
 
@@ -850,7 +850,7 @@
     <!-- SECTION CARRITO -->
     <!-- ==================================== -->
     <section id="carrito-section" class="hidden mt-2 w-[95vw] h-full min mx-auto lg:max-w-7xl">
-        <h1 class="font-Inter font-bold text-lg h-10 w-42 bg-stone-950 dark:bg-stone-800 text-white dark:text-temu rounded-4xl flex justify-center items-center" data-i18n="miCarrito">
+        <h1 class="font-Inter font-bold text-lg h-10 w-42 bg-stone-950 dark:bg-stone-800 text-white dark:text-temuDark rounded-4xl flex justify-center items-center" data-i18n="miCarrito">
             Mi Carrito
         </h1>
         <section id="contenedor-items-carrito" class="grid grid-cols-1 gap-x-5 mt-4 mb-40 sm:grid-cols-2
@@ -859,13 +859,13 @@
 
     <!-- BOTON FIJO FINALIZAR COMPRA Y TOTAL -->
     <div id="btn-carrito" class="hidden z-20 fixed bottom-0 w-full h-35 bg-white dark:bg-stone-950 border-t border-t-stone-950/20 dark:border-t-stone-700 flex justify-between px-1 left-1/2 -translate-x-1/2 sm:h-38 sm:px-2 sm:pl-4 lg:pt-4 lg:px-10 lg:max-w-350 lg:h-30">
-        <div class="flex flex-col justify-start items-start mt-3 pl-1 sm:mt-5 w-50 dark:text-temu">
+        <div class="flex flex-col justify-start items-start mt-3 pl-1 sm:mt-5 w-50 dark:text-temuDark">
             <p class="font-Inter font-bold leading-2 text-xs" data-i18n="total">Total</p>
             <p id="precio-total-general" class="font-Russo text-3xl">s/ 0. 
                 <span class="text-xl font-Russo">00</span>
             </p>
         </div>
-        <button class="w-[70vw] h-12 bg-temu rounded-4xl flex items-center justify-center mt-3 sm:h-15 sm:w-[72vw] lg:w-[40vw] cursor-pointer">
+        <button class="w-[70vw] h-12 bg-temu dark:bg-temuDark rounded-4xl flex items-center justify-center mt-3 sm:h-15 sm:w-[72vw] lg:w-[40vw] cursor-pointer">
             <p class="font-Inter font-semibold text-white text-base sm:text-lg" data-i18n="finalizarCompra">Finalizar compra</p>
         </button>
     </div>
@@ -876,7 +876,7 @@
     <section id="favoritos-section" class="hidden w-[350px] h-full mx-auto mt-2 pb-22 relative
     sm:w-[726px]
     lg:w-[95vw] lg:max-w-7xl">
-        <h1 class="font-Inter font-bold text-lg bg-stone-950 dark:bg-stone-800 text-white dark:text-temu h-10 w-47 rounded-4xl flex justify-center items-center mb-4 pl-2" data-i18n="misFavoritos">
+        <h1 class="font-Inter font-bold text-lg bg-stone-950 dark:bg-stone-800 text-white dark:text-temuDark h-10 w-47 rounded-4xl flex justify-center items-center mb-4 pl-2" data-i18n="misFavoritos">
             Mis Favoritos
         </h1>
         <section id="favoritos-grid" class="flex justify-start gap-x-1.5 gap-y-3 flex-wrap sm:gap-x-3">
@@ -889,7 +889,7 @@
     <!-- ==================================== -->
     <!-- SECTION CATEGORÍAS  -->
     <!-- ==================================== -->
-    <section id="panel-categorias" class="hidden w-80 h-45 rounded-4xl bg-stone-950 border-2 border-white dark:border-temu fixed z-35 bottom-20 left-2 px-3 py-3 flex flex-col
+    <section id="panel-categorias" class="hidden w-80 h-45 rounded-4xl bg-stone-950 border-2 border-white dark:border-temuDark fixed z-35 bottom-20 left-2 px-3 py-3 flex flex-col
     sm:left-40
     lg:bottom-auto lg:top-13 lg:left-25
     xl:left-35
@@ -1045,7 +1045,7 @@
     <!-- ==================================== -->
     <!-- SECTION USUARIO  -->
     <!-- ==================================== -->
-    <section id="panel-usuario" class="hidden w-68 h-35 rounded-2xl bg-stone-950 border-2 border-white dark:border-temu fixed z-30 bottom-20 left-2 px-5 py-3 flex flex-col justify-center items-start
+    <section id="panel-usuario" class="hidden w-68 h-35 rounded-2xl bg-stone-950 border-2 border-white dark:border-temuDark fixed z-30 bottom-20 left-2 px-5 py-3 flex flex-col justify-center items-start
         sm:left-40
         lg:bottom-auto lg:top-13 lg:left-12
         xl:left-20
@@ -1053,11 +1053,11 @@
         
         <!-- Modo Oscuro o Claro -->
         <div class="flex gap-0">
-            <div class="h-10 w-15 text-white dark:text-temu flex items-center font-Inter font-semibold shrink-0 cursor-default">
+            <div class="h-10 w-15 text-white dark:text-temuDark flex items-center font-Inter font-semibold shrink-0 cursor-default">
                 <p data-i18n="modo">Modo:</p>
             </div>
             <div class="h-10 w-25 flex gap-3 justify-center items-center">
-                <button id="btn-modo-claro" class="size-8 border-2 border-temu bg-temu rounded-4xl flex justify-center items-center transition-all duration-200 cursor-pointer" aria-label="Modo claro">
+                <button id="btn-modo-claro" class="size-8 border-2 border-temu bg-temu dark:bt-temuDark rounded-4xl flex justify-center items-center transition-all duration-200 cursor-pointer" aria-label="Modo claro">
                     <i class="ri-sun-fill text-white text-lg"></i>
                 </button>
                 <button id="btn-modo-oscuro" class="size-8 border-2 border-temu rounded-4xl flex justify-center items-center transition-all duration-200 cursor-pointer" aria-label="Modo oscuro">
@@ -1068,11 +1068,11 @@
 
         <!-- Cambio de Idioma -->
         <div class="flex gap-2">
-            <div class="h-10 w-20 text-white dark:text-temu flex items-center font-Inter font-semibold shrink-0 cursor-default">
+            <div class="h-10 w-20 text-white dark:text-temuDark flex items-center font-Inter font-semibold shrink-0 cursor-default">
                 <p data-i18n="idioma">Idioma:</p>
             </div>
             <div class="h-10 w-32 flex gap-3 justify-center items-center">
-                <button id="btn-lang-es" class="size-8 border-2 border-temu bg-temu rounded-4xl flex justify-center items-center overflow-hidden transition-all duration-200 cursor-pointer" aria-label="Español">
+                <button id="btn-lang-es" class="size-8 border-2 border-temu bg-temu dark:bg-temuDark rounded-4xl flex justify-center items-center overflow-hidden transition-all duration-200 cursor-pointer" aria-label="Español">
                     <img src="assets/peru.svg" alt="ES" class="h-full w-full object-cover">
                 </button>
                 <button id="btn-lang-qu" class="size-8 border-2 border-transparent rounded-4xl flex justify-center items-center overflow-hidden transition-all duration-200 cursor-pointer" aria-label="Quechua">
@@ -1086,12 +1086,12 @@
 
         <!-- Redirigir a Primera Versión de Zagy -->
         <div class="flex gap-2">
-            <div class="h-10 w-30 text-white dark:text-temu flex items-center font-Inter font-semibold shrink-0 cursor-default">
+            <div class="h-10 w-30 text-white dark:text-temuDark flex items-center font-Inter font-semibold shrink-0 cursor-default">
                 <p data-i18n="firstWeb">First Web:</p>
             </div>
             <div class="h-10 flex-1 flex gap-3 justify-center items-center">
-                <button id="btn-first-web" class="h-7 w-24 border-2 border-temu dark:border-stone-800 bg-temu dark:bg-stone-800 rounded-4xl flex justify-center items-start pt-[1px] hover:brightness-110 transition-all duration-200 cursor-pointer">
-                    <p class="text-white dark:text-temu text-[14px] font-Inter font-semibold">
+                <button id="btn-first-web" class="h-7 w-24 border-2 border-temu dark:border-stone-800 bg-temu dark:bg-temuDark dark:bg-stone-800 rounded-4xl flex justify-center items-start pt-[1px] hover:brightness-110 transition-all duration-200 cursor-pointer">
+                    <p class="text-white text-[14px] font-Inter font-semibold">
                         Zagy Tech
                     </p>
                 </button>
@@ -1231,12 +1231,12 @@
                 </div>
 
                 <!-- Título -->
-                <h1 id="detalle-titulo" class="font-Inter font-bold text-xl sm:text-2xl text-temu dark:text-temu leading-tight"></h1>
+                <h1 id="detalle-titulo" class="font-Inter font-bold text-xl sm:text-2xl text-temu dark:text-temuDark leading-tight"></h1>
                 <p id="detalle-subtitulo" class="font-Inter text-sm text-stone-500 dark:text-stone-400 mt-0.5"></p>
 
                 <!-- Precio -->
                 <div class="flex items-end gap-2 sm:gap-3 mt-3 flex-wrap">
-                    <div class="flex items-baseline gap-1 text-temu dark:text-temu">
+                    <div class="flex items-baseline gap-1 text-temu dark:text-temuDark">
                         <span class="text-sm font-Russo">
                             s/
                         </span>
@@ -1248,7 +1248,7 @@
                         <span id="detalle-precio-original" class="text-lg font-Russo text-stone-400 line-through decoration-2 decoration-temu"></span>
                     </div>
                     
-                    <span id="detalle-descuento" class="hidden px-2 py-0.5 bg-temu text-white text-[11px] font-bold rounded-md mb-1.5"></span>
+                    <span id="detalle-descuento" class="hidden px-2 py-0.5 bg-temu dark:bg-temuDark text-white text-[11px] font-bold rounded-md mb-1.5"></span>
                     <span id="detalle-disponible" class="px-2 py-0.5 bg-verdeTemu/10 text-verdeTemu dark:text-verdeTemu2 text-[11px] font-bold rounded-md mb-1.5"></span>
                 </div>
 
@@ -1316,7 +1316,7 @@
                     </div>
 
                     <!-- Agregar (hover naranja, sin btn-epico) -->
-                    <button id="detalle-btn-carrito" class="flex-1 h-11 sm:h-12 bg-temu hover:bg-orange-600 active:scale-[0.97] rounded-full flex items-center justify-center gap-2 cursor-pointer transition-all duration-200 shadow-lg shadow-temu/25">
+                    <button id="detalle-btn-carrito" class="flex-1 h-11 sm:h-12 bg-temu dark:bg-temuDark hover:bg-orange-600 dark:hover:bg-blue-400 active:scale-[0.97] rounded-full flex items-center justify-center gap-2 cursor-pointer transition-all duration-200 shadow-lg shadow-temu/25 dark:shadow-temuDark/25">
                         <i class="ri-shopping-cart-2-line text-white text-lg"></i>
                         <span class="font-Inter font-bold text-white text-sm" data-i18n="agregarCarrito">Agregar al Carrito</span>
                     </button>
@@ -1460,7 +1460,7 @@
 
         <!-- Botón fijo "Añadir al carrito" en lightbox (solo móvil/tablet) -->
         <div id="lightbox-btn-carrito" class="hidden max-lg:flex fixed bottom-0 left-0 right-0 z-[60] p-4 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none">
-            <button id="lightbox-add-cart" class="pointer-events-auto w-full h-12 bg-temu text-white font-bold rounded-full shadow-xl shadow-black/40 active:scale-95 transition-transform flex items-center justify-center gap-2 text-sm">
+            <button id="lightbox-add-cart" class="pointer-events-auto w-full h-12 bg-temu dark:bg-temuDark text-white font-bold rounded-full shadow-xl shadow-black/40 active:scale-95 transition-transform flex items-center justify-center gap-2 text-sm">
                 <i class="ri-shopping-cart-2-line text-lg"></i>
                 <span id="lightbox-add-cart-text">Agregar al carrito</span>
             </button>
@@ -1472,7 +1472,7 @@
 
     <!-- ////////////////////////////////////////////////////////////////////// -->
     <!-- BOTÓN VOLVER ARRIBA -->
-    <button id="btn-volver-arriba" class="fixed z-40 size-12 rounded-full bg-temu text-white shadow-lg shadow-temu/40 flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 active:scale-95 translate-y-24 opacity-0 pointer-events-none bottom-20 right-4 max-lg:hidden sm:bottom-20 sm:right-6 lg:bottom-8 lg:right-8">
+    <button id="btn-volver-arriba" class="fixed z-40 size-12 rounded-full bg-temu dark:bg-temuDark text-white shadow-lg shadow-temu/40 dark:shadow-temuDark/40 flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 active:scale-95 translate-y-24 opacity-0 pointer-events-none bottom-20 right-4 max-lg:hidden sm:bottom-20 sm:right-6 lg:bottom-8 lg:right-8">
         <i class="ri-arrow-up-line text-xl"></i>
     </button>
       <!-- ////////////////////////////////////////////////////////////////////// -->
