@@ -2554,9 +2554,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // CONFIGURACIÓN (Onii-chan edita aquí)
     // ======================================================
     const WHATSAPP_NUMEROS = {
-    default:  '51900556685',
+    default:  '51915112116',
     perfumes: '51933602140',
-    licores:  '51910517754',
+    licores:  '51933602140',
     };
 
     const TEXTO_PEDIDO = {
