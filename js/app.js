@@ -130,7 +130,7 @@ const productosDB = [
         },
         // ─── PRODUCTOS RELACIONADOS (Explora más) ───
         // IDs de otros productos que quieres mostrar al final
-        relacionados: [18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2,  19],
+        relacionados: [18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 5, 4, 3, 2,  19],
     },
     {
     // =================================================
@@ -158,9 +158,9 @@ const productosDB = [
             en: "Classic Black",
             qu: "Kaqlla Yana"
         },
-        precio: 20.90,
+        precio: 15.00,
         precioOriginal: 32.90,
-        descuento: 36,
+        descuento: 54,
         disponible: 5,
 
         categoria: "tecnologia",
@@ -245,7 +245,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3,  19],
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 5, 4, 3,  19],
     },
     {
     // =================================================
@@ -273,9 +273,9 @@ const productosDB = [
             en: "X68 Black",
             qu: "X68 Yana"
         },
-        precio: 24.90,
+        precio: 20.00,
         precioOriginal: 36.90,
-        descuento: 32,
+        descuento: 45,
         disponible: 3,
 
         categoria: "tecnologia",
@@ -365,7 +365,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 2,  19],
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 5, 4, 2,  19],
     },
     {
     // =================================================
@@ -393,9 +393,9 @@ const productosDB = [
             en: "360° Supreme Black",
             qu: "360° Kuraq Yana"
         },
-        precio: 29.90,
+        precio: 25.00,
         precioOriginal: 39.90,
-        descuento: 25,
+        descuento: 37,
         disponible: 4,
 
         categoria: "tecnologia",
@@ -481,7 +481,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 3, 2,  19],
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 5, 3, 2,  19],
     },
     {
     // =================================================
@@ -509,9 +509,9 @@ const productosDB = [
             en: "Led Mirror 2 Buttons",
             qu: "Led Rirpu 2 Ñitina"
         },
-        precio: 39.90,
+        precio: 35.00,
         precioOriginal: 59.90,
-        descuento: 33,
+        descuento: 41,
         disponible: 3,
 
         categoria: "tecnologia",
@@ -583,7 +583,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 4, 3, 2,  19],
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 4, 3, 2,  19],
     },
     {
     // =================================================
@@ -821,7 +821,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 6, 5, 4, 3, 2, 19],
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 5, 4, 3, 2, 19],
     },
     {
     // =================================================
@@ -923,7 +923,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 7, 6, 5, 4, 3, 2, 19],
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 7, 5, 4, 3, 2, 19],
     },
     {
     // =================================================
@@ -1039,7 +1039,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 8, 7, 6, 5, 4, 3, 2, 19],
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 8, 7, 5, 4, 3, 2, 19],
     },
     {
     // =================================================
@@ -1067,9 +1067,9 @@ const productosDB = [
             en: "Massager",
             qu: "Masajeador"
         },
-        precio: 109.90,
-        precioOriginal: 149.90,
-        descuento: 26,
+        precio: 75.00,
+        precioOriginal: 150.00,
+        descuento: 50,
         disponible: 3,
 
         categoria: "hogar",
@@ -1149,7 +1149,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 19],
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 11, 9, 8, 7, 5, 4, 3, 2, 19],
     },
     {
     // =================================================
@@ -1177,9 +1177,9 @@ const productosDB = [
             en: "Soap Dispenser",
             qu: "Jabon Dispensador"
         },
-        precio: 109.90,
+        precio: 99.00,
         precioOriginal: 185.90,
-        descuento: 40,
+        descuento: 46,
         disponible: 4,
 
         categoria: "hogar",
@@ -1265,7 +1265,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 10, 9, 8, 7, 6, 5, 4, 3, 2, 19],
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 12, 10, 9, 8, 7, 5, 4, 3, 2, 19],
     },
     {
     // =================================================
@@ -1380,7 +1380,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 15, 14, 13, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 19],
+        relacionados: [1, 18, 17, 16, 15, 14, 13, 11, 10, 9, 8, 7, 5, 4, 3, 2, 19],
     },
     {
     // =================================================
@@ -1408,9 +1408,9 @@ const productosDB = [
             en: "Lamp Solar",
             qu: "Lampara Intimanta"
         },
-        precio: 129.90,
+        precio: 100.00,
         precioOriginal: 169.90,
-        descuento: 23,
+        descuento: 41,
         disponible: 5,
 
         categoria: "hogar",
@@ -1486,7 +1486,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 15, 14, 11, 12, 10, 9, 8, 7, 6, 5, 4, 3, 2, 19],
+        relacionados: [1, 18, 17, 16, 15, 14, 11, 12, 10, 9, 8, 7, 5, 4, 3, 2, 19],
     },
     {
     // =================================================
@@ -1601,7 +1601,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 15, 11, 13, 12, 10, 9, 8, 7, 6, 5, 4, 3, 2, 19],
+        relacionados: [1, 18, 17, 16, 15, 11, 13, 12, 10, 9, 8, 7, 5, 4, 3, 2, 19],
     },
     {
     // =================================================
@@ -1629,9 +1629,9 @@ const productosDB = [
             en: "Leather Strap",
             qu: "Q’aramanta Correa"
         },
-        precio: 39.90,
+        precio: 29.90,
         precioOriginal: 55.90,
-        descuento: 40,
+        descuento: 46,
         disponible: 8,
 
         categoria: "ropa",
@@ -1702,7 +1702,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 16, 11, 14, 13, 12, 10, 9, 8, 7, 6, 5, 4, 3, 2, 19],
+        relacionados: [1, 18, 17, 16, 11, 14, 13, 12, 10, 9, 8, 7, 5, 4, 3, 2, 19],
     },
     {
     // =================================================
@@ -1811,7 +1811,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 17, 11, 15, 14, 13, 12, 10, 9, 8, 7, 6, 5, 4, 3, 2, 19],
+        relacionados: [1, 18, 17, 11, 15, 14, 13, 12, 10, 9, 8, 7, 5, 4, 3, 2, 19],
     },
     {
     // =================================================
@@ -1840,9 +1840,9 @@ const productosDB = [
             en: "Dark Monarch",
             qu: "Tutayaq Kamachikuq"
         },
-        precio: 84.90,
+        precio: 79.90,
         precioOriginal: 109.90,
-        descuento: 22,
+        descuento: 27,
         disponible: 2,
         // marca: "Marca: BANDAI",
         // estilo: "Albedo",
@@ -1922,7 +1922,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 11, 16, 15, 14, 13, 12, 10, 9, 8, 7, 6, 5, 4, 3, 2, 19],
+        relacionados: [1, 18, 11, 16, 15, 14, 13, 12, 10, 9, 8, 7, 5, 4, 3, 2, 19],
     },
     {
     // =================================================
@@ -1950,9 +1950,9 @@ const productosDB = [
             en: "Massager 3 Buttons",
             qu: "Masajeador 3 Ñitina"
         },
-        precio: 54.90,
+        precio: 49.90,
         precioOriginal: 79.90,
-        descuento: 31,
+        descuento: 37,
         disponible: 3,
 
         categoria: "licores",
@@ -2021,7 +2021,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 19],
+        relacionados: [1, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 5, 4, 3, 2, 19],
     },
     {
     // =================================================
@@ -2138,7 +2138,7 @@ const productosDB = [
             en: "Help us bring a nice gift to children this Christmas.",
             qu: "Yanapayku wawakunaman regalo churay.",
         },
-        relacionados: [1, 18, 11, 17, 16, 15, 14, 13, 12, 10, 9, 8, 7, 6, 5, 4, 3, 2],
+        relacionados: [1, 18, 11, 17, 16, 15, 14, 13, 12, 10, 9, 8, 7, 5, 4, 3, 2],
     },
     // ═══════════════════════════════════════════════════════
     // ONII-CHAN: COPIA Y PEGA EL BLOQUE DE ARRIBA PARA AGREGAR MÁS PRODUCTOS.
